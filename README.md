@@ -14,7 +14,7 @@ A sophisticated multi-agent architecture that transforms live NHL game data into
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
 │   Data Agent    │───▶│ Commentary Agent│───▶│   TTS Agent     │
 │                 │    │                 │    │                 │
-│ • ESPN API      │    │ • Gemini AI     │    │ • Google TTS    │
+│ • NHL API      │    │ • Gemini AI     │    │ • Google TTS    │
 │ • Live scores   │    │ • Context aware │    │ • Voice output  │
 │ • Player stats  │    │ • Multiple      │    │ • Real-time     │
 │ • Game events   │    │   personalities │    │   streaming     │
@@ -33,7 +33,7 @@ A sophisticated multi-agent architecture that transforms live NHL game data into
 
 ## ✨ Features
 
-- **🔴 Live Data Streaming**: Real-time NHL game data from ESPN API
+- **🔴 Live Data Streaming**: Real-time NHL game data from NHL API
 - **🤖 AI Commentary**: Context-aware commentary generation using Google Gemini
 - **🎙️ Voice Synthesis**: Natural speech output via Google Cloud TTS
 - **📊 Rich Context**: Team stats, player info, historical data, injuries
@@ -113,20 +113,17 @@ python src/agents/commentary_agent.py --style analytical --voice en-US-Standard-
 
 ## 📊 Data Sources
 
-### ESPN API
-- **Endpoint**: `https://site.api.espn.com/apis/site/v2/sports/hockey/nhl`
-- **Rate Limits**: None detected (tested up to 491 calls/minute)
-- **Data Size**: ~400KB per game
+### NHL API
+- **Endpoint**: `https://api-web.nhle.com/v1/gamecenter/{game_id}/play-by-play`
+- **Data Size**: 400KB+ per game
 - **Update Frequency**: Real-time during live games
 
 ### Available Data
-- Live scores and game status
+- Play-by-play event stream (goals, shots, hits, penalties, faceoffs, etc.)
 - Period/clock information
 - Player statistics and team leaders
-- Injury reports and news articles
-- Historical matchups and season series
-- Broadcast information and venue details
-- Team branding (logos, colors)
+- Game metadata and boxscore
+- Team abbreviations and branding
 
 ## 🏗️ Project Structure
 
@@ -134,20 +131,20 @@ python src/agents/commentary_agent.py --style analytical --voice en-US-Standard-
 adk_hackathon/
 ├── src/
 │   ├── agents/
-│   │   ├── data_agent.py          # ESPN API integration
+│   │   ├── data_agent.py          # NHL API integration
 │   │   ├── commentary_agent.py    # AI commentary generation
-│   │   ├── tts_agent.py          # Text-to-speech
-│   │   └── orchestrator.py       # Multi-agent coordination
+│   │   ├── tts_agent.py           # Text-to-speech
+│   │   └── orchestrator.py        # Multi-agent coordination
 │   ├── data/
 │   │   └── scrapers/
-│   │       └── espn_api.py       # Main data fetcher
-│   ├── web/                      # Web interface (optional)
-│   └── utils/                    # Shared utilities
+│   │       └── nhl_api.py         # Main data fetcher
+│   ├── web/                       # Web interface (optional)
+│   └── utils/                     # Shared utilities
 ├── data/
-│   └── sample_games/             # Sample game data
-├── scripts/                      # Setup and utility scripts
-├── tests/                        # Test suite
-└── docs/                         # Documentation
+│   └── sample_games/              # Sample game data
+├── scripts/                       # Setup and utility scripts
+├── tests/                         # Test suite
+└── docs/                          # Documentation
 ```
 
 ## 🧪 Testing
@@ -155,7 +152,7 @@ adk_hackathon/
 ### Test Live Data Fetching
 
 ```bash
-# Test ESPN API connectivity and data quality
+# Test NHL API connectivity and data quality
 python src/data/scrapers/espn_api.py
 
 # Verify live game data
