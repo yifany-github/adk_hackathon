@@ -1,0 +1,48 @@
+{
+  "player_id": 8482158,
+  "basic_info": {
+    "name": "Topi Niemela",
+    "first_name": "Topi",
+    "last_name": "Niemela",
+    "jersey_number": 47,
+    "position": "D",
+    "team_abbrev": "TOR",
+    "team_name": "Toronto Maple Leafs",
+    "height_inches": 72,
+    "weight_pounds": 179,
+    "birth_date": "2002-03-25",
+    "birth_city": "Oulu",
+    "birth_country": "FIN",
+    "shoots_catches": "R",
+    "headshot": "https://assets.nhle.com/mugs/nhl/20242025/TOR/8482158.png",
+    "is_active": true
+  },
+  "draft_info": {
+    "year": 2020,
+    "teamAbbrev": "TOR",
+    "round": 3,
+    "pickInRound": 2,
+    "overallPick": 64
+  },
+  "awards": [],
+  "updated": "2025-05-30T23:10:30.644581",
+  "current_season_stats": {
+    "season": 20162017,
+    "league": "U16 SM-sarja",
+    "team": "K\u00e4rp\u00e4t U16",
+    "games_played": 2,
+    "goals": 2,
+    "assists": 4,
+    "points": 6,
+    "plus_minus": 0,
+    "penalty_minutes": 0,
+    "shots": 0,
+    "shooting_percentage": 0,
+    "avg_toi": "",
+    "power_play_goals": 0,
+    "power_play_points": 0,
+    "short_handed_goals": 0,
+    "game_winning_goals": 0,
+    "faceoff_pct": null
+  }
+}

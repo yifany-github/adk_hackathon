@@ -1,0 +1,48 @@
+{
+  "player_id": 8482130,
+  "basic_info": {
+    "name": "Roni Hirvonen",
+    "first_name": "Roni",
+    "last_name": "Hirvonen",
+    "jersey_number": 33,
+    "position": "C",
+    "team_abbrev": "TOR",
+    "team_name": "Toronto Maple Leafs",
+    "height_inches": 70,
+    "weight_pounds": 178,
+    "birth_date": "2002-01-10",
+    "birth_city": "Espoo",
+    "birth_country": "FIN",
+    "shoots_catches": "L",
+    "headshot": "https://assets.nhle.com/mugs/nhl/20242025/TOR/8482130.png",
+    "is_active": true
+  },
+  "draft_info": {
+    "year": 2020,
+    "teamAbbrev": "TOR",
+    "round": 2,
+    "pickInRound": 28,
+    "overallPick": 59
+  },
+  "awards": [],
+  "updated": "2025-05-30T23:10:23.040098",
+  "current_season_stats": {
+    "season": 20142015,
+    "league": "WSI U13",
+    "team": "Finland Selects U13",
+    "games_played": 9,
+    "goals": 2,
+    "assists": 1,
+    "points": 3,
+    "plus_minus": 0,
+    "penalty_minutes": 4,
+    "shots": 0,
+    "shooting_percentage": 0,
+    "avg_toi": "",
+    "power_play_goals": 0,
+    "power_play_points": 0,
+    "short_handed_goals": 0,
+    "game_winning_goals": 0,
+    "faceoff_pct": null
+  }
+}

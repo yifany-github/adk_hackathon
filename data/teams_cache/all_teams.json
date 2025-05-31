@@ -1,0 +1,482 @@
+{
+  "WPG": {
+    "id": "Jets",
+    "name": "Winnipeg Jets",
+    "abbrev": "WPG",
+    "logo": "https://assets.nhle.com/logos/nhl/svg/WPG_light.svg",
+    "conference": "Western",
+    "division": "Central",
+    "standings": {
+      "wins": 56,
+      "losses": 22,
+      "points": 116,
+      "games_played": 82
+    },
+    "updated": "2025-05-30T15:30:24.197545"
+  },
+  "WSH": {
+    "id": "Capitals",
+    "name": "Washington Capitals",
+    "abbrev": "WSH",
+    "logo": "https://assets.nhle.com/logos/nhl/svg/WSH_secondary_light.svg",
+    "conference": "Eastern",
+    "division": "Metropolitan",
+    "standings": {
+      "wins": 51,
+      "losses": 22,
+      "points": 111,
+      "games_played": 82
+    },
+    "updated": "2025-05-30T15:30:24.197553"
+  },
+  "VGK": {
+    "id": "Golden Knights",
+    "name": "Vegas Golden Knights",
+    "abbrev": "VGK",
+    "logo": "https://assets.nhle.com/logos/nhl/svg/VGK_light.svg",
+    "conference": "Western",
+    "division": "Pacific",
+    "standings": {
+      "wins": 50,
+      "losses": 22,
+      "points": 110,
+      "games_played": 82
+    },
+    "updated": "2025-05-30T15:30:24.197556"
+  },
+  "TOR": {
+    "id": "Maple Leafs",
+    "name": "Toronto Maple Leafs",
+    "abbrev": "TOR",
+    "logo": "https://assets.nhle.com/logos/nhl/svg/TOR_light.svg",
+    "conference": "Eastern",
+    "division": "Atlantic",
+    "standings": {
+      "wins": 52,
+      "losses": 26,
+      "points": 108,
+      "games_played": 82
+    },
+    "updated": "2025-05-30T15:30:24.197557"
+  },
+  "DAL": {
+    "id": "Stars",
+    "name": "Dallas Stars",
+    "abbrev": "DAL",
+    "logo": "https://assets.nhle.com/logos/nhl/svg/DAL_light.svg",
+    "conference": "Western",
+    "division": "Central",
+    "standings": {
+      "wins": 50,
+      "losses": 26,
+      "points": 106,
+      "games_played": 82
+    },
+    "updated": "2025-05-30T15:30:24.197558"
+  },
+  "LAK": {
+    "id": "Kings",
+    "name": "Los Angeles Kings",
+    "abbrev": "LAK",
+    "logo": "https://assets.nhle.com/logos/nhl/svg/LAK_light.svg",
+    "conference": "Western",
+    "division": "Pacific",
+    "standings": {
+      "wins": 48,
+      "losses": 25,
+      "points": 105,
+      "games_played": 82
+    },
+    "updated": "2025-05-30T15:30:24.197560"
+  },
+  "TBL": {
+    "id": "Lightning",
+    "name": "Tampa Bay Lightning",
+    "abbrev": "TBL",
+    "logo": "https://assets.nhle.com/logos/nhl/svg/TBL_light.svg",
+    "conference": "Eastern",
+    "division": "Atlantic",
+    "standings": {
+      "wins": 47,
+      "losses": 27,
+      "points": 102,
+      "games_played": 82
+    },
+    "updated": "2025-05-30T15:30:24.197561"
+  },
+  "COL": {
+    "id": "Avalanche",
+    "name": "Colorado Avalanche",
+    "abbrev": "COL",
+    "logo": "https://assets.nhle.com/logos/nhl/svg/COL_light.svg",
+    "conference": "Western",
+    "division": "Central",
+    "standings": {
+      "wins": 49,
+      "losses": 29,
+      "points": 102,
+      "games_played": 82
+    },
+    "updated": "2025-05-30T15:30:24.197562"
+  },
+  "EDM": {
+    "id": "Oilers",
+    "name": "Edmonton Oilers",
+    "abbrev": "EDM",
+    "logo": "https://assets.nhle.com/logos/nhl/svg/EDM_light.svg",
+    "conference": "Western",
+    "division": "Pacific",
+    "standings": {
+      "wins": 48,
+      "losses": 29,
+      "points": 101,
+      "games_played": 82
+    },
+    "updated": "2025-05-30T15:30:24.197563"
+  },
+  "CAR": {
+    "id": "Hurricanes",
+    "name": "Carolina Hurricanes",
+    "abbrev": "CAR",
+    "logo": "https://assets.nhle.com/logos/nhl/svg/CAR_light.svg",
+    "conference": "Eastern",
+    "division": "Metropolitan",
+    "standings": {
+      "wins": 47,
+      "losses": 30,
+      "points": 99,
+      "games_played": 82
+    },
+    "updated": "2025-05-30T15:30:24.197565"
+  },
+  "FLA": {
+    "id": "Panthers",
+    "name": "Florida Panthers",
+    "abbrev": "FLA",
+    "logo": "https://assets.nhle.com/logos/nhl/svg/FLA_light.svg",
+    "conference": "Eastern",
+    "division": "Atlantic",
+    "standings": {
+      "wins": 47,
+      "losses": 31,
+      "points": 98,
+      "games_played": 82
+    },
+    "updated": "2025-05-30T15:30:24.197566"
+  },
+  "OTT": {
+    "id": "Senators",
+    "name": "Ottawa Senators",
+    "abbrev": "OTT",
+    "logo": "https://assets.nhle.com/logos/nhl/svg/OTT_light.svg",
+    "conference": "Eastern",
+    "division": "Atlantic",
+    "standings": {
+      "wins": 45,
+      "losses": 30,
+      "points": 97,
+      "games_played": 82
+    },
+    "updated": "2025-05-30T15:30:24.197567"
+  },
+  "MIN": {
+    "id": "Wild",
+    "name": "Minnesota Wild",
+    "abbrev": "MIN",
+    "logo": "https://assets.nhle.com/logos/nhl/svg/MIN_light.svg",
+    "conference": "Western",
+    "division": "Central",
+    "standings": {
+      "wins": 45,
+      "losses": 30,
+      "points": 97,
+      "games_played": 82
+    },
+    "updated": "2025-05-30T15:30:24.197569"
+  },
+  "STL": {
+    "id": "Blues",
+    "name": "St. Louis Blues",
+    "abbrev": "STL",
+    "logo": "https://assets.nhle.com/logos/nhl/svg/STL_light.svg",
+    "conference": "Western",
+    "division": "Central",
+    "standings": {
+      "wins": 44,
+      "losses": 30,
+      "points": 96,
+      "games_played": 82
+    },
+    "updated": "2025-05-30T15:30:24.197570"
+  },
+  "CGY": {
+    "id": "Flames",
+    "name": "Calgary Flames",
+    "abbrev": "CGY",
+    "logo": "https://assets.nhle.com/logos/nhl/svg/CGY_light.svg",
+    "conference": "Western",
+    "division": "Pacific",
+    "standings": {
+      "wins": 41,
+      "losses": 27,
+      "points": 96,
+      "games_played": 82
+    },
+    "updated": "2025-05-30T15:30:24.197571"
+  },
+  "NJD": {
+    "id": "Devils",
+    "name": "New Jersey Devils",
+    "abbrev": "NJD",
+    "logo": "https://assets.nhle.com/logos/nhl/svg/NJD_light.svg",
+    "conference": "Eastern",
+    "division": "Metropolitan",
+    "standings": {
+      "wins": 42,
+      "losses": 33,
+      "points": 91,
+      "games_played": 82
+    },
+    "updated": "2025-05-30T15:30:24.197572"
+  },
+  "MTL": {
+    "id": "Canadiens",
+    "name": "Montr\u00e9al Canadiens",
+    "abbrev": "MTL",
+    "logo": "https://assets.nhle.com/logos/nhl/svg/MTL_light.svg",
+    "conference": "Eastern",
+    "division": "Atlantic",
+    "standings": {
+      "wins": 40,
+      "losses": 31,
+      "points": 91,
+      "games_played": 82
+    },
+    "updated": "2025-05-30T15:30:24.197574"
+  },
+  "VAN": {
+    "id": "Canucks",
+    "name": "Vancouver Canucks",
+    "abbrev": "VAN",
+    "logo": "https://assets.nhle.com/logos/nhl/svg/VAN_light.svg",
+    "conference": "Western",
+    "division": "Pacific",
+    "standings": {
+      "wins": 38,
+      "losses": 30,
+      "points": 90,
+      "games_played": 82
+    },
+    "updated": "2025-05-30T15:30:24.197575"
+  },
+  "UTA": {
+    "id": "Utah Hockey Club",
+    "name": "Utah Hockey Club",
+    "abbrev": "UTA",
+    "logo": "https://assets.nhle.com/logos/nhl/svg/UTA_20242025-20242025_light.svg",
+    "conference": "Western",
+    "division": "Central",
+    "standings": {
+      "wins": 38,
+      "losses": 31,
+      "points": 89,
+      "games_played": 82
+    },
+    "updated": "2025-05-30T15:30:24.197576"
+  },
+  "CBJ": {
+    "id": "Blue Jackets",
+    "name": "Columbus Blue Jackets",
+    "abbrev": "CBJ",
+    "logo": "https://assets.nhle.com/logos/nhl/svg/CBJ_light.svg",
+    "conference": "Eastern",
+    "division": "Metropolitan",
+    "standings": {
+      "wins": 40,
+      "losses": 33,
+      "points": 89,
+      "games_played": 82
+    },
+    "updated": "2025-05-30T15:30:24.197577"
+  },
+  "DET": {
+    "id": "Red Wings",
+    "name": "Detroit Red Wings",
+    "abbrev": "DET",
+    "logo": "https://assets.nhle.com/logos/nhl/svg/DET_light.svg",
+    "conference": "Eastern",
+    "division": "Atlantic",
+    "standings": {
+      "wins": 39,
+      "losses": 35,
+      "points": 86,
+      "games_played": 82
+    },
+    "updated": "2025-05-30T15:30:24.197578"
+  },
+  "NYR": {
+    "id": "Rangers",
+    "name": "New York Rangers",
+    "abbrev": "NYR",
+    "logo": "https://assets.nhle.com/logos/nhl/svg/NYR_light.svg",
+    "conference": "Eastern",
+    "division": "Metropolitan",
+    "standings": {
+      "wins": 39,
+      "losses": 36,
+      "points": 85,
+      "games_played": 82
+    },
+    "updated": "2025-05-30T15:30:24.197580"
+  },
+  "NYI": {
+    "id": "Islanders",
+    "name": "New York Islanders",
+    "abbrev": "NYI",
+    "logo": "https://assets.nhle.com/logos/nhl/svg/NYI_light.svg",
+    "conference": "Eastern",
+    "division": "Metropolitan",
+    "standings": {
+      "wins": 35,
+      "losses": 35,
+      "points": 82,
+      "games_played": 82
+    },
+    "updated": "2025-05-30T15:30:24.197581"
+  },
+  "PIT": {
+    "id": "Penguins",
+    "name": "Pittsburgh Penguins",
+    "abbrev": "PIT",
+    "logo": "https://assets.nhle.com/logos/nhl/svg/PIT_light.svg",
+    "conference": "Eastern",
+    "division": "Metropolitan",
+    "standings": {
+      "wins": 34,
+      "losses": 36,
+      "points": 80,
+      "games_played": 82
+    },
+    "updated": "2025-05-30T15:30:24.197582"
+  },
+  "ANA": {
+    "id": "Ducks",
+    "name": "Anaheim Ducks",
+    "abbrev": "ANA",
+    "logo": "https://assets.nhle.com/logos/nhl/svg/ANA_light.svg",
+    "conference": "Western",
+    "division": "Pacific",
+    "standings": {
+      "wins": 35,
+      "losses": 37,
+      "points": 80,
+      "games_played": 82
+    },
+    "updated": "2025-05-30T15:30:24.197584"
+  },
+  "BUF": {
+    "id": "Sabres",
+    "name": "Buffalo Sabres",
+    "abbrev": "BUF",
+    "logo": "https://assets.nhle.com/logos/nhl/svg/BUF_light.svg",
+    "conference": "Eastern",
+    "division": "Atlantic",
+    "standings": {
+      "wins": 36,
+      "losses": 39,
+      "points": 79,
+      "games_played": 82
+    },
+    "updated": "2025-05-30T15:30:24.197585"
+  },
+  "SEA": {
+    "id": "Kraken",
+    "name": "Seattle Kraken",
+    "abbrev": "SEA",
+    "logo": "https://assets.nhle.com/logos/nhl/svg/SEA_light.svg",
+    "conference": "Western",
+    "division": "Pacific",
+    "standings": {
+      "wins": 35,
+      "losses": 41,
+      "points": 76,
+      "games_played": 82
+    },
+    "updated": "2025-05-30T15:30:24.197586"
+  },
+  "BOS": {
+    "id": "Bruins",
+    "name": "Boston Bruins",
+    "abbrev": "BOS",
+    "logo": "https://assets.nhle.com/logos/nhl/svg/BOS_light.svg",
+    "conference": "Eastern",
+    "division": "Atlantic",
+    "standings": {
+      "wins": 33,
+      "losses": 39,
+      "points": 76,
+      "games_played": 82
+    },
+    "updated": "2025-05-30T15:30:24.197587"
+  },
+  "PHI": {
+    "id": "Flyers",
+    "name": "Philadelphia Flyers",
+    "abbrev": "PHI",
+    "logo": "https://assets.nhle.com/logos/nhl/svg/PHI_light.svg",
+    "conference": "Eastern",
+    "division": "Metropolitan",
+    "standings": {
+      "wins": 33,
+      "losses": 39,
+      "points": 76,
+      "games_played": 82
+    },
+    "updated": "2025-05-30T15:30:24.197588"
+  },
+  "NSH": {
+    "id": "Predators",
+    "name": "Nashville Predators",
+    "abbrev": "NSH",
+    "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg",
+    "conference": "Western",
+    "division": "Central",
+    "standings": {
+      "wins": 30,
+      "losses": 44,
+      "points": 68,
+      "games_played": 82
+    },
+    "updated": "2025-05-30T15:30:24.197590"
+  },
+  "CHI": {
+    "id": "Blackhawks",
+    "name": "Chicago Blackhawks",
+    "abbrev": "CHI",
+    "logo": "https://assets.nhle.com/logos/nhl/svg/CHI_light.svg",
+    "conference": "Western",
+    "division": "Central",
+    "standings": {
+      "wins": 25,
+      "losses": 46,
+      "points": 61,
+      "games_played": 82
+    },
+    "updated": "2025-05-30T15:30:24.197591"
+  },
+  "SJS": {
+    "id": "Sharks",
+    "name": "San Jose Sharks",
+    "abbrev": "SJS",
+    "logo": "https://assets.nhle.com/logos/nhl/svg/SJS_light.svg",
+    "conference": "Western",
+    "division": "Pacific",
+    "standings": {
+      "wins": 20,
+      "losses": 50,
+      "points": 52,
+      "games_played": 82
+    },
+    "updated": "2025-05-30T15:30:24.197592"
+  }
+}

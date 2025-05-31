@@ -1,0 +1,121 @@
+{
+  "player_id": 8484901,
+  "basic_info": {
+    "name": "Jacob Quillan",
+    "first_name": "Jacob",
+    "last_name": "Quillan",
+    "jersey_number": 61,
+    "position": "C",
+    "team_abbrev": "TOR",
+    "team_name": "Toronto Maple Leafs",
+    "height_inches": 73,
+    "weight_pounds": 204,
+    "birth_date": "2002-02-02",
+    "birth_city": "Dartmouth",
+    "birth_country": "CAN",
+    "shoots_catches": "L",
+    "headshot": "https://assets.nhle.com/mugs/nhl/20242025/TOR/8484901.png",
+    "is_active": true
+  },
+  "draft_info": {},
+  "awards": [],
+  "updated": "2025-05-30T23:10:26.943523",
+  "current_season_stats": {
+    "season": 20142015,
+    "league": "NSU15MHL",
+    "team": "Dartmouth Whalers U15",
+    "games_played": 33,
+    "goals": 10,
+    "assists": 13,
+    "points": 23,
+    "plus_minus": 0,
+    "penalty_minutes": 16,
+    "shots": 0,
+    "shooting_percentage": 0,
+    "avg_toi": "",
+    "power_play_goals": 0,
+    "power_play_points": 0,
+    "short_handed_goals": 0,
+    "game_winning_goals": 0,
+    "faceoff_pct": null
+  },
+  "featured_stats": {
+    "season": 20242025,
+    "regularSeason": {
+      "subSeason": {
+        "assists": 0,
+        "gameWinningGoals": 0,
+        "gamesPlayed": 1,
+        "goals": 0,
+        "otGoals": 0,
+        "pim": 0,
+        "plusMinus": 0,
+        "points": 0,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "shootingPctg": 0.0,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "shots": 0
+      },
+      "career": {
+        "assists": 0,
+        "gameWinningGoals": 0,
+        "gamesPlayed": 1,
+        "goals": 0,
+        "otGoals": 0,
+        "pim": 0,
+        "plusMinus": 0,
+        "points": 0,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "shots": 0
+      }
+    },
+    "playoffs": {}
+  },
+  "career_totals": {
+    "regular_season": {
+      "seasons": 0,
+      "games_played": 1,
+      "goals": 0,
+      "assists": 0,
+      "points": 0,
+      "plus_minus": 0,
+      "penalty_minutes": 0
+    },
+    "playoffs": {}
+  },
+  "recent_performance": {
+    "last_5_games": [
+      {
+        "assists": 0,
+        "gameDate": "2025-01-25",
+        "gameId": 2024020780,
+        "gameTypeId": 2,
+        "goals": 0,
+        "homeRoadFlag": "R",
+        "opponentAbbrev": "OTT",
+        "pim": 0,
+        "plusMinus": 0,
+        "points": 0,
+        "powerPlayGoals": 0,
+        "shifts": 7,
+        "shorthandedGoals": 0,
+        "shots": 0,
+        "teamAbbrev": "TOR",
+        "toi": "5:21"
+      }
+    ],
+    "last_5_summary": {
+      "games_played": 1,
+      "total_goals": 0,
+      "total_assists": 0,
+      "total_points": 0,
+      "avg_points": 0.0,
+      "point_streak": 0
+    }
+  }
+}

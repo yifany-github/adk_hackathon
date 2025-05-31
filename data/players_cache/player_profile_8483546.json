@@ -1,0 +1,140 @@
+{
+  "player_id": 8483546,
+  "basic_info": {
+    "name": "Marshall Rifai",
+    "first_name": "Marshall",
+    "last_name": "Rifai",
+    "jersey_number": 83,
+    "position": "D",
+    "team_abbrev": "TOR",
+    "team_name": "Toronto Maple Leafs",
+    "height_inches": 74,
+    "weight_pounds": 213,
+    "birth_date": "1998-03-16",
+    "birth_city": "Beaconsfield",
+    "birth_country": "CAN",
+    "shoots_catches": "L",
+    "headshot": "https://assets.nhle.com/mugs/nhl/20242025/TOR/8483546.png",
+    "is_active": true
+  },
+  "draft_info": {},
+  "awards": [],
+  "updated": "2025-05-30T23:10:31.229082",
+  "current_season_stats": {
+    "season": 20072008,
+    "league": "Brick Invitational",
+    "team": "Montr\u00e9al Ice Storm",
+    "games_played": 5,
+    "goals": 0,
+    "assists": 0,
+    "points": 0,
+    "plus_minus": 0,
+    "penalty_minutes": 8,
+    "shots": 0,
+    "shooting_percentage": 0,
+    "avg_toi": "",
+    "power_play_goals": 0,
+    "power_play_points": 0,
+    "short_handed_goals": 0,
+    "game_winning_goals": 0,
+    "faceoff_pct": null
+  },
+  "featured_stats": {
+    "season": 20232024,
+    "regularSeason": {
+      "subSeason": {
+        "assists": 0,
+        "gameWinningGoals": 0,
+        "gamesPlayed": 2,
+        "goals": 0,
+        "otGoals": 0,
+        "pim": 0,
+        "plusMinus": 1,
+        "points": 0,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "shootingPctg": 0.0,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "shots": 1
+      },
+      "career": {
+        "assists": 0,
+        "gameWinningGoals": 0,
+        "gamesPlayed": 2,
+        "goals": 0,
+        "otGoals": 0,
+        "pim": 0,
+        "plusMinus": 1,
+        "points": 0,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "shootingPctg": 0.0,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "shots": 1
+      }
+    },
+    "playoffs": {}
+  },
+  "career_totals": {
+    "regular_season": {
+      "seasons": 0,
+      "games_played": 2,
+      "goals": 0,
+      "assists": 0,
+      "points": 0,
+      "plus_minus": 1,
+      "penalty_minutes": 0
+    },
+    "playoffs": {}
+  },
+  "recent_performance": {
+    "last_5_games": [
+      {
+        "assists": 0,
+        "gameDate": "2024-02-21",
+        "gameId": 2023020887,
+        "gameTypeId": 2,
+        "goals": 0,
+        "homeRoadFlag": "R",
+        "opponentAbbrev": "ARI",
+        "pim": 0,
+        "plusMinus": 1,
+        "points": 0,
+        "powerPlayGoals": 0,
+        "shifts": 18,
+        "shorthandedGoals": 0,
+        "shots": 0,
+        "teamAbbrev": "TOR",
+        "toi": "11:46"
+      },
+      {
+        "assists": 0,
+        "gameDate": "2024-02-19",
+        "gameId": 2023020868,
+        "gameTypeId": 2,
+        "goals": 0,
+        "homeRoadFlag": "R",
+        "opponentAbbrev": "STL",
+        "pim": 0,
+        "plusMinus": 0,
+        "points": 0,
+        "powerPlayGoals": 0,
+        "shifts": 19,
+        "shorthandedGoals": 0,
+        "shots": 1,
+        "teamAbbrev": "TOR",
+        "toi": "11:33"
+      }
+    ],
+    "last_5_summary": {
+      "games_played": 2,
+      "total_goals": 0,
+      "total_assists": 0,
+      "total_points": 0,
+      "avg_points": 0.0,
+      "point_streak": 0
+    }
+  }
+}

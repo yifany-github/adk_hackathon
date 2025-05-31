@@ -1,0 +1,48 @@
+{
+  "player_id": 8481614,
+  "basic_info": {
+    "name": "Mikko Kokkonen",
+    "first_name": "Mikko",
+    "last_name": "Kokkonen",
+    "jersey_number": 84,
+    "position": "D",
+    "team_abbrev": "TOR",
+    "team_name": "Toronto Maple Leafs",
+    "height_inches": 72,
+    "weight_pounds": 200,
+    "birth_date": "2001-01-18",
+    "birth_city": "Mikkeli",
+    "birth_country": "FIN",
+    "shoots_catches": "L",
+    "headshot": "https://assets.nhle.com/mugs/nhl/20242025/TOR/8481614.png",
+    "is_active": true
+  },
+  "draft_info": {
+    "year": 2019,
+    "teamAbbrev": "TOR",
+    "round": 3,
+    "pickInRound": 22,
+    "overallPick": 84
+  },
+  "awards": [],
+  "updated": "2025-05-30T23:10:29.421188",
+  "current_season_stats": {
+    "season": 20132014,
+    "league": "Jr. C Suomi-sarja",
+    "team": "Jukurit U16",
+    "games_played": 3,
+    "goals": 1,
+    "assists": 0,
+    "points": 1,
+    "plus_minus": 0,
+    "penalty_minutes": 0,
+    "shots": 0,
+    "shooting_percentage": 0,
+    "avg_toi": "",
+    "power_play_goals": 0,
+    "power_play_points": 0,
+    "short_handed_goals": 0,
+    "game_winning_goals": 0,
+    "faceoff_pct": null
+  }
+}

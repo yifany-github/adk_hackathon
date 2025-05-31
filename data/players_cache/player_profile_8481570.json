@@ -1,0 +1,48 @@
+{
+  "player_id": 8481570,
+  "basic_info": {
+    "name": "Cade Webber",
+    "first_name": "Cade",
+    "last_name": "Webber",
+    "jersey_number": 52,
+    "position": "D",
+    "team_abbrev": "TOR",
+    "team_name": "Toronto Maple Leafs",
+    "height_inches": 79,
+    "weight_pounds": 212,
+    "birth_date": "2001-01-05",
+    "birth_city": "Worcester",
+    "birth_country": "USA",
+    "shoots_catches": "L",
+    "headshot": "https://assets.nhle.com/mugs/nhl/20242025/TOR/8481570.png",
+    "is_active": true
+  },
+  "draft_info": {
+    "year": 2019,
+    "teamAbbrev": "CAR",
+    "round": 4,
+    "pickInRound": 6,
+    "overallPick": 99
+  },
+  "awards": [],
+  "updated": "2025-05-30T23:10:31.934564",
+  "current_season_stats": {
+    "season": 20132014,
+    "league": "T1EMBHL",
+    "team": "Pittsburgh Penguins Bantam Minor",
+    "games_played": 21,
+    "goals": 0,
+    "assists": 1,
+    "points": 1,
+    "plus_minus": 0,
+    "penalty_minutes": 8,
+    "shots": 0,
+    "shooting_percentage": 0,
+    "avg_toi": "",
+    "power_play_goals": 0,
+    "power_play_points": 0,
+    "short_handed_goals": 0,
+    "game_winning_goals": 0,
+    "faceoff_pct": null
+  }
+}
