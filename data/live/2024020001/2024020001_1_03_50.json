@@ -1,0 +1,173 @@
+{
+  "game_id": "2024020001",
+  "game_time": "1:03:50",
+  "collected_at_utc": "2025-06-05T19:09:46.376200Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 301,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "03:20",
+      "timeRemaining": "16:40",
+      "situationCode": "1451",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 506,
+      "typeDescKey": "shot-on-goal",
+      "sortOrder": 68,
+      "details": {
+        "xCoord": 96,
+        "yCoord": 11,
+        "zoneCode": "O",
+        "shotType": "wrist",
+        "shootingPlayerId": 8480002,
+        "goalieInNetId": 8480045,
+        "eventOwnerTeamId": 1,
+        "awaySOG": 3,
+        "homeSOG": 1,
+        "goalieInNetName": "U. Luukkonen (G, home)",
+        "shootingPlayerName": "N. Hischier (C, away)",
+        "spatialDescription": "deep in the corner"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "16:40 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD"
+          },
+          "home": {
+            "teamName": "BUF"
+          }
+        },
+        "playerStats": {
+          "8480002": {
+            "name": "N. Hischier",
+            "position": "N/A",
+            "team": "away"
+          },
+          "8480045": {
+            "name": "U. Luukkonen",
+            "position": "N/A",
+            "team": "home",
+            "starter": true
+          }
+        }
+      }
+    },
+    {
+      "eventId": 204,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "03:38",
+      "timeRemaining": "16:22",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 506,
+      "typeDescKey": "shot-on-goal",
+      "sortOrder": 72,
+      "details": {
+        "xCoord": -86,
+        "yCoord": 17,
+        "zoneCode": "O",
+        "shotType": "wrist",
+        "shootingPlayerId": 8475722,
+        "goalieInNetId": 8474593,
+        "eventOwnerTeamId": 7,
+        "awaySOG": 3,
+        "homeSOG": 2,
+        "goalieInNetName": "J. Markstrom (G, away)",
+        "shootingPlayerName": "J. Zucker (L, home)",
+        "spatialDescription": "deep in the corner near the right-wing boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "16:22 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD"
+          },
+          "home": {
+            "teamName": "BUF"
+          }
+        },
+        "playerStats": {
+          "8474593": {
+            "name": "J. Markstrom",
+            "position": "N/A",
+            "team": "away",
+            "starter": true
+          },
+          "8475722": {
+            "name": "J. Zucker",
+            "position": "N/A",
+            "team": "home"
+          }
+        }
+      }
+    },
+    {
+      "eventId": 206,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "03:46",
+      "timeRemaining": "16:14",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 506,
+      "typeDescKey": "shot-on-goal",
+      "sortOrder": 73,
+      "details": {
+        "xCoord": -53,
+        "yCoord": -30,
+        "zoneCode": "O",
+        "shotType": "slap",
+        "shootingPlayerId": 8480807,
+        "goalieInNetId": 8474593,
+        "eventOwnerTeamId": 7,
+        "awaySOG": 3,
+        "homeSOG": 3,
+        "goalieInNetName": "J. Markstrom (G, away)",
+        "shootingPlayerName": "M. Samuelsson (D, home)",
+        "spatialDescription": "from the point near the left-wing boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "16:14 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD"
+          },
+          "home": {
+            "teamName": "BUF"
+          }
+        },
+        "playerStats": {
+          "8474593": {
+            "name": "J. Markstrom",
+            "position": "N/A",
+            "team": "away",
+            "starter": true
+          },
+          "8480807": {
+            "name": "M. Samuelsson",
+            "position": "D",
+            "team": "home"
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "At 3:20, Nico Hischier (C, away) took a shot on goal from deep in the corner;  moments later, at 3:38,  J. Zucker (L, home) responded with a shot from deep in the corner near the right-wing boards, and at 3:46,  M. Samuelsson (D, home)  fired a shot from the point near the left-wing boards.  All shots were taken at even strength.",
+  "activity_count": 3
+}

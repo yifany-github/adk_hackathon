@@ -1,0 +1,61 @@
+{
+  "game_id": "2024020001",
+  "game_time": "1:04:45",
+  "collected_at_utc": "2025-06-05T19:10:02.647744Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 298,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "04:18",
+      "timeRemaining": "15:42",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 503,
+      "typeDescKey": "hit",
+      "sortOrder": 83,
+      "details": {
+        "xCoord": -96,
+        "yCoord": -4,
+        "zoneCode": "O",
+        "eventOwnerTeamId": 7,
+        "hittingPlayerId": 8478413,
+        "hitteePlayerId": 8478399,
+        "hittingPlayerName": "J. Greenway (L, home)",
+        "hitteePlayerName": "J. Siegenthaler (D, away)",
+        "spatialDescription": "deep in the corner"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "15:42 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD"
+          },
+          "home": {
+            "teamName": "BUF"
+          }
+        },
+        "playerStats": {
+          "8478413": {
+            "name": "J. Greenway",
+            "position": "N/A",
+            "team": "home"
+          },
+          "8478399": {
+            "name": "J. Siegenthaler",
+            "position": "D",
+            "team": "away"
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "J. Greenway (L, home) delivered a hit on J. Siegenthaler (D, away) deep in the corner during even strength play.",
+  "activity_count": 1
+}

@@ -1,0 +1,154 @@
+{
+  "game_id": "2024020001",
+  "game_time": "1:06:10",
+  "collected_at_utc": "2025-06-05T19:10:23.510680Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 1730555,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "06:02",
+      "timeRemaining": "13:58",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 503,
+      "typeDescKey": "hit",
+      "sortOrder": 106,
+      "details": {
+        "xCoord": -34,
+        "yCoord": -40,
+        "zoneCode": "D",
+        "eventOwnerTeamId": 1,
+        "hittingPlayerId": 8483429,
+        "hitteePlayerId": 8480802,
+        "hittingPlayerName": "S. Casey (D, away)",
+        "hitteePlayerName": "R. McLeod (C, home)",
+        "spatialDescription": "near the blue line along the boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "13:58 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8480802": {
+            "name": "R. McLeod",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -1,
+            "pim": 0,
+            "hits": 0,
+            "shotsOnGoal": 0,
+            "blockedShots": 0,
+            "giveaways": 0,
+            "takeaways": 1,
+            "faceoffWins": 0.666667,
+            "timeOnIce": "13:50",
+            "powerPlayGoals": 0,
+            "shifts": 19
+          }
+        }
+      }
+    },
+    {
+      "eventId": 239,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "06:07",
+      "timeRemaining": "13:53",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 507,
+      "typeDescKey": "missed-shot",
+      "sortOrder": 107,
+      "details": {
+        "xCoord": -92,
+        "yCoord": 26,
+        "zoneCode": "O",
+        "reason": "wide-right",
+        "shotType": "slap",
+        "shootingPlayerId": 8475722,
+        "goalieInNetId": 8474593,
+        "eventOwnerTeamId": 7,
+        "goalieInNetName": "J. Markstrom (G, away)",
+        "shootingPlayerName": "J. Zucker (L, home)",
+        "spatialDescription": "deep in the corner near the right-wing boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "13:53 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8474593": {
+            "name": "J. Markstrom",
+            "position": "N/A",
+            "team": "away",
+            "saves": "30",
+            "shotsAgainst": "31",
+            "goalsAgainst": 1,
+            "savePct": 0.967742,
+            "timeOnIce": "59:38",
+            "decision": "W",
+            "starter": true,
+            "evenStrengthSaves": "0/0",
+            "powerPlaySaves": "0/0",
+            "shortHandedSaves": "0/0"
+          },
+          "8475722": {
+            "name": "J. Zucker",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 0,
+            "hits": 0,
+            "shotsOnGoal": 2,
+            "blockedShots": 0,
+            "giveaways": 0,
+            "takeaways": 0,
+            "faceoffWins": 0.0,
+            "timeOnIce": "12:19",
+            "powerPlayGoals": 0,
+            "shifts": 15
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "At 6:02, S. Casey (away team defenseman) delivered a hit on R. McLeod (home team center) near the blue line along the boards during even strength play.  Seven seconds later, J. Zucker (home team left wing) missed a shot from deep in the corner near the right-wing boards, also at even strength.",
+  "activity_count": 2
+}

@@ -1,0 +1,68 @@
+{
+  "game_id": "2024020001",
+  "game_time": "1:07:10",
+  "collected_at_utc": "2025-06-05T19:10:44.197410Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 272,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "07:08",
+      "timeRemaining": "12:52",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 504,
+      "typeDescKey": "giveaway",
+      "sortOrder": 124,
+      "details": {
+        "xCoord": -77,
+        "yCoord": -15,
+        "zoneCode": "D",
+        "eventOwnerTeamId": 1,
+        "playerId": 8474593,
+        "playerName": "J. Markstrom (G, away)",
+        "spatialDescription": "behind the net"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "12:52 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8474593": {
+            "name": "J. Markstrom",
+            "position": "N/A",
+            "team": "away",
+            "saves": "30",
+            "shotsAgainst": "31",
+            "goalsAgainst": 1,
+            "savePct": 0.967742,
+            "timeOnIce": "59:38",
+            "decision": "W",
+            "starter": true,
+            "evenStrengthSaves": "0/0",
+            "powerPlaySaves": "0/0",
+            "shortHandedSaves": "0/0"
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "Seven minutes and eight seconds into the period, J. Markstrom committed a giveaway behind the net during an even-strength situation.",
+  "activity_count": 1
+}

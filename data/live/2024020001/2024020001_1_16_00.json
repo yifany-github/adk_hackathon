@@ -1,0 +1,499 @@
+{
+  "game_id": "2024020001",
+  "game_time": "1:16:00",
+  "collected_at_utc": "2025-06-05T19:13:13.233830Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 1730620,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "15:38",
+      "timeRemaining": "04:22",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 505,
+      "typeDescKey": "goal",
+      "sortOrder": 238,
+      "details": {
+        "xCoord": 38,
+        "yCoord": 1,
+        "zoneCode": "O",
+        "shotType": "wrist",
+        "scoringPlayerId": 8480192,
+        "scoringPlayerTotal": 1,
+        "assist1PlayerId": 8478399,
+        "assist1PlayerTotal": 1,
+        "assist2PlayerId": 8482110,
+        "assist2PlayerTotal": 1,
+        "eventOwnerTeamId": 1,
+        "goalieInNetId": 8480045,
+        "awayScore": 2,
+        "homeScore": 0,
+        "highlightClipSharingUrl": "https://nhl.com/video/njd-buf-kovacevic-scores-ppg-against-ukko-pekka-luukkonen-6362847541112",
+        "highlightClip": 6362847541112,
+        "discreteClip": 6362848928112,
+        "goalieInNetName": "U. Luukkonen (G, home)",
+        "assist1PlayerName": "J. Siegenthaler (D, away)",
+        "assist2PlayerName": "D. Mercer (C, away)",
+        "spatialDescription": "near the blue line"
+      },
+      "pptReplayUrl": "https://wsr.nhle.com/sprites/20242025/2024020001/ev1730620.json",
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "04:22 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8480045": {
+            "name": "U. Luukkonen",
+            "position": "N/A",
+            "team": "home",
+            "saves": "19",
+            "shotsAgainst": "22",
+            "goalsAgainst": 3,
+            "savePct": 0.863636,
+            "timeOnIce": "59:05",
+            "decision": "L",
+            "starter": true,
+            "evenStrengthSaves": "0/0",
+            "powerPlaySaves": "0/0",
+            "shortHandedSaves": "0/0"
+          },
+          "8482110": {
+            "name": "D. Mercer",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 1,
+            "points": 1,
+            "plusMinus": 1,
+            "pim": 0,
+            "hits": 0,
+            "shotsOnGoal": 0,
+            "blockedShots": 0,
+            "giveaways": 4,
+            "takeaways": 1,
+            "faceoffWins": 1.0,
+            "timeOnIce": "17:17",
+            "powerPlayGoals": 0,
+            "shifts": 25
+          }
+        }
+      }
+    },
+    {
+      "eventId": 167,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "15:38",
+      "timeRemaining": "04:22",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 502,
+      "typeDescKey": "faceoff",
+      "sortOrder": 241,
+      "details": {
+        "eventOwnerTeamId": 7,
+        "losingPlayerId": 8481559,
+        "winningPlayerId": 8481528,
+        "xCoord": 0,
+        "yCoord": 0,
+        "zoneCode": "N",
+        "losingPlayerName": "J. Hughes (C, away)",
+        "winningPlayerName": "D. Cozens (C, home)",
+        "spatialDescription": "at center ice"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "04:22 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8481528": {
+            "name": "D. Cozens",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -1,
+            "pim": 0,
+            "hits": 1,
+            "shotsOnGoal": 7,
+            "blockedShots": 0,
+            "giveaways": 1,
+            "takeaways": 1,
+            "faceoffWins": 0.6875,
+            "timeOnIce": "18:57",
+            "powerPlayGoals": 0,
+            "shifts": 26
+          },
+          "8481559": {
+            "name": "J. Hughes",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 0,
+            "hits": 0,
+            "shotsOnGoal": 2,
+            "blockedShots": 1,
+            "giveaways": 1,
+            "takeaways": 0,
+            "faceoffWins": 0.1,
+            "timeOnIce": "18:35",
+            "powerPlayGoals": 0,
+            "shifts": 21
+          }
+        }
+      }
+    },
+    {
+      "eventId": 67,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "15:45",
+      "timeRemaining": "04:15",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 516,
+      "typeDescKey": "stoppage",
+      "sortOrder": 242,
+      "details": {
+        "reason": "puck-in-crowd"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "04:15 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {}
+      }
+    },
+    {
+      "eventId": 168,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "15:45",
+      "timeRemaining": "04:15",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 502,
+      "typeDescKey": "faceoff",
+      "sortOrder": 243,
+      "details": {
+        "eventOwnerTeamId": 7,
+        "losingPlayerId": 8481559,
+        "winningPlayerId": 8481528,
+        "xCoord": 0,
+        "yCoord": 0,
+        "zoneCode": "N",
+        "losingPlayerName": "J. Hughes (C, away)",
+        "winningPlayerName": "D. Cozens (C, home)",
+        "spatialDescription": "at center ice"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "04:15 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8481528": {
+            "name": "D. Cozens",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -1,
+            "pim": 0,
+            "hits": 1,
+            "shotsOnGoal": 7,
+            "blockedShots": 0,
+            "giveaways": 1,
+            "takeaways": 1,
+            "faceoffWins": 0.6875,
+            "timeOnIce": "18:57",
+            "powerPlayGoals": 0,
+            "shifts": 26
+          },
+          "8481559": {
+            "name": "J. Hughes",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 0,
+            "hits": 0,
+            "shotsOnGoal": 2,
+            "blockedShots": 1,
+            "giveaways": 1,
+            "takeaways": 0,
+            "faceoffWins": 0.1,
+            "timeOnIce": "18:35",
+            "powerPlayGoals": 0,
+            "shifts": 21
+          }
+        }
+      }
+    },
+    {
+      "eventId": 1730626,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "15:54",
+      "timeRemaining": "04:06",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 506,
+      "typeDescKey": "shot-on-goal",
+      "sortOrder": 244,
+      "details": {
+        "xCoord": -60,
+        "yCoord": -3,
+        "zoneCode": "O",
+        "shotType": "slap",
+        "shootingPlayerId": 8481528,
+        "goalieInNetId": 8474593,
+        "eventOwnerTeamId": 7,
+        "awaySOG": 8,
+        "homeSOG": 5,
+        "goalieInNetName": "J. Markstrom (G, away)",
+        "shootingPlayerName": "D. Cozens (C, home)",
+        "spatialDescription": "in the slot"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "04:06 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8481528": {
+            "name": "D. Cozens",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -1,
+            "pim": 0,
+            "hits": 1,
+            "shotsOnGoal": 7,
+            "blockedShots": 0,
+            "giveaways": 1,
+            "takeaways": 1,
+            "faceoffWins": 0.6875,
+            "timeOnIce": "18:57",
+            "powerPlayGoals": 0,
+            "shifts": 26
+          },
+          "8474593": {
+            "name": "J. Markstrom",
+            "position": "N/A",
+            "team": "away",
+            "saves": "30",
+            "shotsAgainst": "31",
+            "goalsAgainst": 1,
+            "savePct": 0.967742,
+            "timeOnIce": "59:38",
+            "decision": "W",
+            "starter": true,
+            "evenStrengthSaves": "0/0",
+            "powerPlaySaves": "0/0",
+            "shortHandedSaves": "0/0"
+          }
+        }
+      }
+    },
+    {
+      "eventId": 68,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "15:56",
+      "timeRemaining": "04:04",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 516,
+      "typeDescKey": "stoppage",
+      "sortOrder": 245,
+      "details": {
+        "reason": "goalie-stopped-after-sog"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "04:04 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {}
+      }
+    },
+    {
+      "eventId": 169,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "15:56",
+      "timeRemaining": "04:04",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 502,
+      "typeDescKey": "faceoff",
+      "sortOrder": 247,
+      "details": {
+        "eventOwnerTeamId": 7,
+        "losingPlayerId": 8477508,
+        "winningPlayerId": 8481528,
+        "xCoord": -69,
+        "yCoord": -22,
+        "zoneCode": "O",
+        "losingPlayerName": "C. Lazar (C, away)",
+        "winningPlayerName": "D. Cozens (C, home)",
+        "spatialDescription": "behind the net near the left-wing boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "04:04 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8481528": {
+            "name": "D. Cozens",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -1,
+            "pim": 0,
+            "hits": 1,
+            "shotsOnGoal": 7,
+            "blockedShots": 0,
+            "giveaways": 1,
+            "takeaways": 1,
+            "faceoffWins": 0.6875,
+            "timeOnIce": "18:57",
+            "powerPlayGoals": 0,
+            "shifts": 26
+          },
+          "8477508": {
+            "name": "C. Lazar",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 1,
+            "pim": 2,
+            "hits": 3,
+            "shotsOnGoal": 0,
+            "blockedShots": 0,
+            "giveaways": 0,
+            "takeaways": 0,
+            "faceoffWins": 0.0,
+            "timeOnIce": "11:18",
+            "powerPlayGoals": 0,
+            "shifts": 20
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "With 15:38 remaining in the period,  J. Siegenthaler and D. Mercer assisted on a goal scored near the blue line by an unnamed player,  defeating U. Luukkonen.  Moments later, D. Cozens won a faceoff against J. Hughes at center ice, followed by another faceoff win for Cozens against J. Hughes at center ice.  A subsequent shot on goal by D. Cozens from the slot was stopped by J. Markstrom.  Finally, D. Cozens won another faceoff against C. Lazar behind the net near the left-wing boards.",
+  "activity_count": 7
+}

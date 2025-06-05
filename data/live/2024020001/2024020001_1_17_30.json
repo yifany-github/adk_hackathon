@@ -1,0 +1,109 @@
+{
+  "game_id": "2024020001",
+  "game_time": "1:17:30",
+  "collected_at_utc": "2025-06-05T19:13:42.008901Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 1730741,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "17:10",
+      "timeRemaining": "02:50",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 503,
+      "typeDescKey": "hit",
+      "sortOrder": 263,
+      "details": {
+        "xCoord": -76,
+        "yCoord": 40,
+        "zoneCode": "O",
+        "eventOwnerTeamId": 7,
+        "hittingPlayerId": 8479359,
+        "hitteePlayerId": 8483429,
+        "hittingPlayerName": "B. Malenstyn (L, home)",
+        "hitteePlayerName": "S. Casey (D, away)",
+        "spatialDescription": "behind the net along the boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "02:50 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8479359": {
+            "name": "B. Malenstyn",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 0,
+            "hits": 6,
+            "shotsOnGoal": 1,
+            "blockedShots": 1,
+            "giveaways": 0,
+            "takeaways": 0,
+            "faceoffWins": 0.0,
+            "timeOnIce": "06:55",
+            "powerPlayGoals": 0,
+            "shifts": 10
+          }
+        }
+      }
+    },
+    {
+      "eventId": 69,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "17:11",
+      "timeRemaining": "02:49",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 535,
+      "typeDescKey": "delayed-penalty",
+      "sortOrder": 264,
+      "details": {
+        "eventOwnerTeamId": 7
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "02:49 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {}
+      }
+    }
+  ],
+  "llm_description": "With 2:00 remaining in the period, B. Malenstyn (home team) delivered a hit on S. Casey (away team) behind the net along the boards.  Moments later, a delayed penalty was called against the home team.",
+  "activity_count": 2
+}

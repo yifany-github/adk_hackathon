@@ -1,0 +1,161 @@
+{
+  "game_id": "2024020001",
+  "game_time": "1:02:20",
+  "collected_at_utc": "2025-06-05T19:09:23.392152Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 260,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "01:58",
+      "timeRemaining": "18:02",
+      "situationCode": "1451",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 503,
+      "typeDescKey": "hit",
+      "sortOrder": 50,
+      "details": {
+        "xCoord": -80,
+        "yCoord": -39,
+        "zoneCode": "D",
+        "eventOwnerTeamId": 1,
+        "hittingPlayerId": 8475455,
+        "hitteePlayerId": 8479420,
+        "hittingPlayerName": "B. Dillon (D, away)",
+        "hitteePlayerName": "T. Thompson (C, home)",
+        "spatialDescription": "behind the net along the boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "18:02 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD"
+          },
+          "home": {
+            "teamName": "BUF"
+          }
+        },
+        "playerStats": {
+          "8479420": {
+            "name": "T. Thompson",
+            "position": "N/A",
+            "team": "home"
+          },
+          "8475455": {
+            "name": "B. Dillon",
+            "position": "D",
+            "team": "away"
+          }
+        }
+      }
+    },
+    {
+      "eventId": 1731721,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "02:14",
+      "timeRemaining": "17:46",
+      "situationCode": "1451",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 503,
+      "typeDescKey": "hit",
+      "sortOrder": 54,
+      "details": {
+        "xCoord": -41,
+        "yCoord": 38,
+        "zoneCode": "D",
+        "eventOwnerTeamId": 1,
+        "hittingPlayerId": 8477508,
+        "hitteePlayerId": 8480839,
+        "hittingPlayerName": "C. Lazar (C, away)",
+        "hitteePlayerName": "R. Dahlin (D, home)",
+        "spatialDescription": "in the defensive zone along the boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "17:46 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD"
+          },
+          "home": {
+            "teamName": "BUF"
+          }
+        },
+        "playerStats": {
+          "8477508": {
+            "name": "C. Lazar",
+            "position": "N/A",
+            "team": "away"
+          },
+          "8480839": {
+            "name": "R. Dahlin",
+            "position": "D",
+            "team": "home"
+          }
+        }
+      }
+    },
+    {
+      "eventId": 278,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "02:18",
+      "timeRemaining": "17:42",
+      "situationCode": "1451",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 503,
+      "typeDescKey": "hit",
+      "sortOrder": 55,
+      "details": {
+        "xCoord": -91,
+        "yCoord": -31,
+        "zoneCode": "D",
+        "eventOwnerTeamId": 1,
+        "hittingPlayerId": 8478399,
+        "hitteePlayerId": 8482097,
+        "hittingPlayerName": "J. Siegenthaler (D, away)",
+        "hitteePlayerName": "J. Quinn (R, home)",
+        "spatialDescription": "deep in the corner along the boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "17:42 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD"
+          },
+          "home": {
+            "teamName": "BUF"
+          }
+        },
+        "playerStats": {
+          "8482097": {
+            "name": "J. Quinn",
+            "position": "N/A",
+            "team": "home"
+          },
+          "8478399": {
+            "name": "J. Siegenthaler",
+            "position": "D",
+            "team": "away"
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "The away team has registered three consecutive hits in the defensive zone.  First, B. Dillon hit T. Thompson behind the net. Moments later, C. Lazar hit R. Dahlin, followed by J. Siegenthaler hitting J. Quinn deep in the corner, all at even strength.",
+  "activity_count": 3
+}

@@ -1,0 +1,191 @@
+{
+  "game_id": "2024020001",
+  "game_time": "2:13:00",
+  "collected_at_utc": "2025-06-05T19:18:03.014795Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 1731726,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "12:39",
+      "timeRemaining": "07:21",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 503,
+      "typeDescKey": "hit",
+      "sortOrder": 472,
+      "details": {
+        "xCoord": -58,
+        "yCoord": 39,
+        "zoneCode": "D",
+        "eventOwnerTeamId": 7,
+        "hittingPlayerId": 8480035,
+        "hitteePlayerId": 8481032,
+        "hittingPlayerName": "H. Jokiharju (D, home)",
+        "hitteePlayerName": "P. Cotter (C, away)",
+        "spatialDescription": "in the defensive zone along the boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "07:21 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8481032": {
+            "name": "P. Cotter",
+            "position": "N/A",
+            "team": "away",
+            "goals": 1,
+            "assists": 1,
+            "points": 2,
+            "plusMinus": 2,
+            "pim": 0,
+            "hits": 3,
+            "shotsOnGoal": 2,
+            "blockedShots": 2,
+            "giveaways": 0,
+            "takeaways": 0,
+            "faceoffWins": 1.0,
+            "timeOnIce": "10:13",
+            "powerPlayGoals": 0,
+            "shifts": 18
+          }
+        }
+      }
+    },
+    {
+      "eventId": 85,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "12:57",
+      "timeRemaining": "07:03",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 516,
+      "typeDescKey": "stoppage",
+      "sortOrder": 477,
+      "details": {
+        "reason": "offside"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "07:03 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {}
+      }
+    },
+    {
+      "eventId": 185,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "12:57",
+      "timeRemaining": "07:03",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 502,
+      "typeDescKey": "faceoff",
+      "sortOrder": 479,
+      "details": {
+        "eventOwnerTeamId": 1,
+        "losingPlayerId": 8479420,
+        "winningPlayerId": 8481559,
+        "xCoord": 69,
+        "yCoord": -22,
+        "zoneCode": "D",
+        "losingPlayerName": "T. Thompson (C, home)",
+        "winningPlayerName": "J. Hughes (C, away)",
+        "spatialDescription": "behind the net near the left-wing boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "07:03 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8479420": {
+            "name": "T. Thompson",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -2,
+            "pim": 0,
+            "hits": 0,
+            "shotsOnGoal": 3,
+            "blockedShots": 1,
+            "giveaways": 1,
+            "takeaways": 0,
+            "faceoffWins": 0.714286,
+            "timeOnIce": "21:29",
+            "powerPlayGoals": 0,
+            "shifts": 27
+          },
+          "8481559": {
+            "name": "J. Hughes",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 0,
+            "hits": 0,
+            "shotsOnGoal": 2,
+            "blockedShots": 1,
+            "giveaways": 1,
+            "takeaways": 0,
+            "faceoffWins": 0.1,
+            "timeOnIce": "18:35",
+            "powerPlayGoals": 0,
+            "shifts": 21
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "With 12:39 remaining in the period, H. Jokiharju (D, home) delivered a hit on P. Cotter (C, away) in the defensive zone along the boards.  A stoppage in play at 12:57 led to a faceoff behind the net near the left-wing boards, won by J. Hughes (C, away) against T. Thompson (C, home).",
+  "activity_count": 3
+}

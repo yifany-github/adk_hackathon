@@ -1,0 +1,10 @@
+{
+  "game_id": "2024020001",
+  "game_time": "1:05:55",
+  "collected_at_utc": "2025-06-05T19:10:20.067427Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [],
+  "llm_description": "No significant events in the recent action.",
+  "activity_count": 0
+}

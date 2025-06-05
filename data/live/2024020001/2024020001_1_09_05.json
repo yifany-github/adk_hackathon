@@ -1,0 +1,290 @@
+{
+  "game_id": "2024020001",
+  "game_time": "1:09:05",
+  "collected_at_utc": "2025-06-05T19:11:18.407789Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 274,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "08:39",
+      "timeRemaining": "11:21",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 505,
+      "typeDescKey": "goal",
+      "sortOrder": 146,
+      "details": {
+        "xCoord": 71,
+        "yCoord": -12,
+        "zoneCode": "O",
+        "shotType": "snap",
+        "scoringPlayerId": 8476474,
+        "scoringPlayerTotal": 1,
+        "assist1PlayerId": 8480192,
+        "assist1PlayerTotal": 1,
+        "eventOwnerTeamId": 1,
+        "goalieInNetId": 8480045,
+        "awayScore": 1,
+        "homeScore": 0,
+        "highlightClipSharingUrl": "https://nhl.com/video/njd-buf-noesen-scores-goal-against-ukko-pekka-luukkonen-6362848229112",
+        "highlightClip": 6362848229112,
+        "discreteClip": 6362846260112,
+        "goalieInNetName": "U. Luukkonen (G, home)",
+        "assist1PlayerName": "J. Kovacevic (D, away)",
+        "spatialDescription": "behind the net"
+      },
+      "pptReplayUrl": "https://wsr.nhle.com/sprites/20242025/2024020001/ev274.json",
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "11:21 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8480045": {
+            "name": "U. Luukkonen",
+            "position": "N/A",
+            "team": "home",
+            "saves": "19",
+            "shotsAgainst": "22",
+            "goalsAgainst": 3,
+            "savePct": 0.863636,
+            "timeOnIce": "59:05",
+            "decision": "L",
+            "starter": true,
+            "evenStrengthSaves": "0/0",
+            "powerPlaySaves": "0/0",
+            "shortHandedSaves": "0/0"
+          }
+        }
+      }
+    },
+    {
+      "eventId": 160,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "08:39",
+      "timeRemaining": "11:21",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 502,
+      "typeDescKey": "faceoff",
+      "sortOrder": 149,
+      "details": {
+        "eventOwnerTeamId": 1,
+        "losingPlayerId": 8477949,
+        "winningPlayerId": 8478414,
+        "xCoord": 0,
+        "yCoord": 0,
+        "zoneCode": "N",
+        "losingPlayerName": "A. Tuch (R, home)",
+        "winningPlayerName": "T. Meier (R, away)",
+        "spatialDescription": "at center ice"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "11:21 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8477949": {
+            "name": "A. Tuch",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -2,
+            "pim": 0,
+            "hits": 4,
+            "shotsOnGoal": 2,
+            "blockedShots": 1,
+            "giveaways": 2,
+            "takeaways": 0,
+            "faceoffWins": 0.363636,
+            "timeOnIce": "22:31",
+            "powerPlayGoals": 0,
+            "shifts": 29
+          },
+          "8478414": {
+            "name": "T. Meier",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 0,
+            "hits": 5,
+            "shotsOnGoal": 2,
+            "blockedShots": 0,
+            "giveaways": 1,
+            "takeaways": 0,
+            "faceoffWins": 1.0,
+            "timeOnIce": "18:11",
+            "powerPlayGoals": 0,
+            "shifts": 21
+          }
+        }
+      }
+    },
+    {
+      "eventId": 279,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "09:00",
+      "timeRemaining": "11:00",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 508,
+      "typeDescKey": "blocked-shot",
+      "sortOrder": 150,
+      "details": {
+        "xCoord": 50,
+        "yCoord": -24,
+        "zoneCode": "D",
+        "blockingPlayerId": 8477949,
+        "shootingPlayerId": 8476462,
+        "eventOwnerTeamId": 1,
+        "reason": "blocked",
+        "blockingPlayerName": "A. Tuch (R, home)",
+        "shootingPlayerName": "D. Hamilton (D, away)",
+        "spatialDescription": "in the defensive zone near the left-wing boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "11:00 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8477949": {
+            "name": "A. Tuch",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -2,
+            "pim": 0,
+            "hits": 4,
+            "shotsOnGoal": 2,
+            "blockedShots": 1,
+            "giveaways": 2,
+            "takeaways": 0,
+            "faceoffWins": 0.363636,
+            "timeOnIce": "22:31",
+            "powerPlayGoals": 0,
+            "shifts": 29
+          }
+        }
+      }
+    },
+    {
+      "eventId": 280,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "09:04",
+      "timeRemaining": "10:56",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 508,
+      "typeDescKey": "blocked-shot",
+      "sortOrder": 151,
+      "details": {
+        "xCoord": 57,
+        "yCoord": 19,
+        "zoneCode": "D",
+        "blockingPlayerId": 8479420,
+        "shootingPlayerId": 8475455,
+        "eventOwnerTeamId": 1,
+        "reason": "blocked",
+        "blockingPlayerName": "T. Thompson (C, home)",
+        "shootingPlayerName": "B. Dillon (D, away)",
+        "spatialDescription": "in the defensive zone near the right-wing boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "10:56 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8479420": {
+            "name": "T. Thompson",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -2,
+            "pim": 0,
+            "hits": 0,
+            "shotsOnGoal": 3,
+            "blockedShots": 1,
+            "giveaways": 1,
+            "takeaways": 0,
+            "faceoffWins": 0.714286,
+            "timeOnIce": "21:29",
+            "powerPlayGoals": 0,
+            "shifts": 27
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "At 8:39,  J. Kovacevic assisted on a goal scored by an unidentified player from behind the net during even strength play.  Moments later, T. Meier won a faceoff against A. Tuch at center ice.  Following this, A. Tuch blocked a shot by D. Hamilton in the defensive zone near the left-wing boards and T. Thompson blocked a shot by B. Dillon near the right-wing boards.",
+  "activity_count": 4
+}

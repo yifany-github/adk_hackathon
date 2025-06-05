@@ -1,0 +1,237 @@
+{
+  "game_id": "2024020001",
+  "game_time": "2:01:25",
+  "collected_at_utc": "2025-06-05T19:14:48.997408Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 1730870,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "00:55",
+      "timeRemaining": "19:05",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 503,
+      "typeDescKey": "hit",
+      "sortOrder": 328,
+      "details": {
+        "xCoord": 97,
+        "yCoord": 17,
+        "zoneCode": "D",
+        "eventOwnerTeamId": 1,
+        "hittingPlayerId": 8475455,
+        "hitteePlayerId": 8477949,
+        "hittingPlayerName": "B. Dillon (D, away)",
+        "hitteePlayerName": "A. Tuch (R, home)",
+        "spatialDescription": "deep in the corner near the right-wing boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "19:05 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8477949": {
+            "name": "A. Tuch",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -2,
+            "pim": 0,
+            "hits": 4,
+            "shotsOnGoal": 2,
+            "blockedShots": 1,
+            "giveaways": 2,
+            "takeaways": 0,
+            "faceoffWins": 0.363636,
+            "timeOnIce": "22:31",
+            "powerPlayGoals": 0,
+            "shifts": 29
+          }
+        }
+      }
+    },
+    {
+      "eventId": 1730855,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "00:57",
+      "timeRemaining": "19:03",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 508,
+      "typeDescKey": "blocked-shot",
+      "sortOrder": 329,
+      "details": {
+        "xCoord": 85,
+        "yCoord": -33,
+        "zoneCode": "D",
+        "blockingPlayerId": 8481559,
+        "shootingPlayerId": 8479420,
+        "eventOwnerTeamId": 7,
+        "reason": "blocked",
+        "blockingPlayerName": "J. Hughes (C, away)",
+        "shootingPlayerName": "T. Thompson (C, home)",
+        "spatialDescription": "deep in the corner along the boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "19:03 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8479420": {
+            "name": "T. Thompson",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -2,
+            "pim": 0,
+            "hits": 0,
+            "shotsOnGoal": 3,
+            "blockedShots": 1,
+            "giveaways": 1,
+            "takeaways": 0,
+            "faceoffWins": 0.714286,
+            "timeOnIce": "21:29",
+            "powerPlayGoals": 0,
+            "shifts": 27
+          },
+          "8481559": {
+            "name": "J. Hughes",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 0,
+            "hits": 0,
+            "shotsOnGoal": 2,
+            "blockedShots": 1,
+            "giveaways": 1,
+            "takeaways": 0,
+            "faceoffWins": 0.1,
+            "timeOnIce": "18:35",
+            "powerPlayGoals": 0,
+            "shifts": 21
+          }
+        }
+      }
+    },
+    {
+      "eventId": 1730858,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "01:12",
+      "timeRemaining": "18:48",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 507,
+      "typeDescKey": "missed-shot",
+      "sortOrder": 331,
+      "details": {
+        "xCoord": 69,
+        "yCoord": 7,
+        "zoneCode": "O",
+        "reason": "wide-left",
+        "shotType": "tip-in",
+        "shootingPlayerId": 8482097,
+        "goalieInNetId": 8474593,
+        "eventOwnerTeamId": 7,
+        "goalieInNetName": "J. Markstrom (G, away)",
+        "shootingPlayerName": "J. Quinn (R, home)",
+        "spatialDescription": "behind the net"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "18:48 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8474593": {
+            "name": "J. Markstrom",
+            "position": "N/A",
+            "team": "away",
+            "saves": "30",
+            "shotsAgainst": "31",
+            "goalsAgainst": 1,
+            "savePct": 0.967742,
+            "timeOnIce": "59:38",
+            "decision": "W",
+            "starter": true,
+            "evenStrengthSaves": "0/0",
+            "powerPlaySaves": "0/0",
+            "shortHandedSaves": "0/0"
+          },
+          "8482097": {
+            "name": "J. Quinn",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -1,
+            "pim": 0,
+            "hits": 0,
+            "shotsOnGoal": 0,
+            "blockedShots": 0,
+            "giveaways": 0,
+            "takeaways": 0,
+            "faceoffWins": 0.0,
+            "timeOnIce": "18:41",
+            "powerPlayGoals": 0,
+            "shifts": 24
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "With just over a minute remaining in the first period,  B. Dillon (D) delivered a hit on A. Tuch (R) deep in the corner near the right-wing boards.  Moments later, J. Hughes (C) blocked a shot by T. Thompson (C) in a similar location along the boards; shortly after, J. Quinn (R) missed a shot on goal from behind the net.",
+  "activity_count": 3
+}

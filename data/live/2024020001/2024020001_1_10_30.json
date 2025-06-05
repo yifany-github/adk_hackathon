@@ -1,0 +1,129 @@
+{
+  "game_id": "2024020001",
+  "game_time": "1:10:30",
+  "collected_at_utc": "2025-06-05T19:11:42.813502Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 64,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "10:15",
+      "timeRemaining": "09:45",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 516,
+      "typeDescKey": "stoppage",
+      "sortOrder": 170,
+      "details": {
+        "reason": "offside",
+        "secondaryReason": "tv-timeout"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "09:45 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {}
+      }
+    },
+    {
+      "eventId": 163,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "10:15",
+      "timeRemaining": "09:45",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 502,
+      "typeDescKey": "faceoff",
+      "sortOrder": 173,
+      "details": {
+        "eventOwnerTeamId": 7,
+        "losingPlayerId": 8481559,
+        "winningPlayerId": 8479420,
+        "xCoord": -20,
+        "yCoord": -22,
+        "zoneCode": "N",
+        "losingPlayerName": "J. Hughes (C, away)",
+        "winningPlayerName": "T. Thompson (C, home)",
+        "spatialDescription": "near the blue line near the left-wing boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "09:45 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8479420": {
+            "name": "T. Thompson",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -2,
+            "pim": 0,
+            "hits": 0,
+            "shotsOnGoal": 3,
+            "blockedShots": 1,
+            "giveaways": 1,
+            "takeaways": 0,
+            "faceoffWins": 0.714286,
+            "timeOnIce": "21:29",
+            "powerPlayGoals": 0,
+            "shifts": 27
+          },
+          "8481559": {
+            "name": "J. Hughes",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 0,
+            "hits": 0,
+            "shotsOnGoal": 2,
+            "blockedShots": 1,
+            "giveaways": 1,
+            "takeaways": 0,
+            "faceoffWins": 0.1,
+            "timeOnIce": "18:35",
+            "powerPlayGoals": 0,
+            "shifts": 21
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "At the 10:15 mark of the period, a stoppage in play led to a faceoff near the blue line, left wing boards.  T. Thompson (C, home) won the faceoff against J. Hughes (C, away).",
+  "activity_count": 2
+}

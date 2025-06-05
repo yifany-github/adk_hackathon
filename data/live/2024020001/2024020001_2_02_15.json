@@ -1,0 +1,513 @@
+{
+  "game_id": "2024020001",
+  "game_time": "2:02:15",
+  "collected_at_utc": "2025-06-05T19:15:02.599209Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 1730887,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "01:49",
+      "timeRemaining": "18:11",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 503,
+      "typeDescKey": "hit",
+      "sortOrder": 338,
+      "details": {
+        "xCoord": -81,
+        "yCoord": -4,
+        "zoneCode": "D",
+        "eventOwnerTeamId": 7,
+        "hittingPlayerId": 8478413,
+        "hitteePlayerId": 8476292,
+        "hittingPlayerName": "J. Greenway (L, home)",
+        "hitteePlayerName": "O. Palat (L, away)",
+        "spatialDescription": "deep in the corner"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "18:11 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8476292": {
+            "name": "O. Palat",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 0,
+            "hits": 3,
+            "shotsOnGoal": 1,
+            "blockedShots": 1,
+            "giveaways": 1,
+            "takeaways": 0,
+            "faceoffWins": 0.0,
+            "timeOnIce": "13:46",
+            "powerPlayGoals": 0,
+            "shifts": 22
+          },
+          "8478413": {
+            "name": "J. Greenway",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -2,
+            "pim": 0,
+            "hits": 3,
+            "shotsOnGoal": 2,
+            "blockedShots": 0,
+            "giveaways": 1,
+            "takeaways": 0,
+            "faceoffWins": 0.0,
+            "timeOnIce": "13:49",
+            "powerPlayGoals": 0,
+            "shifts": 19
+          }
+        }
+      }
+    },
+    {
+      "eventId": 78,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "01:51",
+      "timeRemaining": "18:09",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 516,
+      "typeDescKey": "stoppage",
+      "sortOrder": 339,
+      "details": {
+        "reason": "puck-frozen"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "18:09 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {}
+      }
+    },
+    {
+      "eventId": 176,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "01:51",
+      "timeRemaining": "18:09",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 502,
+      "typeDescKey": "faceoff",
+      "sortOrder": 342,
+      "details": {
+        "eventOwnerTeamId": 7,
+        "losingPlayerId": 8475287,
+        "winningPlayerId": 8480802,
+        "xCoord": -69,
+        "yCoord": -22,
+        "zoneCode": "D",
+        "losingPlayerName": "E. Haula (L, away)",
+        "winningPlayerName": "R. McLeod (C, home)",
+        "spatialDescription": "behind the net near the left-wing boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "18:09 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8480802": {
+            "name": "R. McLeod",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -1,
+            "pim": 0,
+            "hits": 0,
+            "shotsOnGoal": 0,
+            "blockedShots": 0,
+            "giveaways": 0,
+            "takeaways": 1,
+            "faceoffWins": 0.666667,
+            "timeOnIce": "13:50",
+            "powerPlayGoals": 0,
+            "shifts": 19
+          },
+          "8475287": {
+            "name": "E. Haula",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 2,
+            "hits": 3,
+            "shotsOnGoal": 0,
+            "blockedShots": 1,
+            "giveaways": 2,
+            "takeaways": 0,
+            "faceoffWins": 0.5,
+            "timeOnIce": "14:16",
+            "powerPlayGoals": 0,
+            "shifts": 23
+          }
+        }
+      }
+    },
+    {
+      "eventId": 1730869,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "01:56",
+      "timeRemaining": "18:04",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 506,
+      "typeDescKey": "shot-on-goal",
+      "sortOrder": 343,
+      "details": {
+        "xCoord": -69,
+        "yCoord": 24,
+        "zoneCode": "O",
+        "shotType": "wrist",
+        "shootingPlayerId": 8476292,
+        "goalieInNetId": 8480045,
+        "eventOwnerTeamId": 1,
+        "awaySOG": 11,
+        "homeSOG": 7,
+        "goalieInNetName": "U. Luukkonen (G, home)",
+        "shootingPlayerName": "O. Palat (L, away)",
+        "spatialDescription": "behind the net near the right-wing boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "18:04 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8476292": {
+            "name": "O. Palat",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 0,
+            "hits": 3,
+            "shotsOnGoal": 1,
+            "blockedShots": 1,
+            "giveaways": 1,
+            "takeaways": 0,
+            "faceoffWins": 0.0,
+            "timeOnIce": "13:46",
+            "powerPlayGoals": 0,
+            "shifts": 22
+          },
+          "8480045": {
+            "name": "U. Luukkonen",
+            "position": "N/A",
+            "team": "home",
+            "saves": "19",
+            "shotsAgainst": "22",
+            "goalsAgainst": 3,
+            "savePct": 0.863636,
+            "timeOnIce": "59:05",
+            "decision": "L",
+            "starter": true,
+            "evenStrengthSaves": "0/0",
+            "powerPlaySaves": "0/0",
+            "shortHandedSaves": "0/0"
+          }
+        }
+      }
+    },
+    {
+      "eventId": 1730880,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "02:10",
+      "timeRemaining": "17:50",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 504,
+      "typeDescKey": "giveaway",
+      "sortOrder": 344,
+      "details": {
+        "xCoord": 89,
+        "yCoord": -15,
+        "zoneCode": "D",
+        "eventOwnerTeamId": 1,
+        "playerId": 8475287,
+        "playerName": "E. Haula (L, away)",
+        "spatialDescription": "deep in the corner"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "17:50 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8475287": {
+            "name": "E. Haula",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 2,
+            "hits": 3,
+            "shotsOnGoal": 0,
+            "blockedShots": 1,
+            "giveaways": 2,
+            "takeaways": 0,
+            "faceoffWins": 0.5,
+            "timeOnIce": "14:16",
+            "powerPlayGoals": 0,
+            "shifts": 23
+          }
+        }
+      }
+    },
+    {
+      "eventId": 1730871,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "02:13",
+      "timeRemaining": "17:47",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 506,
+      "typeDescKey": "shot-on-goal",
+      "sortOrder": 345,
+      "details": {
+        "xCoord": 81,
+        "yCoord": -3,
+        "zoneCode": "O",
+        "shotType": "tip-in",
+        "shootingPlayerId": 8475722,
+        "goalieInNetId": 8474593,
+        "eventOwnerTeamId": 7,
+        "awaySOG": 11,
+        "homeSOG": 8,
+        "goalieInNetName": "J. Markstrom (G, away)",
+        "shootingPlayerName": "J. Zucker (L, home)",
+        "spatialDescription": "deep in the corner"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "17:47 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8474593": {
+            "name": "J. Markstrom",
+            "position": "N/A",
+            "team": "away",
+            "saves": "30",
+            "shotsAgainst": "31",
+            "goalsAgainst": 1,
+            "savePct": 0.967742,
+            "timeOnIce": "59:38",
+            "decision": "W",
+            "starter": true,
+            "evenStrengthSaves": "0/0",
+            "powerPlaySaves": "0/0",
+            "shortHandedSaves": "0/0"
+          },
+          "8475722": {
+            "name": "J. Zucker",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 0,
+            "hits": 0,
+            "shotsOnGoal": 2,
+            "blockedShots": 0,
+            "giveaways": 0,
+            "takeaways": 0,
+            "faceoffWins": 0.0,
+            "timeOnIce": "12:19",
+            "powerPlayGoals": 0,
+            "shifts": 15
+          }
+        }
+      }
+    },
+    {
+      "eventId": 1730652,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "02:15",
+      "timeRemaining": "17:45",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 507,
+      "typeDescKey": "missed-shot",
+      "sortOrder": 346,
+      "details": {
+        "xCoord": 81,
+        "yCoord": -5,
+        "zoneCode": "O",
+        "reason": "wide-left",
+        "shotType": "backhand",
+        "shootingPlayerId": 8475722,
+        "goalieInNetId": 8474593,
+        "eventOwnerTeamId": 7,
+        "goalieInNetName": "J. Markstrom (G, away)",
+        "shootingPlayerName": "J. Zucker (L, home)",
+        "spatialDescription": "deep in the corner"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "17:45 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8474593": {
+            "name": "J. Markstrom",
+            "position": "N/A",
+            "team": "away",
+            "saves": "30",
+            "shotsAgainst": "31",
+            "goalsAgainst": 1,
+            "savePct": 0.967742,
+            "timeOnIce": "59:38",
+            "decision": "W",
+            "starter": true,
+            "evenStrengthSaves": "0/0",
+            "powerPlaySaves": "0/0",
+            "shortHandedSaves": "0/0"
+          },
+          "8475722": {
+            "name": "J. Zucker",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 0,
+            "hits": 0,
+            "shotsOnGoal": 2,
+            "blockedShots": 0,
+            "giveaways": 0,
+            "takeaways": 0,
+            "faceoffWins": 0.0,
+            "timeOnIce": "12:19",
+            "powerPlayGoals": 0,
+            "shifts": 15
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "J. Greenway (L, home) hit O. Palat (L, away) deep in the corner, resulting in a stoppage.  R. McLeod (C, home) won the ensuing faceoff behind the net near the left-wing boards. Moments later, O. Palat (L, away) shot on goal from behind the net near the right-wing boards;  E. Haula (L, away) then gave the puck away deep in the corner, leading to a shot on goal by J. Zucker (L, home) followed by a missed shot from Zucker, both from deep in the corner.",
+  "activity_count": 7
+}

@@ -1,0 +1,75 @@
+{
+  "game_id": "2024020001",
+  "game_time": "2:17:30",
+  "collected_at_utc": "2025-06-05T19:19:21.468823Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 1731046,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "17:07",
+      "timeRemaining": "02:53",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 508,
+      "typeDescKey": "blocked-shot",
+      "sortOrder": 530,
+      "details": {
+        "xCoord": 75,
+        "yCoord": -1,
+        "zoneCode": "D",
+        "blockingPlayerId": 8478399,
+        "shootingPlayerId": 8481528,
+        "eventOwnerTeamId": 7,
+        "reason": "blocked",
+        "blockingPlayerName": "J. Siegenthaler (D, away)",
+        "shootingPlayerName": "D. Cozens (C, home)",
+        "spatialDescription": "behind the net"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "02:53 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8481528": {
+            "name": "D. Cozens",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -1,
+            "pim": 0,
+            "hits": 1,
+            "shotsOnGoal": 7,
+            "blockedShots": 0,
+            "giveaways": 1,
+            "takeaways": 1,
+            "faceoffWins": 0.6875,
+            "timeOnIce": "18:57",
+            "powerPlayGoals": 0,
+            "shifts": 26
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "With 17:07 remaining in the period, J. Siegenthaler blocked a shot from D. Cozens behind the net during even strength play.",
+  "activity_count": 1
+}

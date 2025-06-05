@@ -1,0 +1,93 @@
+{
+  "game_id": "2024020001",
+  "game_time": "2:01:50",
+  "collected_at_utc": "2025-06-05T19:14:54.459137Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 1730887,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "01:49",
+      "timeRemaining": "18:11",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 503,
+      "typeDescKey": "hit",
+      "sortOrder": 338,
+      "details": {
+        "xCoord": -81,
+        "yCoord": -4,
+        "zoneCode": "D",
+        "eventOwnerTeamId": 7,
+        "hittingPlayerId": 8478413,
+        "hitteePlayerId": 8476292,
+        "hittingPlayerName": "J. Greenway (L, home)",
+        "hitteePlayerName": "O. Palat (L, away)",
+        "spatialDescription": "deep in the corner"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "18:11 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8476292": {
+            "name": "O. Palat",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 0,
+            "hits": 3,
+            "shotsOnGoal": 1,
+            "blockedShots": 1,
+            "giveaways": 1,
+            "takeaways": 0,
+            "faceoffWins": 0.0,
+            "timeOnIce": "13:46",
+            "powerPlayGoals": 0,
+            "shifts": 22
+          },
+          "8478413": {
+            "name": "J. Greenway",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -2,
+            "pim": 0,
+            "hits": 3,
+            "shotsOnGoal": 2,
+            "blockedShots": 0,
+            "giveaways": 1,
+            "takeaways": 0,
+            "faceoffWins": 0.0,
+            "timeOnIce": "13:49",
+            "powerPlayGoals": 0,
+            "shifts": 19
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "J. Greenway (L, home) delivers a hit on O. Palat (L, away) deep in the corner during even-strength play.",
+  "activity_count": 1
+}

@@ -1,0 +1,61 @@
+{
+  "game_id": "2024020001",
+  "game_time": "1:02:10",
+  "collected_at_utc": "2025-06-05T19:09:20.714169Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 260,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "01:58",
+      "timeRemaining": "18:02",
+      "situationCode": "1451",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 503,
+      "typeDescKey": "hit",
+      "sortOrder": 50,
+      "details": {
+        "xCoord": -80,
+        "yCoord": -39,
+        "zoneCode": "D",
+        "eventOwnerTeamId": 1,
+        "hittingPlayerId": 8475455,
+        "hitteePlayerId": 8479420,
+        "hittingPlayerName": "B. Dillon (D, away)",
+        "hitteePlayerName": "T. Thompson (C, home)",
+        "spatialDescription": "behind the net along the boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "18:02 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD"
+          },
+          "home": {
+            "teamName": "BUF"
+          }
+        },
+        "playerStats": {
+          "8479420": {
+            "name": "T. Thompson",
+            "position": "N/A",
+            "team": "home"
+          },
+          "8475455": {
+            "name": "B. Dillon",
+            "position": "D",
+            "team": "away"
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "B. Dillon (D) delivered a hit on T. Thompson (C) behind the net along the boards during even strength play.",
+  "activity_count": 1
+}

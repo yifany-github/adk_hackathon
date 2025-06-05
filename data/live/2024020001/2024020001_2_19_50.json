@@ -1,0 +1,369 @@
+{
+  "game_id": "2024020001",
+  "game_time": "2:19:50",
+  "collected_at_utc": "2025-06-05T19:19:56.893984Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 1731090,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "19:24",
+      "timeRemaining": "00:36",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 503,
+      "typeDescKey": "hit",
+      "sortOrder": 565,
+      "details": {
+        "xCoord": -84,
+        "yCoord": -35,
+        "zoneCode": "O",
+        "eventOwnerTeamId": 1,
+        "hittingPlayerId": 8476292,
+        "hitteePlayerId": 8480807,
+        "hittingPlayerName": "O. Palat (L, away)",
+        "hitteePlayerName": "M. Samuelsson (D, home)",
+        "spatialDescription": "deep in the corner along the boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "36s remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8476292": {
+            "name": "O. Palat",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 0,
+            "hits": 3,
+            "shotsOnGoal": 1,
+            "blockedShots": 1,
+            "giveaways": 1,
+            "takeaways": 0,
+            "faceoffWins": 0.0,
+            "timeOnIce": "13:46",
+            "powerPlayGoals": 0,
+            "shifts": 22
+          }
+        }
+      }
+    },
+    {
+      "eventId": 1731088,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "19:32",
+      "timeRemaining": "00:28",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 504,
+      "typeDescKey": "giveaway",
+      "sortOrder": 568,
+      "details": {
+        "xCoord": -60,
+        "yCoord": -37,
+        "zoneCode": "D",
+        "eventOwnerTeamId": 1,
+        "playerId": 8476292,
+        "playerName": "O. Palat (L, away)",
+        "spatialDescription": "in the defensive zone along the boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "28s remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8476292": {
+            "name": "O. Palat",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 0,
+            "hits": 3,
+            "shotsOnGoal": 1,
+            "blockedShots": 1,
+            "giveaways": 1,
+            "takeaways": 0,
+            "faceoffWins": 0.0,
+            "timeOnIce": "13:46",
+            "powerPlayGoals": 0,
+            "shifts": 22
+          }
+        }
+      }
+    },
+    {
+      "eventId": 91,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "19:40",
+      "timeRemaining": "00:20",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 516,
+      "typeDescKey": "stoppage",
+      "sortOrder": 569,
+      "details": {
+        "reason": "offside"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "20s remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {}
+      }
+    },
+    {
+      "eventId": 191,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "19:40",
+      "timeRemaining": "00:20",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 502,
+      "typeDescKey": "faceoff",
+      "sortOrder": 572,
+      "details": {
+        "eventOwnerTeamId": 7,
+        "losingPlayerId": 8477508,
+        "winningPlayerId": 8481528,
+        "xCoord": 20,
+        "yCoord": 22,
+        "zoneCode": "N",
+        "losingPlayerName": "C. Lazar (C, away)",
+        "winningPlayerName": "D. Cozens (C, home)",
+        "spatialDescription": "near the blue line near the right-wing boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "20s remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8481528": {
+            "name": "D. Cozens",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -1,
+            "pim": 0,
+            "hits": 1,
+            "shotsOnGoal": 7,
+            "blockedShots": 0,
+            "giveaways": 1,
+            "takeaways": 1,
+            "faceoffWins": 0.6875,
+            "timeOnIce": "18:57",
+            "powerPlayGoals": 0,
+            "shifts": 26
+          },
+          "8477508": {
+            "name": "C. Lazar",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 1,
+            "pim": 2,
+            "hits": 3,
+            "shotsOnGoal": 0,
+            "blockedShots": 0,
+            "giveaways": 0,
+            "takeaways": 0,
+            "faceoffWins": 0.0,
+            "timeOnIce": "11:18",
+            "powerPlayGoals": 0,
+            "shifts": 20
+          }
+        }
+      }
+    },
+    {
+      "eventId": 92,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "19:49",
+      "timeRemaining": "00:11",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 516,
+      "typeDescKey": "stoppage",
+      "sortOrder": 573,
+      "details": {
+        "reason": "offside"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "11s remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {}
+      }
+    },
+    {
+      "eventId": 192,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "19:49",
+      "timeRemaining": "00:11",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 502,
+      "typeDescKey": "faceoff",
+      "sortOrder": 574,
+      "details": {
+        "eventOwnerTeamId": 1,
+        "losingPlayerId": 8481528,
+        "winningPlayerId": 8481032,
+        "xCoord": -20,
+        "yCoord": -22,
+        "zoneCode": "N",
+        "losingPlayerName": "D. Cozens (C, home)",
+        "winningPlayerName": "P. Cotter (C, away)",
+        "spatialDescription": "near the blue line near the left-wing boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "11s remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8481528": {
+            "name": "D. Cozens",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -1,
+            "pim": 0,
+            "hits": 1,
+            "shotsOnGoal": 7,
+            "blockedShots": 0,
+            "giveaways": 1,
+            "takeaways": 1,
+            "faceoffWins": 0.6875,
+            "timeOnIce": "18:57",
+            "powerPlayGoals": 0,
+            "shifts": 26
+          },
+          "8481032": {
+            "name": "P. Cotter",
+            "position": "N/A",
+            "team": "away",
+            "goals": 1,
+            "assists": 1,
+            "points": 2,
+            "plusMinus": 2,
+            "pim": 0,
+            "hits": 3,
+            "shotsOnGoal": 2,
+            "blockedShots": 2,
+            "giveaways": 0,
+            "takeaways": 0,
+            "faceoffWins": 1.0,
+            "timeOnIce": "10:13",
+            "powerPlayGoals": 0,
+            "shifts": 18
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "O. Palat (away) hit M. Samuelsson (home) deep in the corner along the boards during even-strength play. Moments later, Palat committed a giveaway in the defensive zone.  Following a stoppage, D. Cozens (home) won a faceoff near the blue line against C. Lazar (away). Another stoppage ensued, followed by P. Cotter (away) winning a faceoff near the blue line against Cozens.",
+  "activity_count": 6
+}

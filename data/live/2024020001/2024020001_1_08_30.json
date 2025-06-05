@@ -1,0 +1,73 @@
+{
+  "game_id": "2024020001",
+  "game_time": "1:08:30",
+  "collected_at_utc": "2025-06-05T19:11:05.947038Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 271,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "08:26",
+      "timeRemaining": "11:34",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 506,
+      "typeDescKey": "shot-on-goal",
+      "sortOrder": 143,
+      "details": {
+        "xCoord": 34,
+        "yCoord": 22,
+        "zoneCode": "O",
+        "shotType": "slap",
+        "shootingPlayerId": 8478399,
+        "goalieInNetId": 8480045,
+        "eventOwnerTeamId": 1,
+        "awaySOG": 4,
+        "homeSOG": 4,
+        "goalieInNetName": "U. Luukkonen (G, home)",
+        "shootingPlayerName": "J. Siegenthaler (D, away)",
+        "spatialDescription": "near the blue line near the right-wing boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "11:34 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8480045": {
+            "name": "U. Luukkonen",
+            "position": "N/A",
+            "team": "home",
+            "saves": "19",
+            "shotsAgainst": "22",
+            "goalsAgainst": 3,
+            "savePct": 0.863636,
+            "timeOnIce": "59:05",
+            "decision": "L",
+            "starter": true,
+            "evenStrengthSaves": "0/0",
+            "powerPlaySaves": "0/0",
+            "shortHandedSaves": "0/0"
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "With 8:26 remaining in the period,  J. Siegenthaler (D, away) took a shot on goal from near the blue line near the right-wing boards during even strength play, with U. Luukkonen (G, home) in net.",
+  "activity_count": 1
+}

@@ -1,0 +1,114 @@
+{
+  "game_id": "2024020001",
+  "game_time": "1:01:35",
+  "collected_at_utc": "2025-06-05T19:09:10.645028Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 124,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "01:06",
+      "timeRemaining": "18:54",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 507,
+      "typeDescKey": "missed-shot",
+      "sortOrder": 36,
+      "details": {
+        "xCoord": -36,
+        "yCoord": 15,
+        "zoneCode": "O",
+        "reason": "wide-right",
+        "shotType": "slap",
+        "shootingPlayerId": 8482671,
+        "goalieInNetId": 8474593,
+        "eventOwnerTeamId": 7,
+        "goalieInNetName": "J. Markstrom (G, away)",
+        "shootingPlayerName": "O. Power (D, home)",
+        "spatialDescription": "near the blue line"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "18:54 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD"
+          },
+          "home": {
+            "teamName": "BUF"
+          }
+        },
+        "playerStats": {
+          "8474593": {
+            "name": "J. Markstrom",
+            "position": "N/A",
+            "team": "away",
+            "starter": true
+          },
+          "8482671": {
+            "name": "O. Power",
+            "position": "D",
+            "team": "home"
+          }
+        }
+      }
+    },
+    {
+      "eventId": 255,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "01:34",
+      "timeRemaining": "18:26",
+      "situationCode": "1560",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 503,
+      "typeDescKey": "hit",
+      "sortOrder": 44,
+      "details": {
+        "xCoord": -67,
+        "yCoord": 41,
+        "zoneCode": "D",
+        "eventOwnerTeamId": 1,
+        "hittingPlayerId": 8475287,
+        "hitteePlayerId": 8481528,
+        "hittingPlayerName": "E. Haula (L, away)",
+        "hitteePlayerName": "D. Cozens (C, home)",
+        "spatialDescription": "behind the net along the boards"
+      },
+      "gameSituation": "power play",
+      "timeRemainingFormatted": "18:26 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD"
+          },
+          "home": {
+            "teamName": "BUF"
+          }
+        },
+        "playerStats": {
+          "8481528": {
+            "name": "D. Cozens",
+            "position": "N/A",
+            "team": "home"
+          },
+          "8475287": {
+            "name": "E. Haula",
+            "position": "N/A",
+            "team": "away"
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "Earlier in the period, Oliver Power (D, home) missed a shot near the blue line.  Moments later, while the home team was on the power play,  Eeli Tolvanen (L, away) hit  Dylan Cozens (C, home) behind the net along the boards.",
+  "activity_count": 2
+}

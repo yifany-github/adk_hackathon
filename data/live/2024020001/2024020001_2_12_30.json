@@ -1,0 +1,139 @@
+{
+  "game_id": "2024020001",
+  "game_time": "2:12:30",
+  "collected_at_utc": "2025-06-05T19:17:54.347100Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 1730655,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "12:20",
+      "timeRemaining": "07:40",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 508,
+      "typeDescKey": "blocked-shot",
+      "sortOrder": 469,
+      "details": {
+        "xCoord": 76,
+        "yCoord": 12,
+        "zoneCode": "D",
+        "blockingPlayerId": 8478399,
+        "shootingPlayerId": 8477949,
+        "eventOwnerTeamId": 7,
+        "reason": "blocked",
+        "blockingPlayerName": "J. Siegenthaler (D, away)",
+        "shootingPlayerName": "A. Tuch (R, home)",
+        "spatialDescription": "behind the net"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "07:40 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8477949": {
+            "name": "A. Tuch",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -2,
+            "pim": 0,
+            "hits": 4,
+            "shotsOnGoal": 2,
+            "blockedShots": 1,
+            "giveaways": 2,
+            "takeaways": 0,
+            "faceoffWins": 0.363636,
+            "timeOnIce": "22:31",
+            "powerPlayGoals": 0,
+            "shifts": 29
+          }
+        }
+      }
+    },
+    {
+      "eventId": 184,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "12:29",
+      "timeRemaining": "07:31",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 508,
+      "typeDescKey": "blocked-shot",
+      "sortOrder": 470,
+      "details": {
+        "xCoord": 73,
+        "yCoord": -8,
+        "zoneCode": "D",
+        "blockingPlayerId": 8480192,
+        "shootingPlayerId": 8482175,
+        "eventOwnerTeamId": 7,
+        "reason": "blocked",
+        "blockingPlayerName": "J. Kovacevic (D, away)",
+        "shootingPlayerName": "J. Peterka (R, home)",
+        "spatialDescription": "behind the net"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "07:31 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8482175": {
+            "name": "J. Peterka",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 1,
+            "points": 1,
+            "plusMinus": -2,
+            "pim": 0,
+            "hits": 1,
+            "shotsOnGoal": 2,
+            "blockedShots": 0,
+            "giveaways": 1,
+            "takeaways": 1,
+            "faceoffWins": 0.0,
+            "timeOnIce": "19:22",
+            "powerPlayGoals": 0,
+            "shifts": 24
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "With the game nearing its conclusion,  J. Siegenthaler and J. Kovacevic blocked shots from A. Tuch and J. Peterka, respectively, behind the net during even-strength play.",
+  "activity_count": 2
+}

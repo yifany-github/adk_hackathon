@@ -1,0 +1,88 @@
+{
+  "game_id": "2024020001",
+  "game_time": "2:00:00",
+  "collected_at_utc": "2025-06-05T19:14:24.540388Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 174,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "00:00",
+      "timeRemaining": "20:00",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 520,
+      "typeDescKey": "period-start",
+      "sortOrder": 316,
+      "details": {},
+      "gameSituation": "even strength",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD"
+          },
+          "home": {
+            "teamName": "BUF"
+          }
+        },
+        "playerStats": {}
+      }
+    },
+    {
+      "eventId": 173,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "00:00",
+      "timeRemaining": "20:00",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 502,
+      "typeDescKey": "faceoff",
+      "sortOrder": 317,
+      "details": {
+        "eventOwnerTeamId": 7,
+        "losingPlayerId": 8480002,
+        "winningPlayerId": 8479420,
+        "xCoord": 0,
+        "yCoord": 0,
+        "zoneCode": "N",
+        "losingPlayerName": "N. Hischier (C, away)",
+        "winningPlayerName": "T. Thompson (C, home)",
+        "spatialDescription": "at center ice"
+      },
+      "gameSituation": "even strength",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD"
+          },
+          "home": {
+            "teamName": "BUF"
+          }
+        },
+        "playerStats": {
+          "8480002": {
+            "name": "N. Hischier",
+            "position": "N/A",
+            "team": "away"
+          },
+          "8479420": {
+            "name": "T. Thompson",
+            "position": "N/A",
+            "team": "home"
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "The period began with a faceoff at center ice won by  T. Thompson (C, home) against N. Hischier (C, away).",
+  "activity_count": 2
+}

@@ -1,0 +1,72 @@
+{
+  "game_id": "2024020001",
+  "game_time": "2:05:45",
+  "collected_at_utc": "2025-06-05T19:16:00.094026Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 1730918,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "05:30",
+      "timeRemaining": "14:30",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 504,
+      "typeDescKey": "giveaway",
+      "sortOrder": 387,
+      "details": {
+        "xCoord": -77,
+        "yCoord": 40,
+        "zoneCode": "O",
+        "eventOwnerTeamId": 1,
+        "playerId": 8476474,
+        "playerName": "S. Noesen (R, away)",
+        "spatialDescription": "behind the net along the boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "14:30 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8476474": {
+            "name": "S. Noesen",
+            "position": "N/A",
+            "team": "away",
+            "goals": 1,
+            "assists": 0,
+            "points": 1,
+            "plusMinus": 0,
+            "pim": 0,
+            "hits": 2,
+            "shotsOnGoal": 1,
+            "blockedShots": 0,
+            "giveaways": 2,
+            "takeaways": 0,
+            "faceoffWins": 0.0,
+            "timeOnIce": "13:11",
+            "powerPlayGoals": 0,
+            "shifts": 20
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "Earlier in the period, Stefan Noesen of the away team committed a giveaway behind the net along the boards during even strength play.",
+  "activity_count": 1
+}

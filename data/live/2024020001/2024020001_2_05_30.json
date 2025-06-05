@@ -1,0 +1,271 @@
+{
+  "game_id": "2024020001",
+  "game_time": "2:05:30",
+  "collected_at_utc": "2025-06-05T19:15:56.255854Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 1730653,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "05:08",
+      "timeRemaining": "14:52",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 506,
+      "typeDescKey": "shot-on-goal",
+      "sortOrder": 382,
+      "details": {
+        "xCoord": 55,
+        "yCoord": 5,
+        "zoneCode": "O",
+        "shotType": "wrist",
+        "shootingPlayerId": 8477979,
+        "goalieInNetId": 8474593,
+        "eventOwnerTeamId": 7,
+        "awaySOG": 13,
+        "homeSOG": 9,
+        "goalieInNetName": "J. Markstrom (G, away)",
+        "shootingPlayerName": "N. Aube-Kubel (R, home)",
+        "spatialDescription": "in the slot"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "14:52 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8474593": {
+            "name": "J. Markstrom",
+            "position": "N/A",
+            "team": "away",
+            "saves": "30",
+            "shotsAgainst": "31",
+            "goalsAgainst": 1,
+            "savePct": 0.967742,
+            "timeOnIce": "59:38",
+            "decision": "W",
+            "starter": true,
+            "evenStrengthSaves": "0/0",
+            "powerPlaySaves": "0/0",
+            "shortHandedSaves": "0/0"
+          },
+          "8477979": {
+            "name": "N. Aube-Kubel",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 2,
+            "hits": 3,
+            "shotsOnGoal": 2,
+            "blockedShots": 0,
+            "giveaways": 0,
+            "takeaways": 0,
+            "faceoffWins": 0.0,
+            "timeOnIce": "05:45",
+            "powerPlayGoals": 0,
+            "shifts": 9
+          }
+        }
+      }
+    },
+    {
+      "eventId": 79,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "05:09",
+      "timeRemaining": "14:51",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 516,
+      "typeDescKey": "stoppage",
+      "sortOrder": 383,
+      "details": {
+        "reason": "goalie-stopped-after-sog",
+        "secondaryReason": "player-equipment"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "14:51 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {}
+      }
+    },
+    {
+      "eventId": 178,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "05:09",
+      "timeRemaining": "14:51",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 502,
+      "typeDescKey": "faceoff",
+      "sortOrder": 386,
+      "details": {
+        "eventOwnerTeamId": 7,
+        "losingPlayerId": 8475287,
+        "winningPlayerId": 8479420,
+        "xCoord": 69,
+        "yCoord": 22,
+        "zoneCode": "O",
+        "losingPlayerName": "E. Haula (L, away)",
+        "winningPlayerName": "T. Thompson (C, home)",
+        "spatialDescription": "behind the net near the right-wing boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "14:51 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8479420": {
+            "name": "T. Thompson",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -2,
+            "pim": 0,
+            "hits": 0,
+            "shotsOnGoal": 3,
+            "blockedShots": 1,
+            "giveaways": 1,
+            "takeaways": 0,
+            "faceoffWins": 0.714286,
+            "timeOnIce": "21:29",
+            "powerPlayGoals": 0,
+            "shifts": 27
+          },
+          "8475287": {
+            "name": "E. Haula",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 2,
+            "hits": 3,
+            "shotsOnGoal": 0,
+            "blockedShots": 1,
+            "giveaways": 2,
+            "takeaways": 0,
+            "faceoffWins": 0.5,
+            "timeOnIce": "14:16",
+            "powerPlayGoals": 0,
+            "shifts": 23
+          }
+        }
+      }
+    },
+    {
+      "eventId": 1730918,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "05:30",
+      "timeRemaining": "14:30",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 504,
+      "typeDescKey": "giveaway",
+      "sortOrder": 387,
+      "details": {
+        "xCoord": -77,
+        "yCoord": 40,
+        "zoneCode": "O",
+        "eventOwnerTeamId": 1,
+        "playerId": 8476474,
+        "playerName": "S. Noesen (R, away)",
+        "spatialDescription": "behind the net along the boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "14:30 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8476474": {
+            "name": "S. Noesen",
+            "position": "N/A",
+            "team": "away",
+            "goals": 1,
+            "assists": 0,
+            "points": 1,
+            "plusMinus": 0,
+            "pim": 0,
+            "hits": 2,
+            "shotsOnGoal": 1,
+            "blockedShots": 0,
+            "giveaways": 2,
+            "takeaways": 0,
+            "faceoffWins": 0.0,
+            "timeOnIce": "13:11",
+            "powerPlayGoals": 0,
+            "shifts": 20
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "At 5:08, Nicolas Aube-Kubel (R, home) took a shot on goal from the slot, which was stopped by J. Markstrom (G, away).  Moments later, a stoppage in play led to a faceoff won by T. Thompson (C, home) against E. Haula (L, away) behind the net near the right-wing boards.  Further into the period, at 5:30, S. Noesen (R, away) committed a giveaway behind the net along the boards.",
+  "activity_count": 4
+}

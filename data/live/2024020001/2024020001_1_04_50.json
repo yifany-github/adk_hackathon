@@ -1,0 +1,64 @@
+{
+  "game_id": "2024020001",
+  "game_time": "1:04:50",
+  "collected_at_utc": "2025-06-05T19:10:03.789468Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 223,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "04:47",
+      "timeRemaining": "15:13",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 507,
+      "typeDescKey": "missed-shot",
+      "sortOrder": 92,
+      "details": {
+        "xCoord": -58,
+        "yCoord": -16,
+        "zoneCode": "O",
+        "reason": "wide-right",
+        "shotType": "wrist",
+        "shootingPlayerId": 8479420,
+        "goalieInNetId": 8474593,
+        "eventOwnerTeamId": 7,
+        "goalieInNetName": "J. Markstrom (G, away)",
+        "shootingPlayerName": "T. Thompson (C, home)",
+        "spatialDescription": "in the slot near the left-wing boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "15:13 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD"
+          },
+          "home": {
+            "teamName": "BUF"
+          }
+        },
+        "playerStats": {
+          "8474593": {
+            "name": "J. Markstrom",
+            "position": "N/A",
+            "team": "away",
+            "starter": true
+          },
+          "8479420": {
+            "name": "T. Thompson",
+            "position": "N/A",
+            "team": "home"
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "With 4:47 remaining in the period, T. Thompson (C, home) had a shot on goal from the slot near the left-wing boards, but it was missed.",
+  "activity_count": 1
+}

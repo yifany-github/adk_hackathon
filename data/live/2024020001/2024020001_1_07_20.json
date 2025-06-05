@@ -1,0 +1,149 @@
+{
+  "game_id": "2024020001",
+  "game_time": "1:07:20",
+  "collected_at_utc": "2025-06-05T19:10:46.766710Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 272,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "07:08",
+      "timeRemaining": "12:52",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 504,
+      "typeDescKey": "giveaway",
+      "sortOrder": 124,
+      "details": {
+        "xCoord": -77,
+        "yCoord": -15,
+        "zoneCode": "D",
+        "eventOwnerTeamId": 1,
+        "playerId": 8474593,
+        "playerName": "J. Markstrom (G, away)",
+        "spatialDescription": "behind the net"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "12:52 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8474593": {
+            "name": "J. Markstrom",
+            "position": "N/A",
+            "team": "away",
+            "saves": "30",
+            "shotsAgainst": "31",
+            "goalsAgainst": 1,
+            "savePct": 0.967742,
+            "timeOnIce": "59:38",
+            "decision": "W",
+            "starter": true,
+            "evenStrengthSaves": "0/0",
+            "powerPlaySaves": "0/0",
+            "shortHandedSaves": "0/0"
+          }
+        }
+      }
+    },
+    {
+      "eventId": 254,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "07:18",
+      "timeRemaining": "12:42",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 506,
+      "typeDescKey": "shot-on-goal",
+      "sortOrder": 125,
+      "details": {
+        "xCoord": -82,
+        "yCoord": 5,
+        "zoneCode": "O",
+        "shotType": "tip-in",
+        "shootingPlayerId": 8477949,
+        "goalieInNetId": 8474593,
+        "eventOwnerTeamId": 7,
+        "awaySOG": 3,
+        "homeSOG": 4,
+        "goalieInNetName": "J. Markstrom (G, away)",
+        "shootingPlayerName": "A. Tuch (R, home)",
+        "spatialDescription": "deep in the corner"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "12:42 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8474593": {
+            "name": "J. Markstrom",
+            "position": "N/A",
+            "team": "away",
+            "saves": "30",
+            "shotsAgainst": "31",
+            "goalsAgainst": 1,
+            "savePct": 0.967742,
+            "timeOnIce": "59:38",
+            "decision": "W",
+            "starter": true,
+            "evenStrengthSaves": "0/0",
+            "powerPlaySaves": "0/0",
+            "shortHandedSaves": "0/0"
+          },
+          "8477949": {
+            "name": "A. Tuch",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -2,
+            "pim": 0,
+            "hits": 4,
+            "shotsOnGoal": 2,
+            "blockedShots": 1,
+            "giveaways": 2,
+            "takeaways": 0,
+            "faceoffWins": 0.363636,
+            "timeOnIce": "22:31",
+            "powerPlayGoals": 0,
+            "shifts": 29
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "At 7:08, J. Markstrom committed a giveaway behind the net while playing even strength hockey.  Seventeen seconds later, A. Tuch registered a shot on goal from deep in the corner, also at even strength.",
+  "activity_count": 2
+}

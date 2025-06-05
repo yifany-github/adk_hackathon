@@ -1,0 +1,134 @@
+{
+  "game_id": "2024020001",
+  "game_time": "1:19:25",
+  "collected_at_utc": "2025-06-05T19:14:13.105966Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 1730734,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "19:16",
+      "timeRemaining": "00:44",
+      "situationCode": "1541",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 504,
+      "typeDescKey": "giveaway",
+      "sortOrder": 293,
+      "details": {
+        "xCoord": 39,
+        "yCoord": -32,
+        "zoneCode": "D",
+        "eventOwnerTeamId": 1,
+        "playerId": 8478414,
+        "playerName": "T. Meier (R, away)",
+        "spatialDescription": "near the blue line along the boards"
+      },
+      "timeRemainingFormatted": "44s remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8478414": {
+            "name": "T. Meier",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 0,
+            "hits": 5,
+            "shotsOnGoal": 2,
+            "blockedShots": 0,
+            "giveaways": 1,
+            "takeaways": 0,
+            "faceoffWins": 1.0,
+            "timeOnIce": "18:11",
+            "powerPlayGoals": 0,
+            "shifts": 21
+          }
+        }
+      }
+    },
+    {
+      "eventId": 1730720,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "19:18",
+      "timeRemaining": "00:42",
+      "situationCode": "1541",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 508,
+      "typeDescKey": "blocked-shot",
+      "sortOrder": 294,
+      "details": {
+        "xCoord": 73,
+        "yCoord": -6,
+        "zoneCode": "D",
+        "blockingPlayerId": 8480807,
+        "shootingPlayerId": 8478414,
+        "eventOwnerTeamId": 1,
+        "reason": "blocked",
+        "blockingPlayerName": "M. Samuelsson (D, home)",
+        "shootingPlayerName": "T. Meier (R, away)",
+        "spatialDescription": "behind the net"
+      },
+      "timeRemainingFormatted": "42s remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8478414": {
+            "name": "T. Meier",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 0,
+            "hits": 5,
+            "shotsOnGoal": 2,
+            "blockedShots": 0,
+            "giveaways": 1,
+            "takeaways": 0,
+            "faceoffWins": 1.0,
+            "timeOnIce": "18:11",
+            "powerPlayGoals": 0,
+            "shifts": 21
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "With 1:19 remaining in the period, Timo Meier gave the puck away near the blue line along the boards.  Moments later, Meier's subsequent shot from behind the net was blocked by home defenseman Mattias Samuelsson.",
+  "activity_count": 2
+}

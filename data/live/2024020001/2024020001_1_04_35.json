@@ -1,0 +1,111 @@
+{
+  "game_id": "2024020001",
+  "game_time": "1:04:35",
+  "collected_at_utc": "2025-06-05T19:09:59.797165Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 296,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "04:10",
+      "timeRemaining": "15:50",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 503,
+      "typeDescKey": "hit",
+      "sortOrder": 82,
+      "details": {
+        "xCoord": -82,
+        "yCoord": 38,
+        "zoneCode": "D",
+        "eventOwnerTeamId": 1,
+        "hittingPlayerId": 8483495,
+        "hitteePlayerId": 8477979,
+        "hittingPlayerName": "S. Nemec (D, away)",
+        "hitteePlayerName": "N. Aube-Kubel (R, home)",
+        "spatialDescription": "deep in the corner along the boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "15:50 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD"
+          },
+          "home": {
+            "teamName": "BUF"
+          }
+        },
+        "playerStats": {
+          "8477979": {
+            "name": "N. Aube-Kubel",
+            "position": "N/A",
+            "team": "home"
+          },
+          "8483495": {
+            "name": "S. Nemec",
+            "position": "D",
+            "team": "away"
+          }
+        }
+      }
+    },
+    {
+      "eventId": 298,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "04:18",
+      "timeRemaining": "15:42",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 503,
+      "typeDescKey": "hit",
+      "sortOrder": 83,
+      "details": {
+        "xCoord": -96,
+        "yCoord": -4,
+        "zoneCode": "O",
+        "eventOwnerTeamId": 7,
+        "hittingPlayerId": 8478413,
+        "hitteePlayerId": 8478399,
+        "hittingPlayerName": "J. Greenway (L, home)",
+        "hitteePlayerName": "J. Siegenthaler (D, away)",
+        "spatialDescription": "deep in the corner"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "15:42 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD"
+          },
+          "home": {
+            "teamName": "BUF"
+          }
+        },
+        "playerStats": {
+          "8478413": {
+            "name": "J. Greenway",
+            "position": "N/A",
+            "team": "home"
+          },
+          "8478399": {
+            "name": "J. Siegenthaler",
+            "position": "D",
+            "team": "away"
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "With just over four minutes remaining in the period,  S. Nemec (away team defenseman) hit N. Aube-Kubel (home team right wing) deep in the corner along the boards. Moments later, J. Greenway (home team left wing) delivered a hit on J. Siegenthaler (away team defenseman) deep in the opposing corner.",
+  "activity_count": 2
+}

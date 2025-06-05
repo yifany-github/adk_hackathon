@@ -1,0 +1,135 @@
+{
+  "game_id": "2024020001",
+  "game_time": "2:19:10",
+  "collected_at_utc": "2025-06-05T19:19:46.044570Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 1731089,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "18:47",
+      "timeRemaining": "01:13",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 503,
+      "typeDescKey": "hit",
+      "sortOrder": 554,
+      "details": {
+        "xCoord": 92,
+        "yCoord": -29,
+        "zoneCode": "O",
+        "eventOwnerTeamId": 7,
+        "hittingPlayerId": 8477949,
+        "hitteePlayerId": 8480192,
+        "hittingPlayerName": "A. Tuch (R, home)",
+        "hitteePlayerName": "J. Kovacevic (D, away)",
+        "spatialDescription": "deep in the corner near the left-wing boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "01:13 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8477949": {
+            "name": "A. Tuch",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -2,
+            "pim": 0,
+            "hits": 4,
+            "shotsOnGoal": 2,
+            "blockedShots": 1,
+            "giveaways": 2,
+            "takeaways": 0,
+            "faceoffWins": 0.363636,
+            "timeOnIce": "22:31",
+            "powerPlayGoals": 0,
+            "shifts": 29
+          }
+        }
+      }
+    },
+    {
+      "eventId": 1731071,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "18:56",
+      "timeRemaining": "01:04",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 507,
+      "typeDescKey": "missed-shot",
+      "sortOrder": 555,
+      "details": {
+        "xCoord": -61,
+        "yCoord": 3,
+        "zoneCode": "O",
+        "reason": "wide-right",
+        "shotType": "backhand",
+        "shootingPlayerId": 8478399,
+        "goalieInNetId": 8480045,
+        "eventOwnerTeamId": 1,
+        "goalieInNetName": "U. Luukkonen (G, home)",
+        "shootingPlayerName": "J. Siegenthaler (D, away)",
+        "spatialDescription": "behind the net"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "01:04 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8480045": {
+            "name": "U. Luukkonen",
+            "position": "N/A",
+            "team": "home",
+            "saves": "19",
+            "shotsAgainst": "22",
+            "goalsAgainst": 3,
+            "savePct": 0.863636,
+            "timeOnIce": "59:05",
+            "decision": "L",
+            "starter": true,
+            "evenStrengthSaves": "0/0",
+            "powerPlaySaves": "0/0",
+            "shortHandedSaves": "0/0"
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "With 1:53 remaining in the period, A. Tuch (R, home) delivers a hit on J. Kovacevic (D, away) deep in the corner near the left-wing boards during even-strength play.  Moments later, J. Siegenthaler (D, away) misses a shot on goal from behind the net, also at even strength.",
+  "activity_count": 2
+}

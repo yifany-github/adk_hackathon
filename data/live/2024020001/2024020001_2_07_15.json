@@ -1,0 +1,326 @@
+{
+  "game_id": "2024020001",
+  "game_time": "2:07:15",
+  "collected_at_utc": "2025-06-05T19:16:25.860752Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 81,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "06:51",
+      "timeRemaining": "13:09",
+      "situationCode": "1451",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 516,
+      "typeDescKey": "stoppage",
+      "sortOrder": 405,
+      "details": {
+        "reason": "high-stick"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "13:09 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {}
+      }
+    },
+    {
+      "eventId": 180,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "06:51",
+      "timeRemaining": "13:09",
+      "situationCode": "1451",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 502,
+      "typeDescKey": "faceoff",
+      "sortOrder": 408,
+      "details": {
+        "eventOwnerTeamId": 7,
+        "losingPlayerId": 8480002,
+        "winningPlayerId": 8481528,
+        "xCoord": 0,
+        "yCoord": 0,
+        "zoneCode": "N",
+        "losingPlayerName": "N. Hischier (C, away)",
+        "winningPlayerName": "D. Cozens (C, home)",
+        "spatialDescription": "at center ice"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "13:09 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8481528": {
+            "name": "D. Cozens",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -1,
+            "pim": 0,
+            "hits": 1,
+            "shotsOnGoal": 7,
+            "blockedShots": 0,
+            "giveaways": 1,
+            "takeaways": 1,
+            "faceoffWins": 0.6875,
+            "timeOnIce": "18:57",
+            "powerPlayGoals": 0,
+            "shifts": 26
+          },
+          "8480002": {
+            "name": "N. Hischier",
+            "position": "N/A",
+            "team": "away",
+            "goals": 1,
+            "assists": 0,
+            "points": 1,
+            "plusMinus": 2,
+            "pim": 0,
+            "hits": 0,
+            "shotsOnGoal": 4,
+            "blockedShots": 1,
+            "giveaways": 0,
+            "takeaways": 0,
+            "faceoffWins": 0.535714,
+            "timeOnIce": "18:15",
+            "powerPlayGoals": 0,
+            "shifts": 27
+          }
+        }
+      }
+    },
+    {
+      "eventId": 1730929,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "07:12",
+      "timeRemaining": "12:48",
+      "situationCode": "1451",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 506,
+      "typeDescKey": "shot-on-goal",
+      "sortOrder": 409,
+      "details": {
+        "xCoord": 52,
+        "yCoord": -10,
+        "zoneCode": "O",
+        "shotType": "wrist",
+        "shootingPlayerId": 8481528,
+        "goalieInNetId": 8474593,
+        "eventOwnerTeamId": 7,
+        "awaySOG": 13,
+        "homeSOG": 11,
+        "goalieInNetName": "J. Markstrom (G, away)",
+        "shootingPlayerName": "D. Cozens (C, home)",
+        "spatialDescription": "in the slot"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "12:48 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8481528": {
+            "name": "D. Cozens",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -1,
+            "pim": 0,
+            "hits": 1,
+            "shotsOnGoal": 7,
+            "blockedShots": 0,
+            "giveaways": 1,
+            "takeaways": 1,
+            "faceoffWins": 0.6875,
+            "timeOnIce": "18:57",
+            "powerPlayGoals": 0,
+            "shifts": 26
+          },
+          "8474593": {
+            "name": "J. Markstrom",
+            "position": "N/A",
+            "team": "away",
+            "saves": "30",
+            "shotsAgainst": "31",
+            "goalsAgainst": 1,
+            "savePct": 0.967742,
+            "timeOnIce": "59:38",
+            "decision": "W",
+            "starter": true,
+            "evenStrengthSaves": "0/0",
+            "powerPlaySaves": "0/0",
+            "shortHandedSaves": "0/0"
+          }
+        }
+      }
+    },
+    {
+      "eventId": 82,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "07:15",
+      "timeRemaining": "12:45",
+      "situationCode": "1451",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 516,
+      "typeDescKey": "stoppage",
+      "sortOrder": 410,
+      "details": {
+        "reason": "puck-in-netting"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "12:45 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {}
+      }
+    },
+    {
+      "eventId": 181,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "07:15",
+      "timeRemaining": "12:45",
+      "situationCode": "1451",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 502,
+      "typeDescKey": "faceoff",
+      "sortOrder": 412,
+      "details": {
+        "eventOwnerTeamId": 1,
+        "losingPlayerId": 8484145,
+        "winningPlayerId": 8475287,
+        "xCoord": 69,
+        "yCoord": 22,
+        "zoneCode": "D",
+        "losingPlayerName": "Z. Benson (L, home)",
+        "winningPlayerName": "E. Haula (L, away)",
+        "spatialDescription": "behind the net near the right-wing boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "12:45 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8484145": {
+            "name": "Z. Benson",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 0,
+            "hits": 0,
+            "shotsOnGoal": 2,
+            "blockedShots": 1,
+            "giveaways": 1,
+            "takeaways": 0,
+            "faceoffWins": 0.0,
+            "timeOnIce": "17:23",
+            "powerPlayGoals": 0,
+            "shifts": 22
+          },
+          "8475287": {
+            "name": "E. Haula",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 2,
+            "hits": 3,
+            "shotsOnGoal": 0,
+            "blockedShots": 1,
+            "giveaways": 2,
+            "takeaways": 0,
+            "faceoffWins": 0.5,
+            "timeOnIce": "14:16",
+            "powerPlayGoals": 0,
+            "shifts": 23
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "Following a stoppage in play,  D. Cozens (C, home) won a faceoff at center ice against N. Hischier (C, away). Moments later, Cozens registered a shot on goal from the slot,  forcing a save from J. Markstrom (G, away).  A subsequent stoppage led to another faceoff behind the net near the right-wing boards, this time won by E. Haula (L, away) against Z. Benson (L, home).",
+  "activity_count": 5
+}

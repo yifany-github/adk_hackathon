@@ -1,0 +1,481 @@
+{
+  "game_id": "2024020001",
+  "game_time": "1:06:20",
+  "collected_at_utc": "2025-06-05T19:10:27.447773Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 1730555,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "06:02",
+      "timeRemaining": "13:58",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 503,
+      "typeDescKey": "hit",
+      "sortOrder": 106,
+      "details": {
+        "xCoord": -34,
+        "yCoord": -40,
+        "zoneCode": "D",
+        "eventOwnerTeamId": 1,
+        "hittingPlayerId": 8483429,
+        "hitteePlayerId": 8480802,
+        "hittingPlayerName": "S. Casey (D, away)",
+        "hitteePlayerName": "R. McLeod (C, home)",
+        "spatialDescription": "near the blue line along the boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "13:58 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8480802": {
+            "name": "R. McLeod",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -1,
+            "pim": 0,
+            "hits": 0,
+            "shotsOnGoal": 0,
+            "blockedShots": 0,
+            "giveaways": 0,
+            "takeaways": 1,
+            "faceoffWins": 0.666667,
+            "timeOnIce": "13:50",
+            "powerPlayGoals": 0,
+            "shifts": 19
+          }
+        }
+      }
+    },
+    {
+      "eventId": 239,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "06:07",
+      "timeRemaining": "13:53",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 507,
+      "typeDescKey": "missed-shot",
+      "sortOrder": 107,
+      "details": {
+        "xCoord": -92,
+        "yCoord": 26,
+        "zoneCode": "O",
+        "reason": "wide-right",
+        "shotType": "slap",
+        "shootingPlayerId": 8475722,
+        "goalieInNetId": 8474593,
+        "eventOwnerTeamId": 7,
+        "goalieInNetName": "J. Markstrom (G, away)",
+        "shootingPlayerName": "J. Zucker (L, home)",
+        "spatialDescription": "deep in the corner near the right-wing boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "13:53 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8474593": {
+            "name": "J. Markstrom",
+            "position": "N/A",
+            "team": "away",
+            "saves": "30",
+            "shotsAgainst": "31",
+            "goalsAgainst": 1,
+            "savePct": 0.967742,
+            "timeOnIce": "59:38",
+            "decision": "W",
+            "starter": true,
+            "evenStrengthSaves": "0/0",
+            "powerPlaySaves": "0/0",
+            "shortHandedSaves": "0/0"
+          },
+          "8475722": {
+            "name": "J. Zucker",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 0,
+            "hits": 0,
+            "shotsOnGoal": 2,
+            "blockedShots": 0,
+            "giveaways": 0,
+            "takeaways": 0,
+            "faceoffWins": 0.0,
+            "timeOnIce": "12:19",
+            "powerPlayGoals": 0,
+            "shifts": 15
+          }
+        }
+      }
+    },
+    {
+      "eventId": 240,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "06:12",
+      "timeRemaining": "13:48",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 508,
+      "typeDescKey": "blocked-shot",
+      "sortOrder": 108,
+      "details": {
+        "xCoord": -46,
+        "yCoord": -6,
+        "zoneCode": "D",
+        "blockingPlayerId": 8475287,
+        "shootingPlayerId": 8480035,
+        "eventOwnerTeamId": 7,
+        "reason": "blocked",
+        "blockingPlayerName": "E. Haula (L, away)",
+        "shootingPlayerName": "H. Jokiharju (D, home)",
+        "spatialDescription": "in the defensive zone"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "13:48 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8475287": {
+            "name": "E. Haula",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 2,
+            "hits": 3,
+            "shotsOnGoal": 0,
+            "blockedShots": 1,
+            "giveaways": 2,
+            "takeaways": 0,
+            "faceoffWins": 0.5,
+            "timeOnIce": "14:16",
+            "powerPlayGoals": 0,
+            "shifts": 23
+          }
+        }
+      }
+    },
+    {
+      "eventId": 61,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "06:14",
+      "timeRemaining": "13:46",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 516,
+      "typeDescKey": "stoppage",
+      "sortOrder": 109,
+      "details": {
+        "reason": "puck-in-crowd",
+        "secondaryReason": "tv-timeout"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "13:46 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {}
+      }
+    },
+    {
+      "eventId": 158,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "06:14",
+      "timeRemaining": "13:46",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 502,
+      "typeDescKey": "faceoff",
+      "sortOrder": 112,
+      "details": {
+        "eventOwnerTeamId": 7,
+        "losingPlayerId": 8477508,
+        "winningPlayerId": 8478043,
+        "xCoord": -69,
+        "yCoord": -22,
+        "zoneCode": "O",
+        "losingPlayerName": "C. Lazar (C, away)",
+        "winningPlayerName": "S. Lafferty (C, home)",
+        "spatialDescription": "behind the net near the left-wing boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "13:46 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8478043": {
+            "name": "S. Lafferty",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 0,
+            "hits": 1,
+            "shotsOnGoal": 0,
+            "blockedShots": 0,
+            "giveaways": 0,
+            "takeaways": 0,
+            "faceoffWins": 0.2,
+            "timeOnIce": "09:05",
+            "powerPlayGoals": 0,
+            "shifts": 14
+          },
+          "8477508": {
+            "name": "C. Lazar",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 1,
+            "pim": 2,
+            "hits": 3,
+            "shotsOnGoal": 0,
+            "blockedShots": 0,
+            "giveaways": 0,
+            "takeaways": 0,
+            "faceoffWins": 0.0,
+            "timeOnIce": "11:18",
+            "powerPlayGoals": 0,
+            "shifts": 20
+          }
+        }
+      }
+    },
+    {
+      "eventId": 1730569,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "06:18",
+      "timeRemaining": "13:42",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 503,
+      "typeDescKey": "hit",
+      "sortOrder": 113,
+      "details": {
+        "xCoord": -73,
+        "yCoord": 39,
+        "zoneCode": "O",
+        "eventOwnerTeamId": 7,
+        "hittingPlayerId": 8479359,
+        "hitteePlayerId": 8481032,
+        "hittingPlayerName": "B. Malenstyn (L, home)",
+        "hitteePlayerName": "P. Cotter (C, away)",
+        "spatialDescription": "behind the net along the boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "13:42 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8481032": {
+            "name": "P. Cotter",
+            "position": "N/A",
+            "team": "away",
+            "goals": 1,
+            "assists": 1,
+            "points": 2,
+            "plusMinus": 2,
+            "pim": 0,
+            "hits": 3,
+            "shotsOnGoal": 2,
+            "blockedShots": 2,
+            "giveaways": 0,
+            "takeaways": 0,
+            "faceoffWins": 1.0,
+            "timeOnIce": "10:13",
+            "powerPlayGoals": 0,
+            "shifts": 18
+          },
+          "8479359": {
+            "name": "B. Malenstyn",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 0,
+            "hits": 6,
+            "shotsOnGoal": 1,
+            "blockedShots": 1,
+            "giveaways": 0,
+            "takeaways": 0,
+            "faceoffWins": 0.0,
+            "timeOnIce": "06:55",
+            "powerPlayGoals": 0,
+            "shifts": 10
+          }
+        }
+      }
+    },
+    {
+      "eventId": 1730582,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "06:19",
+      "timeRemaining": "13:41",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 503,
+      "typeDescKey": "hit",
+      "sortOrder": 114,
+      "details": {
+        "xCoord": -95,
+        "yCoord": 17,
+        "zoneCode": "O",
+        "eventOwnerTeamId": 7,
+        "hittingPlayerId": 8477979,
+        "hitteePlayerId": 8478399,
+        "hittingPlayerName": "N. Aube-Kubel (R, home)",
+        "hitteePlayerName": "J. Siegenthaler (D, away)",
+        "spatialDescription": "deep in the corner near the right-wing boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "13:41 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8477979": {
+            "name": "N. Aube-Kubel",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 2,
+            "hits": 3,
+            "shotsOnGoal": 2,
+            "blockedShots": 0,
+            "giveaways": 0,
+            "takeaways": 0,
+            "faceoffWins": 0.0,
+            "timeOnIce": "05:45",
+            "powerPlayGoals": 0,
+            "shifts": 9
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "S. Casey (D, away) hit R. McLeod (C, home) near the blue line along the boards.  Moments later, J. Zucker (L, home) missed a shot deep in the corner near the right-wing boards, which was followed by a blocked shot by E. Haula (L, away) in the defensive zone on a shot from H. Jokiharju (D, home), resulting in a stoppage.  A subsequent faceoff behind the net near the left-wing boards was won by S. Lafferty (C, home) against C. Lazar (C, away),  and this was followed by hits by B. Malenstyn (L, home) on P. Cotter (C, away) behind the net and N. Aube-Kubel (R, home) on J. Siegenthaler (D, away) deep in the corner near the right-wing boards.",
+  "activity_count": 7
+}

@@ -1,0 +1,441 @@
+{
+  "game_id": "2024020001",
+  "game_time": "2:13:50",
+  "collected_at_utc": "2025-06-05T19:18:20.202952Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 1730994,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "13:20",
+      "timeRemaining": "06:40",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 507,
+      "typeDescKey": "missed-shot",
+      "sortOrder": 484,
+      "details": {
+        "xCoord": 28,
+        "yCoord": 31,
+        "zoneCode": "O",
+        "reason": "above-crossbar",
+        "shotType": "wrist",
+        "shootingPlayerId": 8480807,
+        "goalieInNetId": 8474593,
+        "eventOwnerTeamId": 7,
+        "goalieInNetName": "J. Markstrom (G, away)",
+        "shootingPlayerName": "M. Samuelsson (D, home)",
+        "spatialDescription": "near the blue line along the boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "06:40 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8474593": {
+            "name": "J. Markstrom",
+            "position": "N/A",
+            "team": "away",
+            "saves": "30",
+            "shotsAgainst": "31",
+            "goalsAgainst": 1,
+            "savePct": 0.967742,
+            "timeOnIce": "59:38",
+            "decision": "W",
+            "starter": true,
+            "evenStrengthSaves": "0/0",
+            "powerPlaySaves": "0/0",
+            "shortHandedSaves": "0/0"
+          }
+        }
+      }
+    },
+    {
+      "eventId": 1731039,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "13:23",
+      "timeRemaining": "06:37",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 503,
+      "typeDescKey": "hit",
+      "sortOrder": 485,
+      "details": {
+        "xCoord": 58,
+        "yCoord": -39,
+        "zoneCode": "D",
+        "eventOwnerTeamId": 1,
+        "hittingPlayerId": 8478414,
+        "hitteePlayerId": 8477365,
+        "hittingPlayerName": "T. Meier (R, away)",
+        "hitteePlayerName": "C. Clifton (D, home)",
+        "spatialDescription": "in the defensive zone along the boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "06:37 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8478414": {
+            "name": "T. Meier",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 0,
+            "hits": 5,
+            "shotsOnGoal": 2,
+            "blockedShots": 0,
+            "giveaways": 1,
+            "takeaways": 0,
+            "faceoffWins": 1.0,
+            "timeOnIce": "18:11",
+            "powerPlayGoals": 0,
+            "shifts": 21
+          }
+        }
+      }
+    },
+    {
+      "eventId": 1730995,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "13:29",
+      "timeRemaining": "06:31",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 508,
+      "typeDescKey": "blocked-shot",
+      "sortOrder": 486,
+      "details": {
+        "xCoord": 61,
+        "yCoord": 33,
+        "zoneCode": "D",
+        "blockingPlayerId": 8479407,
+        "shootingPlayerId": 8480807,
+        "eventOwnerTeamId": 7,
+        "reason": "blocked",
+        "blockingPlayerName": "J. Bratt (L, away)",
+        "shootingPlayerName": "M. Samuelsson (D, home)",
+        "spatialDescription": "behind the net along the boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "06:31 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8479407": {
+            "name": "J. Bratt",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 0,
+            "hits": 4,
+            "shotsOnGoal": 2,
+            "blockedShots": 1,
+            "giveaways": 0,
+            "takeaways": 0,
+            "faceoffWins": 0.0,
+            "timeOnIce": "17:27",
+            "powerPlayGoals": 0,
+            "shifts": 23
+          }
+        }
+      }
+    },
+    {
+      "eventId": 1730997,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "13:31",
+      "timeRemaining": "06:29",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 508,
+      "typeDescKey": "blocked-shot",
+      "sortOrder": 487,
+      "details": {
+        "xCoord": 81,
+        "yCoord": 5,
+        "zoneCode": "D",
+        "blockingPlayerId": 8478413,
+        "shootingPlayerId": 8480807,
+        "eventOwnerTeamId": 7,
+        "reason": "teammate-blocked",
+        "blockingPlayerName": "J. Greenway (L, home)",
+        "shootingPlayerName": "M. Samuelsson (D, home)",
+        "spatialDescription": "deep in the corner"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "06:29 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8478413": {
+            "name": "J. Greenway",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -2,
+            "pim": 0,
+            "hits": 3,
+            "shotsOnGoal": 2,
+            "blockedShots": 0,
+            "giveaways": 1,
+            "takeaways": 0,
+            "faceoffWins": 0.0,
+            "timeOnIce": "13:49",
+            "powerPlayGoals": 0,
+            "shifts": 19
+          }
+        }
+      }
+    },
+    {
+      "eventId": 86,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "13:40",
+      "timeRemaining": "06:20",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 516,
+      "typeDescKey": "stoppage",
+      "sortOrder": 488,
+      "details": {
+        "reason": "offside"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "06:20 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {}
+      }
+    },
+    {
+      "eventId": 186,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "13:40",
+      "timeRemaining": "06:20",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 502,
+      "typeDescKey": "faceoff",
+      "sortOrder": 491,
+      "details": {
+        "eventOwnerTeamId": 1,
+        "losingPlayerId": 8481528,
+        "winningPlayerId": 8480002,
+        "xCoord": 20,
+        "yCoord": 22,
+        "zoneCode": "N",
+        "losingPlayerName": "D. Cozens (C, home)",
+        "winningPlayerName": "N. Hischier (C, away)",
+        "spatialDescription": "near the blue line near the right-wing boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "06:20 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8481528": {
+            "name": "D. Cozens",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -1,
+            "pim": 0,
+            "hits": 1,
+            "shotsOnGoal": 7,
+            "blockedShots": 0,
+            "giveaways": 1,
+            "takeaways": 1,
+            "faceoffWins": 0.6875,
+            "timeOnIce": "18:57",
+            "powerPlayGoals": 0,
+            "shifts": 26
+          },
+          "8480002": {
+            "name": "N. Hischier",
+            "position": "N/A",
+            "team": "away",
+            "goals": 1,
+            "assists": 0,
+            "points": 1,
+            "plusMinus": 2,
+            "pim": 0,
+            "hits": 0,
+            "shotsOnGoal": 4,
+            "blockedShots": 1,
+            "giveaways": 0,
+            "takeaways": 0,
+            "faceoffWins": 0.535714,
+            "timeOnIce": "18:15",
+            "powerPlayGoals": 0,
+            "shifts": 27
+          }
+        }
+      }
+    },
+    {
+      "eventId": 1731015,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "13:46",
+      "timeRemaining": "06:14",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 525,
+      "typeDescKey": "takeaway",
+      "sortOrder": 492,
+      "details": {
+        "xCoord": 47,
+        "yCoord": -14,
+        "zoneCode": "O",
+        "playerId": 8481528,
+        "eventOwnerTeamId": 7,
+        "playerName": "D. Cozens (C, home)",
+        "spatialDescription": "in the slot"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "06:14 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8481528": {
+            "name": "D. Cozens",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -1,
+            "pim": 0,
+            "hits": 1,
+            "shotsOnGoal": 7,
+            "blockedShots": 0,
+            "giveaways": 1,
+            "takeaways": 1,
+            "faceoffWins": 0.6875,
+            "timeOnIce": "18:57",
+            "powerPlayGoals": 0,
+            "shifts": 26
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "With 6:50 remaining in the period,  M. Samuelsson (D, home) had a missed shot near the blue line along the boards, followed by a hit by T. Meier (R, away) on C. Clifton (D, home) in the defensive zone.  Moments later, Samuelsson had two shots blocked, first by J. Bratt (L, away) behind the net and then by J. Greenway (L, home) deep in the corner.  A stoppage in play at 13:40 led to a faceoff won by N. Hischier (C, away) against D. Cozens (C, home) near the right-wing boards;  seconds later, Cozens registered a takeaway in the slot.",
+  "activity_count": 7
+}

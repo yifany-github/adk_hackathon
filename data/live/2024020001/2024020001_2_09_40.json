@@ -1,0 +1,233 @@
+{
+  "game_id": "2024020001",
+  "game_time": "2:09:40",
+  "collected_at_utc": "2025-06-05T19:17:08.655417Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 1730964,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "09:27",
+      "timeRemaining": "10:33",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 504,
+      "typeDescKey": "giveaway",
+      "sortOrder": 432,
+      "details": {
+        "xCoord": -76,
+        "yCoord": 14,
+        "zoneCode": "D",
+        "eventOwnerTeamId": 7,
+        "playerId": 8477949,
+        "playerName": "A. Tuch (R, home)",
+        "spatialDescription": "behind the net"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "10:33 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8477949": {
+            "name": "A. Tuch",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -2,
+            "pim": 0,
+            "hits": 4,
+            "shotsOnGoal": 2,
+            "blockedShots": 1,
+            "giveaways": 2,
+            "takeaways": 0,
+            "faceoffWins": 0.363636,
+            "timeOnIce": "22:31",
+            "powerPlayGoals": 0,
+            "shifts": 29
+          }
+        }
+      }
+    },
+    {
+      "eventId": 1730952,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "09:28",
+      "timeRemaining": "10:32",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 507,
+      "typeDescKey": "missed-shot",
+      "sortOrder": 433,
+      "details": {
+        "xCoord": -78,
+        "yCoord": 0,
+        "zoneCode": "O",
+        "reason": "above-crossbar",
+        "shotType": "tip-in",
+        "shootingPlayerId": 8479407,
+        "goalieInNetId": 8480045,
+        "eventOwnerTeamId": 1,
+        "goalieInNetName": "U. Luukkonen (G, home)",
+        "shootingPlayerName": "J. Bratt (L, away)",
+        "spatialDescription": "behind the net"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "10:32 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8480045": {
+            "name": "U. Luukkonen",
+            "position": "N/A",
+            "team": "home",
+            "saves": "19",
+            "shotsAgainst": "22",
+            "goalsAgainst": 3,
+            "savePct": 0.863636,
+            "timeOnIce": "59:05",
+            "decision": "L",
+            "starter": true,
+            "evenStrengthSaves": "0/0",
+            "powerPlaySaves": "0/0",
+            "shortHandedSaves": "0/0"
+          },
+          "8479407": {
+            "name": "J. Bratt",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 0,
+            "hits": 4,
+            "shotsOnGoal": 2,
+            "blockedShots": 1,
+            "giveaways": 0,
+            "takeaways": 0,
+            "faceoffWins": 0.0,
+            "timeOnIce": "17:27",
+            "powerPlayGoals": 0,
+            "shifts": 23
+          }
+        }
+      }
+    },
+    {
+      "eventId": 1730953,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "09:38",
+      "timeRemaining": "10:22",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 506,
+      "typeDescKey": "shot-on-goal",
+      "sortOrder": 434,
+      "details": {
+        "xCoord": -57,
+        "yCoord": 27,
+        "zoneCode": "O",
+        "shotType": "slap",
+        "shootingPlayerId": 8481559,
+        "goalieInNetId": 8480045,
+        "eventOwnerTeamId": 1,
+        "awaySOG": 14,
+        "homeSOG": 15,
+        "goalieInNetName": "U. Luukkonen (G, home)",
+        "shootingPlayerName": "J. Hughes (C, away)",
+        "spatialDescription": "from the point near the right-wing boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "10:22 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8480045": {
+            "name": "U. Luukkonen",
+            "position": "N/A",
+            "team": "home",
+            "saves": "19",
+            "shotsAgainst": "22",
+            "goalsAgainst": 3,
+            "savePct": 0.863636,
+            "timeOnIce": "59:05",
+            "decision": "L",
+            "starter": true,
+            "evenStrengthSaves": "0/0",
+            "powerPlaySaves": "0/0",
+            "shortHandedSaves": "0/0"
+          },
+          "8481559": {
+            "name": "J. Hughes",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 0,
+            "hits": 0,
+            "shotsOnGoal": 2,
+            "blockedShots": 1,
+            "giveaways": 1,
+            "takeaways": 0,
+            "faceoffWins": 0.1,
+            "timeOnIce": "18:35",
+            "powerPlayGoals": 0,
+            "shifts": 21
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "With just under ten minutes remaining in the period,  A. Tuch (R, home) committed a giveaway behind the net. Moments later, J. Bratt (L, away) missed a shot on net from behind the net, and subsequently, J. Hughes (C, away) registered a shot on goal from the point near the right-wing boards.",
+  "activity_count": 3
+}

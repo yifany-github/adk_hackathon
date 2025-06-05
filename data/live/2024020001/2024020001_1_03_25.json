@@ -1,0 +1,161 @@
+{
+  "game_id": "2024020001",
+  "game_time": "1:03:25",
+  "collected_at_utc": "2025-06-05T19:09:39.213359Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 243,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "03:02",
+      "timeRemaining": "16:58",
+      "situationCode": "1451",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 504,
+      "typeDescKey": "giveaway",
+      "sortOrder": 63,
+      "details": {
+        "xCoord": -10,
+        "yCoord": 12,
+        "zoneCode": "N",
+        "eventOwnerTeamId": 7,
+        "playerId": 8481528,
+        "playerName": "D. Cozens (C, home)",
+        "spatialDescription": "near the blue line"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "16:58 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD"
+          },
+          "home": {
+            "teamName": "BUF"
+          }
+        },
+        "playerStats": {
+          "8481528": {
+            "name": "D. Cozens",
+            "position": "N/A",
+            "team": "home"
+          }
+        }
+      }
+    },
+    {
+      "eventId": 156,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "03:19",
+      "timeRemaining": "16:41",
+      "situationCode": "1451",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 507,
+      "typeDescKey": "missed-shot",
+      "sortOrder": 67,
+      "details": {
+        "xCoord": 79,
+        "yCoord": 2,
+        "zoneCode": "O",
+        "reason": "wide-left",
+        "shotType": "wrist",
+        "shootingPlayerId": 8480002,
+        "goalieInNetId": 8480045,
+        "eventOwnerTeamId": 1,
+        "goalieInNetName": "U. Luukkonen (G, home)",
+        "shootingPlayerName": "N. Hischier (C, away)",
+        "spatialDescription": "behind the net"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "16:41 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD"
+          },
+          "home": {
+            "teamName": "BUF"
+          }
+        },
+        "playerStats": {
+          "8480002": {
+            "name": "N. Hischier",
+            "position": "N/A",
+            "team": "away"
+          },
+          "8480045": {
+            "name": "U. Luukkonen",
+            "position": "N/A",
+            "team": "home",
+            "starter": true
+          }
+        }
+      }
+    },
+    {
+      "eventId": 301,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "03:20",
+      "timeRemaining": "16:40",
+      "situationCode": "1451",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 506,
+      "typeDescKey": "shot-on-goal",
+      "sortOrder": 68,
+      "details": {
+        "xCoord": 96,
+        "yCoord": 11,
+        "zoneCode": "O",
+        "shotType": "wrist",
+        "shootingPlayerId": 8480002,
+        "goalieInNetId": 8480045,
+        "eventOwnerTeamId": 1,
+        "awaySOG": 3,
+        "homeSOG": 1,
+        "goalieInNetName": "U. Luukkonen (G, home)",
+        "shootingPlayerName": "N. Hischier (C, away)",
+        "spatialDescription": "deep in the corner"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "16:40 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD"
+          },
+          "home": {
+            "teamName": "BUF"
+          }
+        },
+        "playerStats": {
+          "8480002": {
+            "name": "N. Hischier",
+            "position": "N/A",
+            "team": "away"
+          },
+          "8480045": {
+            "name": "U. Luukkonen",
+            "position": "N/A",
+            "team": "home",
+            "starter": true
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "At 3:19, Nico Hischier (C, away) missed a shot from behind the net.  Moments later, Hischier registered a shot on goal from deep in the corner, but it was unsuccessful.  Earlier, at 3:02,  D. Cozens (C, home) committed a giveaway near the blue line.",
+  "activity_count": 3
+}

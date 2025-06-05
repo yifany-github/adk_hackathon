@@ -1,0 +1,333 @@
+{
+  "game_id": "2024020001",
+  "game_time": "1:19:50",
+  "collected_at_utc": "2025-06-05T19:14:21.719881Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 1730728,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "19:31",
+      "timeRemaining": "00:29",
+      "situationCode": "1541",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 507,
+      "typeDescKey": "missed-shot",
+      "sortOrder": 302,
+      "details": {
+        "xCoord": 51,
+        "yCoord": 27,
+        "zoneCode": "O",
+        "reason": "wide-left",
+        "shotType": "wrist",
+        "shootingPlayerId": 8482110,
+        "goalieInNetId": 8480045,
+        "eventOwnerTeamId": 1,
+        "goalieInNetName": "U. Luukkonen (G, home)",
+        "shootingPlayerName": "D. Mercer (C, away)",
+        "spatialDescription": "from the point near the right-wing boards"
+      },
+      "timeRemainingFormatted": "29s remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8480045": {
+            "name": "U. Luukkonen",
+            "position": "N/A",
+            "team": "home",
+            "saves": "19",
+            "shotsAgainst": "22",
+            "goalsAgainst": 3,
+            "savePct": 0.863636,
+            "timeOnIce": "59:05",
+            "decision": "L",
+            "starter": true,
+            "evenStrengthSaves": "0/0",
+            "powerPlaySaves": "0/0",
+            "shortHandedSaves": "0/0"
+          },
+          "8482110": {
+            "name": "D. Mercer",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 1,
+            "points": 1,
+            "plusMinus": 1,
+            "pim": 0,
+            "hits": 0,
+            "shotsOnGoal": 0,
+            "blockedShots": 0,
+            "giveaways": 4,
+            "takeaways": 1,
+            "faceoffWins": 1.0,
+            "timeOnIce": "17:17",
+            "powerPlayGoals": 0,
+            "shifts": 25
+          }
+        }
+      }
+    },
+    {
+      "eventId": 1730735,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "19:33",
+      "timeRemaining": "00:27",
+      "situationCode": "1541",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 504,
+      "typeDescKey": "giveaway",
+      "sortOrder": 303,
+      "details": {
+        "xCoord": 55,
+        "yCoord": 25,
+        "zoneCode": "D",
+        "eventOwnerTeamId": 1,
+        "playerId": 8482110,
+        "playerName": "D. Mercer (C, away)",
+        "spatialDescription": "in the defensive zone near the right-wing boards"
+      },
+      "timeRemainingFormatted": "27s remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8482110": {
+            "name": "D. Mercer",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 1,
+            "points": 1,
+            "plusMinus": 1,
+            "pim": 0,
+            "hits": 0,
+            "shotsOnGoal": 0,
+            "blockedShots": 0,
+            "giveaways": 4,
+            "takeaways": 1,
+            "faceoffWins": 1.0,
+            "timeOnIce": "17:17",
+            "powerPlayGoals": 0,
+            "shifts": 25
+          }
+        }
+      }
+    },
+    {
+      "eventId": 1730742,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "19:35",
+      "timeRemaining": "00:25",
+      "situationCode": "1541",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 503,
+      "typeDescKey": "hit",
+      "sortOrder": 304,
+      "details": {
+        "xCoord": 93,
+        "yCoord": -25,
+        "zoneCode": "O",
+        "eventOwnerTeamId": 1,
+        "hittingPlayerId": 8477508,
+        "hitteePlayerId": 8482671,
+        "hittingPlayerName": "C. Lazar (C, away)",
+        "hitteePlayerName": "O. Power (D, home)",
+        "spatialDescription": "deep in the corner near the left-wing boards"
+      },
+      "timeRemainingFormatted": "25s remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8477508": {
+            "name": "C. Lazar",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 1,
+            "pim": 2,
+            "hits": 3,
+            "shotsOnGoal": 0,
+            "blockedShots": 0,
+            "giveaways": 0,
+            "takeaways": 0,
+            "faceoffWins": 0.0,
+            "timeOnIce": "11:18",
+            "powerPlayGoals": 0,
+            "shifts": 20
+          }
+        }
+      }
+    },
+    {
+      "eventId": 1730736,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "19:35",
+      "timeRemaining": "00:25",
+      "situationCode": "1541",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 504,
+      "typeDescKey": "giveaway",
+      "sortOrder": 305,
+      "details": {
+        "xCoord": 57,
+        "yCoord": -37,
+        "zoneCode": "D",
+        "eventOwnerTeamId": 1,
+        "playerId": 8482110,
+        "playerName": "D. Mercer (C, away)",
+        "spatialDescription": "in the defensive zone along the boards"
+      },
+      "timeRemainingFormatted": "25s remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8482110": {
+            "name": "D. Mercer",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 1,
+            "points": 1,
+            "plusMinus": 1,
+            "pim": 0,
+            "hits": 0,
+            "shotsOnGoal": 0,
+            "blockedShots": 0,
+            "giveaways": 4,
+            "takeaways": 1,
+            "faceoffWins": 1.0,
+            "timeOnIce": "17:17",
+            "powerPlayGoals": 0,
+            "shifts": 25
+          }
+        }
+      }
+    },
+    {
+      "eventId": 1730731,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "19:44",
+      "timeRemaining": "00:16",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 507,
+      "typeDescKey": "missed-shot",
+      "sortOrder": 307,
+      "details": {
+        "xCoord": -51,
+        "yCoord": -25,
+        "zoneCode": "O",
+        "reason": "wide-right",
+        "shotType": "wrist",
+        "shootingPlayerId": 8482671,
+        "goalieInNetId": 8474593,
+        "eventOwnerTeamId": 7,
+        "goalieInNetName": "J. Markstrom (G, away)",
+        "shootingPlayerName": "O. Power (D, home)",
+        "spatialDescription": "from the point near the left-wing boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "16s remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8474593": {
+            "name": "J. Markstrom",
+            "position": "N/A",
+            "team": "away",
+            "saves": "30",
+            "shotsAgainst": "31",
+            "goalsAgainst": 1,
+            "savePct": 0.967742,
+            "timeOnIce": "59:38",
+            "decision": "W",
+            "starter": true,
+            "evenStrengthSaves": "0/0",
+            "powerPlaySaves": "0/0",
+            "shortHandedSaves": "0/0"
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "With 1:19 remaining in the period,  D. Mercer (C, away) had a missed shot from the point near the right-wing boards, followed by two giveaways in the defensive zone near the boards.  Moments later, C. Lazar (C, away) delivered a hit on O. Power (D, home) deep in the corner near the left-wing boards.  Finally, O. Power (D, home) registered a missed shot from the point near the left-wing boards at even strength.",
+  "activity_count": 5
+}

@@ -1,0 +1,317 @@
+{
+  "game_id": "2024020001",
+  "game_time": "1:07:50",
+  "collected_at_utc": "2025-06-05T19:10:56.171421Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 62,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "07:21",
+      "timeRemaining": "12:39",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 516,
+      "typeDescKey": "stoppage",
+      "sortOrder": 126,
+      "details": {
+        "reason": "puck-in-netting"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "12:39 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {}
+      }
+    },
+    {
+      "eventId": 159,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "07:21",
+      "timeRemaining": "12:39",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 502,
+      "typeDescKey": "faceoff",
+      "sortOrder": 129,
+      "details": {
+        "eventOwnerTeamId": 7,
+        "losingPlayerId": 8480002,
+        "winningPlayerId": 8481528,
+        "xCoord": -69,
+        "yCoord": 22,
+        "zoneCode": "O",
+        "losingPlayerName": "N. Hischier (C, away)",
+        "winningPlayerName": "D. Cozens (C, home)",
+        "spatialDescription": "behind the net near the right-wing boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "12:39 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8481528": {
+            "name": "D. Cozens",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -1,
+            "pim": 0,
+            "hits": 1,
+            "shotsOnGoal": 7,
+            "blockedShots": 0,
+            "giveaways": 1,
+            "takeaways": 1,
+            "faceoffWins": 0.6875,
+            "timeOnIce": "18:57",
+            "powerPlayGoals": 0,
+            "shifts": 26
+          },
+          "8480002": {
+            "name": "N. Hischier",
+            "position": "N/A",
+            "team": "away",
+            "goals": 1,
+            "assists": 0,
+            "points": 1,
+            "plusMinus": 2,
+            "pim": 0,
+            "hits": 0,
+            "shotsOnGoal": 4,
+            "blockedShots": 1,
+            "giveaways": 0,
+            "takeaways": 0,
+            "faceoffWins": 0.535714,
+            "timeOnIce": "18:15",
+            "powerPlayGoals": 0,
+            "shifts": 27
+          }
+        }
+      }
+    },
+    {
+      "eventId": 1730613,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "07:35",
+      "timeRemaining": "12:25",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 503,
+      "typeDescKey": "hit",
+      "sortOrder": 130,
+      "details": {
+        "xCoord": -94,
+        "yCoord": -29,
+        "zoneCode": "O",
+        "eventOwnerTeamId": 7,
+        "hittingPlayerId": 8481528,
+        "hitteePlayerId": 8483429,
+        "hittingPlayerName": "D. Cozens (C, home)",
+        "hitteePlayerName": "S. Casey (D, away)",
+        "spatialDescription": "deep in the corner near the left-wing boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "12:25 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8481528": {
+            "name": "D. Cozens",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -1,
+            "pim": 0,
+            "hits": 1,
+            "shotsOnGoal": 7,
+            "blockedShots": 0,
+            "giveaways": 1,
+            "takeaways": 1,
+            "faceoffWins": 0.6875,
+            "timeOnIce": "18:57",
+            "powerPlayGoals": 0,
+            "shifts": 26
+          }
+        }
+      }
+    },
+    {
+      "eventId": 1731722,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "07:46",
+      "timeRemaining": "12:14",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 503,
+      "typeDescKey": "hit",
+      "sortOrder": 131,
+      "details": {
+        "xCoord": 98,
+        "yCoord": -11,
+        "zoneCode": "D",
+        "eventOwnerTeamId": 7,
+        "hittingPlayerId": 8481524,
+        "hitteePlayerId": 8480002,
+        "hittingPlayerName": "B. Byram (D, home)",
+        "hitteePlayerName": "N. Hischier (C, away)",
+        "spatialDescription": "deep in the corner"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "12:14 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8480002": {
+            "name": "N. Hischier",
+            "position": "N/A",
+            "team": "away",
+            "goals": 1,
+            "assists": 0,
+            "points": 1,
+            "plusMinus": 2,
+            "pim": 0,
+            "hits": 0,
+            "shotsOnGoal": 4,
+            "blockedShots": 1,
+            "giveaways": 0,
+            "takeaways": 0,
+            "faceoffWins": 0.535714,
+            "timeOnIce": "18:15",
+            "powerPlayGoals": 0,
+            "shifts": 27
+          }
+        }
+      }
+    },
+    {
+      "eventId": 1730619,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "07:50",
+      "timeRemaining": "12:10",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 503,
+      "typeDescKey": "hit",
+      "sortOrder": 132,
+      "details": {
+        "xCoord": 97,
+        "yCoord": -7,
+        "zoneCode": "D",
+        "eventOwnerTeamId": 7,
+        "hittingPlayerId": 8482671,
+        "hitteePlayerId": 8480002,
+        "hittingPlayerName": "O. Power (D, home)",
+        "hitteePlayerName": "N. Hischier (C, away)",
+        "spatialDescription": "deep in the corner"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "12:10 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8480002": {
+            "name": "N. Hischier",
+            "position": "N/A",
+            "team": "away",
+            "goals": 1,
+            "assists": 0,
+            "points": 1,
+            "plusMinus": 2,
+            "pim": 0,
+            "hits": 0,
+            "shotsOnGoal": 4,
+            "blockedShots": 1,
+            "giveaways": 0,
+            "takeaways": 0,
+            "faceoffWins": 0.535714,
+            "timeOnIce": "18:15",
+            "powerPlayGoals": 0,
+            "shifts": 27
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "Following a stoppage,  D. Cozens (C, home) wins a faceoff against N. Hischier (C, away) behind the net near the right-wing boards.  Moments later,  D. Cozens delivers a hit on S. Casey (D, away) deep in the corner near the left-wing boards, followed by hits from B. Byram (D, home) and O. Power (D, home) on N. Hischier deep in the corner.",
+  "activity_count": 5
+}

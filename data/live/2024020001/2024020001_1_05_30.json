@@ -1,0 +1,185 @@
+{
+  "game_id": "2024020001",
+  "game_time": "1:05:30",
+  "collected_at_utc": "2025-06-05T19:10:14.749581Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 246,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "05:00",
+      "timeRemaining": "15:00",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 504,
+      "typeDescKey": "giveaway",
+      "sortOrder": 95,
+      "details": {
+        "xCoord": -97,
+        "yCoord": 4,
+        "zoneCode": "D",
+        "eventOwnerTeamId": 1,
+        "playerId": 8474593,
+        "playerName": "J. Markstrom (G, away)",
+        "spatialDescription": "deep in the corner"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "15:00 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8474593": {
+            "name": "J. Markstrom",
+            "position": "N/A",
+            "team": "away",
+            "saves": "30",
+            "shotsAgainst": "31",
+            "goalsAgainst": 1,
+            "savePct": 0.967742,
+            "timeOnIce": "59:38",
+            "decision": "W",
+            "starter": true,
+            "evenStrengthSaves": "0/0",
+            "powerPlaySaves": "0/0",
+            "shortHandedSaves": "0/0"
+          }
+        }
+      }
+    },
+    {
+      "eventId": 60,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "05:09",
+      "timeRemaining": "14:51",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 516,
+      "typeDescKey": "stoppage",
+      "sortOrder": 96,
+      "details": {
+        "reason": "offside"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "14:51 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {}
+      }
+    },
+    {
+      "eventId": 157,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "05:09",
+      "timeRemaining": "14:51",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 502,
+      "typeDescKey": "faceoff",
+      "sortOrder": 99,
+      "details": {
+        "eventOwnerTeamId": 7,
+        "losingPlayerId": 8480002,
+        "winningPlayerId": 8481528,
+        "xCoord": -20,
+        "yCoord": -22,
+        "zoneCode": "N",
+        "losingPlayerName": "N. Hischier (C, away)",
+        "winningPlayerName": "D. Cozens (C, home)",
+        "spatialDescription": "near the blue line near the left-wing boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "14:51 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8481528": {
+            "name": "D. Cozens",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -1,
+            "pim": 0,
+            "hits": 1,
+            "shotsOnGoal": 7,
+            "blockedShots": 0,
+            "giveaways": 1,
+            "takeaways": 1,
+            "faceoffWins": 0.6875,
+            "timeOnIce": "18:57",
+            "powerPlayGoals": 0,
+            "shifts": 26
+          },
+          "8480002": {
+            "name": "N. Hischier",
+            "position": "N/A",
+            "team": "away",
+            "goals": 1,
+            "assists": 0,
+            "points": 1,
+            "plusMinus": 2,
+            "pim": 0,
+            "hits": 0,
+            "shotsOnGoal": 4,
+            "blockedShots": 1,
+            "giveaways": 0,
+            "takeaways": 0,
+            "faceoffWins": 0.535714,
+            "timeOnIce": "18:15",
+            "powerPlayGoals": 0,
+            "shifts": 27
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "At the 5:00 mark, J. Markstrom (away team goalie) committed a giveaway deep in the corner during even strength play.  A stoppage in play followed at 5:09, leading to a faceoff near the blue line by the left-wing boards, won by D. Cozens (home team center) against N. Hischier (away team center).",
+  "activity_count": 3
+}

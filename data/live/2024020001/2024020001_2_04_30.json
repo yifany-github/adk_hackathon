@@ -1,0 +1,218 @@
+{
+  "game_id": "2024020001",
+  "game_time": "2:04:30",
+  "collected_at_utc": "2025-06-05T19:15:38.642234Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 1730891,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "04:13",
+      "timeRemaining": "15:47",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 507,
+      "typeDescKey": "missed-shot",
+      "sortOrder": 369,
+      "details": {
+        "xCoord": -77,
+        "yCoord": -12,
+        "zoneCode": "O",
+        "reason": "wide-left",
+        "shotType": "tip-in",
+        "shootingPlayerId": 8482110,
+        "goalieInNetId": 8480045,
+        "eventOwnerTeamId": 1,
+        "goalieInNetName": "U. Luukkonen (G, home)",
+        "shootingPlayerName": "D. Mercer (C, away)",
+        "spatialDescription": "behind the net"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "15:47 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8480045": {
+            "name": "U. Luukkonen",
+            "position": "N/A",
+            "team": "home",
+            "saves": "19",
+            "shotsAgainst": "22",
+            "goalsAgainst": 3,
+            "savePct": 0.863636,
+            "timeOnIce": "59:05",
+            "decision": "L",
+            "starter": true,
+            "evenStrengthSaves": "0/0",
+            "powerPlaySaves": "0/0",
+            "shortHandedSaves": "0/0"
+          },
+          "8482110": {
+            "name": "D. Mercer",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 1,
+            "points": 1,
+            "plusMinus": 1,
+            "pim": 0,
+            "hits": 0,
+            "shotsOnGoal": 0,
+            "blockedShots": 0,
+            "giveaways": 4,
+            "takeaways": 1,
+            "faceoffWins": 1.0,
+            "timeOnIce": "17:17",
+            "powerPlayGoals": 0,
+            "shifts": 25
+          }
+        }
+      }
+    },
+    {
+      "eventId": 1730895,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "04:19",
+      "timeRemaining": "15:41",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 508,
+      "typeDescKey": "blocked-shot",
+      "sortOrder": 371,
+      "details": {
+        "xCoord": -62,
+        "yCoord": 12,
+        "zoneCode": "D",
+        "blockingPlayerId": 8484145,
+        "shootingPlayerId": 8483495,
+        "eventOwnerTeamId": 1,
+        "reason": "blocked",
+        "blockingPlayerName": "Z. Benson (L, home)",
+        "shootingPlayerName": "S. Nemec (D, away)",
+        "spatialDescription": "behind the net"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "15:41 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8484145": {
+            "name": "Z. Benson",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 0,
+            "hits": 0,
+            "shotsOnGoal": 2,
+            "blockedShots": 1,
+            "giveaways": 1,
+            "takeaways": 0,
+            "faceoffWins": 0.0,
+            "timeOnIce": "17:23",
+            "powerPlayGoals": 0,
+            "shifts": 22
+          }
+        }
+      }
+    },
+    {
+      "eventId": 1730932,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "04:28",
+      "timeRemaining": "15:32",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 503,
+      "typeDescKey": "hit",
+      "sortOrder": 373,
+      "details": {
+        "xCoord": -95,
+        "yCoord": -26,
+        "zoneCode": "O",
+        "eventOwnerTeamId": 1,
+        "hittingPlayerId": 8479407,
+        "hitteePlayerId": 8481524,
+        "hittingPlayerName": "J. Bratt (L, away)",
+        "hitteePlayerName": "B. Byram (D, home)",
+        "spatialDescription": "deep in the corner near the left-wing boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "15:32 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8479407": {
+            "name": "J. Bratt",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 0,
+            "hits": 4,
+            "shotsOnGoal": 2,
+            "blockedShots": 1,
+            "giveaways": 0,
+            "takeaways": 0,
+            "faceoffWins": 0.0,
+            "timeOnIce": "17:27",
+            "powerPlayGoals": 0,
+            "shifts": 23
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "With four minutes remaining in the period, D. Mercer (C, away) missed a shot from behind the net.  Moments later, Z. Benson (L, home) blocked a shot by S. Nemec (D, away), also from behind the net, before J. Bratt (L, away) hit B. Byram (D, home) deep in the corner near the left-wing boards.",
+  "activity_count": 3
+}

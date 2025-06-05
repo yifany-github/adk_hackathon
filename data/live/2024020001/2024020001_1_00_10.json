@@ -1,0 +1,192 @@
+{
+  "game_id": "2024020001",
+  "game_time": "1:00:10",
+  "collected_at_utc": "2025-06-05T19:08:41.836493Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 152,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "00:00",
+      "timeRemaining": "20:00",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 520,
+      "typeDescKey": "period-start",
+      "sortOrder": 10,
+      "details": {},
+      "gameSituation": "even strength",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD"
+          },
+          "home": {
+            "teamName": "BUF"
+          }
+        },
+        "playerStats": {}
+      }
+    },
+    {
+      "eventId": 151,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "00:00",
+      "timeRemaining": "20:00",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 502,
+      "typeDescKey": "faceoff",
+      "sortOrder": 11,
+      "details": {
+        "eventOwnerTeamId": 1,
+        "losingPlayerId": 8478043,
+        "winningPlayerId": 8480002,
+        "xCoord": 0,
+        "yCoord": 0,
+        "zoneCode": "N",
+        "losingPlayerName": "S. Lafferty (C, home)",
+        "winningPlayerName": "N. Hischier (C, away)",
+        "spatialDescription": "at center ice"
+      },
+      "gameSituation": "even strength",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD"
+          },
+          "home": {
+            "teamName": "BUF"
+          }
+        },
+        "playerStats": {
+          "8480002": {
+            "name": "N. Hischier",
+            "position": "N/A",
+            "team": "away"
+          },
+          "8478043": {
+            "name": "S. Lafferty",
+            "position": "N/A",
+            "team": "home"
+          }
+        }
+      }
+    },
+    {
+      "eventId": 147,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "00:05",
+      "timeRemaining": "19:55",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 503,
+      "typeDescKey": "hit",
+      "sortOrder": 12,
+      "details": {
+        "xCoord": 68,
+        "yCoord": -40,
+        "zoneCode": "D",
+        "eventOwnerTeamId": 7,
+        "hittingPlayerId": 8479359,
+        "hitteePlayerId": 8475193,
+        "hittingPlayerName": "B. Malenstyn (L, home)",
+        "hitteePlayerName": "T. Tatar (L, away)",
+        "spatialDescription": "behind the net along the boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "19:55 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD"
+          },
+          "home": {
+            "teamName": "BUF"
+          }
+        },
+        "playerStats": {
+          "8475193": {
+            "name": "T. Tatar",
+            "position": "N/A",
+            "team": "away"
+          },
+          "8479359": {
+            "name": "B. Malenstyn",
+            "position": "N/A",
+            "team": "home"
+          }
+        }
+      }
+    },
+    {
+      "eventId": 103,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "00:08",
+      "timeRemaining": "19:52",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 506,
+      "typeDescKey": "shot-on-goal",
+      "sortOrder": 13,
+      "details": {
+        "xCoord": 56,
+        "yCoord": -39,
+        "zoneCode": "O",
+        "shotType": "wrist",
+        "shootingPlayerId": 8483495,
+        "goalieInNetId": 8480045,
+        "eventOwnerTeamId": 1,
+        "awaySOG": 1,
+        "homeSOG": 0,
+        "goalieInNetName": "U. Luukkonen (G, home)",
+        "shootingPlayerName": "S. Nemec (D, away)",
+        "spatialDescription": "from the point along the boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "19:52 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD"
+          },
+          "home": {
+            "teamName": "BUF"
+          }
+        },
+        "playerStats": {
+          "8480045": {
+            "name": "U. Luukkonen",
+            "position": "N/A",
+            "team": "home",
+            "starter": true
+          },
+          "8483495": {
+            "name": "S. Nemec",
+            "position": "D",
+            "team": "away"
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "The period started with Nico Hischier winning the faceoff at center ice against Sam Lafferty.  Moments later,  Brett Malenstyn hit  Timo Tatar behind the net along the boards; shortly after,  Šimon Nemec registered a shot on goal from the point.",
+  "activity_count": 4
+}

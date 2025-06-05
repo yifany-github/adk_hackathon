@@ -1,0 +1,74 @@
+{
+  "game_id": "2024020001",
+  "game_time": "1:13:25",
+  "collected_at_utc": "2025-06-05T19:12:29.576196Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 1730737,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "13:04",
+      "timeRemaining": "06:56",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 503,
+      "typeDescKey": "hit",
+      "sortOrder": 207,
+      "details": {
+        "xCoord": -83,
+        "yCoord": 37,
+        "zoneCode": "D",
+        "eventOwnerTeamId": 1,
+        "hittingPlayerId": 8483429,
+        "hitteePlayerId": 8477979,
+        "hittingPlayerName": "S. Casey (D, away)",
+        "hitteePlayerName": "N. Aube-Kubel (R, home)",
+        "spatialDescription": "deep in the corner along the boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "06:56 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8477979": {
+            "name": "N. Aube-Kubel",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 2,
+            "hits": 3,
+            "shotsOnGoal": 2,
+            "blockedShots": 0,
+            "giveaways": 0,
+            "takeaways": 0,
+            "faceoffWins": 0.0,
+            "timeOnIce": "05:45",
+            "powerPlayGoals": 0,
+            "shifts": 9
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "S. Casey (away team defenseman) delivers a hit on N. Aube-Kubel (home team right wing) deep in the corner along the boards during even-strength play.",
+  "activity_count": 1
+}

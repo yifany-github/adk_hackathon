@@ -1,0 +1,61 @@
+{
+  "game_id": "2024020001",
+  "game_time": "1:02:45",
+  "collected_at_utc": "2025-06-05T19:09:30.102288Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 278,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "02:18",
+      "timeRemaining": "17:42",
+      "situationCode": "1451",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 503,
+      "typeDescKey": "hit",
+      "sortOrder": 55,
+      "details": {
+        "xCoord": -91,
+        "yCoord": -31,
+        "zoneCode": "D",
+        "eventOwnerTeamId": 1,
+        "hittingPlayerId": 8478399,
+        "hitteePlayerId": 8482097,
+        "hittingPlayerName": "J. Siegenthaler (D, away)",
+        "hitteePlayerName": "J. Quinn (R, home)",
+        "spatialDescription": "deep in the corner along the boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "17:42 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD"
+          },
+          "home": {
+            "teamName": "BUF"
+          }
+        },
+        "playerStats": {
+          "8482097": {
+            "name": "J. Quinn",
+            "position": "N/A",
+            "team": "home"
+          },
+          "8478399": {
+            "name": "J. Siegenthaler",
+            "position": "D",
+            "team": "away"
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "J. Siegenthaler (away team defenseman) delivered a hit on J. Quinn (home team right wing) deep in the corner along the boards during even strength play.",
+  "activity_count": 1
+}

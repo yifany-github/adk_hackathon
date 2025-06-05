@@ -1,0 +1,348 @@
+{
+  "game_id": "2024020001",
+  "game_time": "1:10:50",
+  "collected_at_utc": "2025-06-05T19:11:49.673356Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 1730553,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "10:34",
+      "timeRemaining": "09:26",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 508,
+      "typeDescKey": "blocked-shot",
+      "sortOrder": 174,
+      "details": {
+        "xCoord": 74,
+        "yCoord": -10,
+        "zoneCode": "D",
+        "blockingPlayerId": 8480035,
+        "shootingPlayerId": 8481559,
+        "eventOwnerTeamId": 1,
+        "reason": "blocked",
+        "blockingPlayerName": "H. Jokiharju (D, home)",
+        "shootingPlayerName": "J. Hughes (C, away)",
+        "spatialDescription": "behind the net"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "09:26 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8481559": {
+            "name": "J. Hughes",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 0,
+            "hits": 0,
+            "shotsOnGoal": 2,
+            "blockedShots": 1,
+            "giveaways": 1,
+            "takeaways": 0,
+            "faceoffWins": 0.1,
+            "timeOnIce": "18:35",
+            "powerPlayGoals": 0,
+            "shifts": 21
+          }
+        }
+      }
+    },
+    {
+      "eventId": 1730558,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "10:38",
+      "timeRemaining": "09:22",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 509,
+      "typeDescKey": "penalty",
+      "sortOrder": 175,
+      "details": {
+        "xCoord": 64,
+        "yCoord": 1,
+        "zoneCode": "D",
+        "typeCode": "MIN",
+        "descKey": "interference",
+        "duration": 2,
+        "committedByPlayerId": 8480839,
+        "drawnByPlayerId": 8479407,
+        "eventOwnerTeamId": 7,
+        "committedByPlayerName": "R. Dahlin (D, home)",
+        "drawnByPlayerName": "J. Bratt (L, away)",
+        "spatialDescription": "behind the net"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "09:22 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8479407": {
+            "name": "J. Bratt",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 0,
+            "hits": 4,
+            "shotsOnGoal": 2,
+            "blockedShots": 1,
+            "giveaways": 0,
+            "takeaways": 0,
+            "faceoffWins": 0.0,
+            "timeOnIce": "17:27",
+            "powerPlayGoals": 0,
+            "shifts": 23
+          }
+        }
+      }
+    },
+    {
+      "eventId": 164,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "10:38",
+      "timeRemaining": "09:22",
+      "situationCode": "1541",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 502,
+      "typeDescKey": "faceoff",
+      "sortOrder": 179,
+      "details": {
+        "eventOwnerTeamId": 1,
+        "losingPlayerId": 8480802,
+        "winningPlayerId": 8480002,
+        "xCoord": 69,
+        "yCoord": 22,
+        "zoneCode": "O",
+        "losingPlayerName": "R. McLeod (C, home)",
+        "winningPlayerName": "N. Hischier (C, away)",
+        "spatialDescription": "behind the net near the right-wing boards"
+      },
+      "timeRemainingFormatted": "09:22 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8480802": {
+            "name": "R. McLeod",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -1,
+            "pim": 0,
+            "hits": 0,
+            "shotsOnGoal": 0,
+            "blockedShots": 0,
+            "giveaways": 0,
+            "takeaways": 1,
+            "faceoffWins": 0.666667,
+            "timeOnIce": "13:50",
+            "powerPlayGoals": 0,
+            "shifts": 19
+          },
+          "8480002": {
+            "name": "N. Hischier",
+            "position": "N/A",
+            "team": "away",
+            "goals": 1,
+            "assists": 0,
+            "points": 1,
+            "plusMinus": 2,
+            "pim": 0,
+            "hits": 0,
+            "shotsOnGoal": 4,
+            "blockedShots": 1,
+            "giveaways": 0,
+            "takeaways": 0,
+            "faceoffWins": 0.535714,
+            "timeOnIce": "18:15",
+            "powerPlayGoals": 0,
+            "shifts": 27
+          }
+        }
+      }
+    },
+    {
+      "eventId": 1730561,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "10:42",
+      "timeRemaining": "09:18",
+      "situationCode": "1541",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 508,
+      "typeDescKey": "blocked-shot",
+      "sortOrder": 180,
+      "details": {
+        "xCoord": 59,
+        "yCoord": -11,
+        "zoneCode": "D",
+        "blockingPlayerId": 8480807,
+        "shootingPlayerId": 8479407,
+        "eventOwnerTeamId": 1,
+        "reason": "blocked",
+        "blockingPlayerName": "M. Samuelsson (D, home)",
+        "shootingPlayerName": "J. Bratt (L, away)",
+        "spatialDescription": "in the defensive zone"
+      },
+      "timeRemainingFormatted": "09:18 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8479407": {
+            "name": "J. Bratt",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 0,
+            "hits": 4,
+            "shotsOnGoal": 2,
+            "blockedShots": 1,
+            "giveaways": 0,
+            "takeaways": 0,
+            "faceoffWins": 0.0,
+            "timeOnIce": "17:27",
+            "powerPlayGoals": 0,
+            "shifts": 23
+          }
+        }
+      }
+    },
+    {
+      "eventId": 1730562,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "10:48",
+      "timeRemaining": "09:12",
+      "situationCode": "1541",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 508,
+      "typeDescKey": "blocked-shot",
+      "sortOrder": 181,
+      "details": {
+        "xCoord": 65,
+        "yCoord": -10,
+        "zoneCode": "D",
+        "blockingPlayerId": 8480807,
+        "shootingPlayerId": 8479407,
+        "eventOwnerTeamId": 1,
+        "reason": "blocked",
+        "blockingPlayerName": "M. Samuelsson (D, home)",
+        "shootingPlayerName": "J. Bratt (L, away)",
+        "spatialDescription": "behind the net"
+      },
+      "timeRemainingFormatted": "09:12 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8479407": {
+            "name": "J. Bratt",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 0,
+            "hits": 4,
+            "shotsOnGoal": 2,
+            "blockedShots": 1,
+            "giveaways": 0,
+            "takeaways": 0,
+            "faceoffWins": 0.0,
+            "timeOnIce": "17:27",
+            "powerPlayGoals": 0,
+            "shifts": 23
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "With 10:34 remaining in the period,  H. Jokiharju blocked a shot by J. Hughes behind the home team's net at even strength.  Seconds later, R. Dahlin was penalized for a infraction near the net, giving J. Bratt a power play.  The ensuing faceoff was won by N. Hischier,  with R. McLeod losing the draw behind the net near the right-wing boards.  M. Samuelsson then blocked two consecutive shots from J. Bratt, one in the defensive zone and another behind the net.",
+  "activity_count": 5
+}

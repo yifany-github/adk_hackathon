@@ -1,0 +1,298 @@
+{
+  "game_id": "2024020001",
+  "game_time": "1:01:00",
+  "collected_at_utc": "2025-06-05T19:08:56.923866Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 208,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "00:36",
+      "timeRemaining": "19:24",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 503,
+      "typeDescKey": "hit",
+      "sortOrder": 23,
+      "details": {
+        "xCoord": 68,
+        "yCoord": 40,
+        "zoneCode": "D",
+        "eventOwnerTeamId": 7,
+        "hittingPlayerId": 8481524,
+        "hitteePlayerId": 8481559,
+        "hittingPlayerName": "B. Byram (D, home)",
+        "hitteePlayerName": "J. Hughes (C, away)",
+        "spatialDescription": "behind the net along the boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "19:24 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD"
+          },
+          "home": {
+            "teamName": "BUF"
+          }
+        },
+        "playerStats": {
+          "8481524": {
+            "name": "B. Byram",
+            "position": "D",
+            "team": "home"
+          },
+          "8481559": {
+            "name": "J. Hughes",
+            "position": "N/A",
+            "team": "away"
+          }
+        }
+      }
+    },
+    {
+      "eventId": 112,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "00:40",
+      "timeRemaining": "19:20",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 506,
+      "typeDescKey": "shot-on-goal",
+      "sortOrder": 24,
+      "details": {
+        "xCoord": 47,
+        "yCoord": -23,
+        "zoneCode": "O",
+        "shotType": "slap",
+        "shootingPlayerId": 8476462,
+        "goalieInNetId": 8480045,
+        "eventOwnerTeamId": 1,
+        "awaySOG": 2,
+        "homeSOG": 0,
+        "goalieInNetName": "U. Luukkonen (G, home)",
+        "shootingPlayerName": "D. Hamilton (D, away)",
+        "spatialDescription": "from the point near the left-wing boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "19:20 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD"
+          },
+          "home": {
+            "teamName": "BUF"
+          }
+        },
+        "playerStats": {
+          "8480045": {
+            "name": "U. Luukkonen",
+            "position": "N/A",
+            "team": "home",
+            "starter": true
+          },
+          "8476462": {
+            "name": "D. Hamilton",
+            "position": "D",
+            "team": "away"
+          }
+        }
+      }
+    },
+    {
+      "eventId": 113,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "00:46",
+      "timeRemaining": "19:14",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 508,
+      "typeDescKey": "blocked-shot",
+      "sortOrder": 25,
+      "details": {
+        "xCoord": 58,
+        "yCoord": 21,
+        "zoneCode": "D",
+        "blockingPlayerId": 8481524,
+        "shootingPlayerId": 8479407,
+        "eventOwnerTeamId": 1,
+        "reason": "blocked",
+        "blockingPlayerName": "B. Byram (D, home)",
+        "shootingPlayerName": "J. Bratt (L, away)",
+        "spatialDescription": "in the defensive zone near the right-wing boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "19:14 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD"
+          },
+          "home": {
+            "teamName": "BUF"
+          }
+        },
+        "playerStats": {
+          "8481524": {
+            "name": "B. Byram",
+            "position": "D",
+            "team": "home"
+          },
+          "8479407": {
+            "name": "J. Bratt",
+            "position": "N/A",
+            "team": "away"
+          }
+        }
+      }
+    },
+    {
+      "eventId": 57,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "00:56",
+      "timeRemaining": "19:04",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 516,
+      "typeDescKey": "stoppage",
+      "sortOrder": 28,
+      "details": {
+        "reason": "icing"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "19:04 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD"
+          },
+          "home": {
+            "teamName": "BUF"
+          }
+        },
+        "playerStats": {}
+      }
+    },
+    {
+      "eventId": 153,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "00:56",
+      "timeRemaining": "19:04",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 502,
+      "typeDescKey": "faceoff",
+      "sortOrder": 29,
+      "details": {
+        "eventOwnerTeamId": 7,
+        "losingPlayerId": 8481559,
+        "winningPlayerId": 8479420,
+        "xCoord": -69,
+        "yCoord": 22,
+        "zoneCode": "O",
+        "losingPlayerName": "J. Hughes (C, away)",
+        "winningPlayerName": "T. Thompson (C, home)",
+        "spatialDescription": "behind the net near the right-wing boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "19:04 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD"
+          },
+          "home": {
+            "teamName": "BUF"
+          }
+        },
+        "playerStats": {
+          "8479420": {
+            "name": "T. Thompson",
+            "position": "N/A",
+            "team": "home"
+          },
+          "8481559": {
+            "name": "J. Hughes",
+            "position": "N/A",
+            "team": "away"
+          }
+        }
+      }
+    },
+    {
+      "eventId": 119,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "00:57",
+      "timeRemaining": "19:03",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 508,
+      "typeDescKey": "blocked-shot",
+      "sortOrder": 30,
+      "details": {
+        "xCoord": -68,
+        "yCoord": 11,
+        "zoneCode": "D",
+        "blockingPlayerId": 8475455,
+        "shootingPlayerId": 8482175,
+        "eventOwnerTeamId": 7,
+        "reason": "blocked",
+        "blockingPlayerName": "B. Dillon (D, away)",
+        "shootingPlayerName": "J. Peterka (R, home)",
+        "spatialDescription": "behind the net"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "19:03 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD"
+          },
+          "home": {
+            "teamName": "BUF"
+          }
+        },
+        "playerStats": {
+          "8482175": {
+            "name": "J. Peterka",
+            "position": "N/A",
+            "team": "home"
+          },
+          "8475455": {
+            "name": "B. Dillon",
+            "position": "D",
+            "team": "away"
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "Bowen Byram (D) delivered a hit on Jack Hughes (C) behind the home net along the boards.  Moments later, Dougie Hamilton (D) registered a shot on goal from the point, which was subsequently blocked by Byram near the right-wing boards in the defensive zone;  a stoppage in play followed, with Tyson Thompson (C) winning the ensuing faceoff against Hughes behind the net.  Immediately after,  a shot by J. Peterka (R) was blocked by Damon Dillon (D).",
+  "activity_count": 6
+}

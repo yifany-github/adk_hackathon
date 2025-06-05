@@ -1,0 +1,215 @@
+{
+  "game_id": "2024020001",
+  "game_time": "1:04:05",
+  "collected_at_utc": "2025-06-05T19:09:50.708274Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 204,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "03:38",
+      "timeRemaining": "16:22",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 506,
+      "typeDescKey": "shot-on-goal",
+      "sortOrder": 72,
+      "details": {
+        "xCoord": -86,
+        "yCoord": 17,
+        "zoneCode": "O",
+        "shotType": "wrist",
+        "shootingPlayerId": 8475722,
+        "goalieInNetId": 8474593,
+        "eventOwnerTeamId": 7,
+        "awaySOG": 3,
+        "homeSOG": 2,
+        "goalieInNetName": "J. Markstrom (G, away)",
+        "shootingPlayerName": "J. Zucker (L, home)",
+        "spatialDescription": "deep in the corner near the right-wing boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "16:22 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD"
+          },
+          "home": {
+            "teamName": "BUF"
+          }
+        },
+        "playerStats": {
+          "8474593": {
+            "name": "J. Markstrom",
+            "position": "N/A",
+            "team": "away",
+            "starter": true
+          },
+          "8475722": {
+            "name": "J. Zucker",
+            "position": "N/A",
+            "team": "home"
+          }
+        }
+      }
+    },
+    {
+      "eventId": 206,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "03:46",
+      "timeRemaining": "16:14",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 506,
+      "typeDescKey": "shot-on-goal",
+      "sortOrder": 73,
+      "details": {
+        "xCoord": -53,
+        "yCoord": -30,
+        "zoneCode": "O",
+        "shotType": "slap",
+        "shootingPlayerId": 8480807,
+        "goalieInNetId": 8474593,
+        "eventOwnerTeamId": 7,
+        "awaySOG": 3,
+        "homeSOG": 3,
+        "goalieInNetName": "J. Markstrom (G, away)",
+        "shootingPlayerName": "M. Samuelsson (D, home)",
+        "spatialDescription": "from the point near the left-wing boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "16:14 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD"
+          },
+          "home": {
+            "teamName": "BUF"
+          }
+        },
+        "playerStats": {
+          "8474593": {
+            "name": "J. Markstrom",
+            "position": "N/A",
+            "team": "away",
+            "starter": true
+          },
+          "8480807": {
+            "name": "M. Samuelsson",
+            "position": "D",
+            "team": "home"
+          }
+        }
+      }
+    },
+    {
+      "eventId": 244,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "03:54",
+      "timeRemaining": "16:06",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 504,
+      "typeDescKey": "giveaway",
+      "sortOrder": 76,
+      "details": {
+        "xCoord": -5,
+        "yCoord": 40,
+        "zoneCode": "N",
+        "eventOwnerTeamId": 1,
+        "playerId": 8482110,
+        "playerName": "D. Mercer (C, away)",
+        "spatialDescription": "at center ice"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "16:06 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD"
+          },
+          "home": {
+            "teamName": "BUF"
+          }
+        },
+        "playerStats": {
+          "8482110": {
+            "name": "D. Mercer",
+            "position": "N/A",
+            "team": "away"
+          }
+        }
+      }
+    },
+    {
+      "eventId": 214,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "04:03",
+      "timeRemaining": "15:57",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 507,
+      "typeDescKey": "missed-shot",
+      "sortOrder": 81,
+      "details": {
+        "xCoord": -67,
+        "yCoord": 26,
+        "zoneCode": "O",
+        "reason": "wide-left",
+        "shotType": "wrist",
+        "shootingPlayerId": 8478413,
+        "goalieInNetId": 8474593,
+        "eventOwnerTeamId": 7,
+        "goalieInNetName": "J. Markstrom (G, away)",
+        "shootingPlayerName": "J. Greenway (L, home)",
+        "spatialDescription": "behind the net near the right-wing boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "15:57 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD"
+          },
+          "home": {
+            "teamName": "BUF"
+          }
+        },
+        "playerStats": {
+          "8474593": {
+            "name": "J. Markstrom",
+            "position": "N/A",
+            "team": "away",
+            "starter": true
+          },
+          "8478413": {
+            "name": "J. Greenway",
+            "position": "N/A",
+            "team": "home"
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "J. Zucker (L, home) took a shot on goal from deep in the corner near the right-wing boards, followed moments later by a shot from M. Samuelsson (D, home) from the point near the left-wing boards.  Seconds before, D. Mercer (C, away) committed a giveaway at center ice;  J. Greenway (L, home) then missed a shot from behind the net near the right-wing boards.",
+  "activity_count": 4
+}

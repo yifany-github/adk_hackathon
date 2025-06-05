@@ -1,0 +1,116 @@
+{
+  "game_id": "2024020001",
+  "game_time": "1:14:05",
+  "collected_at_utc": "2025-06-05T19:12:38.447973Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 1730612,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "13:46",
+      "timeRemaining": "06:14",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 504,
+      "typeDescKey": "giveaway",
+      "sortOrder": 217,
+      "details": {
+        "xCoord": -70,
+        "yCoord": 40,
+        "zoneCode": "O",
+        "eventOwnerTeamId": 7,
+        "playerId": 8477949,
+        "playerName": "A. Tuch (R, home)",
+        "spatialDescription": "behind the net along the boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "06:14 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8477949": {
+            "name": "A. Tuch",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -2,
+            "pim": 0,
+            "hits": 4,
+            "shotsOnGoal": 2,
+            "blockedShots": 1,
+            "giveaways": 2,
+            "takeaways": 0,
+            "faceoffWins": 0.363636,
+            "timeOnIce": "22:31",
+            "powerPlayGoals": 0,
+            "shifts": 29
+          }
+        }
+      }
+    },
+    {
+      "eventId": 1730602,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "14:05",
+      "timeRemaining": "05:55",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 508,
+      "typeDescKey": "blocked-shot",
+      "sortOrder": 219,
+      "details": {
+        "xCoord": -73,
+        "yCoord": -6,
+        "zoneCode": "D",
+        "blockingPlayerId": 8480192,
+        "shootingPlayerId": 8482671,
+        "eventOwnerTeamId": 7,
+        "reason": "blocked",
+        "blockingPlayerName": "J. Kovacevic (D, away)",
+        "shootingPlayerName": "O. Power (D, home)",
+        "spatialDescription": "behind the net"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "05:55 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {}
+      }
+    }
+  ],
+  "llm_description": "With 1:14 remaining in the period, Owen Power (D, home) attempted a shot from behind the net, but it was blocked by  J. Kovacevic (D, away). Moments earlier, Alex Tuch (R, home) committed a giveaway behind the net along the boards.",
+  "activity_count": 2
+}

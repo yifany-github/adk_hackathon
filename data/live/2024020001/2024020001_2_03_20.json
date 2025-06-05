@@ -1,0 +1,74 @@
+{
+  "game_id": "2024020001",
+  "game_time": "2:03:20",
+  "collected_at_utc": "2025-06-05T19:15:19.418582Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 1731724,
+      "periodDescriptor": {
+        "number": 2,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "03:17",
+      "timeRemaining": "16:43",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "left",
+      "typeCode": 503,
+      "typeDescKey": "hit",
+      "sortOrder": 358,
+      "details": {
+        "xCoord": -98,
+        "yCoord": 17,
+        "zoneCode": "D",
+        "eventOwnerTeamId": 7,
+        "hittingPlayerId": 8480839,
+        "hitteePlayerId": 8479414,
+        "hittingPlayerName": "R. Dahlin (D, home)",
+        "hitteePlayerName": "N. Bastian (R, away)",
+        "spatialDescription": "deep in the corner near the right-wing boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "16:43 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8479414": {
+            "name": "N. Bastian",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 2,
+            "points": 2,
+            "plusMinus": 2,
+            "pim": 2,
+            "hits": 1,
+            "shotsOnGoal": 1,
+            "blockedShots": 0,
+            "giveaways": 0,
+            "takeaways": 0,
+            "faceoffWins": 0.0,
+            "timeOnIce": "10:01",
+            "powerPlayGoals": 0,
+            "shifts": 21
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "Earlier in the period, Rasmus Dahlin delivered a hit on Nathan Bastian deep in the corner near the right-wing boards during even strength play.",
+  "activity_count": 1
+}

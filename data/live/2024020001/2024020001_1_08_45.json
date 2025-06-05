@@ -1,0 +1,369 @@
+{
+  "game_id": "2024020001",
+  "game_time": "1:08:45",
+  "collected_at_utc": "2025-06-05T19:11:10.702860Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 271,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "08:26",
+      "timeRemaining": "11:34",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 506,
+      "typeDescKey": "shot-on-goal",
+      "sortOrder": 143,
+      "details": {
+        "xCoord": 34,
+        "yCoord": 22,
+        "zoneCode": "O",
+        "shotType": "slap",
+        "shootingPlayerId": 8478399,
+        "goalieInNetId": 8480045,
+        "eventOwnerTeamId": 1,
+        "awaySOG": 4,
+        "homeSOG": 4,
+        "goalieInNetName": "U. Luukkonen (G, home)",
+        "shootingPlayerName": "J. Siegenthaler (D, away)",
+        "spatialDescription": "near the blue line near the right-wing boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "11:34 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8480045": {
+            "name": "U. Luukkonen",
+            "position": "N/A",
+            "team": "home",
+            "saves": "19",
+            "shotsAgainst": "22",
+            "goalsAgainst": 3,
+            "savePct": 0.863636,
+            "timeOnIce": "59:05",
+            "decision": "L",
+            "starter": true,
+            "evenStrengthSaves": "0/0",
+            "powerPlaySaves": "0/0",
+            "shortHandedSaves": "0/0"
+          }
+        }
+      }
+    },
+    {
+      "eventId": 1730623,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "08:31",
+      "timeRemaining": "11:29",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 503,
+      "typeDescKey": "hit",
+      "sortOrder": 144,
+      "details": {
+        "xCoord": 85,
+        "yCoord": 36,
+        "zoneCode": "D",
+        "eventOwnerTeamId": 7,
+        "hittingPlayerId": 8477365,
+        "hitteePlayerId": 8476292,
+        "hittingPlayerName": "C. Clifton (D, home)",
+        "hitteePlayerName": "O. Palat (L, away)",
+        "spatialDescription": "deep in the corner along the boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "11:29 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8476292": {
+            "name": "O. Palat",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 0,
+            "hits": 3,
+            "shotsOnGoal": 1,
+            "blockedShots": 1,
+            "giveaways": 1,
+            "takeaways": 0,
+            "faceoffWins": 0.0,
+            "timeOnIce": "13:46",
+            "powerPlayGoals": 0,
+            "shifts": 22
+          }
+        }
+      }
+    },
+    {
+      "eventId": 1730627,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "08:33",
+      "timeRemaining": "11:27",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 503,
+      "typeDescKey": "hit",
+      "sortOrder": 145,
+      "details": {
+        "xCoord": 85,
+        "yCoord": 36,
+        "zoneCode": "O",
+        "eventOwnerTeamId": 1,
+        "hittingPlayerId": 8476474,
+        "hitteePlayerId": 8478413,
+        "hittingPlayerName": "S. Noesen (R, away)",
+        "hitteePlayerName": "J. Greenway (L, home)",
+        "spatialDescription": "deep in the corner along the boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "11:27 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8476474": {
+            "name": "S. Noesen",
+            "position": "N/A",
+            "team": "away",
+            "goals": 1,
+            "assists": 0,
+            "points": 1,
+            "plusMinus": 0,
+            "pim": 0,
+            "hits": 2,
+            "shotsOnGoal": 1,
+            "blockedShots": 0,
+            "giveaways": 2,
+            "takeaways": 0,
+            "faceoffWins": 0.0,
+            "timeOnIce": "13:11",
+            "powerPlayGoals": 0,
+            "shifts": 20
+          },
+          "8478413": {
+            "name": "J. Greenway",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -2,
+            "pim": 0,
+            "hits": 3,
+            "shotsOnGoal": 2,
+            "blockedShots": 0,
+            "giveaways": 1,
+            "takeaways": 0,
+            "faceoffWins": 0.0,
+            "timeOnIce": "13:49",
+            "powerPlayGoals": 0,
+            "shifts": 19
+          }
+        }
+      }
+    },
+    {
+      "eventId": 274,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "08:39",
+      "timeRemaining": "11:21",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 505,
+      "typeDescKey": "goal",
+      "sortOrder": 146,
+      "details": {
+        "xCoord": 71,
+        "yCoord": -12,
+        "zoneCode": "O",
+        "shotType": "snap",
+        "scoringPlayerId": 8476474,
+        "scoringPlayerTotal": 1,
+        "assist1PlayerId": 8480192,
+        "assist1PlayerTotal": 1,
+        "eventOwnerTeamId": 1,
+        "goalieInNetId": 8480045,
+        "awayScore": 1,
+        "homeScore": 0,
+        "highlightClipSharingUrl": "https://nhl.com/video/njd-buf-noesen-scores-goal-against-ukko-pekka-luukkonen-6362848229112",
+        "highlightClip": 6362848229112,
+        "discreteClip": 6362846260112,
+        "goalieInNetName": "U. Luukkonen (G, home)",
+        "assist1PlayerName": "J. Kovacevic (D, away)",
+        "spatialDescription": "behind the net"
+      },
+      "pptReplayUrl": "https://wsr.nhle.com/sprites/20242025/2024020001/ev274.json",
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "11:21 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8480045": {
+            "name": "U. Luukkonen",
+            "position": "N/A",
+            "team": "home",
+            "saves": "19",
+            "shotsAgainst": "22",
+            "goalsAgainst": 3,
+            "savePct": 0.863636,
+            "timeOnIce": "59:05",
+            "decision": "L",
+            "starter": true,
+            "evenStrengthSaves": "0/0",
+            "powerPlaySaves": "0/0",
+            "shortHandedSaves": "0/0"
+          }
+        }
+      }
+    },
+    {
+      "eventId": 160,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "08:39",
+      "timeRemaining": "11:21",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 502,
+      "typeDescKey": "faceoff",
+      "sortOrder": 149,
+      "details": {
+        "eventOwnerTeamId": 1,
+        "losingPlayerId": 8477949,
+        "winningPlayerId": 8478414,
+        "xCoord": 0,
+        "yCoord": 0,
+        "zoneCode": "N",
+        "losingPlayerName": "A. Tuch (R, home)",
+        "winningPlayerName": "T. Meier (R, away)",
+        "spatialDescription": "at center ice"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "11:21 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8477949": {
+            "name": "A. Tuch",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -2,
+            "pim": 0,
+            "hits": 4,
+            "shotsOnGoal": 2,
+            "blockedShots": 1,
+            "giveaways": 2,
+            "takeaways": 0,
+            "faceoffWins": 0.363636,
+            "timeOnIce": "22:31",
+            "powerPlayGoals": 0,
+            "shifts": 29
+          },
+          "8478414": {
+            "name": "T. Meier",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 0,
+            "hits": 5,
+            "shotsOnGoal": 2,
+            "blockedShots": 0,
+            "giveaways": 1,
+            "takeaways": 0,
+            "faceoffWins": 1.0,
+            "timeOnIce": "18:11",
+            "powerPlayGoals": 0,
+            "shifts": 21
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "Following a shot by J. Siegenthaler (D) from near the blue line, C. Clifton (D) hit O. Palat (L) deep in the corner.  Moments later, S. Noesen (R) hit J. Greenway (L) in a similar location before a goal was scored from behind the net, assisted by J. Kovacevic (D);  a faceoff at center ice was subsequently won by T. Meier (R).",
+  "activity_count": 5
+}

@@ -1,0 +1,93 @@
+{
+  "game_id": "2024020001",
+  "game_time": "1:15:00",
+  "collected_at_utc": "2025-06-05T19:12:54.696023Z",
+  "activity_window_seconds": 30,
+  "fetch_interval_seconds": 5,
+  "activities": [
+    {
+      "eventId": 1730738,
+      "periodDescriptor": {
+        "number": 1,
+        "periodType": "REG",
+        "maxRegulationPeriods": 3
+      },
+      "timeInPeriod": "14:47",
+      "timeRemaining": "05:13",
+      "situationCode": "1551",
+      "homeTeamDefendingSide": "right",
+      "typeCode": 503,
+      "typeDescKey": "hit",
+      "sortOrder": 230,
+      "details": {
+        "xCoord": 80,
+        "yCoord": 38,
+        "zoneCode": "O",
+        "eventOwnerTeamId": 1,
+        "hittingPlayerId": 8475287,
+        "hitteePlayerId": 8478413,
+        "hittingPlayerName": "E. Haula (L, away)",
+        "hitteePlayerName": "J. Greenway (L, home)",
+        "spatialDescription": "behind the net along the boards"
+      },
+      "gameSituation": "even strength",
+      "timeRemainingFormatted": "05:13 remaining",
+      "gameStats": {
+        "teamStats": {
+          "away": {
+            "teamName": "NJD",
+            "score": 4,
+            "shotsOnGoal": 23
+          },
+          "home": {
+            "teamName": "BUF",
+            "score": 1,
+            "shotsOnGoal": 31
+          }
+        },
+        "playerStats": {
+          "8478413": {
+            "name": "J. Greenway",
+            "position": "N/A",
+            "team": "home",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": -2,
+            "pim": 0,
+            "hits": 3,
+            "shotsOnGoal": 2,
+            "blockedShots": 0,
+            "giveaways": 1,
+            "takeaways": 0,
+            "faceoffWins": 0.0,
+            "timeOnIce": "13:49",
+            "powerPlayGoals": 0,
+            "shifts": 19
+          },
+          "8475287": {
+            "name": "E. Haula",
+            "position": "N/A",
+            "team": "away",
+            "goals": 0,
+            "assists": 0,
+            "points": 0,
+            "plusMinus": 0,
+            "pim": 2,
+            "hits": 3,
+            "shotsOnGoal": 0,
+            "blockedShots": 1,
+            "giveaways": 2,
+            "takeaways": 0,
+            "faceoffWins": 0.5,
+            "timeOnIce": "14:16",
+            "powerPlayGoals": 0,
+            "shifts": 23
+          }
+        }
+      }
+    }
+  ],
+  "llm_description": "Eeli Tolvanen (away) hits Jordan Greenway (home) behind the net along the boards during even strength play.",
+  "activity_count": 1
+}
