@@ -13,7 +13,7 @@ def run_pipeline(game_id: str, duration_minutes: int = 2):
     Run complete NHL data pipeline for a specific game
     
     Args:
-        game_id: NHL game ID (e.g., "2023020001")  
+        game_id: NHL game ID (e.g., "2024020001")  
         duration_minutes: How long to collect live data
     """
     print(f"🚀 Starting NHL Game Pipeline for Game {game_id}")
@@ -24,7 +24,7 @@ def run_pipeline(game_id: str, duration_minutes: int = 2):
     print("\n📋 Phase 1: Generating static context...")
     try:
         result = subprocess.run([
-            "python3", "../static/static_info_generator.py", game_id
+            "python3", "src/data/static/static_info_generator.py", game_id
         ], check=True, capture_output=True, text=True)
         print(result.stdout)
     except subprocess.CalledProcessError as e:
@@ -36,7 +36,7 @@ def run_pipeline(game_id: str, duration_minutes: int = 2):
     print(f"\n📡 Phase 2A: Collecting live data for {duration_minutes} minutes...")
     try:
         result = subprocess.run([
-            "python3", "../live/live_data_collector.py", game_id, str(duration_minutes)
+            "python3", "src/data/live/live_data_collector.py", game_id, str(duration_minutes)
         ], check=True, capture_output=True, text=True)
         print(result.stdout)
     except subprocess.CalledProcessError as e:
@@ -44,23 +44,10 @@ def run_pipeline(game_id: str, duration_minutes: int = 2):
         print(e.stderr)
         return False
     
-    # Phase 2B: Generate live narratives
-    print("\n🤖 Phase 2B: Generating live narratives with LLM...")
-    try:
-        result = subprocess.run([
-            "python3", "../live/nhl_moment_describer.py", game_id
-        ], check=True, capture_output=True, text=True)
-        print(result.stdout)
-    except subprocess.CalledProcessError as e:
-        print(f"❌ Live narrative generation failed: {e}")
-        print(e.stderr)
-        return False
-    
     print("\n✅ Pipeline complete!")
-    print(f"📁 Check data/ directory (at project root) for generated files:")
+    print(f"📁 Check data/ directory for generated files:")
     print(f"   - data/static/game_{game_id}_static_context.json")
-    print(f"   - data/live/raw/game_{game_id}_raw_*.json")
-    print(f"   - data/live/descriptions/game_{game_id}_narrative_*.json")
+    print(f"   - data/live/{game_id}/game_{game_id}_live_*.json (with enhanced narratives)")
     
     return True
 
@@ -68,11 +55,10 @@ def run_pipeline(game_id: str, duration_minutes: int = 2):
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("Usage: python3 nhl_game_pipeline.py GAME_ID [DURATION_MINUTES]")
-        print("Example: python3 nhl_game_pipeline.py 2023020001 2")
-        print("\nThis runs the complete 3-stage pipeline:")
+        print("Example: python3 nhl_game_pipeline.py 2024020001 5")
+        print("\nThis runs the complete 2-stage pipeline:")
         print("  1. Generate static context for the game teams")
-        print("  2. Collect live data in 5s intervals")  
-        print("  3. Generate live narratives using LLM")
+        print("  2. Collect live data with enhanced narratives in 5s intervals")  
         print("\nData will be saved to project root: data/")
         sys.exit(1)
     
