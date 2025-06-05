@@ -54,8 +54,8 @@ def run_pipeline(game_id: str, duration_minutes: int = 2):
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python3 nhl_game_pipeline.py GAME_ID [DURATION_MINUTES]")
-        print("Example: python3 nhl_game_pipeline.py 2024020001 5")
+        print("Usage: python3 game_pipeline.py GAME_ID [DURATION_MINUTES]")
+        print("Example: python3 game_pipeline.py 2024020001 5")
         print("\nThis runs the complete 2-stage pipeline:")
         print("  1. Generate static context for the game teams")
         print("  2. Collect live data with enhanced narratives in 5s intervals")  

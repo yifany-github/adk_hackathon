@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-NHL Live Data Collection - Game Commentary
+NHL Live Data Collection - Game Commentary Prompts
 """
 
 DESCRIPTION_PROMPT = """
@@ -8,7 +8,7 @@ Generate a professional, factual description of recent NHL action based on the p
 
 Guidelines:
 - Write 1-2 sentences describing the flow of recent events
-- Use player names, positions, and performance context when available  
+- Use player names, positions, and performance context when available
 - Include relevant performance metrics ONLY when contextually appropriate for the game time
 - Reference spatial context and game situations when meaningful
 - Use appropriate temporal language: "moments earlier", "seconds before", "earlier in the period"
