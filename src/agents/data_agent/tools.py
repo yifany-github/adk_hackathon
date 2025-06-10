@@ -115,30 +115,48 @@ def deduplicate_events(timestamps: List[Dict[str, Any]]) -> Dict[str, Any]:
         "total_unique": len(unique_events)
     }
 
-def analyze_events_with_context(events: List[Dict[str, Any]], knowledge_base: Dict[str, Any], 
-                               game_context: Dict[str, Any] = None) -> Dict[str, Any]:
+
+def _convert_time_to_seconds(time_str: str) -> int:
+    """Convert time string like '12:34' to seconds"""
+    try:
+        if ':' in time_str:
+            minutes, seconds = map(int, time_str.split(':'))
+            return minutes * 60 + seconds
+        return int(time_str)
+    except:
+        return 1200  # Default to 20 minutes
+
+def analyze_game_momentum(deduplicated_data: Dict[str, Any], game_context: Dict[str, Any] = None) -> Dict[str, Any]:
     """
-    Enhanced event analysis that considers game context and historical knowledge.
+    Unified momentum analysis with contextual multipliers for broadcast decision making.
     
     Args:
-        events: List of game events to analyze
-        knowledge_base: Static context and knowledge base
+        deduplicated_data: Output from deduplicate_events tool  
         game_context: Current game state (period, time, score, etc.)
         
     Returns:
-        Dictionary with narrative score, prioritized events, and contextual insights
+        Dictionary with momentum analysis and broadcast recommendations
     """
+    events = deduplicated_data.get("unique_events", [])
+    
+    if not events:
+        return {
+            "total_momentum_score": 0,
+            "broadcast_recommendation": "FILLER_CONTENT", 
+            "broadcast_focus": "Find interesting storylines or statistics",
+            "high_intensity_events": [],
+            "recent_activity_trend": [],
+            "context_analysis": {}
+        }
+    
     if game_context is None:
         game_context = {}
     
-    # Base event scores
-    event_scores = {
-        "period-start": 0, "faceoff": 1, "hit": 5, "missed-shot": 10,
-        "shot-on-goal": 20, "penalty": 75, "fight": 85, "goal": 100,
+    # Base momentum scores
+    momentum_scores = {
+        "goal": 50, "fight": 45, "penalty": 35, "shot-on-goal": 15,
+        "hit": 10, "missed-shot": 8, "faceoff": 2
     }
-    
-    prioritized_events = []
-    total_score = 0
     
     # Get contextual modifiers
     period = game_context.get('period', 1)
@@ -149,18 +167,21 @@ def analyze_events_with_context(events: List[Dict[str, Any]], knowledge_base: Di
     # Convert time to seconds for calculations
     time_remaining_seconds = _convert_time_to_seconds(time_remaining)
     
+    total_momentum = 0
+    high_intensity_events = []
+    
     for event in events:
-        event_type = event.get('typeDescKey', 'unknown')
-        base_score = event_scores.get(event_type, 1)
+        event_type = event.get('typeDescKey', '')
+        base_score = momentum_scores.get(event_type, 0)
         
-        # Apply contextual modifiers
+        # Apply contextual multipliers
         contextual_score = base_score
         
         # Late-game importance multiplier
         if period >= 3 and time_remaining_seconds < 300:  # Last 5 minutes
             contextual_score *= 1.5
         
-        # Overtime multiplier
+        # Overtime multiplier  
         if period_type == 'OT':
             contextual_score *= 2.5
         
@@ -176,77 +197,14 @@ def analyze_events_with_context(events: List[Dict[str, Any]], knowledge_base: Di
         if event_type == 'goal' and game_context.get('game_situation') == 'power_play':
             contextual_score += 25
         
-        total_score += contextual_score
-        prioritized_events.append({
-            "event": event,
-            "base_score": base_score,
-            "contextual_score": contextual_score,
-            "context_applied": contextual_score != base_score
-        })
-    
-    prioritized_events.sort(key=lambda x: x['contextual_score'], reverse=True)
-    
-    return {
-        "narrative_score": total_score,
-        "prioritized_events": prioritized_events,
-        "context_analysis": {
-            "period": period,
-            "time_remaining": time_remaining,
-            "score_differential": score_diff,
-            "high_pressure_situation": period >= 3 and time_remaining_seconds < 300,
-            "overtime": period_type == 'OT'
-        }
-    }
-
-def _convert_time_to_seconds(time_str: str) -> int:
-    """Convert time string like '12:34' to seconds"""
-    try:
-        if ':' in time_str:
-            minutes, seconds = map(int, time_str.split(':'))
-            return minutes * 60 + seconds
-        return int(time_str)
-    except:
-        return 1200  # Default to 20 minutes
-
-def analyze_game_momentum(deduplicated_data: Dict[str, Any]) -> Dict[str, Any]:
-    """
-    Analyzes game momentum and trends for broadcast decision making.
-    
-    Args:
-        deduplicated_data: Output from deduplicate_events tool
+        total_momentum += contextual_score
         
-    Returns:
-        Dictionary with momentum analysis and broadcast recommendations
-    """
-    events = deduplicated_data.get("unique_events", [])
-    
-    if not events:
-        return {
-            "total_momentum_score": 0,
-            "broadcast_recommendation": "FILLER_CONTENT",
-            "broadcast_focus": "Find interesting storylines or statistics",
-            "high_intensity_events": [],
-            "recent_activity_trend": []
-        }
-    
-    # Calculate momentum score
-    momentum_scores = {
-        "goal": 50, "fight": 45, "penalty": 35, "shot-on-goal": 15,
-        "hit": 10, "missed-shot": 8, "faceoff": 2
-    }
-    
-    total_momentum = sum(momentum_scores.get(e.get('typeDescKey', ''), 0) for e in events)
-    
-    # Identify high-intensity events
-    high_intensity_events = []
-    for event in events:
-        event_type = event.get('typeDescKey', '')
-        score = momentum_scores.get(event_type, 0)
-        if score >= 15:
+        # Add to high-intensity if significant
+        if contextual_score >= 15:
             high_intensity_events.append({
                 "type": event_type,
                 "time": event.get('timeInPeriod', 'unknown'),
-                "score": score,
+                "score": int(contextual_score),
                 "details": event.get('details', {})
             })
     
@@ -262,11 +220,18 @@ def analyze_game_momentum(deduplicated_data: Dict[str, Any]) -> Dict[str, Any]:
         focus = "Use statistics, player stories, or historical context"
     
     return {
-        "total_momentum_score": total_momentum,
+        "total_momentum_score": int(total_momentum),
         "broadcast_recommendation": recommendation,
         "broadcast_focus": focus,
         "high_intensity_events": high_intensity_events,
-        "recent_activity_trend": _calculate_activity_trend(events)
+        "recent_activity_trend": _calculate_activity_trend(events),
+        "context_analysis": {
+            "period": period,
+            "time_remaining": time_remaining,
+            "score_differential": score_diff,
+            "high_pressure_situation": period >= 3 and time_remaining_seconds < 300,
+            "overtime": period_type == 'OT'
+        }
     }
 
 def _calculate_activity_trend(events: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
@@ -421,12 +386,26 @@ def create_commentary_task(momentum_analysis: Dict[str, Any], knowledge_base: Di
 def get_player_name_from_static(player_id: int, static_context: Dict[str, Any]) -> str:
     """Get human-readable player name from static context data"""
     try:
+        # Check both home and away players in rosters
+        rosters = static_context.get("rosters", {})
+        all_players = rosters.get("home_players", []) + rosters.get("away_players", [])
+        
+        for player in all_players:
+            if player.get("player_id") == str(player_id) or player.get("nhl_data", {}).get("playerId") == player_id:
+                # Try to get full name first, then fallback to default name
+                full_name = player.get("nhl_data", {}).get("name", {}).get("default")
+                if full_name:
+                    return full_name
+                return player.get("name", f"Player #{player_id}")
+        
+        # Fallback - try legacy players structure
         players = static_context.get("players", [])
         for player in players:
             if player.get("player_id") == str(player_id) or player.get("nhl_data", {}).get("playerId") == player_id:
                 return player.get("name", f"Player #{player_id}")
+                
         return f"Player #{player_id}"
-    except:
+    except Exception as e:
         return f"Player #{player_id}"
 
 def get_team_name_from_static(team_abbrev: str, static_context: Dict[str, Any]) -> str:

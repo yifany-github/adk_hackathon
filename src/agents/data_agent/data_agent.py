@@ -9,19 +9,17 @@ from google.adk.agents.invocation_context import InvocationContext
 from google.adk.events import Event, EventActions
 try:
     from .tools import (load_static_context, load_timestamp_data, deduplicate_events, 
-                       analyze_events_with_context, analyze_game_momentum, 
-                       create_commentary_task, find_interesting_filler_topic,
-                       filter_new_events, get_player_name_from_static, 
-                       create_specific_filler_content)
+                       analyze_game_momentum, create_commentary_task, 
+                       find_interesting_filler_topic, filter_new_events, 
+                       get_player_name_from_static, create_specific_filler_content)
 except ImportError:
     # For standalone testing
     import sys
     sys.path.append(os.path.dirname(__file__))
     from tools import (load_static_context, load_timestamp_data, deduplicate_events, 
-                      analyze_events_with_context, analyze_game_momentum, 
-                      create_commentary_task, find_interesting_filler_topic,
-                      filter_new_events, get_player_name_from_static,
-                      create_specific_filler_content)
+                      analyze_game_momentum, create_commentary_task, 
+                      find_interesting_filler_topic, filter_new_events, 
+                      get_player_name_from_static, create_specific_filler_content)
 
 
 class DataAgent(BaseAgent):
@@ -45,6 +43,7 @@ class DataAgent(BaseAgent):
         object.__setattr__(self, '_recent_event_ids', set())
         object.__setattr__(self, '_knowledge_base', {})
         object.__setattr__(self, '_knowledge_base_loaded', False)
+        object.__setattr__(self, '_used_filler_topics', [])  # Track recent filler topics
 
     # ---------- helper methods (unchanged) ----------------------------------
     def score_window(self, events: List[Dict]) -> int:
@@ -122,10 +121,7 @@ class DataAgent(BaseAgent):
         # Extract game context from all events (not just new ones)
         game_context = self._extract_game_context_from_events(all_events)
         
-        # Analyze only new events
-        event_analysis = analyze_events_with_context(new_events, self._knowledge_base, game_context)
-        
-        # Create momentum analysis from new events
+        # Create unified momentum analysis from new events with context
         single_timestamp_momentum = {
             "unique_events": new_events,
             "deduplication_summary": f"Stateful filtering: {len(new_events)} new events from {len(all_events)} total",
@@ -133,13 +129,13 @@ class DataAgent(BaseAgent):
             "total_unique": len(new_events)
         }
         
-        momentum_analysis = analyze_game_momentum(single_timestamp_momentum)
+        momentum_analysis = analyze_game_momentum(single_timestamp_momentum, game_context)
         
         # Enhanced commentary task based on whether we have new events
         if len(new_events) == 0:
-            # No new events - provide specific filler content using static data
+            # No new events - provide varied filler content using static data
             game_situation = "power_play" if game_context.get("game_situation") == "power_play" else "normal"
-            filler_content = create_specific_filler_content(self._knowledge_base, game_situation)
+            filler_content = self._get_varied_filler_content(game_situation)
             commentary_task = {
                 "task_type": "CONTEXT_UPDATE",
                 "priority": 3,
@@ -170,7 +166,6 @@ class DataAgent(BaseAgent):
             "type": "live_timestamp_analysis",
             "game_id": game_id,
             "game_time": game_time,
-            "narrative_score": event_analysis["narrative_score"],
             "momentum_score": momentum_analysis["total_momentum_score"],
             "recommendation": momentum_analysis["broadcast_recommendation"], 
             "focus": momentum_analysis["broadcast_focus"],
@@ -181,7 +176,7 @@ class DataAgent(BaseAgent):
             "total_events_in_timestamp": len(all_events),
             "stateful_filtering": True,
             "game_context": game_context,
-            "context_analysis": event_analysis["context_analysis"]
+            "context_analysis": momentum_analysis["context_analysis"]
         }
     
     def _extract_game_context_from_events(self, events: List[Dict[str, Any]]) -> Dict[str, Any]:
@@ -223,37 +218,33 @@ class DataAgent(BaseAgent):
         if (corr := self.detect_corrections(events)):
             return {"type": "correction", "corrections": corr}
         else:
-            # Use enhanced event analysis
-            event_analysis = analyze_events_with_context(events, self._knowledge_base, game_ctx)
+            # Use unified momentum analysis 
+            momentum_data = {
+                "unique_events": events,
+                "deduplication_summary": f"Fallback analysis: {len(events)} events",
+                "total_original": len(events),
+                "total_unique": len(events)
+            }
+            momentum_analysis = analyze_game_momentum(momentum_data, game_ctx)
             
-            if event_analysis["narrative_score"] >= self.lull_threshold:
+            if momentum_analysis["total_momentum_score"] >= self.lull_threshold:
                 # Create action-focused task
-                mock_momentum = {
-                    "total_momentum_score": event_analysis["narrative_score"],
-                    "broadcast_recommendation": "PLAY_BY_PLAY",
-                    "broadcast_focus": "Focus on recent action",
-                    "high_intensity_events": [{
-                        "type": event["event"].get("typeDescKey", "unknown"),
-                        "time": event["event"].get("timeInPeriod", "unknown"),
-                        "score": event["contextual_score"]
-                    } for event in event_analysis["prioritized_events"][:3]],
-                    "recent_activity_trend": []
-                }
-                task = create_commentary_task(mock_momentum, self._knowledge_base)
+                task = create_commentary_task(momentum_analysis, self._knowledge_base)
                 return {
                     "type": "fallback_action", 
-                    "narrative_score": event_analysis["narrative_score"],
-                    "events": event_analysis["prioritized_events"],
-                    "commentary_task": task
+                    "momentum_score": momentum_analysis["total_momentum_score"],
+                    "events": momentum_analysis["high_intensity_events"],
+                    "commentary_task": task,
+                    "context_analysis": momentum_analysis["context_analysis"]
                 }
             else:
                 # Use enhanced filler logic
-                filler_topic = find_interesting_filler_topic(event_analysis, self._knowledge_base)
+                filler_topic = find_interesting_filler_topic(momentum_analysis, self._knowledge_base)
                 return {
                     "type": "enhanced_filler", 
-                    "narrative_score": event_analysis["narrative_score"],
+                    "momentum_score": momentum_analysis["total_momentum_score"],
                     "filler_topic": filler_topic,
-                    "context_analysis": event_analysis["context_analysis"]
+                    "context_analysis": momentum_analysis["context_analysis"]
                 }
     
     def _extract_game_context(self, timestamps: List[Dict[str, Any]]) -> Dict[str, Any]:
@@ -316,20 +307,32 @@ class DataAgent(BaseAgent):
             filename = f"{game_id}_{game_time_clean}_data_agent.json"
             filepath = os.path.join(output_dir, filename)
             
-            # Add metadata for commentary agent
+            # Create clean API contract for commentary agent
             output_for_commentary = {
                 "generated_at": datetime.utcnow().isoformat() + "Z",
-                "data_agent_version": "enhanced_v2.0",
+                "data_agent_version": "enhanced_v3.0",
                 "game_id": game_id,
                 "game_time": game_time,
-                "analysis": analysis_output,
                 "knowledge_base_status": "loaded" if self._knowledge_base_loaded else "not_loaded",
+                
+                # CLEAN API CONTRACT FOR COMMENTARY AGENT
                 "for_commentary_agent": {
-                    "should_focus_on": analysis_output.get("recommendation", "FILLER_CONTENT"),
+                    "recommendation": analysis_output.get("recommendation", "FILLER_CONTENT"),
                     "priority_level": self._get_priority_level(analysis_output),
+                    "momentum_score": analysis_output.get("momentum_score", 0),
                     "key_talking_points": self._extract_talking_points(analysis_output),
-                    "context_for_commentator": analysis_output.get("focus", "General commentary"),
-                    "commentary_task": analysis_output.get("commentary_task", {})
+                    "context": analysis_output.get("focus", "General commentary"),
+                    "game_context": analysis_output.get("game_context", {}),
+                    "high_intensity_events": self._contextualize_events(analysis_output.get("high_intensity_events", []), analysis_output.get("game_context", {})),
+                    "task_details": self._create_clean_task_details(analysis_output)
+                },
+                
+                # DEBUG INFO (optional, can be ignored by commentary agent)
+                "debug": {
+                    "events_processed": analysis_output.get("events_processed", 0),
+                    "total_events_in_timestamp": analysis_output.get("total_events_in_timestamp", 0),
+                    "stateful_filtering": analysis_output.get("stateful_filtering", False),
+                    "context_analysis": analysis_output.get("context_analysis", {})
                 }
             }
             
@@ -357,46 +360,16 @@ class DataAgent(BaseAgent):
             return 3  # Low priority - filler content
     
     def _extract_talking_points(self, analysis_output: Dict[str, Any]) -> List[str]:
-        """Extract key talking points for the commentary agent with player details"""
+        """Extract key talking points for the commentary agent with rich narrative details"""
         talking_points = []
+        game_context = analysis_output.get("game_context", {})
         
-        # High-intensity events with rich details
+        # High-intensity events with broadcast-ready narratives
         high_intensity = analysis_output.get("high_intensity_events", [])
         for event in high_intensity[:3]:  # Top 3 events
-            event_type = event.get('type', 'unknown')
-            event_time = event.get('time', 'unknown')
-            details = event.get('details', {})
-            
-            # Create human-readable event descriptions
-            if event_type == "penalty":
-                player_name = get_player_name_from_static(details.get('committedByPlayerId'), self._knowledge_base)
-                penalty_type = details.get('descKey', 'penalty')
-                duration = details.get('duration', 2)
-                talking_points.append(f"Penalty: {player_name} {penalty_type} at {event_time} ({duration} min)")
-                
-            elif event_type == "goal":
-                scorer_name = get_player_name_from_static(details.get('scoringPlayerId'), self._knowledge_base)
-                shot_type = details.get('shotType', 'shot')
-                talking_points.append(f"Goal: {scorer_name} {shot_type} at {event_time}")
-                
-            elif event_type == "shot-on-goal":
-                shooter_name = get_player_name_from_static(details.get('shootingPlayerId'), self._knowledge_base)
-                shot_type = details.get('shotType', 'shot')
-                talking_points.append(f"Shot: {shooter_name} {shot_type} at {event_time}")
-                
-            elif event_type == "hit":
-                hitter_name = get_player_name_from_static(details.get('hittingPlayerId'), self._knowledge_base)
-                hit_target_name = get_player_name_from_static(details.get('hitteePlayerId'), self._knowledge_base)
-                talking_points.append(f"Hit: {hitter_name} on {hit_target_name} at {event_time}")
-                
-            elif event_type == "fight":
-                fighter1_name = get_player_name_from_static(details.get('fighter1PlayerId'), self._knowledge_base)
-                fighter2_name = get_player_name_from_static(details.get('fighter2PlayerId'), self._knowledge_base)
-                talking_points.append(f"Fight: {fighter1_name} vs {fighter2_name} at {event_time}")
-                
-            else:
-                # Fallback for other event types
-                talking_points.append(f"{event_type.title()} at {event_time}")
+            narrative = self._create_event_narrative(event, game_context)
+            if narrative:
+                talking_points.append(narrative)
         
         # Activity trends
         trends = analysis_output.get("activity_trend", [])
@@ -415,6 +388,307 @@ class DataAgent(BaseAgent):
             talking_points.append("Low momentum - opportunity for background stories")
         
         return talking_points if talking_points else ["General game commentary"]
+    
+    def _create_event_narrative(self, event: Dict[str, Any], game_context: Dict[str, Any]) -> str:
+        """Create broadcast-ready narrative for an event"""
+        event_type = event.get('type', 'unknown')
+        event_time = event.get('time', 'unknown')
+        details = event.get('details', {})
+        
+        # Get team context
+        home_team = self._knowledge_base.get("game_info", {}).get("home_team", "HOME")
+        away_team = self._knowledge_base.get("game_info", {}).get("away_team", "AWAY")
+        period = game_context.get("period", 1)
+        time_remaining = game_context.get("time_remaining", "20:00")
+        
+        # Determine which team committed the event
+        event_owner_team_id = details.get('eventOwnerTeamId')
+        committing_team = self._get_team_from_id(event_owner_team_id)
+        
+        if event_type == "penalty":
+            committer_name = get_player_name_from_static(details.get('committedByPlayerId'), self._knowledge_base)
+            drawn_by_name = get_player_name_from_static(details.get('drawnByPlayerId'), self._knowledge_base)
+            penalty_type = details.get('descKey', 'penalty').replace('-', ' ')
+            duration = details.get('duration', 2)
+            
+            # Determine which team gets the power play (opposite of committing team)
+            if committing_team == home_team:
+                pp_team = away_team
+            elif committing_team == away_team:
+                pp_team = home_team
+            else:
+                pp_team = "the opposing team"
+            
+            return f"Penalty on {committing_team}'s {committer_name} for {penalty_type} against {drawn_by_name}. {pp_team} goes to the power play for {duration} minutes at {time_remaining} remaining in the {self._ordinal(period)}."
+            
+        elif event_type == "goal":
+            scorer_name = get_player_name_from_static(details.get('scoringPlayerId'), self._knowledge_base)
+            shot_type = details.get('shotType', 'shot')
+            return f"GOAL! {scorer_name} scores with a {shot_type} at {event_time}. {committing_team} celebrates at {time_remaining} remaining in the {self._ordinal(period)}."
+            
+        elif event_type == "shot-on-goal":
+            shooter_name = get_player_name_from_static(details.get('shootingPlayerId'), self._knowledge_base)
+            shot_type = details.get('shotType', 'shot')
+            return f"Quality scoring chance: {shooter_name} with a {shot_type} on goal at {event_time}."
+            
+        elif event_type == "hit":
+            hitter_name = get_player_name_from_static(details.get('hittingPlayerId'), self._knowledge_base)
+            hit_target_name = get_player_name_from_static(details.get('hitteePlayerId'), self._knowledge_base)
+            location = details.get('spatialDescription', 'along the boards')
+            return f"Big hit: {committing_team}'s {hitter_name} levels {hit_target_name} {location} at {event_time}."
+            
+        elif event_type == "fight":
+            fighter1_name = get_player_name_from_static(details.get('fighter1PlayerId'), self._knowledge_base)
+            fighter2_name = get_player_name_from_static(details.get('fighter2PlayerId'), self._knowledge_base)
+            return f"Fight breaks out! {fighter1_name} and {fighter2_name} drop the gloves at {event_time}."
+            
+        else:
+            # Fallback for other event types
+            return f"{event_type.title().replace('-', ' ')} at {event_time}"
+    
+    def _get_team_from_id(self, team_id: int) -> str:
+        """Map team ID to team abbreviation"""
+        # In NHL data, team IDs are mapped to specific teams
+        # For this implementation, we'll use a simple heuristic based on the game
+        game_info = self._knowledge_base.get("game_info", {})
+        home_team = game_info.get("home_team", "HOME")
+        away_team = game_info.get("away_team", "AWAY")
+        
+        # This is a simplified mapping - in production you'd have a full team ID lookup
+        if team_id == 22:  # Common ID pattern, Edmonton
+            return home_team
+        else:
+            return away_team
+    
+    def _ordinal(self, n: int) -> str:
+        """Convert number to ordinal (1st, 2nd, 3rd)"""
+        if 10 <= n % 100 <= 20:
+            suffix = 'th'
+        else:
+            suffix = {1: 'st', 2: 'nd', 3: 'rd'}.get(n % 10, 'th')
+        return f"{n}{suffix}"
+    
+    def _get_varied_filler_content(self, game_situation: str = "normal") -> Dict[str, Any]:
+        """Get varied filler content avoiding recent repetition"""
+        # Define filler topic hierarchy
+        filler_options = [
+            "TEAM_RECORD", "PLAYER_PERFORMANCE", "MATCHUP_CONTEXT", 
+            "GOALIE_STATS", "POWER_PLAY_STATS", "RECENT_PERFORMANCE",
+            "SEASON_STORYLINE", "HISTORICAL_MATCHUP"
+        ]
+        
+        # Remove recently used topics (keep last 3)
+        available_options = [opt for opt in filler_options if opt not in self._used_filler_topics[-3:]]
+        
+        # If we've used all topics recently, reset and use all options
+        if not available_options:
+            available_options = filler_options
+            object.__setattr__(self, '_used_filler_topics', [])
+        
+        # Try each available option until we find one with data
+        for topic_type in available_options:
+            filler_content = self._create_specific_filler_by_type(topic_type, game_situation)
+            if filler_content and filler_content.get("content"):
+                # Track this topic as used
+                self._used_filler_topics.append(topic_type)
+                # Keep only last 5 used topics
+                if len(self._used_filler_topics) > 5:
+                    object.__setattr__(self, '_used_filler_topics', self._used_filler_topics[-5:])
+                return filler_content
+        
+        # Fallback if nothing works
+        return {
+            "type": "GENERAL_FILLER",
+            "content": "Continue game coverage with analysis",
+            "talking_points": ["Discuss team performance and upcoming plays"]
+        }
+    
+    def _create_specific_filler_by_type(self, topic_type: str, game_situation: str) -> Dict[str, Any]:
+        """Create specific filler content by type"""
+        try:
+            if topic_type == "TEAM_RECORD":
+                return self._get_team_record_filler()
+            elif topic_type == "PLAYER_PERFORMANCE":
+                return self._get_player_performance_filler()
+            elif topic_type == "MATCHUP_CONTEXT":
+                return self._get_matchup_context_filler()
+            elif topic_type == "GOALIE_STATS":
+                return self._get_goalie_stats_filler()
+            elif topic_type == "POWER_PLAY_STATS":
+                return self._get_power_play_stats_filler()
+            elif topic_type == "RECENT_PERFORMANCE":
+                return self._get_recent_performance_filler()
+            else:
+                return create_specific_filler_content(self._knowledge_base, game_situation)
+        except:
+            return None
+    
+    def _get_team_record_filler(self) -> Dict[str, Any]:
+        """Get team record filler content"""
+        standings = self._knowledge_base.get("standings", {}).get("standings", [])
+        if standings:
+            team_stats = standings[0]
+            wins = team_stats.get("wins", 0)
+            losses = team_stats.get("losses", 0)
+            goals_for = team_stats.get("goalFor", 0)
+            goals_against = team_stats.get("goalAgainst", 0)
+            
+            return {
+                "type": "TEAM_RECORD",
+                "content": f"Team record: {wins}-{losses}, {goals_for} goals for, {goals_against} against",
+                "talking_points": [
+                    f"Strong season with {wins} wins and {losses} losses",
+                    f"Averaging {goals_for/82:.1f} goals per game" if wins > 0 else "Working to improve offensive production",
+                    f"Goal differential of {goals_for - goals_against}"
+                ]
+            }
+        return None
+    
+    def _get_player_performance_filler(self) -> Dict[str, Any]:
+        """Get player performance filler content"""
+        players = self._knowledge_base.get("rosters", {}).get("home_players", [])
+        if players:
+            # Find player with best stats
+            best_player = None
+            best_points = 0
+            for player in players[:10]:  # Check first 10 players
+                nhl_data = player.get("nhl_data", {})
+                goals = nhl_data.get("goals", 0)
+                assists = nhl_data.get("assists", 0)
+                points = goals + assists
+                if points > best_points:
+                    best_points = points
+                    best_player = player
+            
+            if best_player and best_points > 0:
+                name = best_player.get("name", "Player")
+                nhl_data = best_player.get("nhl_data", {})
+                goals = nhl_data.get("goals", 0)
+                assists = nhl_data.get("assists", 0)
+                position = best_player.get("position", "")
+                
+                return {
+                    "type": "PLAYER_PERFORMANCE",
+                    "content": f"{name} leads with {goals} goals and {assists} assists this season",
+                    "talking_points": [
+                        f"{name} has been a key contributor with {best_points} points",
+                        f"The {position} has {goals} goals and {assists} assists",
+                        f"Consistent performance from {name} this season"
+                    ]
+                }
+        return None
+    
+    def _get_matchup_context_filler(self) -> Dict[str, Any]:
+        """Get matchup context filler content"""
+        game_info = self._knowledge_base.get("game_info", {})
+        home_team = game_info.get("home_team", "Home")
+        away_team = game_info.get("away_team", "Away")
+        venue = game_info.get("venue", "the arena")
+        
+        return {
+            "type": "MATCHUP_CONTEXT",
+            "content": f"{away_team} visiting {home_team} at {venue}",
+            "talking_points": [
+                f"{away_team} looking to earn valuable points on the road",
+                f"{home_team} wants to protect their home ice advantage",
+                f"Great atmosphere tonight at {venue}"
+            ]
+        }
+    
+    def _get_goalie_stats_filler(self) -> Dict[str, Any]:
+        """Get goalie statistics filler content"""
+        # This would ideally pull goalie stats from the knowledge base
+        return {
+            "type": "GOALIE_STATS",
+            "content": "Goaltending has been a key factor in tonight's game",
+            "talking_points": [
+                "Both goalies showing sharp reflexes tonight",
+                "Key saves keeping the game close",
+                "Goaltending depth important for playoff push"
+            ]
+        }
+    
+    def _get_power_play_stats_filler(self) -> Dict[str, Any]:
+        """Get power play statistics filler content"""
+        return {
+            "type": "POWER_PLAY_STATS", 
+            "content": "Special teams play will be crucial tonight",
+            "talking_points": [
+                "Power play opportunities can change momentum",
+                "Penalty kill units working hard",
+                "Special teams often decide close games"
+            ]
+        }
+    
+    def _get_recent_performance_filler(self) -> Dict[str, Any]:
+        """Get recent team performance filler content"""
+        standings = self._knowledge_base.get("standings", {}).get("standings", [])
+        if standings:
+            team_stats = standings[0]
+            wins = team_stats.get("wins", 0)
+            games_played = team_stats.get("gamesPlayed", 82)
+            
+            return {
+                "type": "RECENT_PERFORMANCE",
+                "content": f"Team has {wins} wins in {games_played} games this season",
+                "talking_points": [
+                    f"Solid performance with {wins} wins so far",
+                    f"Team consistency over {games_played} games",
+                    "Building momentum for the stretch run"
+                ]
+            }
+        return None
+    
+    def _contextualize_events(self, events: List[Dict[str, Any]], game_context: Dict[str, Any]) -> List[Dict[str, Any]]:
+        """Add human-readable summaries to high-intensity events"""
+        contextualized_events = []
+        
+        for event in events:
+            # Create human-readable summary using existing narrative logic
+            summary = self._create_event_narrative(event, game_context)
+            
+            contextualized_event = {
+                "summary": summary,
+                "impact_score": event.get("score", 0),
+                "event_type": event.get("type", "unknown"),
+                "time": event.get("time", "unknown"),
+                "raw_details": event.get("details", {})
+            }
+            
+            contextualized_events.append(contextualized_event)
+        
+        return contextualized_events
+    
+    def _create_clean_task_details(self, analysis_output: Dict[str, Any]) -> Dict[str, Any]:
+        """Create clean task details without duplication"""
+        commentary_task = analysis_output.get("commentary_task", {})
+        task_type = commentary_task.get("task_type", "FILLER")
+        
+        # Create minimal task details without duplicating data already in parent
+        clean_details = {
+            "task_type": task_type,
+            "priority": commentary_task.get("priority", 3)
+        }
+        
+        # Add task-specific details without duplication
+        if task_type == "FILLER":
+            clean_details.update({
+                "topic_type": commentary_task.get("topic_type", "GENERAL"),
+                "suggested_direction": commentary_task.get("suggested_direction", "Use filler content")
+            })
+        elif task_type == "CONTEXT_UPDATE":
+            clean_details.update({
+                "content_type": commentary_task.get("content_type", "TEAM_RECORD"),
+                "content": commentary_task.get("content", "")
+            })
+        elif task_type in ["PBP", "MIXED"]:
+            # For action tasks, just reference that events are available in high_intensity_events
+            clean_details.update({
+                "focus": commentary_task.get("focus", "Action coverage"),
+                "event_count": len(analysis_output.get("high_intensity_events", []))
+            })
+        
+        return clean_details
 
 # ---------------------------------------------------------------------------
 # Note: For testing, use the standalone test_data_agent.py script instead
