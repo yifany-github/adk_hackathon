@@ -9,6 +9,7 @@ fake-useragent>=1.4.0  # Rotate user agents to avoid blocking
 # Google ADK & LLM
 google-genai>=0.3.0  # Modern Google AI SDK for Gemini
 google-adk>=0.1.0  # Google Agent Development Kit (ADK)
+google-cloud-texttospeech>=2.16.0  # Google Cloud TTS for Audio Agent
 
 # Audio & Streaming (for live commentary)
 pydub>=0.25.1  # Audio processing
