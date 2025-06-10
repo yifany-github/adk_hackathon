@@ -1,0 +1,124 @@
+{
+  "generated_at": "2025-06-10T00:43:47.696954Z",
+  "data_agent_version": "enhanced_v2.0",
+  "game_id": "2024030412",
+  "game_time": "1:00:40",
+  "analysis": {
+    "type": "live_timestamp_analysis",
+    "game_id": "2024030412",
+    "game_time": "1:00:40",
+    "narrative_score": 105.3,
+    "momentum_score": 47,
+    "recommendation": "MIXED_COVERAGE",
+    "focus": "Balance action coverage with analysis",
+    "high_intensity_events": [
+      {
+        "type": "penalty",
+        "time": "00:37",
+        "score": 35,
+        "details": {
+          "xCoord": 84,
+          "yCoord": -37,
+          "zoneCode": "O",
+          "typeCode": "MIN",
+          "descKey": "high-sticking",
+          "duration": 2,
+          "committedByPlayerId": 8475169,
+          "drawnByPlayerId": 8477409,
+          "eventOwnerTeamId": 22,
+          "spatialDescription": "deep in the corner along the boards"
+        }
+      }
+    ],
+    "commentary_task": {
+      "task_type": "MIXED",
+      "priority": 2,
+      "focus": "Balance action coverage with analysis",
+      "high_intensity_events": [
+        {
+          "type": "penalty",
+          "time": "00:37",
+          "score": 35,
+          "details": {
+            "xCoord": 84,
+            "yCoord": -37,
+            "zoneCode": "O",
+            "typeCode": "MIN",
+            "descKey": "high-sticking",
+            "duration": 2,
+            "committedByPlayerId": 8475169,
+            "drawnByPlayerId": 8477409,
+            "eventOwnerTeamId": 22,
+            "spatialDescription": "deep in the corner along the boards"
+          }
+        }
+      ],
+      "talking_points": [
+        "Moderate activity period with 1 notable events",
+        "Momentum score of 47 suggests balanced coverage",
+        "Mix play-by-play with analysis and context"
+      ],
+      "context": "Moderate activity (score: 47) - mix action with context",
+      "momentum_score": 47
+    },
+    "events_processed": 3,
+    "new_events_found": 3,
+    "total_events_in_timestamp": 9,
+    "stateful_filtering": true,
+    "game_context": {
+      "period": 1,
+      "time_remaining": "19:23",
+      "home_score": 4,
+      "away_score": 5,
+      "game_situation": "",
+      "periodType": "REG"
+    },
+    "context_analysis": {
+      "period": 1,
+      "time_remaining": "19:23",
+      "score_differential": 1,
+      "high_pressure_situation": false,
+      "overtime": false
+    }
+  },
+  "knowledge_base_status": "loaded",
+  "for_commentary_agent": {
+    "should_focus_on": "MIXED_COVERAGE",
+    "priority_level": 2,
+    "key_talking_points": [
+      "Penalty: Player #8475169 high-sticking at 00:37 (2 min)"
+    ],
+    "context_for_commentator": "Balance action coverage with analysis",
+    "commentary_task": {
+      "task_type": "MIXED",
+      "priority": 2,
+      "focus": "Balance action coverage with analysis",
+      "high_intensity_events": [
+        {
+          "type": "penalty",
+          "time": "00:37",
+          "score": 35,
+          "details": {
+            "xCoord": 84,
+            "yCoord": -37,
+            "zoneCode": "O",
+            "typeCode": "MIN",
+            "descKey": "high-sticking",
+            "duration": 2,
+            "committedByPlayerId": 8475169,
+            "drawnByPlayerId": 8477409,
+            "eventOwnerTeamId": 22,
+            "spatialDescription": "deep in the corner along the boards"
+          }
+        }
+      ],
+      "talking_points": [
+        "Moderate activity period with 1 notable events",
+        "Momentum score of 47 suggests balanced coverage",
+        "Mix play-by-play with analysis and context"
+      ],
+      "context": "Moderate activity (score: 47) - mix action with context",
+      "momentum_score": 47
+    }
+  }
+}
