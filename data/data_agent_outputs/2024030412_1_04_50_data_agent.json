@@ -1,0 +1,124 @@
+{
+  "generated_at": "2025-06-10T00:43:47.707531Z",
+  "data_agent_version": "enhanced_v2.0",
+  "game_id": "2024030412",
+  "game_time": "1:04:50",
+  "analysis": {
+    "type": "live_timestamp_analysis",
+    "game_id": "2024030412",
+    "game_time": "1:04:50",
+    "narrative_score": 32.5,
+    "momentum_score": 25,
+    "recommendation": "MIXED_COVERAGE",
+    "focus": "Balance action coverage with analysis",
+    "high_intensity_events": [
+      {
+        "type": "shot-on-goal",
+        "time": "04:44",
+        "score": 15,
+        "details": {
+          "xCoord": -43,
+          "yCoord": -8,
+          "zoneCode": "O",
+          "shotType": "snap",
+          "shootingPlayerId": 8477933,
+          "goalieInNetId": 8479973,
+          "eventOwnerTeamId": 13,
+          "awaySOG": 3,
+          "homeSOG": 3,
+          "spatialDescription": "in the slot"
+        }
+      }
+    ],
+    "commentary_task": {
+      "task_type": "MIXED",
+      "priority": 2,
+      "focus": "Balance action coverage with analysis",
+      "high_intensity_events": [
+        {
+          "type": "shot-on-goal",
+          "time": "04:44",
+          "score": 15,
+          "details": {
+            "xCoord": -43,
+            "yCoord": -8,
+            "zoneCode": "O",
+            "shotType": "snap",
+            "shootingPlayerId": 8477933,
+            "goalieInNetId": 8479973,
+            "eventOwnerTeamId": 13,
+            "awaySOG": 3,
+            "homeSOG": 3,
+            "spatialDescription": "in the slot"
+          }
+        }
+      ],
+      "talking_points": [
+        "Moderate activity period with 1 notable events",
+        "Momentum score of 25 suggests balanced coverage",
+        "Mix play-by-play with analysis and context"
+      ],
+      "context": "Moderate activity (score: 25) - mix action with context",
+      "momentum_score": 25
+    },
+    "events_processed": 2,
+    "new_events_found": 2,
+    "total_events_in_timestamp": 10,
+    "stateful_filtering": true,
+    "game_context": {
+      "period": 1,
+      "time_remaining": "15:13",
+      "home_score": 4,
+      "away_score": 5,
+      "game_situation": "",
+      "periodType": "REG"
+    },
+    "context_analysis": {
+      "period": 1,
+      "time_remaining": "15:13",
+      "score_differential": 1,
+      "high_pressure_situation": false,
+      "overtime": false
+    }
+  },
+  "knowledge_base_status": "loaded",
+  "for_commentary_agent": {
+    "should_focus_on": "MIXED_COVERAGE",
+    "priority_level": 2,
+    "key_talking_points": [
+      "Shot: Player #8477933 snap at 04:44"
+    ],
+    "context_for_commentator": "Balance action coverage with analysis",
+    "commentary_task": {
+      "task_type": "MIXED",
+      "priority": 2,
+      "focus": "Balance action coverage with analysis",
+      "high_intensity_events": [
+        {
+          "type": "shot-on-goal",
+          "time": "04:44",
+          "score": 15,
+          "details": {
+            "xCoord": -43,
+            "yCoord": -8,
+            "zoneCode": "O",
+            "shotType": "snap",
+            "shootingPlayerId": 8477933,
+            "goalieInNetId": 8479973,
+            "eventOwnerTeamId": 13,
+            "awaySOG": 3,
+            "homeSOG": 3,
+            "spatialDescription": "in the slot"
+          }
+        }
+      ],
+      "talking_points": [
+        "Moderate activity period with 1 notable events",
+        "Momentum score of 25 suggests balanced coverage",
+        "Mix play-by-play with analysis and context"
+      ],
+      "context": "Moderate activity (score: 25) - mix action with context",
+      "momentum_score": 25
+    }
+  }
+}

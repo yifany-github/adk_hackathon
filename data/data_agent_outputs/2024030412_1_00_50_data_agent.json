@@ -1,0 +1,68 @@
+{
+  "generated_at": "2025-06-10T00:43:47.697407Z",
+  "data_agent_version": "enhanced_v2.0",
+  "game_id": "2024030412",
+  "game_time": "1:00:50",
+  "analysis": {
+    "type": "live_timestamp_analysis",
+    "game_id": "2024030412",
+    "game_time": "1:00:50",
+    "narrative_score": 0,
+    "momentum_score": 0,
+    "recommendation": "FILLER_CONTENT",
+    "focus": "Find interesting storylines or statistics",
+    "high_intensity_events": [],
+    "commentary_task": {
+      "task_type": "CONTEXT_UPDATE",
+      "priority": 3,
+      "content_type": "TEAM_RECORD",
+      "content": "Team record: 56-22, 277 goals for, 191 against",
+      "talking_points": [
+        "Strong season with 56 wins and 22 losses",
+        "Averaging 3.4 goals per game",
+        "Goal differential of 86"
+      ],
+      "context": "No new events - continue coverage with team_record"
+    },
+    "events_processed": 0,
+    "new_events_found": 0,
+    "total_events_in_timestamp": 9,
+    "stateful_filtering": true,
+    "game_context": {
+      "period": 1,
+      "time_remaining": "19:23",
+      "home_score": 4,
+      "away_score": 5,
+      "game_situation": "",
+      "periodType": "REG"
+    },
+    "context_analysis": {
+      "period": 1,
+      "time_remaining": "19:23",
+      "score_differential": 1,
+      "high_pressure_situation": false,
+      "overtime": false
+    }
+  },
+  "knowledge_base_status": "loaded",
+  "for_commentary_agent": {
+    "should_focus_on": "FILLER_CONTENT",
+    "priority_level": 3,
+    "key_talking_points": [
+      "Low momentum - opportunity for background stories"
+    ],
+    "context_for_commentator": "Find interesting storylines or statistics",
+    "commentary_task": {
+      "task_type": "CONTEXT_UPDATE",
+      "priority": 3,
+      "content_type": "TEAM_RECORD",
+      "content": "Team record: 56-22, 277 goals for, 191 against",
+      "talking_points": [
+        "Strong season with 56 wins and 22 losses",
+        "Averaging 3.4 goals per game",
+        "Goal differential of 86"
+      ],
+      "context": "No new events - continue coverage with team_record"
+    }
+  }
+}
