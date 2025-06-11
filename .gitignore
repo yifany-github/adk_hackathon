@@ -189,3 +189,5 @@ video_output/
 # Google Cloud credentials (if any)
 service-account-key.json
 gcp-credentials.json
+!data/data_agent_outputs/
+!data/data_agent_outputs/**

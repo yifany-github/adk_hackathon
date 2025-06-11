@@ -1,7 +1,7 @@
 {
   "game_id": "2024020001",
   "game_time": "1:00:00",
-  "collected_at_utc": "2025-06-05T19:08:39.394359Z",
+  "collected_at_utc": "2025-06-09T19:23:58.326517Z",
   "activity_window_seconds": 30,
   "fetch_interval_seconds": 5,
   "activities": [
@@ -21,13 +21,18 @@
       "sortOrder": 10,
       "details": {},
       "gameSituation": "even strength",
+      "timeRemainingFormatted": "",
       "gameStats": {
         "teamStats": {
           "away": {
-            "teamName": "NJD"
+            "teamName": "NJD",
+            "score": 4,
+            "sog": 23
           },
           "home": {
-            "teamName": "BUF"
+            "teamName": "BUF",
+            "score": 1,
+            "sog": 31
           }
         },
         "playerStats": {}
@@ -54,35 +59,29 @@
         "xCoord": 0,
         "yCoord": 0,
         "zoneCode": "N",
-        "losingPlayerName": "S. Lafferty (C, home)",
-        "winningPlayerName": "N. Hischier (C, away)",
+        "losingPlayerName": "S. Lafferty (home)",
+        "winningPlayerName": "N. Hischier (away)",
         "spatialDescription": "at center ice"
       },
       "gameSituation": "even strength",
+      "timeRemainingFormatted": "",
       "gameStats": {
         "teamStats": {
           "away": {
-            "teamName": "NJD"
+            "teamName": "NJD",
+            "score": 4,
+            "sog": 23
           },
           "home": {
-            "teamName": "BUF"
+            "teamName": "BUF",
+            "score": 1,
+            "sog": 31
           }
         },
-        "playerStats": {
-          "8480002": {
-            "name": "N. Hischier",
-            "position": "N/A",
-            "team": "away"
-          },
-          "8478043": {
-            "name": "S. Lafferty",
-            "position": "N/A",
-            "team": "home"
-          }
-        }
+        "playerStats": {}
       }
     }
   ],
-  "llm_description": "The game begins with Nico Hischier winning the opening faceoff against Sam Lafferty at center ice.  No significant events in the recent action.",
+  "llm_description": "A sequence of 2 plays occurred.",
   "activity_count": 2
 }
