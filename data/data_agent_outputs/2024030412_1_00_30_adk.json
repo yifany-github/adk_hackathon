@@ -1,16 +1,17 @@
 {
   "generated_at": "2025-06-10T15:00:00.000000Z",
-  "data_agent_version": "adk_v1.0",
+  "data_agent_version": "adk_v2.0",
   "agent_type": "intelligent_adk_agent",
   "for_commentary_agent": {
     "recommendation": "MIXED_COVERAGE",
     "priority_level": 2,
-    "momentum_score": 35,
+    "momentum_score": 30,
     "key_talking_points": [
-      "The first period has started with a flurry of activity. The Florida Panthers and Edmonton Oilers are picking up where they left off with a fast pace.",
-      "Early hits from the Oilers are establishing a physical presence in this game. Edmonton's #2 hitting Player (8475169) delivered two hits in quick succession. "
+      "The first minute has seen both teams establishing a physical presence early.",
+      "A missed shot off the crossbar early from Florida shows they are looking to add to their lead.",
+      "Edmonton needs to respond to the early pressure from Florida"
     ],
-    "context": "Balance play-by-play with analysis of the early game physicality and pace. Highlight players involved in the hits.",
+    "context": "The game has started with moderate activity, including a near-goal and some physical play. While not overwhelmingly intense, there's enough action to warrant more than just filler. The score difference of one goal also adds a bit of tension.",
     "game_context": {
       "period": 1,
       "time_remaining": "19:38",
@@ -20,16 +21,16 @@
     },
     "high_intensity_events": [
       {
-        "summary": "Missed shot by Player (8477933) off the crossbar at 19:49 of the first period.",
-        "impact_score": 40,
+        "summary": "Missed shot by 8477933 hit the crossbar.",
+        "impact_score": 35,
         "event_type": "missed-shot",
-        "time": "19:49"
+        "time": "00:11"
       }
     ],
     "task_details": {
-      "task_type": "game_analysis",
+      "task_type": "intelligent_analysis",
       "priority": 2,
-      "specific_guidance": "Monitor the game's physicality and pace. Prepare to switch to play-by-play if scoring chances increase."
+      "specific_guidance": "Balance play-by-play with analysis of the early game strategies and individual player matchups."
     }
   }
 }

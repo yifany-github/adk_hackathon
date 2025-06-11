@@ -82,7 +82,7 @@ def save_adk_output(result: dict, game_id: str, game_time: str):
         print(f"❌ Error saving ADK agent output: {e}")
         return None
 
-async def test_adk_data_agent():
+async def test_adk_data_agent(use_context_memory: bool = False):
     print("🏒 Testing ADK Data Agent - Using Google ADK Agent...")
     print("=" * 70)
     
@@ -90,6 +90,7 @@ async def test_adk_data_agent():
     game_id = "2024030412"
     
     print(f"\n🎯 Processing Game: {game_id}")
+    print(f"🧠 Context Memory: {'ENABLED' if use_context_memory else 'DISABLED'}")
     print("-" * 50)
     
     # Create ADK agent instance
@@ -115,6 +116,11 @@ async def test_adk_data_agent():
     
     processed_count = 0
     
+    # Context memory variables
+    runner = None
+    session = None
+    previous_outputs = []
+    
     for timestamp_file in timestamp_files:
         file_basename = os.path.basename(timestamp_file)
         print(f"\n⏰ Processing: {file_basename}")
@@ -123,7 +129,15 @@ async def test_adk_data_agent():
         game_time = file_basename.replace(f"{game_id}_", "").replace(".json", "")
         
         # Process this timestamp using ADK agent
-        result = await process_single_timestamp_with_adk_agent(agent, timestamp_file, game_id)
+        if use_context_memory:
+            result = await process_timestamp_with_memory(agent, timestamp_file, game_id, runner, session, previous_outputs)
+            if result.get("runner"):
+                runner = result["runner"]
+                session = result["session"]
+                previous_outputs.append(result.get("output", {}))
+                result = result.get("output", {})
+        else:
+            result = await process_single_timestamp_with_adk_agent(agent, timestamp_file, game_id)
         
         if result.get("error"):
             print(f"❌ {result['error']}")
