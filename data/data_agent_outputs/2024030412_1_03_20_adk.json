@@ -1,0 +1,41 @@
+{
+  "generated_at": "2025-06-10T15:00:00.000000Z",
+  "data_agent_version": "adk_v1.0",
+  "agent_type": "intelligent_adk_agent",
+  "for_commentary_agent": {
+    "recommendation": "MIXED_COVERAGE",
+    "priority_level": 2,
+    "momentum_score": 45,
+    "key_talking_points": [
+      "Edmonton's Cody Ceci was penalized for holding the stick at 2:54 of the first period against Florida. The Oilers will go on the penalty kill.",
+      "Florida and Edmonton are trading shots early in the first, with a recent shot on goal by Florida's Carter Verhaeghe at 2:57. Shots on goal are 43 for Florida and 47 for Edmonton"
+    ],
+    "context": "Penalty creates a power play opportunity; monitor shot volume and scoring chances.",
+    "game_context": {
+      "period": 1,
+      "time_remaining": "17:03",
+      "home_score": 4,
+      "away_score": 5,
+      "game_situation": "Even strength"
+    },
+    "high_intensity_events": [
+      {
+        "summary": "Cody Ceci (EDM) called for holding penalty against Carter Verhaeghe (FLA)",
+        "impact_score": 60,
+        "event_type": "penalty",
+        "time": "02:54"
+      },
+      {
+        "summary": "Carter Verhaeghe (FLA) shot on goal",
+        "impact_score": 30,
+        "event_type": "shot-on-goal",
+        "time": "02:57"
+      }
+    ],
+    "task_details": {
+      "task_type": "analyze_timestamp",
+      "priority": 2,
+      "specific_guidance": "Focus on the impact of the penalty and the ensuing power play.  A one-goal game in the first period makes every power play critical."
+    }
+  }
+}

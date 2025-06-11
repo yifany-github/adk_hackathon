@@ -1,0 +1,28 @@
+{
+  "generated_at": "2025-06-10T15:00:00.000000Z",
+  "data_agent_version": "adk_v1.0",
+  "agent_type": "intelligent_adk_agent",
+  "for_commentary_agent": {
+    "recommendation": "FILLER_CONTENT",
+    "priority_level": 1,
+    "momentum_score": 5,
+    "key_talking_points": [
+      "The game between the Florida Panthers and Edmonton Oilers has begun. Florida leads 5-4.",
+      "The opening faceoff was won by Edmonton's Connor McDavid against Florida's Aleksander Barkov."
+    ],
+    "context": "The period just started and the game has already had 9 goals. Provide some filler content to set the stage for the period.",
+    "game_context": {
+      "period": 1,
+      "time_remaining": "20:00",
+      "home_score": 4,
+      "away_score": 5,
+      "game_situation": "even strength"
+    },
+    "high_intensity_events": [],
+    "task_details": {
+      "task_type": "game_analysis",
+      "priority": 1,
+      "specific_guidance": "Provide an overview of the game and use filler content."
+    }
+  }
+}

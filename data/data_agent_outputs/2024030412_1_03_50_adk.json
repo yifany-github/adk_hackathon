@@ -1,0 +1,48 @@
+{
+  "generated_at": "2025-06-10T15:00:00.000000Z",
+  "data_agent_version": "adk_v1.0",
+  "agent_type": "intelligent_adk_agent",
+  "for_commentary_agent": {
+    "recommendation": "MIXED_COVERAGE",
+    "priority_level": 2,
+    "momentum_score": 55,
+    "key_talking_points": [
+      "Edmonton's Cody Ceci was penalized for holding-the-stick against Florida's Sam Reinhart at 17:06 remaining in the first period.",
+      "Florida had 3 shots on goal between 17:03 and 16:31 remaining in the first period.",
+      "Edmonton's Connor McDavid was penalized for tripping Florida's Carter Verhaeghe at 16:28 remaining in the first period. Florida will go on the power play."
+    ],
+    "context": "The game is fast-paced with multiple shots and penalties. Focus on the implications of the upcoming power play.",
+    "game_context": {
+      "period": 1,
+      "time_remaining": "16:28",
+      "home_score": 4,
+      "away_score": 5,
+      "game_situation": "Edmonton penalty, Florida on power play"
+    },
+    "high_intensity_events": [
+      {
+        "summary": "Penalty: Cody Ceci (EDM) holding-the-stick against Sam Reinhart (FLA).",
+        "impact_score": 40,
+        "event_type": "penalty",
+        "time": "17:06"
+      },
+      {
+        "summary": "Penalty: Connor McDavid (EDM) tripping against Carter Verhaeghe (FLA).",
+        "impact_score": 65,
+        "event_type": "penalty",
+        "time": "16:28"
+      },
+      {
+        "summary": "Shot on goal by Evan Bouchard (EDM).",
+        "impact_score": 20,
+        "event_type": "shot-on-goal",
+        "time": "17:03"
+      }
+    ],
+    "task_details": {
+      "task_type": "game_analysis",
+      "priority": 2,
+      "specific_guidance": "Provide context on the penalties and shots on goal, and preview the upcoming Florida power play."
+    }
+  }
+}

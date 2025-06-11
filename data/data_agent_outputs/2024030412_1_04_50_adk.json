@@ -1,0 +1,48 @@
+{
+  "generated_at": "2025-06-10T15:00:00.000000Z",
+  "data_agent_version": "adk_v1.0",
+  "agent_type": "intelligent_adk_agent",
+  "for_commentary_agent": {
+    "recommendation": "MIXED_COVERAGE",
+    "priority_level": 2,
+    "momentum_score": 45,
+    "key_talking_points": [
+      "Florida maintains a one-goal lead over Edmonton early in the first period, with a flurry of shots and physical play.",
+      "The play has been concentrated in the Edmonton zone, with Florida generating several scoring opportunities.",
+      "Keep an eye on the physical matchup between Edmonton's Derek Ryan and Florida's Sam Bennett, who have exchanged hits."
+    ],
+    "context": "The game remains close with sustained pressure from both teams; balance play-by-play with some analysis of team strategies.",
+    "game_context": {
+      "period": 1,
+      "time_remaining": "15:13",
+      "home_score": 4,
+      "away_score": 5,
+      "game_situation": "Close game; Florida leading by one goal."
+    },
+    "high_intensity_events": [
+      {
+        "summary": "Shot on goal by Florida's Carter Verhaeghe, stopped by Edmonton's Stuart Skinner at 04:02 of the first period.",
+        "impact_score": 5,
+        "event_type": "shot-on-goal",
+        "time": "04:02"
+      },
+      {
+        "summary": "A hit by Edmonton's Derek Ryan on Florida's Sam Bennett deep in the corner.",
+        "impact_score": 4,
+        "event_type": "hit",
+        "time": "04:17"
+      },
+      {
+        "summary": "Shot on goal by Florida's Eetu Luostarinen, stopped by Edmonton's Stuart Skinner at 04:44 of the first period.",
+        "impact_score": 5,
+        "event_type": "shot-on-goal",
+        "time": "04:44"
+      }
+    ],
+    "task_details": {
+      "task_type": "game_analysis",
+      "priority": 2,
+      "specific_guidance": "Analyze the shot patterns and physical play. Note that both teams are generating decent opportunities. Mention the importance of goaltending in this high-scoring affair."
+    }
+  }
+}

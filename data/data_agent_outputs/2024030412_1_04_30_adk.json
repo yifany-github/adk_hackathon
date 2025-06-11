@@ -1,0 +1,36 @@
+{
+  "generated_at": "2025-06-10T15:00:00.000000Z",
+  "data_agent_version": "adk_v1.0",
+  "agent_type": "intelligent_adk_agent",
+  "for_commentary_agent": {
+    "recommendation": "MIXED_COVERAGE",
+    "priority_level": 2,
+    "momentum_score": 55,
+    "key_talking_points": [
+      "Edmonton's Mattias Ekholm was penalized for tripping at 3:32 of the first period, putting Florida on the power play. The penalty occurred deep in the Edmonton zone.",
+      "The game is currently 5-4 in favor of Florida, with both teams generating a high number of shots on goal (FLA: 42, EDM: 46).",
+      "Shots on goal are being traded between the teams."
+    ],
+    "context": "The game has a lot of action, but the penalty and the score deserve some extra discussion. Focus on the implications of the penalty and the high shot volume from both teams.",
+    "game_context": {
+      "period": 1,
+      "time_remaining": "15:30",
+      "home_score": 4,
+      "away_score": 5,
+      "game_situation": "FLA leading by 1 goal"
+    },
+    "high_intensity_events": [
+      {
+        "summary": "Mattias Ekholm (EDM) penalized for tripping against unidentified FLA player at 03:32 of the first period.",
+        "impact_score": 60,
+        "event_type": "penalty",
+        "time": "03:32"
+      }
+    ],
+    "task_details": {
+      "task_type": "analyze_timestamp",
+      "priority": 2,
+      "specific_guidance": "Focus on the penalty and close score."
+    }
+  }
+}

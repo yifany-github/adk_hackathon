@@ -1,0 +1,35 @@
+{
+  "generated_at": "2025-06-10T15:00:00.000000Z",
+  "data_agent_version": "adk_v1.0",
+  "agent_type": "intelligent_adk_agent",
+  "for_commentary_agent": {
+    "recommendation": "MIXED_COVERAGE",
+    "priority_level": 2,
+    "momentum_score": 60,
+    "key_talking_points": [
+      "Edmonton's Cody Ceci receives a minor penalty for high-sticking Florida's Carter Verhaeghe at 0:37 of the first period. Florida will go on the power play.",
+      "The first minute of the game has seen a flurry of physical play, with several hits exchanged between the Oilers and Panthers."
+    ],
+    "context": "Florida gets an early power play. Discuss the impact of special teams on the game.",
+    "game_context": {
+      "period": 1,
+      "time_remaining": "19:23",
+      "home_score": 4,
+      "away_score": 5,
+      "game_situation": "Power play"
+    },
+    "high_intensity_events": [
+      {
+        "summary": "Penalty: Cody Ceci (EDM) high-sticking at 00:37 (2 min)",
+        "impact_score": 75,
+        "event_type": "penalty",
+        "time": "00:37"
+      }
+    ],
+    "task_details": {
+      "task_type": "analyze_game_state",
+      "priority": 2,
+      "specific_guidance": "Focus on the power play opportunity and the earlier physical play. Get player info for Ceci and Verhaeghe."
+    }
+  }
+}

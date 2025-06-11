@@ -1,0 +1,41 @@
+{
+  "generated_at": "2025-06-10T15:00:00.000000Z",
+  "data_agent_version": "adk_v1.0",
+  "agent_type": "intelligent_adk_agent",
+  "for_commentary_agent": {
+    "recommendation": "MIXED_COVERAGE",
+    "priority_level": 2,
+    "momentum_score": 45,
+    "key_talking_points": [
+      "Edmonton's Darnell Nurse (8477932) assessed a minor penalty for holding the stick at 17:06 remaining in the first period. Florida will go on the power play.",
+      "The Florida Panthers are currently leading the Edmonton Oilers 5-4 with 17:03 remaining in the first period. Florida has 42 shots on goal to Edmonton's 46."
+    ],
+    "context": "The Oilers take a penalty while trailing by one. Focus on the upcoming power play and the impact on the game. Mention the high shot totals for both teams.",
+    "game_context": {
+      "period": 1,
+      "time_remaining": "17:03",
+      "home_score": 4,
+      "away_score": 5,
+      "game_situation": "Oilers on penalty kill"
+    },
+    "high_intensity_events": [
+      {
+        "summary": "Darnell Nurse penalized for holding the stick, giving Florida a power play.",
+        "impact_score": 60,
+        "event_type": "penalty",
+        "time": "02:54"
+      },
+      {
+        "summary": "Carter Verhaeghe (8470621) shot on goal saved by Stuart Skinner (8475683)",
+        "impact_score": 30,
+        "event_type": "shot-on-goal",
+        "time": "02:57"
+      }
+    ],
+    "task_details": {
+      "task_type": "game_analysis",
+      "priority": 2,
+      "specific_guidance": "Monitor the Florida power play and Edmonton's penalty kill strategy."
+    }
+  }
+}

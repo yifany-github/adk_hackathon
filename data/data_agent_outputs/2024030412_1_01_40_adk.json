@@ -1,0 +1,41 @@
+{
+  "generated_at": "2025-06-10T15:00:00.000000Z",
+  "data_agent_version": "adk_v1.0",
+  "agent_type": "intelligent_adk_agent",
+  "for_commentary_agent": {
+    "recommendation": "MIXED_COVERAGE",
+    "priority_level": 2,
+    "momentum_score": 35,
+    "key_talking_points": [
+      "Carter Verhaeghe of the Florida Panthers missed a shot wide-right at 18:54 remaining in the first period. Followed shortly after by a shot on goal from Gustav Forsling at 18:48. The score is 5-4 in favor of Florida.",
+      "A faceoff win by the Edmonton Oilers in the neutral zone after a puck-in-benches stoppage. The Oilers are attempting to close the one-goal deficit early in the game."
+    ],
+    "context": "The game has a close score, warranting attention. Focus on chances and attempts to tie the game.",
+    "game_context": {
+      "period": 1,
+      "time_remaining": "18:40",
+      "home_score": 4,
+      "away_score": 5,
+      "game_situation": "Close game, early period"
+    },
+    "high_intensity_events": [
+      {
+        "summary": "Carter Verhaeghe misses a shot.",
+        "impact_score": 10,
+        "event_type": "missed-shot",
+        "time": "18:54"
+      },
+      {
+        "summary": "Gustav Forsling shot on goal.",
+        "impact_score": 15,
+        "event_type": "shot-on-goal",
+        "time": "18:48"
+      }
+    ],
+    "task_details": {
+      "task_type": "game_analysis",
+      "priority": 2,
+      "specific_guidance": "Monitor shot attempts and faceoff wins, providing context to the commentary team"
+    }
+  }
+}
