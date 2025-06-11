@@ -1,0 +1,35 @@
+{
+  "generated_at": "2025-06-10T15:00:00.000000Z",
+  "data_agent_version": "adk_v1.0",
+  "agent_type": "intelligent_adk_agent",
+  "for_commentary_agent": {
+    "recommendation": "MIXED_COVERAGE",
+    "priority_level": 2,
+    "momentum_score": 35,
+    "key_talking_points": [
+      "The first period has started with a quick pace. Following the opening faceoff, Florida's Carter Verhaeghe missed a shot, hitting the crossbar just 11 seconds into the game.",
+      "Edmonton's Ryan Nugent-Hopkins delivered a hit on Florida's Sam Bennett deep in the corner at the 20-second mark. "
+    ],
+    "context": "The game has started with moderate intensity. Keep an eye on the shot count, which is favoring Edmonton. Provide player details as needed.",
+    "game_context": {
+      "period": 1,
+      "time_remaining": "19:40",
+      "home_score": 4,
+      "away_score": 5,
+      "game_situation": "even strength"
+    },
+    "high_intensity_events": [
+      {
+        "summary": "Carter Verhaeghe misses shot, hits crossbar",
+        "impact_score": 40,
+        "event_type": "missed-shot",
+        "time": "19:49"
+      }
+    ],
+    "task_details": {
+      "task_type": "game_analysis",
+      "priority": 2,
+      "specific_guidance": "Monitor shot attempts and hits for momentum shifts."
+    }
+  }
+}

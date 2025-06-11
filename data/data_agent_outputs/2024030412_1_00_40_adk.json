@@ -1,0 +1,43 @@
+{
+  "generated_at": "2025-06-10T15:00:00.000000Z",
+  "data_agent_version": "adk_v1.0",
+  "agent_type": "intelligent_adk_agent",
+  "for_commentary_agent": {
+    "recommendation": "MIXED_COVERAGE",
+    "priority_level": 2,
+    "momentum_score": 45,
+    "key_talking_points": [
+      "The first period has started with a quick pace. Florida leads Edmonton 5-4.",
+      "Edmonton's Mattias Janmark won the opening faceoff against Florida's Anton Lundell.",
+      "Edmonton's Evan Bouchard missed a shot, ringing it off the crossbar just 11 seconds into the period.",
+      "A penalty was called on Edmonton's Cody Ceci for high-sticking Florida's Carter Verhaeghe. Florida goes to the power play with 19:23 remaining in the first period."
+    ],
+    "context": "The game has started with some intensity. Focus on the upcoming power play for Florida.",
+    "game_context": {
+      "period": 1,
+      "time_remaining": "19:23",
+      "home_score": 4,
+      "away_score": 5,
+      "game_situation": "Florida on the power play"
+    },
+    "high_intensity_events": [
+      {
+        "summary": "Missed shot by Evan Bouchard (EDM) - hit crossbar",
+        "impact_score": 30,
+        "event_type": "missed-shot",
+        "time": "19:49"
+      },
+      {
+        "summary": "Penalty on Cody Ceci (EDM) for high-sticking",
+        "impact_score": 60,
+        "event_type": "penalty",
+        "time": "19:23"
+      }
+    ],
+    "task_details": {
+      "task_type": "analyze_timestamp",
+      "priority": 2,
+      "specific_guidance": "Focus on the impact of the penalty on the game."
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "generated_at": "2025-06-10T15:00:00.000000Z",
+  "data_agent_version": "adk_v1.0",
+  "agent_type": "intelligent_adk_agent",
+  "for_commentary_agent": {
+    "recommendation": "MIXED_COVERAGE",
+    "priority_level": 2,
+    "momentum_score": 35,
+    "key_talking_points": [
+      "Carter Verhaeghe of the Florida Panthers had a missed shot at 1:06 of the first period, followed by a shot on goal from Gustav Forsling at 1:12, but was stopped by Stuart Skinner of the Edmonton Oilers.",
+      "A faceoff occurred at 1:20 after a puck-in-benches stoppage, with Connor McDavid winning the draw against Anton Lundell in the neutral zone.",
+      "At 1:57, Mattias Ekholm blocked a shot from Sam Reinhart in the defensive zone."
+    ],
+    "context": "The game has seen a mix of offensive attempts and defensive plays. Maintain a balanced approach, highlighting key players and tactical decisions.",
+    "game_context": {
+      "period": 1,
+      "time_remaining": "18:03",
+      "home_score": 4,
+      "away_score": 5,
+      "game_situation": "Normal game flow, close score."
+    },
+    "high_intensity_events": [
+      {
+        "summary": "Gustav Forsling shot on goal at 01:12.",
+        "impact_score": 30,
+        "event_type": "shot-on-goal",
+        "time": "01:12"
+      }
+    ],
+    "task_details": {
+      "task_type": "analyze_game_data",
+      "priority": 2,
+      "specific_guidance": "Focus on shot attempts and key faceoff wins. Highlight any developing trends or matchups."
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "generated_at": "2025-06-10T15:00:00.000000Z",
+  "data_agent_version": "adk_v1.0",
+  "agent_type": "intelligent_adk_agent",
+  "for_commentary_agent": {
+    "recommendation": "FILLER_CONTENT",
+    "priority_level": 1,
+    "momentum_score": 5,
+    "key_talking_points": [
+      "We're underway in the first period between the Florida Panthers and the Edmonton Oilers. Florida leads the game 5-4.",
+      "The period starts with a faceoff at center ice. Ryan Nugent-Hopkins vs Aleksander Barkov"
+    ],
+    "context": "The period just started. Provide some background on the teams or a player.",
+    "game_context": {
+      "period": 1,
+      "time_remaining": "20:00",
+      "home_score": 4,
+      "away_score": 5,
+      "game_situation": "even strength"
+    },
+    "high_intensity_events": [],
+    "task_details": {
+      "task_type": "game_analysis",
+      "priority": 1,
+      "specific_guidance": "Provide opening commentary and set the stage for the first period."
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "generated_at": "2025-06-10T15:00:00.000000Z",
+  "data_agent_version": "adk_v1.0",
+  "agent_type": "intelligent_adk_agent",
+  "for_commentary_agent": {
+    "recommendation": "MIXED_COVERAGE",
+    "priority_level": 2,
+    "momentum_score": 45,
+    "key_talking_points": [
+      "Edmonton's 8475169 (need name lookup) took a high-sticking penalty at 19:23 of the first period against Florida's 8477409 (need name lookup). Florida will go on the power play.",
+      "The period started with a series of hits, indicating a physical tone being set early in the game."
+    ],
+    "context": "The upcoming power play for Florida could be a turning point in this close, high-scoring game. Focus on the power play setup and key matchups.",
+    "game_context": {
+      "period": 1,
+      "time_remaining": "18:54",
+      "home_score": 4,
+      "away_score": 5,
+      "game_situation": "Florida on the power play"
+    },
+    "high_intensity_events": [
+      {
+        "summary": "High-sticking penalty on EDM player 8475169 leading to FLA power play",
+        "impact_score": 60,
+        "event_type": "penalty",
+        "time": "19:23"
+      },
+      {
+        "summary": "Series of hits by EDM players",
+        "impact_score": 30,
+        "event_type": "hit",
+        "time": "19:40-19:25"
+      }
+    ],
+    "task_details": {
+      "task_type": "game_analysis",
+      "priority": 2,
+      "specific_guidance": "Get the names of the players involved in the penalty. Also, prepare to discuss Florida's power play strategy."
+    }
+  }
+}

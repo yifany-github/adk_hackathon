@@ -1,0 +1,42 @@
+{
+  "generated_at": "2025-06-10T15:00:00.000000Z",
+  "data_agent_version": "adk_v1.0",
+  "agent_type": "intelligent_adk_agent",
+  "for_commentary_agent": {
+    "recommendation": "PLAY_BY_PLAY",
+    "priority_level": 2,
+    "momentum_score": 78,
+    "key_talking_points": [
+      "Sam Bennett scores for Florida at 2:07 of the first period, assisted by Carter Verhaeghe and Brandon Montour. The score is now 5-4 for Florida.",
+      "Following Bennett's goal, a faceoff occurred at center ice, won by Edmonton's Derek Ryan against Florida's Anton Lundell.",
+      "Mattias Janmark delivered a hit on Kyle Okposo in the offensive zone at 2:14."
+    ],
+    "context": "The game is closely contested, with Florida leading 5-4. The goal and subsequent hit suggest high-intensity play requiring real-time coverage.",
+    "game_context": {
+      "period": 1,
+      "time_remaining": "17:46",
+      "home_score": 4,
+      "away_score": 5,
+      "game_situation": "Close game, Florida leading by 1 goal"
+    },
+    "high_intensity_events": [
+      {
+        "summary": "Sam Bennett scores a goal (2:07)",
+        "impact_score": 85,
+        "event_type": "goal",
+        "time": "02:07"
+      },
+      {
+        "summary": "Mattias Janmark hits Kyle Okposo (2:14)",
+        "impact_score": 40,
+        "event_type": "hit",
+        "time": "02:14"
+      }
+    ],
+    "task_details": {
+      "task_type": "game_analysis",
+      "priority": 2,
+      "specific_guidance": "Focus on the scoring plays and physical moments, as they are driving the game's narrative."
+    }
+  }
+}

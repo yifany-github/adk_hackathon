@@ -1,0 +1,41 @@
+{
+  "generated_at": "2025-06-10T15:00:00.000000Z",
+  "data_agent_version": "adk_v1.0",
+  "agent_type": "intelligent_adk_agent",
+  "for_commentary_agent": {
+    "recommendation": "MIXED_COVERAGE",
+    "priority_level": 2,
+    "momentum_score": 35,
+    "key_talking_points": [
+      "Florida maintains a one-goal lead over Edmonton early in the first period. The pace of play is moderate, with both teams trading shots and hits.",
+      "Edmonton is looking to tie the game, generating offensive zone time, but Florida's defense is holding strong."
+    ],
+    "context": "The game is closely contested, but the action isn't consistently high-stakes. Provide some analysis while keeping an eye on the game flow.",
+    "game_context": {
+      "period": 1,
+      "time_remaining": "15:30",
+      "home_score": 4,
+      "away_score": 5,
+      "game_situation": "Close game, early in the first period"
+    },
+    "high_intensity_events": [
+      {
+        "summary": "Carter Verhaeghe misses a shot at 03:53 of the first period.",
+        "impact_score": 15,
+        "event_type": "missed-shot",
+        "time": "03:53"
+      },
+      {
+        "summary": "Warren Foegele with a shot on goal at 04:02 of the first period.",
+        "impact_score": 20,
+        "event_type": "shot-on-goal",
+        "time": "04:02"
+      }
+    ],
+    "task_details": {
+      "task_type": "analyze_game_momentum",
+      "priority": 2,
+      "specific_guidance": "Monitor the shot clock and hit count to gauge momentum shifts."
+    }
+  }
+}
