@@ -1,36 +1,36 @@
 {
   "generated_at": "2025-06-10T15:00:00.000000Z",
-  "data_agent_version": "adk_v1.0",
+  "data_agent_version": "adk_v2.0",
   "agent_type": "intelligent_adk_agent",
   "for_commentary_agent": {
-    "recommendation": "PLAY_BY_PLAY",
+    "recommendation": "MIXED_COVERAGE",
     "priority_level": 2,
-    "momentum_score": 65,
+    "momentum_score": 67,
     "key_talking_points": [
-      "Sam Bennett scores for Florida! Assisted by Anton Lundell and Brandon Montour, Bennett puts the Panthers ahead 1-0 early in the first period. The goal came at 2:07 with 17:53 remaining.",
-      "The goal occurred on the power play, increasing the urgency for Edmonton to respond, as Florida takes an early lead.",
-      "Following the goal, the Oilers and Panthers exchanged hits in the offensive zone and along the boards. Expecting a more physical game as Edmonton looks to equalize."
+      "Goal scored by Sam Bennett of the Florida Panthers at 2:07 of the first period, assisted by Anton Lundell and Brandon Montour. Florida now leads 5-4.",
+      "The goal was scored behind the net against Stuart Skinner. It was a wrist shot.",
+      "Discuss Bennett's performance this season and his role on the Panthers."
     ],
-    "context": "Focus on the Panthers taking an early lead and the increased physicality after the goal.",
+    "context": "The momentum score is moderate due to the recent goal. The game is close, but it is still early in the first period. Mixed coverage allows for discussion of the goal and the overall game situation.",
     "game_context": {
       "period": 1,
       "time_remaining": "17:22",
       "home_score": 4,
       "away_score": 5,
-      "game_situation": "Even strength"
+      "game_situation": "Close game, early period"
     },
     "high_intensity_events": [
       {
-        "summary": "Sam Bennett (FLA) Goal at 02:07 of Period 1, assisted by Anton Lundell and Brandon Montour.",
+        "summary": "Goal scored by FLA at 02:07 of the first period.",
         "impact_score": 80,
         "event_type": "goal",
         "time": "02:07"
       }
     ],
     "task_details": {
-      "task_type": "analyze_timestamp",
+      "task_type": "intelligent_analysis",
       "priority": 2,
-      "specific_guidance": "Emphasize the impact of the early power play goal and the resulting momentum shift."
+      "specific_guidance": "Focus on the Panthers' offensive surge and the Oilers' response. Analyze the impact of the goal on the game's momentum."
     }
   }
 }

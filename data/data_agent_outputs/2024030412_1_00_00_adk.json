@@ -1,16 +1,16 @@
 {
   "generated_at": "2025-06-10T15:00:00.000000Z",
-  "data_agent_version": "adk_v1.0",
+  "data_agent_version": "adk_v2.0",
   "agent_type": "intelligent_adk_agent",
   "for_commentary_agent": {
     "recommendation": "FILLER_CONTENT",
-    "priority_level": 1,
-    "momentum_score": 5,
+    "priority_level": 3,
+    "momentum_score": 10,
     "key_talking_points": [
-      "The game between the Florida Panthers and Edmonton Oilers has begun. Florida leads 5-4.",
-      "The opening faceoff was won by Edmonton's Connor McDavid against Florida's Aleksander Barkov."
+      "The Florida Panthers visit Rogers Place to take on the Edmonton Oilers. Florida is currently leading 5 to 4 coming into the first period.",
+      "Both teams have demonstrated strong offensive capabilities so far, with Florida recording 42 shots on goal and Edmonton close behind with 46."
     ],
-    "context": "The period just started and the game has already had 9 goals. Provide some filler content to set the stage for the period.",
+    "context": "Game start with low momentum. Scores are high but no action yet.",
     "game_context": {
       "period": 1,
       "time_remaining": "20:00",
@@ -20,9 +20,9 @@
     },
     "high_intensity_events": [],
     "task_details": {
-      "task_type": "game_analysis",
-      "priority": 1,
-      "specific_guidance": "Provide an overview of the game and use filler content."
+      "task_type": "intelligent_analysis",
+      "priority": 3,
+      "specific_guidance": "Open with team stats and pre-game analysis since momentum is low."
     }
   }
 }

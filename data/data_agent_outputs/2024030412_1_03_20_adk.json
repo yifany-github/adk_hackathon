@@ -1,41 +1,41 @@
 {
   "generated_at": "2025-06-10T15:00:00.000000Z",
-  "data_agent_version": "adk_v1.0",
+  "data_agent_version": "adk_v2.0",
   "agent_type": "intelligent_adk_agent",
   "for_commentary_agent": {
     "recommendation": "MIXED_COVERAGE",
     "priority_level": 2,
-    "momentum_score": 45,
+    "momentum_score": 42,
     "key_talking_points": [
-      "Edmonton's Cody Ceci was penalized for holding the stick at 2:54 of the first period against Florida. The Oilers will go on the penalty kill.",
-      "Florida and Edmonton are trading shots early in the first, with a recent shot on goal by Florida's Carter Verhaeghe at 2:57. Shots on goal are 43 for Florida and 47 for Edmonton"
+      "Edmonton was just assessed a holding-the-stick penalty against Florida at 17:06 remaining in the first period. We'll get the full name of the Edmonton player shortly. Florida will go on the power play, looking to extend their one-goal lead.",
+      "Florida had a shot on goal shortly after the penalty by Player ID 8470621, keeping the pressure on Edmonton while on the power play."
     ],
-    "context": "Penalty creates a power play opportunity; monitor shot volume and scoring chances.",
+    "context": "The game is relatively close and there was a penalty called. The penalty and subsequent shot on goal provide a moderate level of activity that warrants mixed coverage.",
     "game_context": {
       "period": 1,
       "time_remaining": "17:03",
       "home_score": 4,
       "away_score": 5,
-      "game_situation": "Even strength"
+      "game_situation": "Even Strength, FLA leading by 1"
     },
     "high_intensity_events": [
       {
-        "summary": "Cody Ceci (EDM) called for holding penalty against Carter Verhaeghe (FLA)",
+        "summary": "Penalty: Holding-the-Stick penalty called on EDM's Player ID 8477932 at 02:54",
         "impact_score": 60,
         "event_type": "penalty",
         "time": "02:54"
       },
       {
-        "summary": "Carter Verhaeghe (FLA) shot on goal",
+        "summary": "Shot on goal by FLA's Player ID 8470621 at 02:57",
         "impact_score": 30,
         "event_type": "shot-on-goal",
         "time": "02:57"
       }
     ],
     "task_details": {
-      "task_type": "analyze_timestamp",
+      "task_type": "intelligent_analysis",
       "priority": 2,
-      "specific_guidance": "Focus on the impact of the penalty and the ensuing power play.  A one-goal game in the first period makes every power play critical."
+      "specific_guidance": "Focus on the implications of the upcoming Florida power play and the impact on the game. Identify the Edmonton player who took the penalty as soon as possible."
     }
   }
 }

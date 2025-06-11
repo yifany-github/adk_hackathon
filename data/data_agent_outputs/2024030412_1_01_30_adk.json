@@ -1,35 +1,42 @@
 {
   "generated_at": "2025-06-10T15:00:00.000000Z",
-  "data_agent_version": "adk_v1.0",
+  "data_agent_version": "adk_v2.0",
   "agent_type": "intelligent_adk_agent",
   "for_commentary_agent": {
     "recommendation": "MIXED_COVERAGE",
     "priority_level": 2,
-    "momentum_score": 45,
+    "momentum_score": 55,
     "key_talking_points": [
-      "Penalty on Edmonton's Evander Kane for high-sticking Carter Verhaeghe. Florida goes to the power play for 2 minutes at 19:23 remaining in the first period.",
-      "Florida leads Edmonton 5-4 early in the first period. Edmonton needs to capitalize on opportunities to close the gap."
+      "Penalty on Edmonton's Evander Kane for high-sticking Florida's Carter Verhaeghe at 0:37 of the first. Florida goes to the power play early, with the score 5-4.",
+      "Darnell Nurse delivered a hit to Sam Bennett.",
+      "Discuss the impact of the early penalty on the game flow for both teams."
     ],
-    "context": "Focus on the implications of the upcoming power play for Florida. A goal here could widen the lead significantly.",
+    "context": "The momentum is moderate due to the recent penalty and shot on goal. A close score situation adds tension. Mixed coverage allows for discussing the penalty and its impact while still covering live play.",
     "game_context": {
       "period": 1,
       "time_remaining": "18:40",
       "home_score": 4,
       "away_score": 5,
-      "game_situation": "FLA on power play"
+      "game_situation": "Close Game"
     },
     "high_intensity_events": [
       {
-        "summary": "Evander Kane (EDM) assessed a penalty for high-sticking on Carter Verhaeghe (FLA) at 19:23 of the first period, giving Florida a power play.",
+        "summary": "Hit by Darnell Nurse on Sam Bennett",
+        "impact_score": 30,
+        "event_type": "hit",
+        "time": "00:35"
+      },
+      {
+        "summary": "Penalty on Evander Kane for high-sticking Carter Verhaeghe",
         "impact_score": 65,
         "event_type": "penalty",
         "time": "00:37"
       }
     ],
     "task_details": {
-      "task_type": "momentum_analysis",
+      "task_type": "intelligent_analysis",
       "priority": 2,
-      "specific_guidance": "The penalty is the key event. Discuss the power play setup and potential scoring chances for Florida."
+      "specific_guidance": "Focus on the Florida power play and Edmonton's penalty kill strategy. Also, keep an eye on the physical play between Nurse and Bennett."
     }
   }
 }

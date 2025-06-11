@@ -1,22 +1,17 @@
 {
   "generated_at": "2025-06-10T15:00:00.000000Z",
-  "data_agent_version": "adk_v1.0",
+  "data_agent_version": "adk_v2.0",
   "agent_type": "intelligent_adk_agent",
   "for_commentary_agent": {
     "recommendation": "MIXED_COVERAGE",
     "priority_level": 2,
-    "momentum_score": 60,
+    "momentum_score": 65,
     "key_talking_points": [
-      "Florida's Sam Bennett scored a goal at 2:07 of the first period, assisted by Carter Verhaeghe and Matthew Tkachuk.",
-      "The goal puts Florida ahead 1-0 early in the game.",
-      "The game has seen a flurry of activity in the opening minutes, including blocked shots and hits.",
-      "Blocked Shot by Edmonton's Cody Ceci on Florida's Sam Reinhart at 18:03 remaining in the 1st period.",
-      "Blocked Shot by Florida's Gustav Forsling on Edmonton's Leon Draisaitl at 17:58 remaining in the 1st period.",
-      "Hit by Edmonton's Vincent Desharnais on Florida's Steven Lorentz in the offensive zone at 17:46 remaining.",
-      "Hit by Florida's Steven Lorentz on Edmonton's Warren Foegele in the defensive zone at 17:22 remaining.",
-      "Edmonton called for a timeout at 17:12 after giving up a goal and struggling to maintain possession."
+      "Sam Bennett of the Florida Panthers scored a goal at 2:07 of the first period, assisted by Anton Lundell and Brandon Montour. The Panthers now lead 5-4.",
+      "The goal by Bennett came after a series of blocked shots, indicating sustained offensive pressure from Florida.",
+      "Edmonton will need to respond quickly to tie the game and regain momentum."
     ],
-    "context": "The game started with a lot of action. A goal was scored early, but since then there have been a lot of blocked shots, hits and missed shots. Time to shift to mixed coverage. Provide the key plays with some filler.",
+    "context": "The momentum score is moderate due to a recent goal. Maintain coverage to provide context and analysis.",
     "game_context": {
       "period": 1,
       "time_remaining": "17:12",
@@ -26,16 +21,16 @@
     },
     "high_intensity_events": [
       {
-        "summary": "Goal by Sam Bennett (FLA), assisted by Carter Verhaeghe and Matthew Tkachuk.",
+        "summary": "Goal scored by FLA at 02:07",
         "impact_score": 80,
         "event_type": "goal",
         "time": "02:07"
       }
     ],
     "task_details": {
-      "task_type": "game_analysis",
+      "task_type": "intelligent_analysis",
       "priority": 2,
-      "specific_guidance": "Focus on the early goal and the physical play. Note the scoring contributions from key players."
+      "specific_guidance": "Transition from play-by-play to provide analysis on the goal and the Panthers' offensive strategy."
     }
   }
 }

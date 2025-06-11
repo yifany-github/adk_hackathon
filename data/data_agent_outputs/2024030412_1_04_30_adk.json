@@ -1,36 +1,41 @@
 {
   "generated_at": "2025-06-10T15:00:00.000000Z",
-  "data_agent_version": "adk_v1.0",
+  "data_agent_version": "adk_v2.0",
   "agent_type": "intelligent_adk_agent",
   "for_commentary_agent": {
     "recommendation": "MIXED_COVERAGE",
     "priority_level": 2,
-    "momentum_score": 55,
+    "momentum_score": 45,
     "key_talking_points": [
-      "Edmonton's Mattias Ekholm was penalized for tripping at 3:32 of the first period, putting Florida on the power play. The penalty occurred deep in the Edmonton zone.",
-      "The game is currently 5-4 in favor of Florida, with both teams generating a high number of shots on goal (FLA: 42, EDM: 46).",
-      "Shots on goal are being traded between the teams."
+      "Edmonton's #8476454 was assessed a tripping penalty at 3:32 of the first period. Florida did not score on the ensuing powerplay.",
+      "Edmonton and Florida are exchanging hits early in the first period. The game remains tight, with Florida leading 5-4."
     ],
-    "context": "The game has a lot of action, but the penalty and the score deserve some extra discussion. Focus on the implications of the penalty and the high shot volume from both teams.",
+    "context": "The momentum is moderate with a few shots and a penalty. Mixed coverage allows for discussing the penalty while keeping an eye on the developing game.",
     "game_context": {
       "period": 1,
       "time_remaining": "15:30",
       "home_score": 4,
       "away_score": 5,
-      "game_situation": "FLA leading by 1 goal"
+      "game_situation": "5-on-5"
     },
     "high_intensity_events": [
       {
-        "summary": "Mattias Ekholm (EDM) penalized for tripping against unidentified FLA player at 03:32 of the first period.",
-        "impact_score": 60,
+        "summary": "Penalty: tripping committed by EDM #8476454 at 03:32",
+        "impact_score": 50,
         "event_type": "penalty",
         "time": "03:32"
+      },
+      {
+        "summary": "Shot on goal by EDM #8473419 at 04:02",
+        "impact_score": 30,
+        "event_type": "shot-on-goal",
+        "time": "04:02"
       }
     ],
     "task_details": {
-      "task_type": "analyze_timestamp",
+      "task_type": "intelligent_analysis",
       "priority": 2,
-      "specific_guidance": "Focus on the penalty and close score."
+      "specific_guidance": "Briefly discuss the implications of the penalty and highlight the physicality of the game so far. Mention the score."
     }
   }
 }
