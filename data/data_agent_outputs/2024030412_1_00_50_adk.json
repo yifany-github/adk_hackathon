@@ -5,31 +5,37 @@
   "for_commentary_agent": {
     "recommendation": "MIXED_COVERAGE",
     "priority_level": 2,
-    "momentum_score": 35,
+    "momentum_score": 65,
     "key_talking_points": [
-      "Penalty on Edmonton's Player ID 8475169 for high-sticking Player ID 8477409. Florida goes to the power play for 2 minutes at 19:23 remaining in the first period.",
-      "The game is tightly contested with Florida leading Edmonton 5-4 early in the first."
+      "Penalty on Edmonton's Evander Kane for high-sticking Carter Verhaeghe. Florida goes to the power play for 2 minutes at 19:23 remaining in the first period.",
+      "Sam Reinhart nearly tied the game with a shot that hit the crossbar. Stuart Skinner in net for Edmonton was able to deflect the shot."
     ],
-    "context": "The game has started with a flurry of activity including a penalty. Mixed coverage allows for analysis of the penalty while keeping up with the game flow.",
+    "context": "The momentum is moderate due to the missed shot and the penalty. The penalty on Kane provides an opportunity to discuss the power play dynamics, while the missed shot highlights the offensive pressure. The game is close, increasing the importance of these events.",
     "game_context": {
       "period": 1,
       "time_remaining": "19:23",
       "home_score": 4,
       "away_score": 5,
-      "game_situation": "Even Strength"
+      "game_situation": "FLA leads by 1 in the first period"
     },
     "high_intensity_events": [
       {
-        "summary": "Penalty: Committed by Player ID 8475169 for high-sticking at 00:37 (2 min)",
-        "impact_score": 60,
+        "summary": "Missed shot by S. Reinhart (away) off the crossbar",
+        "impact_score": 40,
+        "event_type": "missed-shot",
+        "time": "19:49"
+      },
+      {
+        "summary": "Penalty on E. Kane (home) for high-sticking C. Verhaeghe (away)",
+        "impact_score": 75,
         "event_type": "penalty",
-        "time": "00:37"
+        "time": "19:23"
       }
     ],
     "task_details": {
       "task_type": "intelligent_analysis",
       "priority": 2,
-      "specific_guidance": "Focus on the implications of the upcoming power play for Florida. Mention the score."
+      "specific_guidance": "Focus on the upcoming power play and the implications for both teams. Briefly recap the missed scoring opportunity by Reinhart. "
     }
   }
 }

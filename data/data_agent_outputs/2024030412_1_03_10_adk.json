@@ -5,30 +5,30 @@
   "for_commentary_agent": {
     "recommendation": "MIXED_COVERAGE",
     "priority_level": 2,
-    "momentum_score": 42,
+    "momentum_score": 61,
     "key_talking_points": [
-      "Edmonton was just assessed a penalty for holding the stick at 17:06 remaining in the first period.",
-      "Florida will go on the power play, up 5-4.",
-      "The last shot on goal was registered by Florida at 17:03 remaining in the first."
+      "Edmonton's penalty for holding the stick gives Florida a power play opportunity with 17:06 remaining in the first period.",
+      "The score is 5-4 in favor of Florida. A power play goal could extend their lead.",
+      "Focus on the Florida power play setup and key Edmonton penalty killers."
     ],
-    "context": "The game is relatively active with a close score, but the momentum is not extremely high. A penalty was just called, so mixed coverage will allow us to cover the implications of the penalty while still following the game action.",
+    "context": "The game is close and a penalty has just been called, leading to a power play opportunity for Florida. This creates a medium momentum situation where we balance play-by-play with analysis.",
     "game_context": {
       "period": 1,
       "time_remaining": "17:03",
       "home_score": 4,
       "away_score": 5,
-      "game_situation": "FLA leads by 1 in the 1st"
+      "game_situation": "Even strength, FLA leading by 1"
     },
     "high_intensity_events": [
       {
-        "summary": "Penalty: Holding the stick at 02:54",
-        "impact_score": 60,
+        "summary": "Penalty: Holding-the-stick called on EDM at 02:54",
+        "impact_score": 70,
         "event_type": "penalty",
         "time": "02:54"
       },
       {
-        "summary": "Shot on goal at 02:57",
-        "impact_score": 30,
+        "summary": "Shot on goal by FLA at 02:57",
+        "impact_score": 40,
         "event_type": "shot-on-goal",
         "time": "02:57"
       }
@@ -36,7 +36,7 @@
     "task_details": {
       "task_type": "intelligent_analysis",
       "priority": 2,
-      "specific_guidance": "Discuss the impact of the penalty on the game and preview Florida's power play strategy."
+      "specific_guidance": "Transition to discussing the implications of the power play and potential scoring opportunities for Florida. Briefly review the penalty and then focus on the upcoming special teams play."
     }
   }
 }

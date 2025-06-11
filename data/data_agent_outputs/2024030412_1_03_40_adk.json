@@ -5,43 +5,44 @@
   "for_commentary_agent": {
     "recommendation": "MIXED_COVERAGE",
     "priority_level": 2,
-    "momentum_score": 60,
+    "momentum_score": 62,
     "key_talking_points": [
-      "Edmonton was just penalized for holding the stick at 17:06 remaining in the first period. This didn't lead to anything, and then Florida was penalized at 16:28 for tripping. We have some back and forth penalties here as both teams try to contain one another.",
-      "Florida has maintained a one-goal lead despite Edmonton's strong offensive push. Goaltending will be key for Edmonton to get back in the game here."
+      "Florida's player 8476454 was just assessed a tripping penalty against Edmonton's player 8477495, sending Edmonton to the power play with 16:28 remaining in the first period.",
+      "Earlier, Edmonton took a holding penalty, but Florida was unable to capitalize. Can Edmonton tie the game on this power play?",
+      "The score is tight at 5-4, and both teams are generating offensive pressure. We've seen several shots on goal in the last minute. Player 8470621 with the latest shot on goal. Florida is leading in shots on goal 42 to 46, but the Oilers are pressing."
     ],
-    "context": "The momentum score is moderate due to recent penalties and shots on goal. The game is close, with Florida leading by one goal, so maintaining a balance between play-by-play and analysis is recommended.",
+    "context": "The momentum score is moderate, with a few shots on goal and two penalties called in quick succession. The game is close, so there is heightened tension. I recommend MIXED_COVERAGE to balance play-by-play with analysis of the penalties and scoring chances.",
     "game_context": {
       "period": 1,
       "time_remaining": "16:28",
       "home_score": 4,
       "away_score": 5,
-      "game_situation": "FLA leads by 1"
+      "game_situation": "even strength"
     },
     "high_intensity_events": [
       {
-        "summary": "Penalty: Holding-the-stick committed by EDM player at 02:54",
+        "summary": "Penalty: 2-minute minor for holding the stick committed by player 8477932 (EDM) against player 8479365 (FLA) at 17:06 remaining in the 1st period.",
         "impact_score": 35,
         "event_type": "penalty",
-        "time": "02:54"
+        "time": "17:06"
       },
       {
-        "summary": "Shot on goal by FLA at 03:29",
+        "summary": "Shot on goal by player 8470621 (FLA) at 17:03 remaining in the 1st period.",
         "impact_score": 20,
         "event_type": "shot-on-goal",
-        "time": "03:29"
+        "time": "17:03"
       },
       {
-        "summary": "Penalty: Tripping committed by FLA player at 03:32",
-        "impact_score": 40,
+        "summary": "Penalty: 2-minute minor for tripping committed by player 8476454 (FLA) against player 8477495 (EDM) at 16:28 remaining in the 1st period.",
+        "impact_score": 35,
         "event_type": "penalty",
-        "time": "03:32"
+        "time": "16:28"
       }
     ],
     "task_details": {
       "task_type": "intelligent_analysis",
       "priority": 2,
-      "specific_guidance": "Briefly discuss the impact of the penalties on the game flow and the importance of goaltending for Edmonton."
+      "specific_guidance": "Focus on the upcoming power play and the implications for Edmonton. Also, highlight the shot differential and the close score."
     }
   }
 }

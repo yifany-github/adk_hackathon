@@ -5,23 +5,29 @@
   "for_commentary_agent": {
     "recommendation": "MIXED_COVERAGE",
     "priority_level": 2,
-    "momentum_score": 30,
+    "momentum_score": 35,
     "key_talking_points": [
-      "Florida maintains a one-goal lead early in the first period. They have been peppering the Oilers' net, evidenced by their high shot count.",
-      "Edmonton needs to tighten up defensively and limit Florida's scoring opportunities. Goaltending will be key for the Oilers to stay in this game."
+      "Anton Lundell with a shot on net early in the first period, continuing Florida's offensive pressure.",
+      "Florida maintains a one-goal lead early in the first period. Can Edmonton respond to tie the game?"
     ],
-    "context": "The game is a close, high-scoring affair, but the current momentum is moderate. A recent shot on goal suggests continued offensive pressure. Mixed coverage allows for both play-by-play description and analysis of the game's overall context.",
+    "context": "The momentum is moderate with a few shots on goal and a one-goal game. Mixed coverage allows for discussing the game situation while covering the action.",
     "game_context": {
       "period": 1,
       "time_remaining": "18:03",
       "home_score": 4,
       "away_score": 5,
-      "game_situation": "5-on-5"
+      "game_situation": "FLA leads EDM by 1 in the 1st period"
     },
     "high_intensity_events": [
       {
-        "summary": "Shot on goal by Florida at 1:12 of the first period.",
-        "impact_score": 40,
+        "summary": "Missed shot by Sam Reinhart (FLA)",
+        "impact_score": 5,
+        "event_type": "missed-shot",
+        "time": "01:06"
+      },
+      {
+        "summary": "Shot on goal by Anton Lundell (FLA)",
+        "impact_score": 10,
         "event_type": "shot-on-goal",
         "time": "01:12"
       }
@@ -29,7 +35,7 @@
     "task_details": {
       "task_type": "intelligent_analysis",
       "priority": 2,
-      "specific_guidance": "Briefly describe the action, then shift to discussing Florida's offensive strategy and Edmonton's defensive challenges."
+      "specific_guidance": "Keep an eye on Florida's offensive pressure and Edmonton's response."
     }
   }
 }

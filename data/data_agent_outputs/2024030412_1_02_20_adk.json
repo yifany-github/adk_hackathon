@@ -4,33 +4,32 @@
   "agent_type": "intelligent_adk_agent",
   "for_commentary_agent": {
     "recommendation": "PLAY_BY_PLAY",
-    "priority_level": 1,
-    "momentum_score": 82,
+    "priority_level": 2,
+    "momentum_score": 78,
     "key_talking_points": [
-      "Sam Bennett of the Florida Panthers scores a goal at 2:07 of the first period, assisted by Gustav Forsling and Carter Verhaeghe. The Panthers now lead 5-4.",
-      "The goal occurred shortly after the penalty expired, with Florida capitalizing on the momentum. Stuart Skinner was in net for Edmonton.",
-      "The goal was initially a delayed penalty call, but the Panthers scored before the penalty was assessed, leading to the goal counting and the penalty being waived."
+      "GOAL! Sam Bennett (FLA) scores assisted by Matthew Tkachuk and Evan Rodrigues. The score is now 5-4 for Florida with 17:53 remaining in the first period.",
+      "Bennett's goal came after a series of blocked shots and a stoppage. Florida regains the lead early in the first."
     ],
-    "context": "The momentum score is high due to a recent goal. The game is close, and the goal could shift the game's momentum. Need to cover immediate reactions and potential shifts in strategy.",
+    "context": "A goal was scored, making it a one-goal game. The game is relatively close, so heightened awareness is required.",
     "game_context": {
       "period": 1,
       "time_remaining": "17:46",
       "home_score": 4,
       "away_score": 5,
-      "game_situation": "Even Strength"
+      "game_situation": "FLA leading EDM by 1 goal in the 1st period"
     },
     "high_intensity_events": [
       {
-        "summary": "Goal scored by Sam Bennett (FLA) at 02:07 of the first period.",
-        "impact_score": 90,
+        "summary": "Goal scored by Sam Bennett (FLA) at 02:07 of the first period. Assists from Matthew Tkachuk (FLA) and Evan Rodrigues (FLA).",
+        "impact_score": 85,
         "event_type": "goal",
         "time": "02:07"
       }
     ],
     "task_details": {
       "task_type": "intelligent_analysis",
-      "priority": 1,
-      "specific_guidance": "Focus on the immediate impact of the goal and any tactical adjustments made by either team. Mention the players involved in the goal and the overall score."
+      "priority": 2,
+      "specific_guidance": "Focus on the immediate reaction and shift following the goal. Emphasize the close score and potential momentum shift."
     }
   }
 }

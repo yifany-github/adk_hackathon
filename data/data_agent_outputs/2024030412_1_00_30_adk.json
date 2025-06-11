@@ -5,32 +5,55 @@
   "for_commentary_agent": {
     "recommendation": "MIXED_COVERAGE",
     "priority_level": 2,
-    "momentum_score": 30,
+    "momentum_score": 35,
     "key_talking_points": [
-      "The first minute has seen both teams establishing a physical presence early.",
-      "A missed shot off the crossbar early from Florida shows they are looking to add to their lead.",
-      "Edmonton needs to respond to the early pressure from Florida"
+      "Florida is holding onto a one-goal lead early in the first period against Edmonton. Shots are relatively even with Edmonton having 46 and Florida with 42.",
+      "Sergei Bobrovsky is being tested early, facing a barrage of shots from the Oilers.  Edmonton is trying to establish a physical presence early, with multiple hits in the opening minute."
     ],
-    "context": "The game has started with moderate activity, including a near-goal and some physical play. While not overwhelmingly intense, there's enough action to warrant more than just filler. The score difference of one goal also adds a bit of tension.",
+    "context": "The game is a close, high-scoring affair, but the momentum score is moderate. There were several hits and a missed shot off the crossbar, but the urgency isn't extremely high. MIXED_COVERAGE allows for play-by-play mixed with some analysis of the game's flow and the close score.",
     "game_context": {
       "period": 1,
       "time_remaining": "19:38",
       "home_score": 4,
       "away_score": 5,
-      "game_situation": "even strength"
+      "game_situation": "close game"
     },
     "high_intensity_events": [
       {
-        "summary": "Missed shot by 8477933 hit the crossbar.",
-        "impact_score": 35,
+        "summary": "Faceoff won by A. Barkov (away) against L. Draisaitl (home) at center ice",
+        "impact_score": 10,
+        "event_type": "faceoff",
+        "time": "00:00"
+      },
+      {
+        "summary": "Missed shot by S. Reinhart (away), hit crossbar, goalie S. Skinner (home)",
+        "impact_score": 15,
         "event_type": "missed-shot",
         "time": "00:11"
+      },
+      {
+        "summary": "Hit by L. Draisaitl (home) on G. Forsling (away) deep in the corner",
+        "impact_score": 5,
+        "event_type": "hit",
+        "time": "00:20"
+      },
+      {
+        "summary": "Hit by E. Kane (home) on A. Ekblad (away) deep in the corner",
+        "impact_score": 5,
+        "event_type": "hit",
+        "time": "00:21"
+      },
+      {
+        "summary": "Hit by E. Kane (home) on A. Ekblad (away) deep in the corner",
+        "impact_score": 5,
+        "event_type": "hit",
+        "time": "00:22"
       }
     ],
     "task_details": {
       "task_type": "intelligent_analysis",
       "priority": 2,
-      "specific_guidance": "Balance play-by-play with analysis of the early game strategies and individual player matchups."
+      "specific_guidance": "Focus on the shot disparity and Edmonton's physical play. Highlight the close score and its implications. The missed shot that hit the crossbar could have tied the game early, so that could be referenced."
     }
   }
 }

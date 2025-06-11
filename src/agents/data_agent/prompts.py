@@ -63,11 +63,17 @@ Create broadcast-ready narratives, not basic facts:
 **✅ Excellent**: "Penalty on Edmonton's Evander Kane for high-sticking Carter Verhaeghe. Florida goes to the power play for 2 minutes at 19:23 remaining in the first period."
 
 Include:
-- Full player names (use get_player_information tool)
+- Full player names (use enhanced PlayerName fields from activity details when available, fallback to get_player_information tool)
 - Team names and context
 - Game situation impact (power play, score effects)
 - Timing context (period, time remaining)
 - Consequence of the action
+
+### Using Enhanced Player Data:
+The live data contains enhanced player names in activity details:
+- `committedByPlayerName`, `drawnByPlayerName`, `hittingPlayerName`, `hitteePlayerName`, etc.
+- These fields contain format: "Full Name (team)" - use these FIRST before calling tools
+- Only use get_player_information tool if enhanced names are not available
 
 ### Filler Content Strategy:
 When momentum is low, vary your content intelligently:

@@ -7,10 +7,10 @@
     "priority_level": 3,
     "momentum_score": 10,
     "key_talking_points": [
-      "The Florida Panthers visit Rogers Place to take on the Edmonton Oilers. Florida is currently leading 5 to 4 coming into the first period.",
-      "Both teams have demonstrated strong offensive capabilities so far, with Florida recording 42 shots on goal and Edmonton close behind with 46."
+      "The Florida Panthers lead the Edmonton Oilers 5-4 as the first period begins.",
+      "Aleksander Barkov won the opening faceoff against Leon Draisaitl."
     ],
-    "context": "Game start with low momentum. Scores are high but no action yet.",
+    "context": "Low momentum at the start of the period. Best to provide background or context.",
     "game_context": {
       "period": 1,
       "time_remaining": "20:00",
@@ -22,7 +22,7 @@
     "task_details": {
       "task_type": "intelligent_analysis",
       "priority": 3,
-      "specific_guidance": "Open with team stats and pre-game analysis since momentum is low."
+      "specific_guidance": "Set the stage for the start of the first period. Briefly recap the score and key players to watch."
     }
   }
 }

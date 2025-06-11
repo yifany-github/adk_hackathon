@@ -7,29 +7,35 @@
     "priority_level": 2,
     "momentum_score": 45,
     "key_talking_points": [
-      "Edmonton was assessed a holding the stick penalty at 2:54 of the first period. Florida will go on the power play. The score is 5-4 in favor of Florida.",
-      "Florida has been outshooting Edmonton with 42 SOG compared to Edmonton's 46 SOG"
+      "Edmonton takes a penalty for holding-the-stick at 17:06 remaining in the first period, putting Florida on the power play. This is a critical opportunity for Florida to extend their lead.",
+      "Florida has registered three shots on goal in the last 30 seconds, indicating an increase in offensive pressure. Edmonton's goalie is being tested early in the game."
     ],
-    "context": "The momentum is moderate due to the recent penalty and shots on goal. A one-goal game early in the first period warrants mixed coverage. The penalty on EDM could lead to a scoring opportunity for FLA.",
+    "context": "The momentum is moderate due to the penalty and shots on goal. Mixed coverage allows for discussing the implications of the penalty and the shot patterns while still covering the live action.",
     "game_context": {
       "period": 1,
       "time_remaining": "16:31",
       "home_score": 4,
       "away_score": 5,
-      "game_situation": "Even Strength"
+      "game_situation": "FLA leads by 1 in the 1st period"
     },
     "high_intensity_events": [
       {
-        "summary": "Penalty: EDM called for holding the stick at 02:54",
+        "summary": "Penalty on EDM, creates power play opportunity for FLA.",
         "impact_score": 60,
         "event_type": "penalty",
         "time": "02:54"
+      },
+      {
+        "summary": "Shot on goal by FLA, increasing pressure on EDM.",
+        "impact_score": 30,
+        "event_type": "shot-on-goal",
+        "time": "03:29"
       }
     ],
     "task_details": {
       "task_type": "intelligent_analysis",
       "priority": 2,
-      "specific_guidance": "Focus on the upcoming Florida power play and the shot disparity between the two teams."
+      "specific_guidance": "Focus on Florida's power play setup and Edmonton's penalty kill strategy. Analyze the shot locations and goalie performance."
     }
   }
 }

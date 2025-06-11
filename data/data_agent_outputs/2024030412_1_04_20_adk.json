@@ -7,12 +7,11 @@
     "priority_level": 2,
     "momentum_score": 58,
     "key_talking_points": [
-      "Florida is holding onto a one-goal lead early in the first period, with the score 5-4.",
-      "Florida's #41, Sam Bennett, took a tripping penalty at 3:32. Edmonton was unable to capitalize on the power play.",
-      "Both teams have been trading scoring chances, as evidenced by the shot totals (FLA 42, EDM 46)",
-      "The last minute of play saw a hit registered against Edmonton's #25, Darnell Nurse, after an aggressive shift from Florida's forwards."
+      "Florida leads Edmonton 5-4 early in the first period.",
+      "Florida's penalty at 3:32 gives Edmonton a chance to tie the game.",
+      "The shot totals are high for this point in the game, with Florida having 42 SOG and Edmonton having 46."
     ],
-    "context": "The game has a medium momentum score of 58, driven by shots and a penalty. The score is close, warranting more in-depth commentary than filler but not requiring play-by-play. A mixed coverage approach is best.",
+    "context": "The game is relatively active with shots and a penalty. The score is close, suggesting a need to balance play-by-play with insightful commentary.",
     "game_context": {
       "period": 1,
       "time_remaining": "15:43",
@@ -34,7 +33,7 @@
         "time": "03:29"
       },
       {
-        "summary": "Penalty against FLA at 03:32",
+        "summary": "Penalty on FLA at 03:32",
         "impact_score": 20,
         "event_type": "penalty",
         "time": "03:32"
@@ -43,7 +42,7 @@
     "task_details": {
       "task_type": "intelligent_analysis",
       "priority": 2,
-      "specific_guidance": "Discuss the penalty call and its impact on the game. Highlight key players involved in recent scoring chances. Then preview the next few minutes."
+      "specific_guidance": "Focus on the impact of the upcoming power play for Edmonton. Mention the high shot totals as a sign of an open, offensive game."
     }
   }
 }

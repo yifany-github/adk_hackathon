@@ -7,34 +7,34 @@
     "priority_level": 2,
     "momentum_score": 45,
     "key_talking_points": [
-      "Florida is currently leading Edmonton 5-4 in the first period with 15:56 remaining.",
-      "Florida's penalty at 3:32 gives Edmonton a chance to tie the game.",
-      "The last few minutes have been active with multiple shots on goal."
+      "Florida is maintaining a one-goal lead over Edmonton early in the first. The recent penalty called on Florida could give Edmonton an opportunity to tie the game.",
+      "The shot differential shows a lot of offensive pressure from both teams. Goalies are being tested early.",
+      "The tripping penalty was called on Sam Bennett (FLA) at 16:28 of the first period, putting the Oilers on the power play for two minutes."
     ],
-    "context": "The momentum score is moderate due to a penalty and shots on goal. The score is close (5-4), so maintaining awareness of the game state is important.",
+    "context": "The game has medium momentum with several shots on goal and a penalty. The score is close, with Florida leading by one goal, so maintaining a balance between play-by-play and analysis is appropriate.",
     "game_context": {
       "period": 1,
       "time_remaining": "15:56",
       "home_score": 4,
       "away_score": 5,
-      "game_situation": "Even Strength"
+      "game_situation": "FLA leading by 1 goal in the first period."
     },
     "high_intensity_events": [
       {
-        "summary": "Shot on goal by FLA at 03:26",
+        "summary": "Shot on goal by FLA (8476454) at 03:26",
         "impact_score": 15,
         "event_type": "shot-on-goal",
         "time": "03:26"
       },
       {
-        "summary": "Shot on goal by FLA at 03:29",
+        "summary": "Shot on goal by FLA (8478402) at 03:29",
         "impact_score": 15,
         "event_type": "shot-on-goal",
         "time": "03:29"
       },
       {
-        "summary": "Penalty on FLA at 03:32 for tripping",
-        "impact_score": 30,
+        "summary": "Penalty on FLA (8476454) for tripping at 03:32",
+        "impact_score": 20,
         "event_type": "penalty",
         "time": "03:32"
       }
@@ -42,7 +42,7 @@
     "task_details": {
       "task_type": "intelligent_analysis",
       "priority": 2,
-      "specific_guidance": "Provide play-by-play for the start of the power play, then transition to discussing the impact of the penalty on Edmonton's ability to tie the game. Mention the shot totals for both teams."
+      "specific_guidance": "Discuss the shot totals and goalie performances. Mention the importance of the upcoming power play for Edmonton."
     }
   }
 }

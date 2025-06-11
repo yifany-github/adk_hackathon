@@ -5,12 +5,13 @@
   "for_commentary_agent": {
     "recommendation": "MIXED_COVERAGE",
     "priority_level": 2,
-    "momentum_score": 62,
+    "momentum_score": 60,
     "key_talking_points": [
-      "Penalty on Edmonton's 8475169 for high-sticking at 0:37 of the first. Florida will go on the power play.",
-      "Edmonton has been assessed a penalty. Florida has the opportunity to extend their lead early in the first period."
+      "Edmonton's early penalty puts Florida on the power play with a chance to extend their one-goal lead early in the first period.",
+      "The missed shot by Edmonton could have changed the game's momentum, showing their offensive pressure.",
+      "The high-sticking penalty was committed by Brett Kulak (EDM) against Carter Verhaeghe (FLA). Kulak will serve 2 minutes."
     ],
-    "context": "The game is close and there was a penalty called which changes the game dynamics. Momentum is moderate and warrants mixed coverage.",
+    "context": "The momentum is moderate due to the missed shot and a penalty on Edmonton. The score is close, so the penalty is a key moment. Need to balance play-by-play with some analysis of the penalty and its potential impact.",
     "game_context": {
       "period": 1,
       "time_remaining": "19:23",
@@ -21,13 +22,13 @@
     "high_intensity_events": [
       {
         "summary": "Missed shot by EDM hits crossbar",
-        "impact_score": 30,
+        "impact_score": 40,
         "event_type": "missed-shot",
         "time": "00:11"
       },
       {
-        "summary": "Penalty on EDM for high-sticking",
-        "impact_score": 70,
+        "summary": "Penalty: EDM high-sticking",
+        "impact_score": 75,
         "event_type": "penalty",
         "time": "00:37"
       }
@@ -35,7 +36,7 @@
     "task_details": {
       "task_type": "intelligent_analysis",
       "priority": 2,
-      "specific_guidance": "Focus on the implications of the upcoming power play for Florida. Analyze Edmonton's penalty kill strategy."
+      "specific_guidance": "Focus on the Florida power play, but also highlight Edmonton's offensive zone presence. This is a close, high-scoring game, so any momentum swing can be crucial."
     }
   }
 }

@@ -7,29 +7,35 @@
     "priority_level": 1,
     "momentum_score": 78,
     "key_talking_points": [
-      "Sam Bennett of the Florida Panthers scores a goal assisted by Anton Lundell and Brandon Montour. Florida now leads 5-4 with 17:53 remaining in the first period.",
-      "The goal came shortly after blocked shots, indicating sustained offensive pressure from Florida."
+      "Sam Bennett (FLA) scores, assisted by Anton Lundell (FLA) and Brandon Montour (FLA), putting Florida ahead 5-4 early in the first.",
+      "Mattias Janmark (EDM) with a huge hit on Dmitry Kulikov (FLA) in the offensive zone. Edmonton trying to generate momentum after conceding a goal."
     ],
-    "context": "A goal was just scored, increasing the momentum. The game is also a close one, making it essential to cover the immediate reactions and any potential shifts in strategy or intensity.",
+    "context": "A goal and a hit occurred within the last minute, with Florida leading by one. The game is close and action-packed.",
     "game_context": {
       "period": 1,
       "time_remaining": "17:46",
       "home_score": 4,
       "away_score": 5,
-      "game_situation": "Close game early in the first period."
+      "game_situation": "FLA leading by 1 in the 1st period"
     },
     "high_intensity_events": [
       {
-        "summary": "Goal scored by FLA at 02:07.",
+        "summary": "Goal scored by Sam Bennett (FLA) at 02:07 of the first period.",
         "impact_score": 85,
         "event_type": "goal",
         "time": "02:07"
+      },
+      {
+        "summary": "Big hit by Mattias Janmark (EDM) on Dmitry Kulikov (FLA) at 02:14 in the offensive zone.",
+        "impact_score": 40,
+        "event_type": "hit",
+        "time": "02:14"
       }
     ],
     "task_details": {
       "task_type": "intelligent_analysis",
       "priority": 1,
-      "specific_guidance": "Focus on the Panthers' momentum and the Oilers' response to falling behind early in the game."
+      "specific_guidance": "Focus on the immediate response from Edmonton after giving up the goal. Highlight the physical play and any developing scoring chances."
     }
   }
 }

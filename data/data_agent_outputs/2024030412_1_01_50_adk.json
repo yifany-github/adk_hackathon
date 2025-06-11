@@ -7,28 +7,28 @@
     "priority_level": 2,
     "momentum_score": 32,
     "key_talking_points": [
-      "Gustav Forsling with a shot on goal early in the first, continuing the offensive pressure from the Florida Panthers. Sergei Bobrovsky in net for Florida has faced 46 shots already.",
-      "Aleksander Barkov missed a shot wide-right. He's been a key offensive player for the Panthers, currently leading the team with 42 shots on goal.",
-      "Edmonton and Florida are battling hard in the faceoff circle. The Oilers won that last draw, continuing to focus on puck possession."
+      "Florida maintains a one-goal lead early in the first period with the score at 5-4.",
+      "The teams are exchanging shots, with Florida registering a shot on goal at 1:12 after a missed shot at 1:06.",
+      "Edmonton will need to tighten up defensively to limit Florida's chances and get back in the game."
     ],
-    "context": "The game is relatively close with a one-goal difference early in the first period. Momentum is moderate with some shots on goal and a missed shot. Mixed coverage allows for a balance of play-by-play and analysis.",
+    "context": "The game has a moderate momentum score due to shots and a missed shot, but the early stage of the first period and the one-goal difference warrant a mixed coverage approach. We should balance play-by-play with some analysis of the game's flow.",
     "game_context": {
       "period": 1,
       "time_remaining": "18:40",
       "home_score": 4,
       "away_score": 5,
-      "game_situation": "5-on-5"
+      "game_situation": "FLA leading by 1 in the 1st"
     },
     "high_intensity_events": [
       {
-        "summary": "Missed shot by Aleksander Barkov",
-        "impact_score": 15,
+        "summary": "Missed shot by FLA at 1:06",
+        "impact_score": 8,
         "event_type": "missed-shot",
         "time": "01:06"
       },
       {
-        "summary": "Shot on goal by Gustav Forsling",
-        "impact_score": 20,
+        "summary": "Shot on goal by FLA at 1:12",
+        "impact_score": 12,
         "event_type": "shot-on-goal",
         "time": "01:12"
       }
@@ -36,7 +36,7 @@
     "task_details": {
       "task_type": "intelligent_analysis",
       "priority": 2,
-      "specific_guidance": "Transition between describing the play and highlighting key players or team strategies. Mention the high shot counts for both teams."
+      "specific_guidance": "Provide play-by-play for scoring chances and shots on goal, but also discuss team strategies and individual player matchups. Mention the shot count and how the teams are generating offense."
     }
   }
 }

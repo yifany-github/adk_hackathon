@@ -7,30 +7,36 @@
     "priority_level": 2,
     "momentum_score": 65,
     "key_talking_points": [
-      "Sam Bennett of the Florida Panthers scored a goal at 2:07 of the first period, assisted by Anton Lundell and Brandon Montour. The Panthers now lead 5-4.",
-      "The goal by Bennett came after a series of blocked shots, indicating sustained offensive pressure from Florida.",
-      "Edmonton will need to respond quickly to tie the game and regain momentum."
+      "Sam Bennett's goal at 2:07 puts Florida ahead 5-4. Carter Verhaeghe with the primary assist. That's Bennett's 13th of the season.",
+      "The Oilers are trying to respond physically, with a couple of hits deep in the Florida zone. They need to convert that energy into scoring chances.",
+      "Stuart Skinner will need to be sharper for the Oilers; that's five goals against on 42 shots so far."
     ],
-    "context": "The momentum score is moderate due to a recent goal. Maintain coverage to provide context and analysis.",
+    "context": "The momentum is moderate with a recent goal and some physical play. A mixed coverage approach allows for discussion of the goal while still covering the ongoing action.",
     "game_context": {
       "period": 1,
       "time_remaining": "17:12",
       "home_score": 4,
       "away_score": 5,
-      "game_situation": "Even strength"
+      "game_situation": "Even Strength"
     },
     "high_intensity_events": [
       {
-        "summary": "Goal scored by FLA at 02:07",
+        "summary": "Goal scored by Sam Bennett (FLA) at 02:07 of the first period, assisted by Carter Verhaeghe and Anton Lundell.",
         "impact_score": 80,
         "event_type": "goal",
         "time": "02:07"
+      },
+      {
+        "summary": "Multiple hits and missed shots in the offensive zone.",
+        "impact_score": 30,
+        "event_type": "hit",
+        "time": "02:14"
       }
     ],
     "task_details": {
       "task_type": "intelligent_analysis",
       "priority": 2,
-      "specific_guidance": "Transition from play-by-play to provide analysis on the goal and the Panthers' offensive strategy."
+      "specific_guidance": "Briefly recap the goal, highlight the Oilers' response, and touch on goaltending. Balance play-by-play with analysis."
     }
   }
 }

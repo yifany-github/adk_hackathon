@@ -5,29 +5,30 @@
   "for_commentary_agent": {
     "recommendation": "MIXED_COVERAGE",
     "priority_level": 2,
-    "momentum_score": 42,
+    "momentum_score": 45,
     "key_talking_points": [
-      "Edmonton was just assessed a holding-the-stick penalty against Florida at 17:06 remaining in the first period. We'll get the full name of the Edmonton player shortly. Florida will go on the power play, looking to extend their one-goal lead.",
-      "Florida had a shot on goal shortly after the penalty by Player ID 8470621, keeping the pressure on Edmonton while on the power play."
+      "Penalty on Edmonton's Cody Ceci for holding the stick. Florida goes to the power play with 17:06 remaining in the first period.",
+      "Carter Verhaeghe with a shot on goal, saved by Stuart Skinner. Florida is pressing early while up by one goal.",
+      "Edmonton needs to capitalize on opportunities to tie the game before Florida extends their lead."
     ],
-    "context": "The game is relatively close and there was a penalty called. The penalty and subsequent shot on goal provide a moderate level of activity that warrants mixed coverage.",
+    "context": "The game is close and there was a penalty followed by a shot on goal. This warrants mixed coverage to discuss the implications of the penalty and the scoring chance.",
     "game_context": {
       "period": 1,
       "time_remaining": "17:03",
       "home_score": 4,
       "away_score": 5,
-      "game_situation": "Even Strength, FLA leading by 1"
+      "game_situation": "Even strength, FLA leading by 1"
     },
     "high_intensity_events": [
       {
-        "summary": "Penalty: Holding-the-Stick penalty called on EDM's Player ID 8477932 at 02:54",
-        "impact_score": 60,
+        "summary": "Penalty: Holding the stick called on Cody Ceci (EDM) at 02:54",
+        "impact_score": 50,
         "event_type": "penalty",
         "time": "02:54"
       },
       {
-        "summary": "Shot on goal by FLA's Player ID 8470621 at 02:57",
-        "impact_score": 30,
+        "summary": "Shot on goal by Carter Verhaeghe (FLA) at 02:57",
+        "impact_score": 40,
         "event_type": "shot-on-goal",
         "time": "02:57"
       }
@@ -35,7 +36,7 @@
     "task_details": {
       "task_type": "intelligent_analysis",
       "priority": 2,
-      "specific_guidance": "Focus on the implications of the upcoming Florida power play and the impact on the game. Identify the Edmonton player who took the penalty as soon as possible."
+      "specific_guidance": "Analyze the Florida power play setup and Edmonton's penalty kill strategy. Discuss the importance of this power play given the score and period."
     }
   }
 }
