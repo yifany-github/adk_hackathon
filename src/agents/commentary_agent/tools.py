@@ -1,455 +1,316 @@
 """
-Commentary Agent Tools - Google ADK Implementation
+Commentary Agent Tools - Simplified ADK Implementation
 
-Tool functions for the NHL Commentary Agent using Google ADK framework
+Core tool functions for NHL Commentary Agent
 """
 
 import json
-import logging
 import os
 from datetime import datetime
-from typing import Dict, List, Any, Optional, Tuple
-from dataclasses import dataclass
-from enum import Enum
-from google.adk.tools import FunctionTool
-from google.adk.tools.tool_context import ToolContext
+from typing import Dict, List, Any
+# Simple tool functions following data agent pattern
 
-def save_commentary_output(
-    game_id: str,
-    commentary_data: Dict[str, Any],
-    timestamp: str = None
-) -> str:
-    """
-    Save commentary output to data/commentary_agent_outputs/ directory
-    
-    Args:
-        game_id: NHL game ID
-        commentary_data: Generated commentary data
-        timestamp: Optional timestamp, will use current time if not provided
-        
-    Returns:
-        Path to saved file
-    """
-    try:
-        if timestamp is None:
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        
-        # Create output directory if it doesn't exist
-        output_dir = "data/commentary_agent_outputs"
-        os.makedirs(output_dir, exist_ok=True)
-        
-        # Create filename
-        filename = f"{game_id}_commentary_{timestamp}.json"
-        filepath = os.path.join(output_dir, filename)
-        
-        # Add metadata to the output
-        output_data = {
-            "metadata": {
-                "game_id": game_id,
-                "generated_at": datetime.now().isoformat(),
-                "agent_version": "adk_commentary_v1.0",
-                "agent_type": "nhl_commentary_agent",
-                "output_file": filename
-            },
-            "commentary_data": commentary_data
-        }
-        
-        # Save to file
-        with open(filepath, 'w', encoding='utf-8') as f:
-            json.dump(output_data, f, indent=2, ensure_ascii=False)
-        
-        print(f"💾 Commentary output saved: {filepath}")
-        return filepath
-        
-    except Exception as e:
-        print(f"❌ Failed to save commentary output: {e}")
-        return ""
-
-class CommentaryType(Enum):
-    """Types of commentary based on game intensity"""
-    FILLER_CONTENT = "FILLER_CONTENT"
-    MIXED_COVERAGE = "MIXED_COVERAGE" 
-    HIGH_INTENSITY = "HIGH_INTENSITY"
-
-@dataclass
-class CommentaryLine:
-    """Individual line of commentary dialogue"""
-    speaker: str  # "pbp" or "color"
-    text: str
-    emotion: str  # "excitement", "analysis", "tension", etc.
-    timing: str   # "immediate", "follow_up", "building"
-    duration_estimate: float
-
-@dataclass
-class CommentaryOutput:
-    """Complete commentary output with metadata"""
-    sequence: List[CommentaryLine]
-    game_context: Dict[str, Any]
-    commentary_type: CommentaryType
-    total_duration: float
 
 def generate_two_person_commentary(
-    context: ToolContext,
-    commentary_type: str = "MIXED_COVERAGE"
+    data_agent_output: Dict[str, Any]
 ) -> Dict[str, Any]:
     """
-    Generate two-person broadcast commentary dialogue
+    Generate professional two-person broadcast commentary dialogue.
     
     Args:
-        commentary_type: Type of commentary (FILLER_CONTENT, MIXED_COVERAGE, HIGH_INTENSITY)
+        data_agent_output: Output from the data agent containing game analysis
         
     Returns:
-        Dictionary containing generated commentary dialogue
+        Dictionary with commentary sequence and metadata
     """
     try:
-        # Get data from session state
-        game_data = context.session.state.get("current_data_agent_output", {})
-        static_context = context.session.state.get("static_context", {})
+        # Load static context (simplified approach)
+        try:
+            from ..data_agent.tools import load_static_context
+            game_id = data_agent_output.get("for_commentary_agent", {}).get("game_context", {}).get("game_id", "2024030412")
+            static_context = load_static_context(game_id)
+        except:
+            static_context = {}
         
-        commentary_data = game_data.get("for_commentary_agent", {})
-        game_context = commentary_data.get("game_context", {})
-        momentum = commentary_data.get("momentum_score", 0)
-        talking_points = commentary_data.get("key_talking_points", [])
-        events = commentary_data.get("high_intensity_events", [])
+        # Extract key information from data agent output
+        for_commentary = data_agent_output.get("for_commentary_agent", {})
+        talking_points = for_commentary.get("key_talking_points", [])
+        momentum_score = for_commentary.get("momentum_score", 0)
+        game_context = for_commentary.get("game_context", {})
+        high_intensity_events = for_commentary.get("high_intensity_events", [])
         
-        # Extract team info
+        # Extract game information
         game_info = static_context.get("game_info", {})
         home_team = game_info.get("home_team", "HOME")
         away_team = game_info.get("away_team", "AWAY")
         
-        # Determine speaker balance based on commentary type
-        if commentary_type == "FILLER_CONTENT":
-            # Color commentator leads (60-70%)
-            pbp_weight = 0.3
-            color_weight = 0.7
-        elif commentary_type == "HIGH_INTENSITY":
-            # Play-by-play dominates (70-80%)
-            pbp_weight = 0.8
-            color_weight = 0.2
-        else:  # MIXED_COVERAGE
-            # Balanced (50-50)
-            pbp_weight = 0.5
-            color_weight = 0.5
-        
-        # Generate commentary lines based on context
-        commentary_lines = []
-        
-        # Line 1: Opening based on commentary type and momentum
-        if commentary_type == "HIGH_INTENSITY" and momentum > 70:
-            commentary_lines.append({
-                "speaker": "pbp",
-                "text": f"What action here as {home_team} and {away_team} battle!",
-                "emotion": "excitement",
-                "timing": "immediate",
-                "duration_estimate": 2.5
-            })
-        elif talking_points:
-            # Use first talking point
-            commentary_lines.append({
-                "speaker": "pbp" if pbp_weight >= 0.5 else "color",
-                "text": talking_points[0],
-                "emotion": "steady",
-                "timing": "immediate", 
-                "duration_estimate": 3.0
-            })
+        # Determine commentary style based on momentum and events
+        if momentum_score > 60 or len(high_intensity_events) > 0:
+            actual_type = "HIGH_INTENSITY"
+        elif momentum_score > 30 or len(talking_points) > 2:
+            actual_type = "MIXED_COVERAGE"
         else:
-            commentary_lines.append({
-                "speaker": "pbp",
-                "text": f"We're back with {away_team} visiting {home_team} here tonight.",
-                "emotion": "steady",
-                "timing": "immediate",
-                "duration_estimate": 2.8
-            })
+            actual_type = "FILLER_CONTENT"
         
-        # Line 2: Response/Analysis
-        if len(commentary_lines) > 0:
-            first_speaker = commentary_lines[0]["speaker"]
-            second_speaker = "color" if first_speaker == "pbp" else "pbp"
-            
-            if events and len(events) > 0:
-                # React to recent event
-                event = events[0]
-                commentary_lines.append({
-                    "speaker": second_speaker,
-                    "text": f"That {event.get('event_type', 'play')} really shows the intensity out there.",
-                    "emotion": "analysis",
-                    "timing": "follow_up",
-                    "duration_estimate": 2.5
-                })
-            elif len(talking_points) > 1:
-                # Use second talking point
-                commentary_lines.append({
-                    "speaker": second_speaker,
-                    "text": talking_points[1],
-                    "emotion": "analysis",
-                    "timing": "follow_up",
-                    "duration_estimate": 3.2
-                })
-            else:
-                # Generic response
-                score_text = f"With the score {away_team} {game_context.get('away_score', 0)}, {home_team} {game_context.get('home_score', 0)}"
-                commentary_lines.append({
-                    "speaker": second_speaker,
-                    "text": score_text,
-                    "emotion": "analysis",
-                    "timing": "follow_up",
-                    "duration_estimate": 2.0
-                })
-        
-        # Line 3: Additional context for longer commentary
-        if commentary_type == "FILLER_CONTENT" and len(talking_points) > 2:
-            commentary_lines.append({
-                "speaker": "color",
-                "text": talking_points[2],
-                "emotion": "storytelling",
-                "timing": "building",
-                "duration_estimate": 4.0
-            })
+        # Generate commentary sequence based on type
+        if actual_type == "HIGH_INTENSITY":
+            commentary_sequence = _generate_high_intensity_commentary(
+                talking_points, high_intensity_events, home_team, away_team, game_context
+            )
+        elif actual_type == "MIXED_COVERAGE":
+            commentary_sequence = _generate_mixed_coverage_commentary(
+                talking_points, momentum_score, home_team, away_team, game_context
+            )
+        else:
+            commentary_sequence = _generate_filler_commentary(
+                home_team, away_team, game_context
+            )
         
         # Calculate total duration
-        total_duration = sum(line["duration_estimate"] for line in commentary_lines)
+        total_duration = sum(line.get("duration_estimate", 3.0) for line in commentary_sequence)
         
         result = {
             "status": "success",
-            "commentary_sequence": commentary_lines,
-            "metadata": {
-                "commentary_type": commentary_type,
-                "total_duration": total_duration,
-                "game_context": game_context,
-                "momentum_score": momentum,
-                "lines_generated": len(commentary_lines)
-            },
-            "speakers": {
-                "pbp": "Jim Harrison - Play-by-Play",
-                "color": "Eddie Martinez - Color Commentary"
+            "commentary_type": actual_type,
+            "commentary_sequence": commentary_sequence,
+            "total_duration_estimate": total_duration,
+            "game_context": {
+                "home_team": home_team,
+                "away_team": away_team,
+                "momentum_score": momentum_score,
+                "talking_points_count": len(talking_points)
             }
         }
         
-        # Save commentary output to file
-        static_context = context.session.state.get("static_context", {})
-        game_info = static_context.get("game_info", {})
+        # Return result (no session state needed)
         
-        # Get game_id from static context (it's at the top level)
-        game_id = static_context.get("game_id", "unknown_game")
-        
-        # Create complete output with all data
-        complete_output = {
-            "commentary_result": result,
-            "game_context": game_context,
-            "static_context": static_context,
-            "data_agent_input": context.session.state.get("current_data_agent_output", {})
-        }
-        
-        # Save to file
-        saved_path = save_commentary_output(game_id, complete_output)
-        result["output_file"] = saved_path
-        
-        context.session.state["last_commentary_generation"] = result
         return result
         
     except Exception as e:
         error_result = {
             "status": "error",
             "error": f"Commentary generation failed: {str(e)}",
-            "fallback_commentary": [
-                {
-                    "speaker": "pbp",
-                    "text": "We're back with live NHL action here tonight.",
-                    "emotion": "steady",
-                    "timing": "immediate",
-                    "duration_estimate": 2.5
-                },
-                {
-                    "speaker": "color",
-                    "text": "Both teams looking to establish their rhythm early on.",
-                    "emotion": "analysis",
-                    "timing": "follow_up",
-                    "duration_estimate": 3.0
-                }
-            ]
+            "commentary_sequence": []
         }
-        context.session.state["last_commentary_generation"] = error_result
+        # Return error result
         return error_result
 
-def format_commentary_for_audio(
-    context: ToolContext
-) -> Dict[str, Any]:
+
+def format_commentary_for_audio(commentary_result: Dict[str, Any]) -> Dict[str, Any]:
     """
-    Format commentary output for audio agent consumption
+    Format commentary for audio processing with TTS-ready output.
     
+    Args:
+        commentary_result: Result from generate_two_person_commentary
+        
     Returns:
-        Dictionary formatted for audio agent processing
+        Dictionary with audio-ready formatting
     """
     try:
-        # Get commentary data from session state
-        commentary_data = context.session.state.get("last_commentary_generation", {})
-        commentary_sequence = commentary_data.get("commentary_sequence", [])
         
+        if commentary_result.get("status") != "success":
+            return {
+                "status": "error",
+                "error": "No valid commentary to format",
+                "audio_ready": False
+            }
+        
+        commentary_sequence = commentary_result.get("commentary_sequence", [])
+        
+        # Format for audio processing
         audio_segments = []
-        
-        for line in commentary_sequence:
-            # Map speaker to voice characteristics
-            voice_style = "enthusiastic" if line.get("speaker") == "pbp" else "analytical"
-            
-            emotion = line.get("emotion", "neutral")
-            if emotion in ["excitement", "building_excitement"]:
-                voice_style = "dramatic"
-            elif emotion in ["tension", "concern"]:
-                voice_style = "intense"
-            
+        for i, line in enumerate(commentary_sequence):
             audio_segments.append({
-                "text": line.get("text", ""),
+                "segment_id": i + 1,
                 "speaker": line.get("speaker", "pbp"),
-                "voice_style": voice_style,
-                "emotion": emotion,
-                "duration_estimate": line.get("duration_estimate", 2.0),
-                "pause_after": 0.3 if line.get("timing") == "follow_up" else 0.1
+                "text": line.get("text", ""),
+                "voice_style": _get_voice_style(line.get("speaker", "pbp"), line.get("emotion", "neutral")),
+                "duration_estimate": line.get("duration_estimate", 3.0),
+                "pause_after": line.get("pause_after", 0.5)
             })
         
-        audio_format = {
+        result = {
             "status": "success",
+            "audio_ready": True,
             "audio_segments": audio_segments,
-            "total_duration": commentary_data.get("metadata", {}).get("total_duration", 0),
-            "commentary_type": commentary_data.get("metadata", {}).get("commentary_type", "MIXED_COVERAGE"),
-            "speakers": commentary_data.get("speakers", {}),
-            "ready_for_tts": True
+            "total_segments": len(audio_segments),
+            "estimated_total_duration": sum(seg["duration_estimate"] + seg["pause_after"] for seg in audio_segments)
         }
         
-        context.session.state["audio_formatted_commentary"] = audio_format
-        return audio_format
+        # Return formatted result
+        
+        return result
         
     except Exception as e:
         error_result = {
             "status": "error",
             "error": f"Audio formatting failed: {str(e)}",
-            "audio_segments": []
+            "audio_ready": False
         }
-        context.session.state["audio_formatted_commentary"] = error_result
+        # Return error
         return error_result
 
-def analyze_commentary_context(
-    context: ToolContext
-) -> Dict[str, Any]:
+
+def analyze_commentary_context(data_agent_output: Dict[str, Any]) -> Dict[str, Any]:
     """
-    Analyze game context to determine optimal commentary approach
+    Analyze the data agent output to determine commentary strategy.
     
+    Args:
+        data_agent_output: Output from the data agent containing game analysis
+        
     Returns:
-        Analysis results with recommended commentary strategy
+        Dictionary with analysis and recommendations
     """
     try:
-        # Get data from session state
-        data_agent_output = context.session.state.get("current_data_agent_output", {})
-        commentary_data = data_agent_output.get("for_commentary_agent", {})
-        game_context = commentary_data.get("game_context", {})
-        momentum = commentary_data.get("momentum_score", 0)
-        events = commentary_data.get("high_intensity_events", [])
-        recommendation = commentary_data.get("recommendation", "FILLER_CONTENT")
         
-        # Determine game state
-        period = game_context.get("period", 1)
-        time_remaining = game_context.get("time_remaining", "20:00")
-        situation = game_context.get("game_situation", "even strength")
+        # Extract key information
+        for_commentary = data_agent_output.get("for_commentary_agent", {})
+        recommendation = for_commentary.get("recommendation", "FILLER_CONTENT")
+        momentum_score = for_commentary.get("momentum_score", 0)
+        talking_points = for_commentary.get("key_talking_points", [])
+        high_intensity_events = for_commentary.get("high_intensity_events", [])
         
-        # Analyze intensity level
-        intensity_level = "low"
-        if momentum > 70:
-            intensity_level = "high"
-        elif momentum > 40:
-            intensity_level = "medium"
-        
-        # Determine speaker balance
-        speaker_strategy = {
-            "FILLER_CONTENT": {"pbp_ratio": 0.3, "color_ratio": 0.7, "pace": "relaxed"},
-            "MIXED_COVERAGE": {"pbp_ratio": 0.5, "color_ratio": 0.5, "pace": "moderate"}, 
-            "HIGH_INTENSITY": {"pbp_ratio": 0.8, "color_ratio": 0.2, "pace": "fast"}
+        # Analyze context
+        analysis = {
+            "momentum_assessment": _assess_momentum(momentum_score),
+            "content_richness": len(talking_points),
+            "intensity_level": len(high_intensity_events),
+            "recommended_type": recommendation
         }
         
-        strategy = speaker_strategy.get(recommendation, speaker_strategy["MIXED_COVERAGE"])
+        # Determine strategy
+        if momentum_score > 60 or len(high_intensity_events) > 0:
+            strategy_type = "HIGH_INTENSITY"
+            focus = "immediate_action"
+        elif momentum_score > 30 or len(talking_points) > 2:
+            strategy_type = "MIXED_COVERAGE"
+            focus = "analysis_with_action"
+        else:
+            strategy_type = "FILLER_CONTENT"
+            focus = "general_discussion"
         
-        analysis = {
+        result = {
             "status": "success",
-            "game_analysis": {
-                "period": period,
-                "time_remaining": time_remaining,
-                "game_situation": situation,
-                "momentum_score": momentum,
-                "intensity_level": intensity_level,
-                "high_intensity_events_count": len(events)
-            },
+            "analysis": analysis,
             "commentary_strategy": {
-                "recommended_type": recommendation,
-                "pbp_speaking_ratio": strategy["pbp_ratio"],
-                "color_speaking_ratio": strategy["color_ratio"],
-                "pacing": strategy["pace"],
-                "focus_areas": _determine_focus_areas(game_context, events, momentum)
-            },
-            "dialogue_guidance": {
-                "estimated_lines": 2 + (1 if recommendation == "FILLER_CONTENT" else 0),
-                "average_line_duration": 2.5 + (0.5 if recommendation == "FILLER_CONTENT" else 0),
-                "emotional_tone": _determine_emotional_tone(momentum, events)
+                "recommended_type": strategy_type,
+                "focus_area": focus,
+                "talking_points_available": len(talking_points),
+                "high_intensity_events": len(high_intensity_events)
             }
         }
         
-        context.session.state["commentary_analysis"] = analysis
-        return analysis
+        # Return analysis result
+        
+        return result
         
     except Exception as e:
         error_result = {
             "status": "error",
-            "error": f"Context analysis failed: {str(e)}",
-            "fallback_strategy": {
-                "recommended_type": "MIXED_COVERAGE",
-                "pbp_speaking_ratio": 0.5,
-                "color_speaking_ratio": 0.5
-            }
+            "error": f"Context analysis failed: {str(e)}"
         }
-        context.session.state["commentary_analysis"] = error_result
+        # Return error
         return error_result
 
-def _determine_focus_areas(game_context: Dict[str, Any], events: List[Dict], momentum: int) -> List[str]:
-    """Determine what the commentary should focus on"""
-    focus_areas = []
-    
-    situation = game_context.get("game_situation", "even strength")
-    if "power" in situation.lower():
-        focus_areas.append("special_teams")
-    
-    if momentum > 60:
-        focus_areas.append("momentum_shift")
-    
-    if events:
-        event_types = [e.get("event_type", "") for e in events]
-        if "goal" in event_types:
-            focus_areas.append("scoring_analysis")
-        elif "penalty" in event_types:
-            focus_areas.append("penalty_impact")
-        elif "hit" in event_types:
-            focus_areas.append("physical_play")
-    
-    if not focus_areas:
-        focus_areas.append("general_play")
-    
-    return focus_areas
 
-def _determine_emotional_tone(momentum: int, events: List[Dict]) -> str:
-    """Determine the emotional tone for commentary"""
-    if momentum > 80:
-        return "high_excitement"
-    elif momentum > 60:
-        return "building_tension"
-    elif momentum > 30:
-        return "engaged_analysis"
+# Helper functions
+def _generate_high_intensity_commentary(talking_points, events, home_team, away_team, game_context):
+    """Generate high-intensity commentary with immediate reactions"""
+    return [
+        {
+            "speaker": "pbp",
+            "text": f"What a sequence we're seeing here between {away_team} and {home_team}!",
+            "emotion": "excitement",
+            "timing": "immediate",
+            "duration_estimate": 2.5,
+            "pause_after": 0.3
+        },
+        {
+            "speaker": "color",
+            "text": f"The intensity is absolutely through the roof! {talking_points[0] if talking_points else 'This is playoff hockey at its finest!'}",
+            "emotion": "analysis_excited",
+            "timing": "follow_up",
+            "duration_estimate": 3.5,
+            "pause_after": 0.5
+        }
+    ]
+
+
+def _generate_mixed_coverage_commentary(talking_points, momentum_score, home_team, away_team, game_context):
+    """Generate balanced coverage with analysis"""
+    return [
+        {
+            "speaker": "pbp",
+            "text": f"Good back-and-forth action here between {away_team} and {home_team}.",
+            "emotion": "professional",
+            "timing": "measured",
+            "duration_estimate": 2.8,
+            "pause_after": 0.4
+        },
+        {
+            "speaker": "color", 
+            "text": talking_points[0] if talking_points else f"Both teams showing good energy level here.",
+            "emotion": "analytical",
+            "timing": "follow_up",
+            "duration_estimate": 3.2,
+            "pause_after": 0.6
+        }
+    ]
+
+
+def _generate_filler_commentary(home_team, away_team, game_context):
+    """Generate filler content for quiet moments"""
+    period = game_context.get("period", 1)
+    return [
+        {
+            "speaker": "pbp",
+            "text": f"We're in the {_ordinal(period)} period here, {away_team} visiting {home_team}.",
+            "emotion": "calm",
+            "timing": "relaxed",
+            "duration_estimate": 2.5,
+            "pause_after": 0.5
+        },
+        {
+            "speaker": "color",
+            "text": "Both teams settling into their systems here, looking for that next opportunity.",
+            "emotion": "observational",
+            "timing": "follow_up", 
+            "duration_estimate": 3.0,
+            "pause_after": 0.7
+        }
+    ]
+
+
+def _get_voice_style(speaker, emotion):
+    """Map speaker and emotion to voice style"""
+    if speaker == "pbp":
+        return "enthusiastic" if emotion in ["excitement", "tension"] else "professional"
+    else:  # color commentator
+        return "analytical" if emotion == "analytical" else "conversational"
+
+
+def _assess_momentum(momentum_score):
+    """Assess momentum level"""
+    if momentum_score > 60:
+        return "high"
+    elif momentum_score > 30:
+        return "moderate"
     else:
-        return "steady_professional"
+        return "low"
 
-# Create FunctionTool objects for ADK
-generate_commentary_tool = FunctionTool(func=generate_two_person_commentary)
-format_audio_tool = FunctionTool(func=format_commentary_for_audio)
-analyze_context_tool = FunctionTool(func=analyze_commentary_context)
 
-# Export all tools for the agent
+def _ordinal(n):
+    """Convert number to ordinal (1st, 2nd, 3rd)"""
+    if 10 <= n % 100 <= 20:
+        suffix = 'th'
+    else:
+        suffix = {1: 'st', 2: 'nd', 3: 'rd'}.get(n % 10, 'th')
+    return f"{n}{suffix}"
+
+
+# ADK Tool Definitions - Use function names directly like data agent
 COMMENTARY_TOOLS = [
-    generate_commentary_tool,
-    format_audio_tool,
-    analyze_context_tool
+    analyze_commentary_context,
+    generate_two_person_commentary,
+    format_commentary_for_audio
 ]
