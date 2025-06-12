@@ -53,13 +53,11 @@ python src/data/static/static_info_generator.py GAME_ID
 # Test data agent functionality (regenerates all data with proper player names)
 python test_data_agent_adk.py
 
-# Test commentary agent pipeline with multiple timestamps
-python test_commentary_pipeline.py
+# Test commentary agent with session awareness (eliminates repetitive commentary)
+python test_commentary_session_aware.py --max-files 5
 
-# Test commentary agent with different configurations
-python test_commentary_agent_new.py
-python test_commentary_integration.py
-python test_commentary_dialogue_flow.py
+# Test single agent functionality (same file, different mode)
+python test_commentary_session_aware.py --test-session
 
 # Test audio agent
 python src/agents/audio_agent/test_audio_agent.py
@@ -69,6 +67,10 @@ python test_real_tts.py
 
 # Basic audio agent tests
 python src/agents/audio_agent/test_audio_agent_basic.py
+
+# Extract and view commentary dialogue
+python extract_commentary_dialogue.py --continuous
+python extract_commentary_dialogue.py --output game_commentary.txt
 ```
 
 ### Commentary Pipeline Testing Workflow
@@ -111,6 +113,63 @@ POLLING_INTERVAL=5
 DEFAULT_COMMENTARY_STYLE=enthusiastic
 ENABLE_AUDIO_STREAMING=true
 ```
+
+## ADK Session Management for Commentary Continuity
+
+### Session-Aware Commentary Pipeline
+The commentary agent uses Google ADK sessions to maintain context across timestamps, eliminating repetitive commentary and ensuring natural conversation flow.
+
+#### Key Concepts:
+- **Session**: Maintains conversation history across multiple agent calls
+- **Context Continuity**: Agent remembers previous commentary to avoid repetition
+- **Production Ready**: Sessions can be persisted to databases for live deployment
+
+#### Implementation Pattern:
+```python
+# Create ONE session for entire game (not per timestamp)
+from google.adk.runners import InMemoryRunner
+
+runner = InMemoryRunner(agent=commentary_agent)
+session = await runner.session_service.create_session(
+    app_name=runner.app_name, 
+    user_id="game_commentator"
+)
+
+# Use SAME session across all timestamps
+for timestamp_data in game_timestamps:
+    response = await runner.run_async(
+        user_id=session.user_id,
+        session_id=session.id,  # Same session = context preserved
+        new_message=timestamp_data
+    )
+```
+
+#### Session Storage Options:
+- **Development**: `InMemorySessionService` (data lost on restart)
+- **Production**: Persistent storage backends (Firebase/Firestore, Cloud SQL, etc.)
+- **Live Deployment**: Managed sessions via Vertex AI Agent Engine
+
+#### Configuration for Production:
+```python
+# Example: Custom persistent session service
+class FirestoreSessionService(SessionService):
+    def __init__(self, firestore_client):
+        self.db = firestore_client
+    
+    async def create_session(self, app_name: str, user_id: str) -> Session:
+        # Implement Firestore persistence
+        pass
+    
+    async def get_session(self, session_id: str) -> Session:
+        # Restore session from Firestore
+        pass
+```
+
+#### Best Practices:
+- Use session-aware pipeline for natural commentary flow
+- Initialize session context at game start
+- Persist sessions for live broadcast continuity
+- Monitor session memory usage for long games
 
 ## Key Dependencies
 

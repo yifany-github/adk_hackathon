@@ -100,6 +100,10 @@ def _format_commentary_response(
     try:
         response_text = llm_response.content.parts[0].text
         
+        # Handle case where response is None (function call)
+        if response_text is None:
+            return llm_response
+        
         # Extract JSON from the response if it's wrapped in markdown
         if "```json" in response_text:
             json_start = response_text.find("```json") + 7
