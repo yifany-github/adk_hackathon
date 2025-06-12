@@ -1,0 +1,85 @@
+{
+  "generated_at": "2025-06-11T00:00:00.000000Z",
+  "commentary_agent_version": "simplified_adk_v1.0",
+  "agent_type": "nhl_commentary_agent",
+  "status": "success",
+  "commentary_data": {
+    "generated_at": "2025-06-11T00:00:00.000000Z",
+    "commentary_agent_version": "simplified_adk_v1.0",
+    "agent_type": "nhl_commentary_agent",
+    "status": "success",
+    "commentary_data": {
+      "generated_at": "2025-06-11T00:00:00.000000Z",
+      "commentary_agent_version": "simplified_adk_v1.0",
+      "agent_type": "nhl_commentary_agent",
+      "status": "success",
+      "commentary_data": {
+        "status": "success",
+        "commentary_type": "goal",
+        "commentary_sequence": [
+          {
+            "speaker": "Host",
+            "text": "GOAL! Sam Bennett puts it in! Florida extends their lead to 6-4!",
+            "emotion": "excited",
+            "timing": 1.0,
+            "duration_estimate": 5.0,
+            "pause_after": 0.5
+          },
+          {
+            "speaker": "Analyst",
+            "text": "Lundell and Verhaeghe with the assists. That goal was a result of sustained pressure in the offensive zone. Edmonton just couldn't clear the puck.",
+            "emotion": "analytical",
+            "timing": 6.5,
+            "duration_estimate": 8.0,
+            "pause_after": 1.0
+          }
+        ],
+        "total_duration_estimate": 14.5,
+        "game_context": {
+          "game_id": "2024030412",
+          "away_team": "FLA",
+          "home_team": "EDM",
+          "period": 1,
+          "time_remaining": "17:53",
+          "home_score": 4,
+          "away_score": 6
+        }
+      },
+      "for_audio_agent": {
+        "ready_for_processing": true,
+        "commentary_sequence": [
+          {
+            "speaker": "Host",
+            "text": "GOAL! Sam Bennett puts it in! Florida extends their lead to 6-4!",
+            "emotion": "excited",
+            "timing": 1.0,
+            "duration_estimate": 5.0,
+            "pause_after": 0.5
+          },
+          {
+            "speaker": "Analyst",
+            "text": "Lundell and Verhaeghe with the assists. That goal was a result of sustained pressure in the offensive zone. Edmonton just couldn't clear the puck.",
+            "emotion": "analytical",
+            "timing": 6.5,
+            "duration_estimate": 8.0,
+            "pause_after": 1.0
+          }
+        ],
+        "total_duration_estimate": 14.5,
+        "audio_format_data": {}
+      }
+    },
+    "for_audio_agent": {
+      "ready_for_processing": true,
+      "commentary_sequence": [],
+      "total_duration_estimate": 0,
+      "audio_format_data": {}
+    }
+  },
+  "for_audio_agent": {
+    "ready_for_processing": true,
+    "commentary_sequence": [],
+    "total_duration_estimate": 0,
+    "audio_format_data": {}
+  }
+}

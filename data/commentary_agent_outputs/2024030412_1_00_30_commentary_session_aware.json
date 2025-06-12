@@ -1,0 +1,73 @@
+{
+  "generated_at": "2025-06-11T00:00:00.000000Z",
+  "commentary_agent_version": "simplified_adk_v1.0",
+  "agent_type": "nhl_commentary_agent",
+  "status": "success",
+  "commentary_data": {
+    "generated_at": "2025-06-11T00:00:00.000000Z",
+    "commentary_agent_version": "simplified_adk_v1.0",
+    "agent_type": "nhl_commentary_agent",
+    "status": "success",
+    "commentary_data": {
+      "status": "success",
+      "commentary_type": "game_analysis",
+      "commentary_sequence": [
+        {
+          "speaker": "Analyst",
+          "text": "Bobrovsky is seeing a lot of rubber early. The Oilers are throwing everything they've got at him, trying to erase that deficit. Edmonton with 46 shots compared to Florida's 42.",
+          "emotion": "analytical",
+          "timing": 1.0,
+          "duration_estimate": 9.0,
+          "pause_after": 1.0
+        },
+        {
+          "speaker": "Host",
+          "text": "They're also laying the body. Edmonton is establishing a very physical presence early in this game, trying to wear down the Panthers' defense.",
+          "emotion": "observant",
+          "timing": 11.0,
+          "duration_estimate": 8.0,
+          "pause_after": 1.0
+        }
+      ],
+      "total_duration_estimate": 18.0,
+      "game_context": {
+        "game_id": "2024030412",
+        "away_team": "FLA",
+        "home_team": "EDM",
+        "period": 1,
+        "time_remaining": "19:38",
+        "home_score": 4,
+        "away_score": 5
+      }
+    },
+    "for_audio_agent": {
+      "ready_for_processing": true,
+      "commentary_sequence": [
+        {
+          "speaker": "Analyst",
+          "text": "Bobrovsky is seeing a lot of rubber early. The Oilers are throwing everything they've got at him, trying to erase that deficit. Edmonton with 46 shots compared to Florida's 42.",
+          "emotion": "analytical",
+          "timing": 1.0,
+          "duration_estimate": 9.0,
+          "pause_after": 1.0
+        },
+        {
+          "speaker": "Host",
+          "text": "They're also laying the body. Edmonton is establishing a very physical presence early in this game, trying to wear down the Panthers' defense.",
+          "emotion": "observant",
+          "timing": 11.0,
+          "duration_estimate": 8.0,
+          "pause_after": 1.0
+        }
+      ],
+      "total_duration_estimate": 18.0,
+      "audio_format_data": {}
+    }
+  },
+  "for_audio_agent": {
+    "ready_for_processing": true,
+    "commentary_sequence": [],
+    "total_duration_estimate": 0,
+    "audio_format_data": {}
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "generated_at": "2025-06-11T00:00:00.000000Z",
+  "commentary_agent_version": "simplified_adk_v1.0",
+  "agent_type": "nhl_commentary_agent",
+  "status": "success",
+  "commentary_data": {
+    "generated_at": "2025-06-11T00:00:00.000000Z",
+    "commentary_agent_version": "simplified_adk_v1.0",
+    "agent_type": "nhl_commentary_agent",
+    "status": "success",
+    "commentary_data": {
+      "status": "success",
+      "commentary_type": "penalty",
+      "commentary_sequence": [
+        {
+          "speaker": "Host",
+          "text": "Unbelievable! Another penalty on Edmonton! This time it's Ceci for high-sticking Tkachuk. The Panthers are going to be on the power play... again!",
+          "emotion": "astonishment",
+          "timing": 1.0,
+          "duration_estimate": 8.0,
+          "pause_after": 0.5
+        },
+        {
+          "speaker": "Analyst",
+          "text": "This is getting out of hand. Edmonton simply cannot keep taking penalties like this. They're playing with fire, and Florida's power play is ready to make them pay.",
+          "emotion": "critical",
+          "timing": 9.5,
+          "duration_estimate": 8.0,
+          "pause_after": 1.0
+        }
+      ],
+      "total_duration_estimate": 17.5,
+      "game_context": {
+        "game_id": "2024030412",
+        "away_team": "FLA",
+        "home_team": "EDM",
+        "period": 1,
+        "time_remaining": "18:40",
+        "home_score": 4,
+        "away_score": 5,
+        "power_play": "FLA"
+      }
+    },
+    "for_audio_agent": {
+      "ready_for_processing": true,
+      "commentary_sequence": [
+        {
+          "speaker": "Host",
+          "text": "Unbelievable! Another penalty on Edmonton! This time it's Ceci for high-sticking Tkachuk. The Panthers are going to be on the power play... again!",
+          "emotion": "astonishment",
+          "timing": 1.0,
+          "duration_estimate": 8.0,
+          "pause_after": 0.5
+        },
+        {
+          "speaker": "Analyst",
+          "text": "This is getting out of hand. Edmonton simply cannot keep taking penalties like this. They're playing with fire, and Florida's power play is ready to make them pay.",
+          "emotion": "critical",
+          "timing": 9.5,
+          "duration_estimate": 8.0,
+          "pause_after": 1.0
+        }
+      ],
+      "total_duration_estimate": 17.5,
+      "audio_format_data": {}
+    }
+  },
+  "for_audio_agent": {
+    "ready_for_processing": true,
+    "commentary_sequence": [],
+    "total_duration_estimate": 0,
+    "audio_format_data": {}
+  }
+}

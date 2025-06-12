@@ -1,0 +1,73 @@
+{
+  "generated_at": "2025-06-11T00:00:00.000000Z",
+  "commentary_agent_version": "simplified_adk_v1.0",
+  "agent_type": "nhl_commentary_agent",
+  "status": "success",
+  "commentary_data": {
+    "generated_at": "2025-06-11T00:00:00.000000Z",
+    "commentary_agent_version": "simplified_adk_v1.0",
+    "agent_type": "nhl_commentary_agent",
+    "status": "success",
+    "commentary_data": {
+      "status": "success",
+      "commentary_type": "general_context",
+      "commentary_sequence": [
+        {
+          "speaker": "Analyst",
+          "text": "The Panthers' offense came out firing, potting five in the previous period. Edmonton needs to shore up their defense if they want to claw back into this one.",
+          "emotion": "analytical",
+          "timing": 1.0,
+          "duration_estimate": 7.0,
+          "pause_after": 1.0
+        },
+        {
+          "speaker": "Host",
+          "text": "Absolutely. Both teams have shown a penchant for aggressive play this season, reflected in their high shot totals. We could be in for a track meet tonight.",
+          "emotion": "enthusiastic",
+          "timing": 9.0,
+          "duration_estimate": 7.0,
+          "pause_after": 1.0
+        }
+      ],
+      "total_duration_estimate": 16.0,
+      "game_context": {
+        "game_id": "2024030412",
+        "away_team": "FLA",
+        "home_team": "EDM",
+        "period": 1,
+        "time_remaining": "20:00",
+        "home_score": 4,
+        "away_score": 5
+      }
+    },
+    "for_audio_agent": {
+      "ready_for_processing": true,
+      "commentary_sequence": [
+        {
+          "speaker": "Analyst",
+          "text": "The Panthers' offense came out firing, potting five in the previous period. Edmonton needs to shore up their defense if they want to claw back into this one.",
+          "emotion": "analytical",
+          "timing": 1.0,
+          "duration_estimate": 7.0,
+          "pause_after": 1.0
+        },
+        {
+          "speaker": "Host",
+          "text": "Absolutely. Both teams have shown a penchant for aggressive play this season, reflected in their high shot totals. We could be in for a track meet tonight.",
+          "emotion": "enthusiastic",
+          "timing": 9.0,
+          "duration_estimate": 7.0,
+          "pause_after": 1.0
+        }
+      ],
+      "total_duration_estimate": 16.0,
+      "audio_format_data": {}
+    }
+  },
+  "for_audio_agent": {
+    "ready_for_processing": true,
+    "commentary_sequence": [],
+    "total_duration_estimate": 0,
+    "audio_format_data": {}
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "generated_at": "2025-06-11T00:00:00.000000Z",
+  "commentary_agent_version": "simplified_adk_v1.0",
+  "agent_type": "nhl_commentary_agent",
+  "status": "success",
+  "commentary_data": {
+    "generated_at": "2025-06-11T00:00:00.000000Z",
+    "commentary_agent_version": "simplified_adk_v1.0",
+    "agent_type": "nhl_commentary_agent",
+    "status": "success",
+    "commentary_data": {
+      "status": "success",
+      "commentary_type": "penalty",
+      "commentary_sequence": [
+        {
+          "speaker": "Host",
+          "text": "And now a penalty! Evander Kane gets called for high-sticking Carter Verhaeghe. That's a costly one for the Oilers.",
+          "emotion": "concerned",
+          "timing": 1.0,
+          "duration_estimate": 7.0,
+          "pause_after": 0.5
+        },
+        {
+          "speaker": "Analyst",
+          "text": "Absolutely. Florida's power play gets its first chance of the night. Bobrovsky has looked shaky, so a power-play goal here could really give the Panthers some breathing room.",
+          "emotion": "analytical",
+          "timing": 8.5,
+          "duration_estimate": 8.0,
+          "pause_after": 1.0
+        }
+      ],
+      "total_duration_estimate": 16.5,
+      "game_context": {
+        "game_id": "2024030412",
+        "away_team": "FLA",
+        "home_team": "EDM",
+        "period": 1,
+        "time_remaining": "19:23",
+        "home_score": 4,
+        "away_score": 5,
+        "power_play": "FLA"
+      }
+    },
+    "for_audio_agent": {
+      "ready_for_processing": true,
+      "commentary_sequence": [
+        {
+          "speaker": "Host",
+          "text": "And now a penalty! Evander Kane gets called for high-sticking Carter Verhaeghe. That's a costly one for the Oilers.",
+          "emotion": "concerned",
+          "timing": 1.0,
+          "duration_estimate": 7.0,
+          "pause_after": 0.5
+        },
+        {
+          "speaker": "Analyst",
+          "text": "Absolutely. Florida's power play gets its first chance of the night. Bobrovsky has looked shaky, so a power-play goal here could really give the Panthers some breathing room.",
+          "emotion": "analytical",
+          "timing": 8.5,
+          "duration_estimate": 8.0,
+          "pause_after": 1.0
+        }
+      ],
+      "total_duration_estimate": 16.5,
+      "audio_format_data": {}
+    }
+  },
+  "for_audio_agent": {
+    "ready_for_processing": true,
+    "commentary_sequence": [],
+    "total_duration_estimate": 0,
+    "audio_format_data": {}
+  }
+}
