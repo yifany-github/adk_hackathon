@@ -43,8 +43,15 @@ def load_static_context(game_id: str = "2024020001") -> Dict[str, Any]:
             "recent_milestones": [],
             "historical_matchups": []
         }
-    except Exception as e:
-        return {"error": f"Failed to load static context: {str(e)}"}
+    except (FileNotFoundError, json.JSONDecodeError, PermissionError) as e:
+        print(f"Warning: Failed to load static context for {game_id}: {e}")
+        return {
+            "teams": {"home": {"name": "Unknown", "stats": {}}, "away": {"name": "Unknown", "stats": {}}},
+            "players": {},
+            "season_storylines": [],
+            "recent_milestones": [],
+            "historical_matchups": []
+        }
 
 
 
@@ -80,6 +87,43 @@ def get_player_name_from_static(player_id: int, static_context: Dict[str, Any]) 
         return f"Player #{player_id}"
 
 
+def _resolve_player_names_in_details(details: Dict[str, Any], static_context: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Resolve player IDs to names in event details
+    
+    Args:
+        details: Raw event details with player IDs
+        static_context: Static context containing player mappings
+        
+    Returns:
+        Enhanced details with player names
+    """
+    enhanced_details = details.copy()
+    
+    # Common player ID fields in NHL API events
+    player_id_fields = [
+        "shootingPlayerId",
+        "goalieInNetId", 
+        "committedByPlayerId",
+        "drawnByPlayerId",
+        "winningPlayerId",
+        "losingPlayerId",
+        "hittingPlayerId",
+        "hitteePlayerId"
+    ]
+    
+    for field in player_id_fields:
+        if field in enhanced_details:
+            player_id = enhanced_details[field]
+            if isinstance(player_id, int):
+                player_name = get_player_name_from_static(player_id, static_context)
+                # Add resolved name alongside ID
+                name_field = field.replace("Id", "Name")
+                enhanced_details[name_field] = player_name
+    
+    return enhanced_details
+
+
 
 # ============= ADK-COMPATIBLE TOOLS =================
 
@@ -94,6 +138,9 @@ def analyze_hockey_momentum_adk(game_data: Dict[str, Any]) -> Dict[str, Any]:
         Dict with momentum analysis including score, recommendation, events
     """
     try:
+        # Load static context for player name resolution
+        game_id = game_data.get("game_id", "2024030412")  # Extract from data or use default
+        static_context = load_static_context(game_id)
         # Extract events and context
         activities = game_data.get("activities", [])
         game_context = {
@@ -123,15 +170,19 @@ def analyze_hockey_momentum_adk(game_data: Dict[str, Any]) -> Dict[str, Any]:
         # Calculate basic momentum score from event count and types
         momentum_score = min(len(activities) * 5, 100)  # Basic scoring
         
-        # Identify high intensity events
+        # Identify high intensity events with resolved player names
         high_intensity_events = []
         for event in activities:
             event_type = event.get("typeDescKey", "")
             if event_type in ["goal", "penalty", "hit", "shot-on-goal"]:
+                # Get raw details and resolve player names
+                details = event.get("details", {})
+                enhanced_details = _resolve_player_names_in_details(details, static_context)
+                
                 high_intensity_events.append({
                     "type": event_type,
                     "time": event.get("timeInPeriod", "0:00"),
-                    "description": event.get("details", {})
+                    "description": enhanced_details
                 })
         
         momentum_result = {

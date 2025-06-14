@@ -5,31 +5,38 @@
   "for_commentary_agent": {
     "recommendation": "MIXED_COVERAGE",
     "priority_level": 2,
-    "momentum_score": 42,
+    "momentum_score": 32,
     "key_talking_points": [
-      "Penalty on Edmonton's Cody Ceci (EDM) for high-sticking Matthew Tkachuk (FLA). Florida will go to the power play with 19:23 remaining in the first period. The score is 5-4 in favor of Florida.",
-      "The hits at the beginning of the period demonstrate the physical play intensifying as both teams battle for control early in this close, high-scoring game."
+      "At 18:40 remaining in the first period, the Florida Panthers lead the Edmonton Oilers 5-4.",
+      "Matthew Tkachuk missed a shot wide right, followed by a shot on goal from Aaron Ekblad that was saved by Stuart Skinner.",
+      "The Oilers need to tighten up defensively to prevent Florida from extending their lead."
     ],
-    "context": "The game is close (5-4) and there was a penalty called. Momentum is moderate, so MIXED_COVERAGE is appropriate to cover the penalty and game situation.",
+    "context": "The game is close with a 5-4 score, but the momentum score is moderate. We've had a couple of scoring chances, but also a stoppage and a faceoff. Mixed coverage allows us to recap the early action while still covering the live play.",
     "game_context": {
       "period": 1,
       "time_remaining": "18:40",
       "home_score": 4,
       "away_score": 5,
-      "game_situation": "close game"
+      "game_situation": "Close game, early in the first period"
     },
     "high_intensity_events": [
       {
-        "summary": "Penalty on EDM #14 for high-sticking at 0:37 of period 1",
-        "impact_score": 60,
-        "event_type": "penalty",
-        "time": "00:37"
+        "summary": "M. Tkachuk (FLA) missed shot wide-right on S. Skinner (EDM)",
+        "impact_score": 8,
+        "event_type": "missed-shot",
+        "time": "01:06"
+      },
+      {
+        "summary": "A. Ekblad (FLA) shot on goal saved by S. Skinner (EDM)",
+        "impact_score": 12,
+        "event_type": "shot-on-goal",
+        "time": "01:12"
       }
     ],
     "task_details": {
       "task_type": "intelligent_analysis",
       "priority": 2,
-      "specific_guidance": "Focus on the implications of the upcoming power play for Florida. Discuss how Edmonton needs to adjust their discipline."
+      "specific_guidance": "Briefly recap the scoring so far, then focus on the shot differential and goalie performance. Mention the importance of Edmonton tightening up defensively."
     }
   }
 }

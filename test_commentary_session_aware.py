@@ -139,12 +139,27 @@ Generate appropriate commentary for this moment. Remember our ongoing conversati
                         response_text = event.content.parts[0].text
             
             if response_text:
+                # Extract JSON from markdown code blocks if present
+                clean_response = response_text.strip()
+                
+                # Handle markdown code block wrapping
+                if "```json" in clean_response:
+                    json_start = clean_response.find("```json") + 7
+                    json_end = clean_response.find("```", json_start)
+                    if json_end == -1:
+                        json_end = len(clean_response)
+                    clean_response = clean_response[json_start:json_end].strip()
+                elif "```" in clean_response:
+                    json_start = clean_response.find("```") + 3
+                    json_end = clean_response.rfind("```")
+                    if json_end > json_start:
+                        clean_response = clean_response[json_start:json_end].strip()
+                
                 # Parse and save the commentary
                 try:
-                    parsed_result = json.loads(response_text)
-                    commentary_data = parsed_result
-                except json.JSONDecodeError:
-                    # Handle non-JSON responses
+                    parsed_result = json.loads(clean_response)
+                    
+                    # Add metadata to the parsed result
                     commentary_data = {
                         "generated_at": datetime.now().isoformat(),
                         "commentary_agent_version": "session_aware_v1.0",
@@ -152,7 +167,20 @@ Generate appropriate commentary for this moment. Remember our ongoing conversati
                         "game_id": game_id,
                         "timestamp": game_time,
                         "session_id": session.id,
-                        "status": "success",
+                        **parsed_result  # Spread the clean parsed JSON
+                    }
+                    
+                except json.JSONDecodeError as e:
+                    # Handle non-JSON responses as fallback
+                    commentary_data = {
+                        "generated_at": datetime.now().isoformat(),
+                        "commentary_agent_version": "session_aware_v1.0",
+                        "agent_type": "nhl_commentary_agent",
+                        "game_id": game_id,
+                        "timestamp": game_time,
+                        "session_id": session.id,
+                        "status": "error",
+                        "error": f"Failed to parse JSON: {str(e)}",
                         "raw_response": response_text
                     }
                 

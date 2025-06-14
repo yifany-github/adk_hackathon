@@ -5,50 +5,38 @@
   "for_commentary_agent": {
     "recommendation": "MIXED_COVERAGE",
     "priority_level": 2,
-    "momentum_score": 28,
+    "momentum_score": 35,
     "key_talking_points": [
-      "The game remains tight with Florida leading Edmonton 5-4 early in the first.",
-      "Both teams are generating shots on goal, with several hits being exchanged. Key players like McDavid and Barkov are active.",
-      "Luostarinen missed a tip-in attempt that could have extended Florida's lead."
+      "Anton Lundell (FLA) with a shot on goal attempt saved by Stuart Skinner (EDM). The score remains 5-4 for Florida with 15:58 remaining in the first.",
+      "The game is tight, with both teams trading shots and hits in the early going. Both teams need to settle down and try to control the puck.",
+      "The Panthers have the slight edge in shots on goal 42 to 46 so far."
     ],
-    "context": "The game is a close, high-scoring affair but the momentum is currently moderate with shots and hits. This allows for a blend of play-by-play and deeper analysis.",
+    "context": "The game is close with a 5-4 score early in the first period. There have been a few shots and hits, but the momentum is moderate. A mixed coverage approach will allow for discussing the game situation while showing key plays.",
     "game_context": {
       "period": 1,
       "time_remaining": "15:30",
       "home_score": 4,
       "away_score": 5,
-      "game_situation": "Close game, early in the first period"
+      "game_situation": "Close game, early in the 1st period"
     },
     "high_intensity_events": [
       {
-        "summary": "Missed shot by R. Luostarinen (FLA) at 03:53",
-        "impact_score": 5,
+        "summary": "Missed shot by Ryan Nugent-Hopkins (EDM)",
+        "impact_score": 10,
         "event_type": "missed-shot",
         "time": "03:53"
       },
       {
-        "summary": "Shot on goal by C. McDavid (EDM) at 04:02",
-        "impact_score": 7,
+        "summary": "Shot on goal by Anton Lundell (FLA) saved by Stuart Skinner (EDM)",
+        "impact_score": 15,
         "event_type": "shot-on-goal",
         "time": "04:02"
-      },
-      {
-        "summary": "Hit by Z. Hyman (EDM) on A. Barkov (FLA) at 04:17",
-        "impact_score": 4,
-        "event_type": "hit",
-        "time": "04:17"
-      },
-      {
-        "summary": "Hit by A. Barkov (FLA) on Z. Hyman (EDM) at 04:26",
-        "impact_score": 4,
-        "event_type": "hit",
-        "time": "04:26"
       }
     ],
     "task_details": {
       "task_type": "intelligent_analysis",
       "priority": 2,
-      "specific_guidance": "Focus on key player matchups and the shot totals for both teams. Mention the closeness of the score and the back-and-forth nature of the play."
+      "specific_guidance": "Balance play-by-play with analysis of the game situation and team strategies. Highlight key players and their contributions to the game."
     }
   }
 }

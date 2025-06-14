@@ -5,29 +5,23 @@
   "for_commentary_agent": {
     "recommendation": "MIXED_COVERAGE",
     "priority_level": 2,
-    "momentum_score": 35,
+    "momentum_score": 30,
     "key_talking_points": [
-      "Florida is maintaining a slight lead over Edmonton, with the score at 5-4 early in the first period. They have outshot Edmonton 42 to 46.",
-      "The last few moments have seen a missed shot, a shot on goal by Florida, followed by a stoppage and a faceoff. Edmonton needs to capitalize on opportunities to tie the game."
+      "Aleksander Barkov and Connor McDavid faceoff in the neutral zone.",
+      "The Florida Panthers are currently leading the Edmonton Oilers by a score of 5-4 in the first period."
     ],
-    "context": "The game is a close 5-4 score in the first period. Although the momentum score is moderate, the game context suggests keeping viewers engaged with both play-by-play and insightful commentary.",
+    "context": "The game is close and there was a shot on goal. Mixed coverage is appropriate to cover the action and provide analysis.",
     "game_context": {
       "period": 1,
       "time_remaining": "18:40",
       "home_score": 4,
       "away_score": 5,
-      "game_situation": "Regular play, close score"
+      "game_situation": "Away leading by 1 goal in the first period"
     },
     "high_intensity_events": [
       {
-        "summary": "Missed shot by FLA at 1:06",
-        "impact_score": 5,
-        "event_type": "missed-shot",
-        "time": "01:06"
-      },
-      {
-        "summary": "Shot on goal by FLA at 1:12",
-        "impact_score": 15,
+        "summary": "Shot on goal by A. Ekblad (away) on S. Skinner (home)",
+        "impact_score": 35,
         "event_type": "shot-on-goal",
         "time": "01:12"
       }
@@ -35,7 +29,7 @@
     "task_details": {
       "task_type": "intelligent_analysis",
       "priority": 2,
-      "specific_guidance": "Focus on the shot differential between the two teams and whether Edmonton can close the gap. Consider a quick replay of the Florida goal that gave them the lead."
+      "specific_guidance": "Briefly discuss the shot on goal and transition to the faceoff. Mention the score and remaining time in the period."
     }
   }
 }

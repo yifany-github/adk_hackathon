@@ -7,53 +7,36 @@
     "priority_level": 2,
     "momentum_score": 35,
     "key_talking_points": [
-      "Florida is holding onto a one-goal lead early in the first period against Edmonton. Shots are relatively even with Edmonton having 46 and Florida with 42.",
-      "Sergei Bobrovsky is being tested early, facing a barrage of shots from the Oilers.  Edmonton is trying to establish a physical presence early, with multiple hits in the opening minute."
+      "We are underway in Edmonton, with Florida holding a one-goal lead early in the first. ",
+      "The Panthers are trying to extend their lead, with Sam Reinhart ringing a shot off the crossbar early in the period.",
+      "The Oilers are responding with physical play, looking to establish a tone early. Leon Draisaitl with a hit on Gustav Forsling, followed by Evander Kane on Aaron Ekblad."
     ],
-    "context": "The game is a close, high-scoring affair, but the momentum score is moderate. There were several hits and a missed shot off the crossbar, but the urgency isn't extremely high. MIXED_COVERAGE allows for play-by-play mixed with some analysis of the game's flow and the close score.",
+    "context": "The game is starting, but there is a lot of physical play. A missed shot off the crossbar indicates offensive pressure. The score is close, so maintaining awareness of the game state is important. MIXED_COVERAGE will allow for both play-by-play and some higher-level analysis.",
     "game_context": {
       "period": 1,
       "time_remaining": "19:38",
       "home_score": 4,
       "away_score": 5,
-      "game_situation": "close game"
+      "game_situation": "even strength"
     },
     "high_intensity_events": [
       {
-        "summary": "Faceoff won by A. Barkov (away) against L. Draisaitl (home) at center ice",
+        "summary": "A. Barkov (away) wins faceoff against L. Draisaitl (home) at center ice",
         "impact_score": 10,
         "event_type": "faceoff",
         "time": "00:00"
       },
       {
-        "summary": "Missed shot by S. Reinhart (away), hit crossbar, goalie S. Skinner (home)",
+        "summary": "S. Reinhart (away) missed shot, hit crossbar against S. Skinner (home)",
         "impact_score": 15,
         "event_type": "missed-shot",
         "time": "00:11"
-      },
-      {
-        "summary": "Hit by L. Draisaitl (home) on G. Forsling (away) deep in the corner",
-        "impact_score": 5,
-        "event_type": "hit",
-        "time": "00:20"
-      },
-      {
-        "summary": "Hit by E. Kane (home) on A. Ekblad (away) deep in the corner",
-        "impact_score": 5,
-        "event_type": "hit",
-        "time": "00:21"
-      },
-      {
-        "summary": "Hit by E. Kane (home) on A. Ekblad (away) deep in the corner",
-        "impact_score": 5,
-        "event_type": "hit",
-        "time": "00:22"
       }
     ],
     "task_details": {
       "task_type": "intelligent_analysis",
       "priority": 2,
-      "specific_guidance": "Focus on the shot disparity and Edmonton's physical play. Highlight the close score and its implications. The missed shot that hit the crossbar could have tied the game early, so that could be referenced."
+      "specific_guidance": "Balance play-by-play with analysis of the Oilers' physical response and the Panthers' offensive pressure. Mention the close score and the importance of the next goal."
     }
   }
 }

@@ -1,74 +1,51 @@
 {
-  "generated_at": "2025-06-11T00:00:00.000000Z",
-  "commentary_agent_version": "simplified_adk_v1.0",
+  "generated_at": "2025-06-13T20:56:51.236227",
+  "commentary_agent_version": "session_aware_v1.0",
   "agent_type": "nhl_commentary_agent",
+  "game_id": "2024030412",
+  "timestamp": "Period 1, 00:40",
+  "session_id": "3da6eb25-673a-4369-b38d-43d1fc368fa1",
   "status": "success",
-  "commentary_data": {
-    "generated_at": "2025-06-11T00:00:00.000000Z",
-    "commentary_agent_version": "simplified_adk_v1.0",
-    "agent_type": "nhl_commentary_agent",
-    "status": "success",
-    "commentary_data": {
-      "status": "success",
-      "commentary_type": "penalty",
-      "commentary_sequence": [
-        {
-          "speaker": "Host",
-          "text": "And now a penalty! Evander Kane gets called for high-sticking Carter Verhaeghe. That's a costly one for the Oilers.",
-          "emotion": "concerned",
-          "timing": 1.0,
-          "duration_estimate": 7.0,
-          "pause_after": 0.5
-        },
-        {
-          "speaker": "Analyst",
-          "text": "Absolutely. Florida's power play gets its first chance of the night. Bobrovsky has looked shaky, so a power-play goal here could really give the Panthers some breathing room.",
-          "emotion": "analytical",
-          "timing": 8.5,
-          "duration_estimate": 8.0,
-          "pause_after": 1.0
-        }
-      ],
-      "total_duration_estimate": 16.5,
-      "game_context": {
-        "game_id": "2024030412",
-        "away_team": "FLA",
-        "home_team": "EDM",
-        "period": 1,
-        "time_remaining": "19:23",
-        "home_score": 4,
-        "away_score": 5,
-        "power_play": "FLA"
-      }
+  "commentary_type": "penalty_analysis",
+  "commentary_sequence": [
+    {
+      "speaker": "Analyst",
+      "text": "And there's the first penalty of the game! Kane goes off for high-sticking Verhaeghe. Florida to the power play.",
+      "emotion": "neutral",
+      "timing": "2:39",
+      "duration_estimate": 5.5,
+      "pause_after": 0.8
     },
-    "for_audio_agent": {
-      "ready_for_processing": true,
-      "commentary_sequence": [
-        {
-          "speaker": "Host",
-          "text": "And now a penalty! Evander Kane gets called for high-sticking Carter Verhaeghe. That's a costly one for the Oilers.",
-          "emotion": "concerned",
-          "timing": 1.0,
-          "duration_estimate": 7.0,
-          "pause_after": 0.5
-        },
-        {
-          "speaker": "Analyst",
-          "text": "Absolutely. Florida's power play gets its first chance of the night. Bobrovsky has looked shaky, so a power-play goal here could really give the Panthers some breathing room.",
-          "emotion": "analytical",
-          "timing": 8.5,
-          "duration_estimate": 8.0,
-          "pause_after": 1.0
-        }
-      ],
-      "total_duration_estimate": 16.5,
-      "audio_format_data": {}
+    {
+      "speaker": "Host",
+      "text": "That's a big opportunity for the Panthers to extend their lead. Their power play has been clicking lately.",
+      "emotion": "excited",
+      "timing": "2:45",
+      "duration_estimate": 5.5,
+      "pause_after": 0.7
+    },
+    {
+      "speaker": "Analyst",
+      "text": "Absolutely. Oilers can't afford to give them any freebies. They've got to kill this penalty and get back to even strength.",
+      "emotion": "analytical",
+      "timing": "2:50",
+      "duration_estimate": 6.0,
+      "pause_after": 0.6
     }
-  },
-  "for_audio_agent": {
-    "ready_for_processing": true,
-    "commentary_sequence": [],
-    "total_duration_estimate": 0,
-    "audio_format_data": {}
+  ],
+  "total_duration_estimate": 17.0,
+  "game_context": {
+    "game_id": "2024030412",
+    "matchup": "FLA @ EDM",
+    "venue": "Rogers Place",
+    "teams": {
+      "away": "FLA",
+      "home": "EDM"
+    },
+    "period": 1,
+    "time_remaining": "19:20",
+    "home_score": 4,
+    "away_score": 5,
+    "game_situation": "power play - FLA"
   }
 }

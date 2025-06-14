@@ -47,7 +47,6 @@ def create_commentary_agent_for_game(
         name=f'nhl_commentary_agent_{game_id}',
         instruction=enhanced_instruction,
         tools=COMMENTARY_TOOLS,
-        after_model_callback=_format_commentary_response,
     )
 
 

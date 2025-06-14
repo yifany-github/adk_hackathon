@@ -33,7 +33,7 @@ async def test_tts_basic():
     test_text = "Connor McDavid scores an amazing goal!"
     
     try:
-        result = text_to_speech(
+        result = await text_to_speech(
             text=test_text,
             voice_style="enthusiastic",
             language="en-US"
@@ -82,7 +82,7 @@ async def test_voice_styles():
         print(f"\n🎯 {case['description']}: {case['text']}")
         
         try:
-            result = text_to_speech(
+            result = await text_to_speech(
                 text=case['text'],
                 voice_style=case['style'],
                 language="en-US"

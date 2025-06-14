@@ -20,23 +20,29 @@ def extract_dialogue_from_file(filepath: str) -> Dict[str, Any]:
         status = data.get('status', 'unknown')
         timestamp = os.path.basename(filepath).replace('_commentary_session_aware.json', '').replace('_commentary.json', '').replace('2024030412_', '')
         
-        # Extract commentary data (handle nested structure for session-aware files)
-        commentary_data = data.get('commentary_data', {})
-        
-        # Check if there's nested commentary_data (session-aware format)
-        if 'commentary_data' in commentary_data:
-            inner_data = commentary_data['commentary_data']
-            commentary_type = inner_data.get('commentary_type', 'unknown')
-            commentary_sequence = inner_data.get('commentary_sequence', [])
-            total_duration = inner_data.get('total_duration_estimate', 0)
+        # Extract commentary data (handle both formats)
+        # Check if data is nested under 'commentary_data' (older format) or direct (newer format)
+        if 'commentary_data' in data:
+            commentary_data = data['commentary_data']
+            # Check if there's nested commentary_data (session-aware format)
+            if 'commentary_data' in commentary_data:
+                inner_data = commentary_data['commentary_data']
+                commentary_type = inner_data.get('commentary_type', 'unknown')
+                commentary_sequence = inner_data.get('commentary_sequence', [])
+                total_duration = inner_data.get('total_duration_estimate', 0)
+                game_context = inner_data.get('game_context', {})
+            else:
+                # Regular nested format
+                commentary_type = commentary_data.get('commentary_type', 'unknown')
+                commentary_sequence = commentary_data.get('commentary_sequence', [])
+                total_duration = commentary_data.get('total_duration_estimate', 0)
+                game_context = commentary_data.get('game_context', {})
         else:
-            # Regular format
-            commentary_type = commentary_data.get('commentary_type', 'unknown')
-            commentary_sequence = commentary_data.get('commentary_sequence', [])
-            total_duration = commentary_data.get('total_duration_estimate', 0)
-        
-        # Extract game context
-        game_context = commentary_data.get('game_context', {})
+            # Direct format (newer session-aware files)
+            commentary_type = data.get('commentary_type', 'unknown')
+            commentary_sequence = data.get('commentary_sequence', [])
+            total_duration = data.get('total_duration_estimate', 0)
+            game_context = data.get('game_context', {})
         
         return {
             'filepath': filepath,
@@ -150,12 +156,24 @@ def create_continuous_commentary(all_dialogue_data: List[Dict[str, Any]]) -> str
     if game_info:
         if isinstance(game_info, dict):
             context_parts = []
-            if 'away_team' in game_info and 'home_team' in game_info:
+            # Handle both old and new game context formats
+            if 'teams' in game_info:
+                away_team = game_info['teams']['away']
+                home_team = game_info['teams']['home']
+                context_parts.append(f"{away_team} @ {home_team}")
+            elif 'away_team' in game_info and 'home_team' in game_info:
                 context_parts.append(f"{game_info['away_team']} @ {game_info['home_team']}")
+            
             if 'venue' in game_info:
                 context_parts.append(game_info['venue'])
+            
             if 'away_score' in game_info and 'home_score' in game_info:
-                context_parts.append(f"Score: {game_info['away_team']} {game_info['away_score']} - {game_info['home_team']} {game_info['home_score']}")
+                if 'teams' in game_info:
+                    away_team = game_info['teams']['away']
+                    home_team = game_info['teams']['home']
+                    context_parts.append(f"Score: {away_team} {game_info['away_score']} - {home_team} {game_info['home_score']}")
+                else:
+                    context_parts.append(f"Score: {game_info['away_team']} {game_info['away_score']} - {game_info['home_team']} {game_info['home_score']}")
             output.append(" | ".join(context_parts))
         else:
             output.append(str(game_info))

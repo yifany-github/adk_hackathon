@@ -7,10 +7,11 @@
     "priority_level": 3,
     "momentum_score": 10,
     "key_talking_points": [
-      "The Florida Panthers lead the Edmonton Oilers 5-4 as the first period begins.",
-      "Aleksander Barkov won the opening faceoff against Leon Draisaitl."
+      "The Florida Panthers are visiting the Edmonton Oilers in what promises to be an exciting matchup.",
+      "Florida holds a slight lead early in the first period, with the score at 5-4.",
+      "Aleksander Barkov won the opening faceoff against Leon Draisaitl at center ice."
     ],
-    "context": "Low momentum at the start of the period. Best to provide background or context.",
+    "context": "The game has just started and the momentum is low. The score is 5-4, indicating a potentially high-scoring game, but right now there is an opportunity to set the stage.",
     "game_context": {
       "period": 1,
       "time_remaining": "20:00",
@@ -22,7 +23,7 @@
     "task_details": {
       "task_type": "intelligent_analysis",
       "priority": 3,
-      "specific_guidance": "Set the stage for the start of the first period. Briefly recap the score and key players to watch."
+      "specific_guidance": "Use this time to introduce the teams, highlight key players, and discuss the recent performance of both the Panthers and the Oilers. Maybe preview goalie matchups or special teams."
     }
   }
 }

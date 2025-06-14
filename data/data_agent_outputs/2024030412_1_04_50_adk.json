@@ -7,42 +7,37 @@
     "priority_level": 2,
     "momentum_score": 35,
     "key_talking_points": [
-      "The Florida Panthers are maintaining a slight lead over the Edmonton Oilers, with the score at 5-4 early in the first period.",
-      "Sam Reinhart (FLA) is actively generating scoring chances, registering a shot on goal a few moments ago.",
-      "Physical play is starting to pick up, with Leon Draisaitl (EDM) delivering a hit on Carter Verhaeghe (FLA) deep in the corner."
+      "The Edmonton Oilers and Florida Panthers are trading chances early in this first period.",
+      "The shot totals are relatively even, but Florida has been capitalizing on their opportunities, leading to the one-goal lead.",
+      "Ryan Nugent-Hopkins is looking active early for Edmonton. He's already recorded a shot on goal.",
+      "The intensity is starting to pick up, both teams are laying the body along the boards."
     ],
-    "context": "The game is relatively active with a few shots and hits, but the momentum is not extremely high. A close score early in the 1st period warrants mixed coverage to provide context and analysis alongside play-by-play.",
+    "context": "The game is a close, high-scoring affair early in the first period, but the recent activity is relatively low intensity. Switching between play-by-play and some light analysis or background information would be appropriate.",
     "game_context": {
       "period": 1,
       "time_remaining": "15:13",
       "home_score": 4,
       "away_score": 5,
-      "game_situation": "Close game, early in the 1st period"
+      "game_situation": "Close game, early in the 1st"
     },
     "high_intensity_events": [
       {
-        "summary": "Missed shot by Anton Lundell (FLA)",
-        "impact_score": 5,
+        "summary": "Missed shot by Anton Lundell (FLA) at 16:07 remaining in the 1st period.",
+        "impact_score": 10,
         "event_type": "missed-shot",
-        "time": "03:53"
+        "time": "16:07"
       },
       {
-        "summary": "Shot on goal by Sam Reinhart (FLA)",
+        "summary": "Shot on goal by Ryan Nugent-Hopkins (EDM) at 15:58 remaining in the 1st period.",
         "impact_score": 15,
         "event_type": "shot-on-goal",
-        "time": "04:02"
-      },
-      {
-        "summary": "Hit by Leon Draisaitl (EDM) on Carter Verhaeghe (FLA)",
-        "impact_score": 10,
-        "event_type": "hit",
-        "time": "04:17"
+        "time": "15:58"
       }
     ],
     "task_details": {
       "task_type": "intelligent_analysis",
       "priority": 2,
-      "specific_guidance": "Balance play-by-play with analysis of team strategies and key player matchups. Focus on the shot differential and any emerging trends in the game's physicality."
+      "specific_guidance": "Transition to talking about the shot totals and individual player performances while still keeping viewers updated on key plays. Be ready to transition to play-by-play if the intensity increases."
     }
   }
 }

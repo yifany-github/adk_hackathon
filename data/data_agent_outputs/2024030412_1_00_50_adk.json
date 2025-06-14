@@ -8,9 +8,10 @@
     "momentum_score": 65,
     "key_talking_points": [
       "Penalty on Edmonton's Evander Kane for high-sticking Carter Verhaeghe. Florida goes to the power play for 2 minutes at 19:23 remaining in the first period.",
-      "Sam Reinhart nearly tied the game with a shot that hit the crossbar. Stuart Skinner in net for Edmonton was able to deflect the shot."
+      "Florida has a chance to extend their lead early in the game. Let's see how Edmonton's penalty kill responds.",
+      "The series of hits before the penalty suggests a physical start to the game."
     ],
-    "context": "The momentum is moderate due to the missed shot and the penalty. The penalty on Kane provides an opportunity to discuss the power play dynamics, while the missed shot highlights the offensive pressure. The game is close, increasing the importance of these events.",
+    "context": "The game is close with Florida leading by one goal. A penalty has just been called on Edmonton, giving Florida a power play early in the first. This warrants mixed coverage to describe the power play setup and discuss the implications of the penalty.",
     "game_context": {
       "period": 1,
       "time_remaining": "19:23",
@@ -20,22 +21,16 @@
     },
     "high_intensity_events": [
       {
-        "summary": "Missed shot by S. Reinhart (away) off the crossbar",
-        "impact_score": 40,
-        "event_type": "missed-shot",
-        "time": "19:49"
-      },
-      {
-        "summary": "Penalty on E. Kane (home) for high-sticking C. Verhaeghe (away)",
-        "impact_score": 75,
+        "summary": "E. Kane (home) called for high-sticking on C. Verhaeghe (away)",
+        "impact_score": 70,
         "event_type": "penalty",
-        "time": "19:23"
+        "time": "00:37"
       }
     ],
     "task_details": {
       "task_type": "intelligent_analysis",
       "priority": 2,
-      "specific_guidance": "Focus on the upcoming power play and the implications for both teams. Briefly recap the missed scoring opportunity by Reinhart. "
+      "specific_guidance": "Focus on the Florida power play setup and any key matchups on the ice. Briefly mention the physical play leading up to the penalty."
     }
   }
 }

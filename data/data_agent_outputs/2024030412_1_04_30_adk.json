@@ -7,20 +7,21 @@
     "priority_level": 2,
     "momentum_score": 42,
     "key_talking_points": [
-      "Penalty on Edmonton.  Player Evan Bouchard (EDM) called for tripping at 3:32 of the first. Florida to the power play, already leading 5-4.",
-      "The one-goal game early in the first period suggests a potentially high-scoring affair. Both teams have been active offensively."
+      "Penalty on Edmonton's Kailer Yamamoto for tripping Sam Reinhart. Florida goes to the power play for 2 minutes at 16:28 remaining in the first period. The score is 5-4 for Florida.",
+      "The game remains close at 5-4. Shots are high - FLA with 42, EDM with 46 - suggesting an open, offensive game so far.",
+      "Review of Reinhart's performance so far - his ability to draw penalties, his scoring record, and how Edmonton needs to adjust their game to contain him."
     ],
-    "context": "The momentum is moderate due to the penalty and several shots/hits. The game is close, but early in the period. Mixed coverage allows for both play-by-play of key events and analysis of the game situation.",
+    "context": "The momentum is moderate, with a recent penalty and some shots on goal. The score is close, making the game interesting, but not requiring immediate play-by-play. Mixed coverage allows for discussing the penalty and the close score.",
     "game_context": {
       "period": 1,
       "time_remaining": "15:30",
       "home_score": 4,
       "away_score": 5,
-      "game_situation": "One goal game; early first period"
+      "game_situation": "FLA leads by 1 goal in the 1st period"
     },
     "high_intensity_events": [
       {
-        "summary": "Penalty: EDM tripping at 03:32",
+        "summary": "Penalty: Tripping by EDM #73 K. Yamamoto on FLA #19 S. Reinhart at 03:32 of the 1st period.",
         "impact_score": 60,
         "event_type": "penalty",
         "time": "03:32"
@@ -29,7 +30,7 @@
     "task_details": {
       "task_type": "intelligent_analysis",
       "priority": 2,
-      "specific_guidance": "Focus on the Florida power play and Edmonton's penalty kill. Briefly discuss the scoring pace of the game so far."
+      "specific_guidance": "Discuss the implications of the penalty on Yamamoto, mentioning the power play opportunity for Florida. Highlight the high shot totals and the close score. Shift to a quick player profile on Reinhart."
     }
   }
 }

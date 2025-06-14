@@ -3,39 +3,32 @@
   "data_agent_version": "adk_v2.0",
   "agent_type": "intelligent_adk_agent",
   "for_commentary_agent": {
-    "recommendation": "MIXED_COVERAGE",
-    "priority_level": 2,
-    "momentum_score": 35,
+    "recommendation": "FILLER_CONTENT",
+    "priority_level": 3,
+    "momentum_score": 10,
     "key_talking_points": [
-      "Anton Lundell with a shot on net early in the first period, continuing Florida's offensive pressure.",
-      "Florida maintains a one-goal lead early in the first period. Can Edmonton respond to tie the game?"
+      "The Oilers and Panthers are trading blows early in this game, with a combined nine goals scored in the first two minutes. Let's take a look at the goalie performances so far."
     ],
-    "context": "The momentum is moderate with a few shots on goal and a one-goal game. Mixed coverage allows for discussing the game situation while covering the action.",
+    "context": "The game is relatively early in the first period, and a single blocked shot does not constitute high momentum. The score difference is only one goal. This allows for filler content while waiting for a higher intensity event.",
     "game_context": {
       "period": 1,
       "time_remaining": "18:03",
       "home_score": 4,
       "away_score": 5,
-      "game_situation": "FLA leads EDM by 1 in the 1st period"
+      "game_situation": ""
     },
     "high_intensity_events": [
       {
-        "summary": "Missed shot by Sam Reinhart (FLA)",
-        "impact_score": 5,
-        "event_type": "missed-shot",
-        "time": "01:06"
-      },
-      {
-        "summary": "Shot on goal by Anton Lundell (FLA)",
+        "summary": "Blocked Shot by Mattias Ekholm on Eetu Rodrigues",
         "impact_score": 10,
-        "event_type": "shot-on-goal",
-        "time": "01:12"
+        "event_type": "blocked-shot",
+        "time": "01:57"
       }
     ],
     "task_details": {
       "task_type": "intelligent_analysis",
-      "priority": 2,
-      "specific_guidance": "Keep an eye on Florida's offensive pressure and Edmonton's response."
+      "priority": 3,
+      "specific_guidance": "Focus on pre-game analysis, team stats, or player backgrounds. Avoid play-by-play until the action picks up."
     }
   }
 }

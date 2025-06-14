@@ -3,34 +3,45 @@
   "data_agent_version": "adk_v2.0",
   "agent_type": "intelligent_adk_agent",
   "for_commentary_agent": {
-    "recommendation": "PLAY_BY_PLAY",
+    "recommendation": "MIXED_COVERAGE",
     "priority_level": 2,
-    "momentum_score": 78,
+    "momentum_score": 35,
     "key_talking_points": [
-      "Sam Bennett (FLA) scores a goal at 2:07 of the first period, assisted by Anton Lundell (FLA) and Brandon Montour (FLA).",
-      "The goal puts Florida ahead by one goal early in the game.",
-      "The play-by-play should focus on the immediate response from Edmonton."
+      "Physical play has picked up early in the first period, with both teams exchanging hits in the corners.",
+      "Edmonton is trying to tie the game, generating some offensive zone time, but Florida is holding their one-goal lead for now."
     ],
-    "context": "A goal was scored early in the first period, increasing the momentum. The game is also relatively close, so maintaining a play-by-play coverage is appropriate.",
+    "context": "The game is close, and there have been some hits and a missed shot. While the momentum isn't extremely high, the close score warrants a MIXED_COVERAGE approach to balance play-by-play with some analysis.",
     "game_context": {
       "period": 1,
       "time_remaining": "17:22",
       "home_score": 4,
       "away_score": 5,
-      "game_situation": "5-on-5"
+      "game_situation": "Close game, even strength"
     },
     "high_intensity_events": [
       {
-        "summary": "Goal scored by Sam Bennett (FLA) at 02:07 of the first period.",
-        "impact_score": 85,
-        "event_type": "goal",
-        "time": "02:07"
+        "summary": "Hit by C. Perry (home) on D. Kulikov (away) deep in the corner at 17:46 remaining in the first period.",
+        "impact_score": 15,
+        "event_type": "hit",
+        "time": "17:46"
+      },
+      {
+        "summary": "Missed shot by E. Bouchard (home) at 17:24 remaining in the first period.",
+        "impact_score": 10,
+        "event_type": "missed-shot",
+        "time": "17:24"
+      },
+      {
+        "summary": "Hit by D. Kulikov (away) on E. Bouchard (home) deep in the corner at 17:22 remaining in the first period.",
+        "impact_score": 10,
+        "event_type": "hit",
+        "time": "17:22"
       }
     ],
     "task_details": {
       "task_type": "intelligent_analysis",
       "priority": 2,
-      "specific_guidance": "Maintain focus on the scoring sequence and Edmonton's reaction."
+      "specific_guidance": "Focus on the physical aspects of the game and Edmonton's attempts to equalize."
     }
   }
 }

@@ -9,18 +9,18 @@ from typing import Optional
 
 def get_gemini_api_key() -> Optional[str]:
     """获取Gemini API Key"""
-    # 方法1: 从环境变量获取
+    # 方法1: 从环境变量获取 (项目标准格式)
+    api_key = os.getenv('GOOGLE_API_KEY')
+    if api_key:
+        return api_key
+    
+    # 方法2: 从环境变量获取 (备用格式)
     api_key = os.getenv('GEMINI_API_KEY')
     if api_key:
         return api_key
     
-    # 方法2: 从环境变量获取 (Google AI Studio格式)
+    # 方法3: 从环境变量获取 (Google AI Studio格式)
     api_key = os.getenv('GOOGLE_AI_API_KEY')
-    if api_key:
-        return api_key
-    
-    # 方法3: 从环境变量获取 (通用格式)
-    api_key = os.getenv('GOOGLE_API_KEY')
     if api_key:
         return api_key
     
@@ -29,7 +29,8 @@ def get_gemini_api_key() -> Optional[str]:
 
 def set_gemini_api_key(api_key: str) -> None:
     """设置Gemini API Key到环境变量"""
-    os.environ['GEMINI_API_KEY'] = api_key
+    os.environ['GOOGLE_API_KEY'] = api_key
+    os.environ['GEMINI_API_KEY'] = api_key  # 兼容性
     os.environ['GOOGLE_AI_API_KEY'] = api_key  # 兼容性
     print(f"✅ Gemini API Key已设置")
 
@@ -62,9 +63,9 @@ def check_api_configuration() -> bool:
     if not api_key:
         print("❌ 未找到Gemini API Key")
         print("请设置环境变量:")
-        print("  export GEMINI_API_KEY='your_api_key_here'")
+        print("  export GOOGLE_API_KEY='your_api_key_here'")
         print("或者:")
-        print("  export GOOGLE_AI_API_KEY='your_api_key_here'")
+        print("  export GEMINI_API_KEY='your_api_key_here'")
         return False
     
     print(f"✅ Gemini API Key已配置 (长度: {len(api_key)})")

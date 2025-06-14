@@ -5,32 +5,38 @@
   "for_commentary_agent": {
     "recommendation": "MIXED_COVERAGE",
     "priority_level": 2,
-    "momentum_score": 45,
+    "momentum_score": 35,
     "key_talking_points": [
-      "Penalty on Edmonton's Evander Kane (EDM) for high-sticking. Florida goes to the power play at 19:23 remaining in the first period.",
-      "The score is close at 5-4 in favor of Florida early in the first period. Both teams are generating offensive opportunities with high shot totals.",
-      "Discuss the impact of Evander Kane's penalty on the game. Can Florida capitalize on the power play and extend their lead?"
+      "Florida continues to pepper Skinner with shots, already at 42 SOG. Ekblad with a shot from the point.",
+      "Tkachuk with a missed shot. He's been a key offensive presence early.",
+      "McDavid wins the faceoff against Barkov in the neutral zone. Edmonton looking to tie the game."
     ],
-    "context": "The momentum score is moderate due to a penalty and a few shots on goal. Given the close score (5-4) and early stage of the game, MIXED_COVERAGE is appropriate to balance play-by-play with analysis.",
+    "context": "The game is close (5-4), but the momentum is moderate. We should balance play-by-play of shots and faceoffs with some analysis given the early stage of the first period.",
     "game_context": {
       "period": 1,
       "time_remaining": "18:40",
       "home_score": 4,
       "away_score": 5,
-      "game_situation": "Close game in the first period"
+      "game_situation": "Close game; FLA leading by 1 goal"
     },
     "high_intensity_events": [
       {
-        "summary": "E. Kane (EDM) penalized for high-sticking at 19:23 remaining in the first period.",
-        "impact_score": 60,
-        "event_type": "penalty",
-        "time": "00:37"
+        "summary": "M. Tkachuk (away) missed shot on S. Skinner (home)",
+        "impact_score": 10,
+        "event_type": "missed-shot",
+        "time": "01:06"
+      },
+      {
+        "summary": "A. Ekblad (away) shot on goal against S. Skinner (home)",
+        "impact_score": 15,
+        "event_type": "shot-on-goal",
+        "time": "01:12"
       }
     ],
     "task_details": {
       "task_type": "intelligent_analysis",
       "priority": 2,
-      "specific_guidance": "Focus on the upcoming Florida power play and the implications for the game's momentum. Provide some analysis of the shot totals and offensive strategies of both teams."
+      "specific_guidance": "Focus on the shot count disparity and key player matchups."
     }
   }
 }

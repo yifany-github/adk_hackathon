@@ -7,11 +7,10 @@
     "priority_level": 3,
     "momentum_score": 15,
     "key_talking_points": [
-      "The Florida Panthers are looking to continue their strong offensive performance after scoring 5 goals already, while the Edmonton Oilers will be trying to tighten up defensively.",
-      "Aleksander Barkov (away) wins the opening faceoff against Leon Draisaitl (home) at center ice.",
-      "Both teams have played aggressively this season, reflected in their high shot totals."
+      "The Florida Panthers are currently leading the Edmonton Oilers 5-4 as we start the first period.",
+      "Aleksander Barkov won the opening faceoff against Leon Draisaitl."
     ],
-    "context": "The game has just started, and the momentum is low. This is a good opportunity to provide background information and set the stage for the game.",
+    "context": "The game has just started with a faceoff at center ice. The momentum is low. Provide filler content.",
     "game_context": {
       "period": 1,
       "time_remaining": "20:00",
@@ -23,7 +22,7 @@
     "task_details": {
       "task_type": "intelligent_analysis",
       "priority": 3,
-      "specific_guidance": "Focus on pre-game analysis, team records, and player statistics."
+      "specific_guidance": "Provide an overview of team records and recent performance."
     }
   }
 }

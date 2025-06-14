@@ -5,38 +5,30 @@
   "for_commentary_agent": {
     "recommendation": "MIXED_COVERAGE",
     "priority_level": 2,
-    "momentum_score": 42,
+    "momentum_score": 25,
     "key_talking_points": [
-      "Penalty on Edmonton's Darnell Nurse (EDM) for high-sticking Sam Bennett (FLA). Florida goes to the power play for 2 minutes at 19:23 remaining in the first period.",
-      "Florida has a chance to extend their lead early in the game. How will Edmonton's penalty kill respond?",
-      "The intensity has picked up early, with several hits and a missed shot adding to the pressure. Both teams are playing with physicality."
+      "Matthew Tkachuk of the Florida Panthers misses a shot early in the first period. The Panthers lead the Oilers 5-4 with 18:54 remaining in the first. The game has been high scoring so far."
     ],
-    "context": "The momentum score is moderate due to the penalty called on EDM. The game is close, with Florida leading by one goal, so the power play is significant. Mixed coverage allows for discussion of the penalty and its potential impact while still covering the game action.",
+    "context": "The game is close in the first period. Although the momentum score is low, the missed shot combined with the close score warrants MIXED_COVERAGE to provide context.",
     "game_context": {
       "period": 1,
       "time_remaining": "18:54",
       "home_score": 4,
       "away_score": 5,
-      "game_situation": "Away team leading by 1 goal"
+      "game_situation": "Close game; FLA leading by 1"
     },
     "high_intensity_events": [
       {
-        "summary": "Missed shot by FLA at 00:11",
-        "impact_score": 5,
+        "summary": "M. Tkachuk (FLA) missed a snap shot from behind the net near the right-wing boards.",
+        "impact_score": 25,
         "event_type": "missed-shot",
-        "time": "00:11"
-      },
-      {
-        "summary": "Penalty against EDM at 00:37",
-        "impact_score": 60,
-        "event_type": "penalty",
-        "time": "00:37"
+        "time": "01:06"
       }
     ],
     "task_details": {
       "task_type": "intelligent_analysis",
       "priority": 2,
-      "specific_guidance": "Focus on the Florida power play and Edmonton's penalty kill strategy. Briefly recap the physical play that preceded the penalty."
+      "specific_guidance": "Briefly mention the missed shot, then transition to discussing the high-scoring nature of the game thus far or potential goalie adjustments that might be made."
     }
   }
 }

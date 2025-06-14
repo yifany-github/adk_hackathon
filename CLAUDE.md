@@ -103,7 +103,7 @@ cat data/commentary_agent_outputs/GAME_ID_dialogue_summary_clean.json
 # Google ADK & AI
 GOOGLE_CLOUD_PROJECT=your-project-id
 GOOGLE_APPLICATION_CREDENTIALS=path/to/service-account-key.json
-GEMINI_API_KEY=your-gemini-api-key
+GOOGLE_API_KEY=your-google-api-key
 
 # NHL API Settings
 NHL_API_BASE_URL=https://api-web.nhle.com/v1

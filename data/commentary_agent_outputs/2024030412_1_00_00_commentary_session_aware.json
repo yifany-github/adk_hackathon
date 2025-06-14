@@ -1,61 +1,51 @@
 {
-  "generated_at": "2025-06-11T00:00:00.000000Z",
-  "commentary_agent_version": "simplified_adk_v1.0",
+  "generated_at": "2025-06-13T20:56:28.813474",
+  "commentary_agent_version": "session_aware_v1.0",
   "agent_type": "nhl_commentary_agent",
+  "game_id": "2024030412",
+  "timestamp": "Period 1, 00:00",
+  "session_id": "3da6eb25-673a-4369-b38d-43d1fc368fa1",
   "status": "success",
-  "commentary_data": {
-    "status": "success",
-    "commentary_type": "period_start",
-    "commentary_sequence": [
-      {
-        "speaker": "Host",
-        "text": "And we are underway here in Edmonton! The first period is beginning with the Florida Panthers holding a 5-4 lead over the Oilers.",
-        "emotion": "excited",
-        "timing": 1.0,
-        "duration_estimate": 6.0,
-        "pause_after": 0.5
-      },
-      {
-        "speaker": "Analyst",
-        "text": "That's right. Aleksander Barkov set the tone early, winning the opening faceoff against Leon Draisaitl. Look for that matchup to be a key factor throughout this game.",
-        "emotion": "analytical",
-        "timing": 7.5,
-        "duration_estimate": 7.0,
-        "pause_after": 1.0
-      }
-    ],
-    "total_duration_estimate": 14.5,
-    "game_context": {
-      "game_id": "2024030412",
-      "away_team": "FLA",
-      "home_team": "EDM",
-      "period": 1,
-      "time_remaining": "20:00",
-      "home_score": 4,
-      "away_score": 5
+  "commentary_type": "period_start",
+  "commentary_sequence": [
+    {
+      "speaker": "Analyst",
+      "text": "Well, the Panthers got off to a quick start, potting five already. Oilers answering with four of their own. This could be a track meet, folks!",
+      "emotion": "observant",
+      "timing": "0:15",
+      "duration_estimate": 7.0,
+      "pause_after": 0.8
+    },
+    {
+      "speaker": "Host",
+      "text": "Absolutely. And right off the bat, we saw Barkov take that opening faceoff against Draisaitl. Sets the tone early for Florida.",
+      "emotion": "neutral",
+      "timing": "0:22",
+      "duration_estimate": 6.0,
+      "pause_after": 1.2
+    },
+    {
+      "speaker": "Analyst",
+      "text": "Key matchup there. If the Oilers want to claw back, Draisaitl's gotta win those battles in the dot.",
+      "emotion": "analytical",
+      "timing": "0:28",
+      "duration_estimate": 5.0,
+      "pause_after": 0.7
     }
-  },
-  "for_audio_agent": {
-    "ready_for_processing": true,
-    "commentary_sequence": [
-      {
-        "speaker": "Host",
-        "text": "And we are underway here in Edmonton! The first period is beginning with the Florida Panthers holding a 5-4 lead over the Oilers.",
-        "emotion": "excited",
-        "timing": 1.0,
-        "duration_estimate": 6.0,
-        "pause_after": 0.5
-      },
-      {
-        "speaker": "Analyst",
-        "text": "That's right. Aleksander Barkov set the tone early, winning the opening faceoff against Leon Draisaitl. Look for that matchup to be a key factor throughout this game.",
-        "emotion": "analytical",
-        "timing": 7.5,
-        "duration_estimate": 7.0,
-        "pause_after": 1.0
-      }
-    ],
-    "total_duration_estimate": 14.5,
-    "audio_format_data": {}
+  ],
+  "total_duration_estimate": 18.7,
+  "game_context": {
+    "game_id": "2024030412",
+    "matchup": "FLA @ EDM",
+    "venue": "Rogers Place",
+    "teams": {
+      "away": "FLA",
+      "home": "EDM"
+    },
+    "period": 1,
+    "time_remaining": "20:00",
+    "home_score": 4,
+    "away_score": 5,
+    "game_situation": "even strength"
   }
 }

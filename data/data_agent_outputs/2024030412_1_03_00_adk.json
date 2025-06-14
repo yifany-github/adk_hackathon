@@ -3,40 +3,40 @@
   "data_agent_version": "adk_v2.0",
   "agent_type": "intelligent_adk_agent",
   "for_commentary_agent": {
-    "recommendation": "PLAY_BY_PLAY",
-    "priority_level": 1,
-    "momentum_score": 78,
+    "recommendation": "MIXED_COVERAGE",
+    "priority_level": 2,
+    "momentum_score": 35,
     "key_talking_points": [
-      "GOAL! Sam Bennett puts Florida ahead 5-4 early in the first period.",
-      "Penalty on Edmonton's Evander Kane for holding the stick on Carter Verhaeghe. Florida goes to the power play for 2 minutes at 17:06 remaining in the first period.",
-      "Can Florida extend their lead on the power play, or will Edmonton kill the penalty and regain momentum?"
+      "Penalty on Florida's Aaron Ekblad for holding the stick on Edmonton's Taylor Frederic. Edmonton will go on the power play with 17:06 remaining in the first period. This is a crucial opportunity for Edmonton to tie the game.",
+      "C. Perry with a shot on goal. Bobrovsky makes the save. Edmonton is pressuring to tie the game. The Oilers have a 46 to 42 shots on goal advantage.",
+      "The Oilers need to capitalize on this power play opportunity. They are currently trailing by one goal."
     ],
-    "context": "The momentum score is high due to a goal and a penalty within a short period. The game is close, with Florida leading by one goal in the first period, so the penalty is a key event that needs immediate coverage. The subsequent power play is a high-stakes situation.",
+    "context": "The momentum is moderate due to a penalty and a shot on goal, but the game is close. This calls for mixed coverage to balance play-by-play with deeper analysis.",
     "game_context": {
       "period": 1,
       "time_remaining": "17:03",
       "home_score": 4,
       "away_score": 5,
-      "game_situation": "FLA leading EDM by 1 in the 1st period"
+      "game_situation": "Close game, Edmonton trailing by 1 goal"
     },
     "high_intensity_events": [
       {
-        "summary": "Goal scored by Sam Bennett (FLA) at 02:07 of the 1st period.",
-        "impact_score": 85,
-        "event_type": "goal",
-        "time": "02:07"
-      },
-      {
-        "summary": "Penalty on Evander Kane (EDM) for holding the stick at 02:54 of the 1st period.",
-        "impact_score": 75,
+        "summary": "Penalty on A. Ekblad (away) for holding-the-stick at 02:54",
+        "impact_score": 60,
         "event_type": "penalty",
         "time": "02:54"
+      },
+      {
+        "summary": "Shot on goal by C. Perry (home) at 02:57",
+        "impact_score": 45,
+        "event_type": "shot-on-goal",
+        "time": "02:57"
       }
     ],
     "task_details": {
       "task_type": "intelligent_analysis",
-      "priority": 1,
-      "specific_guidance": "Focus on the Florida power play and Edmonton's penalty kill. The next few minutes are crucial for setting the tone of the game."
+      "priority": 2,
+      "specific_guidance": "Focus on the power play and Edmonton's attempt to tie the game. Also, discuss the shot differential."
     }
   }
 }

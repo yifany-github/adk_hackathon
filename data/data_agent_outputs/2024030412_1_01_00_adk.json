@@ -5,30 +5,30 @@
   "for_commentary_agent": {
     "recommendation": "MIXED_COVERAGE",
     "priority_level": 2,
-    "momentum_score": 60,
+    "momentum_score": 65,
     "key_talking_points": [
-      "Edmonton's early penalty puts Florida on the power play with a chance to extend their one-goal lead early in the first period.",
-      "The missed shot by Edmonton could have changed the game's momentum, showing their offensive pressure.",
-      "The high-sticking penalty was committed by Brett Kulak (EDM) against Carter Verhaeghe (FLA). Kulak will serve 2 minutes."
+      "Penalty on Edmonton's Evander Kane for high-sticking Carter Verhaeghe. Florida goes to the power play for 2 minutes at 19:23 remaining in the first period.",
+      "This is a crucial power play for Florida to extend their one-goal lead early in the game.  Edmonton needs to kill this penalty to avoid falling further behind.",
+      "Keep an eye on Connor McDavid's ice time, as Edmonton will likely rely on him heavily to generate shorthanded opportunities."
     ],
-    "context": "The momentum is moderate due to the missed shot and a penalty on Edmonton. The score is close, so the penalty is a key moment. Need to balance play-by-play with some analysis of the penalty and its potential impact.",
+    "context": "A penalty was just called on Edmonton, giving Florida a power play in a close, high-scoring game. This is a key moment but doesn't require immediate play-by-play yet.",
     "game_context": {
       "period": 1,
       "time_remaining": "19:23",
       "home_score": 4,
       "away_score": 5,
-      "game_situation": "even strength"
+      "game_situation": "Close game; FLA leading by 1"
     },
     "high_intensity_events": [
       {
-        "summary": "Missed shot by EDM hits crossbar",
-        "impact_score": 40,
-        "event_type": "missed-shot",
-        "time": "00:11"
+        "summary": "Hit by K. Kapanen (home) on A. Ekblad (away)",
+        "impact_score": 30,
+        "event_type": "hit",
+        "time": "00:35"
       },
       {
-        "summary": "Penalty: EDM high-sticking",
-        "impact_score": 75,
+        "summary": "Penalty on E. Kane (home) for high-sticking C. Verhaeghe (away)",
+        "impact_score": 70,
         "event_type": "penalty",
         "time": "00:37"
       }
@@ -36,7 +36,7 @@
     "task_details": {
       "task_type": "intelligent_analysis",
       "priority": 2,
-      "specific_guidance": "Focus on the Florida power play, but also highlight Edmonton's offensive zone presence. This is a close, high-scoring game, so any momentum swing can be crucial."
+      "specific_guidance": "Transition into discussing the implications of the upcoming Florida power play. Note key players on both sides and the impact on the score."
     }
   }
 }

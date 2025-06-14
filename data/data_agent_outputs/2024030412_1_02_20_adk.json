@@ -4,32 +4,33 @@
   "agent_type": "intelligent_adk_agent",
   "for_commentary_agent": {
     "recommendation": "PLAY_BY_PLAY",
-    "priority_level": 2,
-    "momentum_score": 78,
+    "priority_level": 1,
+    "momentum_score": 76,
     "key_talking_points": [
-      "GOAL! Sam Bennett (FLA) scores assisted by Matthew Tkachuk and Evan Rodrigues. The score is now 5-4 for Florida with 17:53 remaining in the first period.",
-      "Bennett's goal came after a series of blocked shots and a stoppage. Florida regains the lead early in the first."
+      "Sam Bennett scores early in the first period, assisted by Nick Schmidt and Eetu Rodrigues. The Panthers extend their lead to 5-4 against the Oilers.",
+      "The goal was scored at 2:07 of the first period on Stuart Skinner. Bennett's 13th of the season.",
+      "The Panthers have maintained relentless offensive pressure, with 42 shots on goal compared to the Oilers' 46."
     ],
-    "context": "A goal was scored, making it a one-goal game. The game is relatively close, so heightened awareness is required.",
+    "context": "A goal was scored early in the period. The momentum is high, and the game is close, so immediate coverage is necessary.",
     "game_context": {
       "period": 1,
       "time_remaining": "17:46",
       "home_score": 4,
       "away_score": 5,
-      "game_situation": "FLA leading EDM by 1 goal in the 1st period"
+      "game_situation": "Away team leading by one goal"
     },
     "high_intensity_events": [
       {
-        "summary": "Goal scored by Sam Bennett (FLA) at 02:07 of the first period. Assists from Matthew Tkachuk (FLA) and Evan Rodrigues (FLA).",
-        "impact_score": 85,
+        "summary": "Goal scored by S. Bennett (away) assisted by N. Schmidt (away) and E. Rodrigues (away)",
+        "impact_score": 80,
         "event_type": "goal",
         "time": "02:07"
       }
     ],
     "task_details": {
       "task_type": "intelligent_analysis",
-      "priority": 2,
-      "specific_guidance": "Focus on the immediate reaction and shift following the goal. Emphasize the close score and potential momentum shift."
+      "priority": 1,
+      "specific_guidance": "Focus on the Panthers' offensive pressure and how the Oilers will respond to this early goal. Replay the goal and highlight the key passes."
     }
   }
 }

@@ -29,8 +29,9 @@ def generate_two_person_commentary(
             from ..data_agent.tools import load_static_context
             game_id = data_agent_output.get("for_commentary_agent", {}).get("game_context", {}).get("game_id", "2024030412")
             static_context = load_static_context(game_id)
-        except:
-            static_context = {}
+        except (ImportError, FileNotFoundError, json.JSONDecodeError) as e:
+            print(f"Warning: Failed to load static context: {e}")
+            static_context = {"game_info": {"home_team": "HOME", "away_team": "AWAY"}}
         
         # Extract key information from data agent output
         for_commentary = data_agent_output.get("for_commentary_agent", {})
@@ -82,7 +83,10 @@ def generate_two_person_commentary(
             }
         }
         
-        # Return result (no session state needed)
+        # Validate result has required fields
+        validation_result = _validate_commentary_result(result)
+        if validation_result["status"] == "error":
+            return validation_result
         
         return result
         
@@ -137,7 +141,10 @@ def format_commentary_for_audio(commentary_result: Dict[str, Any]) -> Dict[str, 
             "estimated_total_duration": sum(seg["duration_estimate"] + seg["pause_after"] for seg in audio_segments)
         }
         
-        # Return formatted result
+        # Validate result
+        validation_result = _validate_audio_format_result(result)
+        if validation_result["status"] == "error":
+            return validation_result
         
         return result
         
@@ -200,7 +207,10 @@ def analyze_commentary_context(data_agent_output: Dict[str, Any]) -> Dict[str, A
             }
         }
         
-        # Return analysis result
+        # Validate result
+        validation_result = _validate_analysis_result(result)
+        if validation_result["status"] == "error":
+            return validation_result
         
         return result
         
@@ -306,6 +316,100 @@ def _ordinal(n):
     else:
         suffix = {1: 'st', 2: 'nd', 3: 'rd'}.get(n % 10, 'th')
     return f"{n}{suffix}"
+
+
+# Validation Functions
+def _validate_commentary_result(result: Dict[str, Any]) -> Dict[str, Any]:
+    """Validate commentary generation result"""
+    try:
+        required_fields = ["status", "commentary_sequence", "total_duration_estimate", "commentary_type"]
+        for field in required_fields:
+            if field not in result:
+                return {
+                    "status": "error",
+                    "error": f"Missing required field: {field}",
+                    "commentary_sequence": []
+                }
+        
+        # Validate commentary sequence structure
+        commentary_sequence = result.get("commentary_sequence", [])
+        if not isinstance(commentary_sequence, list):
+            return {
+                "status": "error", 
+                "error": "commentary_sequence must be a list",
+                "commentary_sequence": []
+            }
+        
+        # Validate each commentary item
+        for i, item in enumerate(commentary_sequence):
+            required_item_fields = ["speaker", "text", "duration_estimate"]
+            for field in required_item_fields:
+                if field not in item:
+                    return {
+                        "status": "error",
+                        "error": f"Commentary item {i} missing field: {field}",
+                        "commentary_sequence": []
+                    }
+        
+        return {"status": "success"}
+        
+    except Exception as e:
+        return {
+            "status": "error",
+            "error": f"Validation failed: {str(e)}",
+            "commentary_sequence": []
+        }
+
+
+def _validate_audio_format_result(result: Dict[str, Any]) -> Dict[str, Any]:
+    """Validate audio format result"""
+    try:
+        required_fields = ["status", "audio_ready", "audio_segments"]
+        for field in required_fields:
+            if field not in result:
+                return {
+                    "status": "error",
+                    "error": f"Missing required field: {field}",
+                    "audio_ready": False
+                }
+        
+        # Validate audio segments
+        audio_segments = result.get("audio_segments", [])
+        if not isinstance(audio_segments, list):
+            return {
+                "status": "error",
+                "error": "audio_segments must be a list", 
+                "audio_ready": False
+            }
+        
+        return {"status": "success"}
+        
+    except Exception as e:
+        return {
+            "status": "error",
+            "error": f"Audio validation failed: {str(e)}",
+            "audio_ready": False
+        }
+
+
+def _validate_analysis_result(result: Dict[str, Any]) -> Dict[str, Any]:
+    """Validate analysis result"""
+    try:
+        required_fields = ["status", "analysis", "commentary_strategy"]
+        for field in required_fields:
+            if field not in result:
+                return {
+                    "status": "error",
+                    "error": f"Missing required field: {field}"
+                }
+        
+        return {"status": "success"}
+        
+    except Exception as e:
+        return {
+            "status": "error",
+            "error": f"Analysis validation failed: {str(e)}"
+        }
 
 
 # ADK Tool Definitions - Use function names directly like data agent

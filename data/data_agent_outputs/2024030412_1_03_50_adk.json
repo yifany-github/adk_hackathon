@@ -5,44 +5,38 @@
   "for_commentary_agent": {
     "recommendation": "MIXED_COVERAGE",
     "priority_level": 2,
-    "momentum_score": 62,
+    "momentum_score": 65,
     "key_talking_points": [
-      "Florida takes their first penalty of the game, tripping call on #8476454, giving Edmonton a power play opportunity.",
-      "Edmonton was called for holding the stick just moments earlier. Can Florida capitalize on the power play?",
-      "The score is 5-4 for Florida with 16:28 remaining in the first. This is a high-scoring first period."
+      "Edmonton's player (8477932) was penalized for holding-the-stick at 17:06 remaining in the first. Florida will go on the power play, already leading by one goal.",
+      "Florida's player (8476454) was called for tripping at 16:28 of the first. Edmonton now gets a chance on the power play to tie the game.",
+      "The first few minutes have seen a flurry of shots on goal, indicating an aggressive start to the game for both teams."
     ],
-    "context": "The momentum score is moderate due to the penalties and shots on goal. The game is also close, so maintaining a balance between play-by-play and analysis is ideal.",
+    "context": "The game has medium momentum with several shots on goal and two penalties called. The score is close, so maintaining a balance between play-by-play and insightful commentary is ideal.",
     "game_context": {
       "period": 1,
       "time_remaining": "16:28",
       "home_score": 4,
       "away_score": 5,
-      "game_situation": "FLA leads by 1"
+      "game_situation": "FLA lead by 1"
     },
     "high_intensity_events": [
       {
-        "summary": "Penalty on EDM #8477932 for holding-the-stick at 17:06 remaining.",
-        "impact_score": 30,
+        "summary": "Penalty: EDM player (8477932) holding-the-stick. FLA Power Play.",
+        "impact_score": 40,
         "event_type": "penalty",
-        "time": "17:06"
+        "time": "02:54"
       },
       {
-        "summary": "Shot on goal by FLA #8470621 at 17:03 remaining.",
-        "impact_score": 15,
-        "event_type": "shot-on-goal",
-        "time": "17:03"
-      },
-      {
-        "summary": "Penalty on FLA #8476454 for tripping at 16:28 remaining.",
-        "impact_score": 30,
+        "summary": "Penalty: FLA player (8476454) tripping. EDM Power Play.",
+        "impact_score": 40,
         "event_type": "penalty",
-        "time": "16:28"
+        "time": "03:32"
       }
     ],
     "task_details": {
       "task_type": "intelligent_analysis",
       "priority": 2,
-      "specific_guidance": "Focus on the implications of the upcoming power play and the flow of the game. Mention the high scoring pace."
+      "specific_guidance": "Focus on the power play opportunities and the impact they have on the game. Briefly discuss the shot totals and the aggressive play."
     }
   }
 }

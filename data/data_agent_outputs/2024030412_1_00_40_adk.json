@@ -7,28 +7,28 @@
     "priority_level": 2,
     "momentum_score": 60,
     "key_talking_points": [
-      "Penalty on Edmonton's Evander Kane for high-sticking Carter Verhaeghe. Florida goes to the power play for 2 minutes at 19:23 remaining in the first period.",
-      "Sergei Bobrovsky has had a shaky start in goal for Florida, can the power play unit pad their lead?",
-      "Edmonton needs to capitalize on this penalty kill to stay within striking distance."
+      "Penalty on Edmonton's Evander Kane for high-sticking Carter Verhaeghe. Florida goes to the power play for 2 minutes with 19:23 remaining in the first period.",
+      "Sergei Bobrovsky has been solid for Florida, but the Oilers are finding ways to generate chances. How will Florida adjust their defensive strategy on this upcoming power play?",
+      "Sam Reinhart almost tied the game with a shot that hit the crossbar. He has been a key player for Florida this season."
     ],
-    "context": "The momentum is moderate due to a missed shot and a penalty. The one-goal game and early power play create a tense situation, but not enough for full play-by-play. Mixed coverage allows for analysis of the penalty and its potential impact.",
+    "context": "The momentum is moderate due to the missed shot and the penalty. A one-goal game and a power play opportunity for Florida warrants attention, but doesn't require play-by-play. Mixed coverage will allow for analysis of the penalty and its potential impact on the game.",
     "game_context": {
       "period": 1,
       "time_remaining": "19:23",
       "home_score": 4,
       "away_score": 5,
-      "game_situation": "FLA leads by 1 goal"
+      "game_situation": "FLA leads by 1 in the first period"
     },
     "high_intensity_events": [
       {
-        "summary": "S. Reinhart (away) missed shot, hit crossbar",
+        "summary": "Missed shot by S. Reinhart (away) hitting the crossbar",
         "impact_score": 40,
         "event_type": "missed-shot",
         "time": "19:49"
       },
       {
-        "summary": "E. Kane (home) penalty for high-sticking C. Verhaeghe (away)",
-        "impact_score": 80,
+        "summary": "Penalty on E. Kane (home) for high-sticking C. Verhaeghe (away)",
+        "impact_score": 75,
         "event_type": "penalty",
         "time": "19:23"
       }
@@ -36,7 +36,7 @@
     "task_details": {
       "task_type": "intelligent_analysis",
       "priority": 2,
-      "specific_guidance": "Focus on the developing power play situation and the implications of the penalty. Briefly mention the earlier missed shot."
+      "specific_guidance": "Focus on the Florida power play and potential scoring chances. Also, highlight the physical play that is developing."
     }
   }
 }

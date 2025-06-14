@@ -3,40 +3,26 @@
   "data_agent_version": "adk_v2.0",
   "agent_type": "intelligent_adk_agent",
   "for_commentary_agent": {
-    "recommendation": "MIXED_COVERAGE",
-    "priority_level": 2,
-    "momentum_score": 32,
+    "recommendation": "FILLER_CONTENT",
+    "priority_level": 3,
+    "momentum_score": 15,
     "key_talking_points": [
-      "Florida maintains a one-goal lead early in the first period with the score at 5-4.",
-      "The teams are exchanging shots, with Florida registering a shot on goal at 1:12 after a missed shot at 1:06.",
-      "Edmonton will need to tighten up defensively to limit Florida's chances and get back in the game."
+      "The Panthers and Oilers are trading chances early. Edmonton is looking to establish their forecheck, while Florida is trying to use their speed to get behind the Oilers defense.",
+      "Aleksander Barkov and Connor McDavid are facing off early, a matchup to watch throughout the game."
     ],
-    "context": "The game has a moderate momentum score due to shots and a missed shot, but the early stage of the first period and the one-goal difference warrant a mixed coverage approach. We should balance play-by-play with some analysis of the game's flow.",
+    "context": "Momentum is low with just a stoppage and a faceoff. The score is close, but the early game state provides an opportunity for filler content.",
     "game_context": {
       "period": 1,
       "time_remaining": "18:40",
       "home_score": 4,
       "away_score": 5,
-      "game_situation": "FLA leading by 1 in the 1st"
+      "game_situation": ""
     },
-    "high_intensity_events": [
-      {
-        "summary": "Missed shot by FLA at 1:06",
-        "impact_score": 8,
-        "event_type": "missed-shot",
-        "time": "01:06"
-      },
-      {
-        "summary": "Shot on goal by FLA at 1:12",
-        "impact_score": 12,
-        "event_type": "shot-on-goal",
-        "time": "01:12"
-      }
-    ],
+    "high_intensity_events": [],
     "task_details": {
       "task_type": "intelligent_analysis",
-      "priority": 2,
-      "specific_guidance": "Provide play-by-play for scoring chances and shots on goal, but also discuss team strategies and individual player matchups. Mention the shot count and how the teams are generating offense."
+      "priority": 3,
+      "specific_guidance": "Focus on team strategies and key player matchups. Avoid recapping play-by-play for now."
     }
   }
 }
