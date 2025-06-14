@@ -1,0 +1,47 @@
+{
+  "generated_at": "2025-06-14T15:36:08.327206",
+  "commentary_agent_version": "session_aware_v1.0",
+  "agent_type": "nhl_commentary_agent",
+  "game_id": "2024030412",
+  "timestamp": "Period 1, 00:05",
+  "session_id": "2a2412f9-cef3-4ef5-818d-17bc73ee87a2",
+  "status": "success",
+  "commentary_type": "game_update",
+  "commentary_sequence": [
+    {
+      "speaker": "Host",
+      "text": "The Panthers are coming into tonight's game with a 7-3 record in their last 10, showcasing their strong play recently.",
+      "emotion": "neutral",
+      "timing": "0:00",
+      "duration_estimate": 5.0,
+      "pause_after": 0.7
+    },
+    {
+      "speaker": "Analyst",
+      "text": "And the Oilers aren't far behind, Host. They've gone 6-3-1 in their last 10, really finding their stride after a slow start to the season.",
+      "emotion": "analytical",
+      "timing": "0:05",
+      "duration_estimate": 6.5,
+      "pause_after": 1.0
+    },
+    {
+      "speaker": "Host",
+      "text": "It's worth noting that Florida has struggled a bit on the road this year, while Edmonton has been dominant here at Rogers Place.",
+      "emotion": "neutral",
+      "timing": "0:11",
+      "duration_estimate": 6.0,
+      "pause_after": 0.5
+    }
+  ],
+  "total_duration_estimate": 17.5,
+  "game_context": {
+    "game_id": "2024030412",
+    "matchup": "FLA @ EDM",
+    "venue": "Rogers Place",
+    "period": 1,
+    "time_remaining": "20:00",
+    "home_score": 4,
+    "away_score": 5,
+    "game_situation": "even strength"
+  }
+}

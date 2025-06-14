@@ -121,3 +121,136 @@ BROADCAST_TRANSITIONS = [
     "Let me add to that...",
     "Building on what you said..."
 ]
+
+# Structured Commentary Generation Schema
+COMMENTARY_JSON_SCHEMA = '''
+{
+  "commentary_type": "string (period_start|play_by_play|penalty_analysis|player_spotlight|filler_content|high_intensity|mixed_coverage)",
+  "commentary_sequence": [
+    {
+      "speaker": "Host|Analyst", 
+      "text": "Natural commentary dialogue",
+      "emotion": "excited|neutral|analytical|observant|professional|concerned|etc",
+      "timing": "0:15",
+      "duration_estimate": 3.5,
+      "pause_after": 0.8
+    }
+  ],
+  "total_duration_estimate": 15.2
+}
+'''
+
+# Few-shot examples for intelligent generation
+COMMENTARY_EXAMPLES = [
+    {
+        "situation": "high_intensity",
+        "context": "Goal scored, crowd erupting",
+        "output": '''
+{
+  "commentary_type": "high_intensity", 
+  "commentary_sequence": [
+    {
+      "speaker": "Host",
+      "text": "SCORES! What a magnificent goal! The crowd is absolutely electric!",
+      "emotion": "excited",
+      "timing": "0:02",
+      "duration_estimate": 4.0,
+      "pause_after": 0.5
+    },
+    {
+      "speaker": "Analyst", 
+      "text": "That was textbook execution! The way he found that top corner, Bobrovsky had absolutely no chance on that one.",
+      "emotion": "analytical",
+      "timing": "0:06",
+      "duration_estimate": 5.5,
+      "pause_after": 1.0
+    }
+  ],
+  "total_duration_estimate": 11.0
+}'''
+    },
+    {
+        "situation": "mixed_coverage",
+        "context": "Good back and forth play, moderate momentum",
+        "output": '''
+{
+  "commentary_type": "mixed_coverage",
+  "commentary_sequence": [
+    {
+      "speaker": "Analyst",
+      "text": "Nice sustained pressure from Edmonton here. They're really working the puck well in the offensive zone.",
+      "emotion": "observant", 
+      "timing": "1:15",
+      "duration_estimate": 4.5,
+      "pause_after": 0.7
+    },
+    {
+      "speaker": "Host",
+      "text": "You can see the chemistry developing between McDavid and Draisaitl. When those two get going, they're nearly unstoppable.",
+      "emotion": "analytical",
+      "timing": "1:20", 
+      "duration_estimate": 5.0,
+      "pause_after": 0.8
+    }
+  ],
+  "total_duration_estimate": 11.0
+}'''
+    },
+    {
+        "situation": "filler_content",
+        "context": "Quiet moment, need general discussion",
+        "output": '''
+{
+  "commentary_type": "filler_content",
+  "commentary_sequence": [
+    {
+      "speaker": "Host",
+      "text": "We're midway through the first period here at Rogers Place, and both teams are settling into their systems.",
+      "emotion": "professional",
+      "timing": "8:30",
+      "duration_estimate": 4.0,
+      "pause_after": 0.6
+    },
+    {
+      "speaker": "Analyst",
+      "text": "This has been a chess match so far. Both coaches making tactical adjustments, looking for that first breakthrough.",
+      "emotion": "analytical",
+      "timing": "8:35",
+      "duration_estimate": 4.5,
+      "pause_after": 0.9
+    }
+  ],
+  "total_duration_estimate": 10.0
+}'''
+    }
+]
+
+# Intelligent commentary generation prompt template
+INTELLIGENT_COMMENTARY_PROMPT = """
+Generate professional NHL broadcast commentary for the given game situation using the exact JSON structure provided.
+
+GAME CONTEXT:
+{game_context}
+
+SITUATION TYPE: {situation_type}
+MOMENTUM SCORE: {momentum_score}
+TALKING POINTS: {talking_points}
+HIGH INTENSITY EVENTS: {events}
+
+REQUIRED OUTPUT FORMAT:
+{schema}
+
+EXAMPLES:
+{examples}
+
+GUIDELINES:
+- Generate natural, varied dialogue that fits the situation
+- Maintain professional broadcast standards
+- Use speaker alternation (Host/Analyst)
+- Include realistic timing and duration estimates
+- Match emotion to game situation intensity
+- Reference specific teams, players, and context when relevant
+- Avoid repetitive phrases and maintain broadcast flow
+
+Generate ONLY the JSON structure with creative, contextual commentary:
+"""

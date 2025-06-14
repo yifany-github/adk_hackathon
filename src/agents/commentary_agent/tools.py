@@ -8,6 +8,12 @@ import json
 import os
 from datetime import datetime
 from typing import Dict, List, Any
+import google.generativeai as genai
+from .prompts import (
+    COMMENTARY_JSON_SCHEMA, 
+    COMMENTARY_EXAMPLES, 
+    INTELLIGENT_COMMENTARY_PROMPT
+)
 # Simple tool functions following data agent pattern
 
 
@@ -53,22 +59,33 @@ def generate_two_person_commentary(
         else:
             actual_type = "FILLER_CONTENT"
         
-        # Generate commentary sequence based on type
-        if actual_type == "HIGH_INTENSITY":
-            commentary_sequence = _generate_high_intensity_commentary(
-                talking_points, high_intensity_events, home_team, away_team, game_context
-            )
-        elif actual_type == "MIXED_COVERAGE":
-            commentary_sequence = _generate_mixed_coverage_commentary(
-                talking_points, momentum_score, home_team, away_team, game_context
-            )
-        else:
-            commentary_sequence = _generate_filler_commentary(
-                home_team, away_team, game_context
-            )
+        # Generate commentary sequence using intelligent generation
+        full_context = {
+            "home_team": home_team,
+            "away_team": away_team,
+            "game_context": game_context,
+            "momentum_score": momentum_score,
+            "talking_points": talking_points,
+            "high_intensity_events": high_intensity_events
+        }
         
-        # Calculate total duration
-        total_duration = sum(line.get("duration_estimate", 3.0) for line in commentary_sequence)
+        intelligent_result = _generate_intelligent_commentary(
+            situation_type=actual_type.lower(),
+            context=full_context
+        )
+        
+        if intelligent_result and intelligent_result.get("status") == "success":
+            commentary_sequence = intelligent_result.get("commentary_sequence", [])
+            # Use intelligent generation's total duration if available, otherwise calculate
+            total_duration = intelligent_result.get("total_duration_estimate") or sum(line.get("duration_estimate", 3.0) for line in commentary_sequence)
+        else:
+            # Return error if intelligent generation fails
+            return {
+                "status": "error",
+                "error": f"Commentary generation failed: {intelligent_result.get('error', 'Unknown error')}",
+                "commentary_sequence": [],
+                "total_duration_estimate": 0
+            }
         
         result = {
             "status": "success",
@@ -223,74 +240,86 @@ def analyze_commentary_context(data_agent_output: Dict[str, Any]) -> Dict[str, A
         return error_result
 
 
+def _generate_intelligent_commentary(situation_type: str, context: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Generate intelligent commentary using LLM with structured output
+    
+    Args:
+        situation_type: Type of situation (high_intensity, mixed_coverage, filler_content)
+        context: Full game context including teams, momentum, talking points, events
+        
+    Returns:
+        Dictionary with generated commentary or error status
+    """
+    try:
+        # Get API key and configure
+        import sys
+        import os
+        from dotenv import load_dotenv
+        
+        # Load .env file
+        project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
+        load_dotenv(os.path.join(project_root, '.env'))
+        
+        # Get API key from environment
+        api_key = os.getenv('GOOGLE_API_KEY') or os.getenv('GEMINI_API_KEY')
+        if not api_key:
+            return {"status": "error", "error": "No Gemini API key available"}
+        
+        genai.configure(api_key=api_key)
+        model = genai.GenerativeModel('gemini-2.0-flash')
+        
+        # Format the examples for the prompt
+        examples_text = "\n\n".join([
+            f"SITUATION: {ex['situation']}\nCONTEXT: {ex['context']}\nOUTPUT: {ex['output']}"
+            for ex in COMMENTARY_EXAMPLES
+        ])
+        
+        # Build the prompt
+        prompt = INTELLIGENT_COMMENTARY_PROMPT.format(
+            game_context=json.dumps(context, indent=2),
+            situation_type=situation_type,
+            momentum_score=context.get('momentum_score', 0),
+            talking_points=context.get('talking_points', []),
+            events=context.get('high_intensity_events', []),
+            schema=COMMENTARY_JSON_SCHEMA,
+            examples=examples_text
+        )
+        
+        # Generate response
+        response = model.generate_content(prompt)
+        response_text = response.text
+        
+        # Clean and parse JSON
+        if "```json" in response_text:
+            json_start = response_text.find("```json") + 7
+            json_end = response_text.find("```", json_start)
+            response_text = response_text[json_start:json_end].strip()
+        elif "```" in response_text:
+            json_start = response_text.find("```") + 3
+            json_end = response_text.rfind("```")
+            response_text = response_text[json_start:json_end].strip()
+        
+        # Parse JSON response
+        try:
+            result = json.loads(response_text)
+            result["status"] = "success"
+            return result
+        except json.JSONDecodeError as e:
+            return {
+                "status": "error", 
+                "error": f"Invalid JSON response: {str(e)}",
+                "raw_response": response_text
+            }
+            
+    except Exception as e:
+        return {
+            "status": "error",
+            "error": f"Intelligent commentary generation failed: {str(e)}"
+        }
+
+
 # Helper functions
-def _generate_high_intensity_commentary(talking_points, events, home_team, away_team, game_context):
-    """Generate high-intensity commentary with immediate reactions"""
-    return [
-        {
-            "speaker": "pbp",
-            "text": f"What a sequence we're seeing here between {away_team} and {home_team}!",
-            "emotion": "excitement",
-            "timing": "immediate",
-            "duration_estimate": 2.5,
-            "pause_after": 0.3
-        },
-        {
-            "speaker": "color",
-            "text": f"The intensity is absolutely through the roof! {talking_points[0] if talking_points else 'This is playoff hockey at its finest!'}",
-            "emotion": "analysis_excited",
-            "timing": "follow_up",
-            "duration_estimate": 3.5,
-            "pause_after": 0.5
-        }
-    ]
-
-
-def _generate_mixed_coverage_commentary(talking_points, momentum_score, home_team, away_team, game_context):
-    """Generate balanced coverage with analysis"""
-    return [
-        {
-            "speaker": "pbp",
-            "text": f"Good back-and-forth action here between {away_team} and {home_team}.",
-            "emotion": "professional",
-            "timing": "measured",
-            "duration_estimate": 2.8,
-            "pause_after": 0.4
-        },
-        {
-            "speaker": "color", 
-            "text": talking_points[0] if talking_points else f"Both teams showing good energy level here.",
-            "emotion": "analytical",
-            "timing": "follow_up",
-            "duration_estimate": 3.2,
-            "pause_after": 0.6
-        }
-    ]
-
-
-def _generate_filler_commentary(home_team, away_team, game_context):
-    """Generate filler content for quiet moments"""
-    period = game_context.get("period", 1)
-    return [
-        {
-            "speaker": "pbp",
-            "text": f"We're in the {_ordinal(period)} period here, {away_team} visiting {home_team}.",
-            "emotion": "calm",
-            "timing": "relaxed",
-            "duration_estimate": 2.5,
-            "pause_after": 0.5
-        },
-        {
-            "speaker": "color",
-            "text": "Both teams settling into their systems here, looking for that next opportunity.",
-            "emotion": "observational",
-            "timing": "follow_up", 
-            "duration_estimate": 3.0,
-            "pause_after": 0.7
-        }
-    ]
-
-
 def _get_voice_style(speaker, emotion):
     """Map speaker and emotion to voice style"""
     if speaker == "pbp":

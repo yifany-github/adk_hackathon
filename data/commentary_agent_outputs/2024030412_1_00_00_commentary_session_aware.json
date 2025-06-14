@@ -1,47 +1,43 @@
 {
-  "generated_at": "2025-06-13T20:56:28.813474",
+  "generated_at": "2025-06-14T15:36:05.607109",
   "commentary_agent_version": "session_aware_v1.0",
   "agent_type": "nhl_commentary_agent",
   "game_id": "2024030412",
   "timestamp": "Period 1, 00:00",
-  "session_id": "3da6eb25-673a-4369-b38d-43d1fc368fa1",
+  "session_id": "2a2412f9-cef3-4ef5-818d-17bc73ee87a2",
   "status": "success",
   "commentary_type": "period_start",
   "commentary_sequence": [
     {
       "speaker": "Analyst",
-      "text": "Well, the Panthers got off to a quick start, potting five already. Oilers answering with four of their own. This could be a track meet, folks!",
-      "emotion": "observant",
-      "timing": "0:15",
-      "duration_estimate": 7.0,
+      "text": "Well, the puck has dropped, and it looks like Barkov took the opening faceoff against Draisaitl.",
+      "emotion": "neutral",
+      "timing": "0:00",
+      "duration_estimate": 4.0,
       "pause_after": 0.8
     },
     {
       "speaker": "Host",
-      "text": "Absolutely. And right off the bat, we saw Barkov take that opening faceoff against Draisaitl. Sets the tone early for Florida.",
-      "emotion": "neutral",
-      "timing": "0:22",
+      "text": "That's right. Both teams coming off of high-scoring games. Five goals already for Florida and four for Edmonton. We could be in for a track meet tonight!",
+      "emotion": "excited",
+      "timing": "0:04",
       "duration_estimate": 6.0,
-      "pause_after": 1.2
+      "pause_after": 1.0
     },
     {
       "speaker": "Analyst",
-      "text": "Key matchup there. If the Oilers want to claw back, Draisaitl's gotta win those battles in the dot.",
+      "text": "Indeed. Keep an eye on the Oilers' power play. They've been lethal at home, converting on nearly 30% of their chances.",
       "emotion": "analytical",
-      "timing": "0:28",
-      "duration_estimate": 5.0,
-      "pause_after": 0.7
+      "timing": "0:10",
+      "duration_estimate": 5.5,
+      "pause_after": 0.5
     }
   ],
-  "total_duration_estimate": 18.7,
+  "total_duration_estimate": 15.5,
   "game_context": {
     "game_id": "2024030412",
     "matchup": "FLA @ EDM",
     "venue": "Rogers Place",
-    "teams": {
-      "away": "FLA",
-      "home": "EDM"
-    },
     "period": 1,
     "time_remaining": "20:00",
     "home_score": 4,

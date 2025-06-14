@@ -1,49 +1,45 @@
 {
-  "generated_at": "2025-06-13T20:56:34.287752",
+  "generated_at": "2025-06-14T15:36:11.065978",
   "commentary_agent_version": "session_aware_v1.0",
   "agent_type": "nhl_commentary_agent",
   "game_id": "2024030412",
   "timestamp": "Period 1, 00:10",
-  "session_id": "3da6eb25-673a-4369-b38d-43d1fc368fa1",
+  "session_id": "2a2412f9-cef3-4ef5-818d-17bc73ee87a2",
   "status": "success",
   "commentary_type": "player_spotlight",
   "commentary_sequence": [
     {
       "speaker": "Analyst",
-      "text": "And a big reason for that Oilers turnaround has been the play of Connor McDavid, who's just electric out there.",
-      "emotion": "excited",
-      "timing": "0:53",
-      "duration_estimate": 5.5,
+      "text": "Speaking of dominant, keep your eyes on Connor McDavid tonight. He's got a 15-game point streak going.",
+      "emotion": "analytical",
+      "timing": "0:00",
+      "duration_estimate": 5.0,
       "pause_after": 0.8
     },
     {
       "speaker": "Host",
-      "text": "Absolutely. He's a game-changer. But Florida's got some firepower of their own. Keep an eye on Matthew Tkachuk tonight.",
+      "text": "That's right, and on the other side, Aleksander Barkov is always a threat. His two-way game is among the best in the league.",
       "emotion": "neutral",
-      "timing": "0:59",
-      "duration_estimate": 6.0,
+      "timing": "0:05",
+      "duration_estimate": 5.5,
       "pause_after": 1.0
     },
     {
       "speaker": "Analyst",
-      "text": "Tkachuk loves to get under your skin, and he's got the skill to back it up. That's a dangerous combination.",
+      "text": "Both teams boast incredible offensive talent, but it might come down to goaltending tonight. Which team's netminder will stand tall?",
       "emotion": "analytical",
-      "timing": "1:05",
-      "duration_estimate": 5.5,
-      "pause_after": 0.7
+      "timing": "0:10",
+      "duration_estimate": 6.0,
+      "pause_after": 0.5
     }
   ],
-  "total_duration_estimate": 17.0,
+  "total_duration_estimate": 16.5,
   "game_context": {
     "game_id": "2024030412",
     "matchup": "FLA @ EDM",
     "venue": "Rogers Place",
-    "teams": {
-      "away": "FLA",
-      "home": "EDM"
-    },
     "period": 1,
-    "time_remaining": "19:50",
+    "time_remaining": "20:00",
     "home_score": 4,
     "away_score": 5,
     "game_situation": "even strength"
