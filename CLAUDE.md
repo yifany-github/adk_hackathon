@@ -82,10 +82,10 @@ python src/data/live/live_data_collector.py simulate GAME_ID --game_duration_min
 python test_data_agent_adk.py
 
 # 3. Generate commentary from data agent outputs
-python test_commentary_pipeline.py
+python test_commentary_session_aware.py --max-files 5
 
-# 4. Review clean dialogue summary
-cat data/commentary_agent_outputs/GAME_ID_dialogue_summary_clean.json
+# 4. Extract and review clean dialogue summary  
+python extract_commentary_dialogue.py --output game_commentary_cleaned.txt
 ```
 
 ### Data Management

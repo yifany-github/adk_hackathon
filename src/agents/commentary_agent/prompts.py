@@ -49,78 +49,6 @@ Return ONLY the JSON structure with these required fields:
 Your role is to maintain professional broadcast continuity while serving as a JSON-returning interface to the commentary generation tools.
 """
 
-# Secondary prompts for specific scenarios
-OPENING_GAME_PROMPT = """
-Generate opening commentary for the start of an NHL game. Focus on:
-- Team introductions and venue
-- Key storylines for tonight's matchup
-- Setting the stage for the broadcast
-- Professional, welcoming tone
-"""
-
-GOAL_REACTION_PROMPT = """
-Generate immediate goal reaction commentary. Include:
-- Explosive play-by-play call
-- Quick color analysis of the goal
-- Player recognition and assists
-- Momentum impact assessment
-"""
-
-PENALTY_ANALYSIS_PROMPT = """
-Generate penalty situation commentary. Cover:
-- Clear description of the infraction
-- Impact on game flow
-- Special teams analysis
-- Strategic implications
-"""
-
-INTERMISSION_PROMPT = """
-Generate between-periods commentary. Focus on:
-- Period recap and key moments
-- Statistical analysis
-- Player performance highlights
-- Preview of upcoming period
-"""
-
-def get_situation_specific_prompt(situation_type: str) -> str:
-    """Get prompt for specific game situations"""
-    prompts = {
-        "game_opening": OPENING_GAME_PROMPT,
-        "goal_scored": GOAL_REACTION_PROMPT,
-        "penalty_called": PENALTY_ANALYSIS_PROMPT,
-        "intermission": INTERMISSION_PROMPT
-    }
-    return prompts.get(situation_type, COMMENTARY_AGENT_PROMPT)
-
-# Commentary style templates
-COMMENTARY_STYLES = {
-    "professional": "Maintain formal broadcast standards with clear diction and proper terminology",
-    "energetic": "Increase excitement level while maintaining professionalism",
-    "analytical": "Focus on technical aspects and strategic analysis",
-    "storytelling": "Incorporate player backgrounds and historical context"
-}
-
-# Emotional tone mappings
-EMOTIONAL_TONES = {
-    "excitement": "High energy, rising intonation, faster pace",
-    "tension": "Controlled intensity, anticipation, measured delivery",
-    "relief": "Exhale, satisfaction, relaxed tone",
-    "disappointment": "Deflated, sympathetic, understanding",
-    "analysis": "Thoughtful, explanatory, educational",
-    "storytelling": "Narrative, engaging, personal"
-}
-
-# Standard broadcast transitions
-BROADCAST_TRANSITIONS = [
-    "What did you think of that play, Eddie?",
-    "Absolutely right, Jim.",
-    "Speaking of that, Eddie...",
-    "I have to agree with you there.",
-    "That's a great point, Jim.",
-    "You're absolutely right about that.",
-    "Let me add to that...",
-    "Building on what you said..."
-]
 
 # Structured Commentary Generation Schema
 COMMENTARY_JSON_SCHEMA = '''
@@ -128,7 +56,7 @@ COMMENTARY_JSON_SCHEMA = '''
   "commentary_type": "string (period_start|play_by_play|penalty_analysis|player_spotlight|filler_content|high_intensity|mixed_coverage)",
   "commentary_sequence": [
     {
-      "speaker": "Host|Analyst", 
+      "speaker": "Play-by-play|Analyst", 
       "text": "Natural commentary dialogue",
       "emotion": "excited|neutral|analytical|observant|professional|concerned|etc",
       "timing": "0:15",
@@ -150,7 +78,7 @@ COMMENTARY_EXAMPLES = [
   "commentary_type": "high_intensity", 
   "commentary_sequence": [
     {
-      "speaker": "Host",
+      "speaker": "Play-by-play",
       "text": "SCORES! What a magnificent goal! The crowd is absolutely electric!",
       "emotion": "excited",
       "timing": "0:02",
@@ -185,7 +113,7 @@ COMMENTARY_EXAMPLES = [
       "pause_after": 0.7
     },
     {
-      "speaker": "Host",
+      "speaker": "Play-by-play",
       "text": "You can see the chemistry developing between McDavid and Draisaitl. When those two get going, they're nearly unstoppable.",
       "emotion": "analytical",
       "timing": "1:20", 
@@ -204,7 +132,7 @@ COMMENTARY_EXAMPLES = [
   "commentary_type": "filler_content",
   "commentary_sequence": [
     {
-      "speaker": "Host",
+      "speaker": "Play-by-play",
       "text": "We're midway through the first period here at Rogers Place, and both teams are settling into their systems.",
       "emotion": "professional",
       "timing": "8:30",
@@ -246,7 +174,7 @@ EXAMPLES:
 GUIDELINES:
 - Generate natural, varied dialogue that fits the situation
 - Maintain professional broadcast standards
-- Use speaker alternation (Host/Analyst)
+- Use speaker alternation (Play-by-play/Analyst)
 - Include realistic timing and duration estimates
 - Match emotion to game situation intensity
 - Reference specific teams, players, and context when relevant

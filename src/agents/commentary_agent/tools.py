@@ -143,9 +143,9 @@ def format_commentary_for_audio(commentary_result: Dict[str, Any]) -> Dict[str, 
         for i, line in enumerate(commentary_sequence):
             audio_segments.append({
                 "segment_id": i + 1,
-                "speaker": line.get("speaker", "pbp"),
+                "speaker": line.get("speaker", "Play-by-play"),
                 "text": line.get("text", ""),
-                "voice_style": _get_voice_style(line.get("speaker", "pbp"), line.get("emotion", "neutral")),
+                "voice_style": _get_voice_style(line.get("speaker", "Play-by-play"), line.get("emotion", "neutral")),
                 "duration_estimate": line.get("duration_estimate", 3.0),
                 "pause_after": line.get("pause_after", 0.5)
             })
@@ -322,9 +322,9 @@ def _generate_intelligent_commentary(situation_type: str, context: Dict[str, Any
 # Helper functions
 def _get_voice_style(speaker, emotion):
     """Map speaker and emotion to voice style"""
-    if speaker == "pbp":
+    if speaker == "Play-by-play":
         return "enthusiastic" if emotion in ["excitement", "tension"] else "professional"
-    else:  # color commentator
+    else:  # Analyst/color commentator
         return "analytical" if emotion == "analytical" else "conversational"
 
 
@@ -338,13 +338,6 @@ def _assess_momentum(momentum_score):
         return "low"
 
 
-def _ordinal(n):
-    """Convert number to ordinal (1st, 2nd, 3rd)"""
-    if 10 <= n % 100 <= 20:
-        suffix = 'th'
-    else:
-        suffix = {1: 'st', 2: 'nd', 3: 'rd'}.get(n % 10, 'th')
-    return f"{n}{suffix}"
 
 
 # Validation Functions
