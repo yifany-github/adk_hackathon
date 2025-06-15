@@ -53,51 +53,67 @@ async def run_session_aware_commentary_pipeline(game_id: str = "2024030412", max
     print(f"📊 Found {len(data_files)} data agent files to process")
     print()
     
-    # *** KEY CHANGE: Create single session for entire game ***
+    # *** SESSION RESET STRATEGY: New session every 15 timestamps (1:15 game time) ***
     from google.adk.runners import InMemoryRunner
     from google.genai.types import Part, UserContent
     
     runner = InMemoryRunner(agent=agent)
+    session = None
+    session_count = 0
+    SESSION_RESET_INTERVAL = 15  # Reset every 15 timestamps (1 min 15 sec)
     
-    # Create ONE session for the entire game - this maintains conversation history
-    session = await runner.session_service.create_session(
-        app_name=runner.app_name, 
-        user_id="game_commentator"
-    )
-    
-    print(f"🎙️ Created commentary session: {session.id}")
-    print()
-    
-    # Initialize game context in session state
-    initial_context = UserContent(parts=[Part(text=f"""
-You are now the live commentary team for NHL game {game_id}. This is the start of your broadcast.
-Throughout this game session:
-- Maintain natural conversation flow
-- Don't repeat introductions or welcome messages
-- Build on previous commentary naturally
+    async def create_new_session():
+        """Create a new session with fresh context"""
+        nonlocal session, session_count
+        session_count += 1
+        
+        session = await runner.session_service.create_session(
+            app_name=runner.app_name, 
+            user_id=f"game_commentator_session_{session_count}"
+        )
+        
+        print(f"🎙️ Created commentary session #{session_count}: {session.id}")
+        
+        # Initialize game context in session state
+        initial_context = UserContent(parts=[Part(text=f"""
+You are now the live commentary team for NHL game {game_id}. This is session #{session_count} of your broadcast.
+Throughout this session:
+- Maintain natural conversational flow between Alex Chen and Mike Rodriguez
+- Build on each other's observations organically, as real broadcasters do
 - Vary your dialogue and avoid repetitive phrases
-- Remember what you've already discussed
+- Use names occasionally for transitions or direct questions (not every exchange)
+- Let the conversation flow naturally without forced acknowledgments
 
 You'll receive live game data at different timestamps. Generate appropriate commentary for each moment.
-Ready to begin commentary?
+Ready to begin commentary for this session?
 """)])
+        
+        # Send initial context (this establishes the session baseline)
+        async for event in runner.run_async(
+            user_id=session.user_id,
+            session_id=session.id,
+            new_message=initial_context,
+        ):
+            pass  # Just establish context, don't need the response
+        
+        print(f"✅ Session #{session_count} context initialized")
+        return session
     
-    # Send initial context (this establishes the session baseline)
-    async for event in runner.run_async(
-        user_id=session.user_id,
-        session_id=session.id,
-        new_message=initial_context,
-    ):
-        pass  # Just establish context, don't need the response
-    
-    print("✅ Session context initialized")
+    # Create initial session
+    await create_new_session()
     print()
     
-    # Process each timestamp with session continuity
+    # Process each timestamp with session continuity and resets
     successful_outputs = []
     
     for i, data_file in enumerate(data_files, 1):
-        print(f"[{i}/{len(data_files)}] 📁 Processing: {os.path.basename(data_file)}")
+        # Check if we need to reset the session
+        if (i - 1) % SESSION_RESET_INTERVAL == 0 and i > 1:
+            print(f"🔄 Session reset triggered at file {i} (every {SESSION_RESET_INTERVAL} timestamps)")
+            await create_new_session()
+            print()
+        
+        print(f"[{i}/{len(data_files)}] 📁 Processing: {os.path.basename(data_file)} (Session #{session_count})")
         
         try:
             # Load data agent output
@@ -167,6 +183,7 @@ Generate appropriate commentary for this moment. Remember our ongoing conversati
                         "game_id": game_id,
                         "timestamp": game_time,
                         "session_id": session.id,
+                        "session_number": session_count,
                         **parsed_result  # Spread the clean parsed JSON
                     }
                     
@@ -179,6 +196,7 @@ Generate appropriate commentary for this moment. Remember our ongoing conversati
                         "game_id": game_id,
                         "timestamp": game_time,
                         "session_id": session.id,
+                        "session_number": session_count,
                         "status": "error",
                         "error": f"Failed to parse JSON: {str(e)}",
                         "raw_response": response_text
@@ -215,7 +233,8 @@ Generate appropriate commentary for this moment. Remember our ongoing conversati
     print("✅ Session-Aware Pipeline completed!")
     print(f"✅ Processed: {len(data_files)} files")
     print(f"✅ Successful: {len(successful_outputs)} commentary files")
-    print(f"🎙️ Session ID: {session.id}")
+    print(f"🎙️ Final Session: #{session_count} (ID: {session.id})")
+    print(f"📊 Session resets occurred: {session_count - 1} times")
     print()
     
     if successful_outputs:

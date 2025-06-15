@@ -14,16 +14,22 @@ The system implements a **multi-agent architecture** with:
 2. **Commentary Agent** (`src/agents/commentary_agent/`) - Gemini AI-powered professional two-person commentary generation  
 3. **Audio Agent** (`src/agents/audio_agent/`) - Text-to-speech and WebSocket audio streaming
 
-Data flows through a **3-stage pipeline**:
+Data flows through a **3-stage pipeline** with **data leakage prevention**:
 - **Static Context**: Pre-game team/player information generation with full rosters and player name mapping
-- **Live Data Collection**: Real-time NHL API polling with enhanced player name resolution
+- **Live Data Collection**: Real-time NHL API polling with progressive stats calculation (prevents future data leakage)
 - **Agent Processing**: Multi-agent coordination for timestamped commentary generation
 
 ### Key Data Flow
 ```
 NHL API → Live Data Collector → Data Agent → Commentary Agent → Audio Agent
-         (Enhanced names)    (ADK Analysis)  (Two-person)    (TTS Stream)
+         (Progressive stats)  (ADK Analysis)  (Two-person)    (TTS Stream)
+         (No leakage)         (Realistic)     (Natural flow)
 ```
+
+### Data Integrity Features
+- **Progressive Statistics**: Game stats calculated from time-filtered events only
+- **Leakage Prevention**: No future game data contaminates early timestamps  
+- **Realistic Progression**: Games start 0-0 and accumulate stats naturally
 
 ## Key Commands
 
@@ -181,12 +187,17 @@ class FirestoreSessionService(SessionService):
 
 ## Data Structure
 
-The system generates structured data files:
+The system generates structured data files with **progressive statistics**:
 - **Static Context**: `data/static/game_XXXXXX_static_context.json` (team rosters, player name mappings)
-- **Live Data**: `data/live/GAME_ID/game_XXXXXX_live_TIMESTAMP.json` (enhanced with player names)
-- **Data Agent Outputs**: `data/data_agent_outputs/GAME_ID_PERIOD_MM_SS_adk.json` (ADK analysis with proper player names)
-- **Commentary Outputs**: `data/commentary_agent_outputs/GAME_ID_commentary_PERIOD_MM_SS.json` (timestamped dialogue)
+- **Live Data**: `data/live/GAME_ID/game_XXXXXX_live_TIMESTAMP.json` (progressive stats, no data leakage)
+- **Data Agent Outputs**: `data/data_agent_outputs/GAME_ID_PERIOD_MM_SS_adk.json` (realistic game context)
+- **Commentary Outputs**: `data/commentary_agent_outputs/GAME_ID_commentary_PERIOD_MM_SS.json` (natural dialogue flow)
 - **Audio Files**: `audio_output/nhl_style_audioID_timestamp.wav`
+
+### Data Integrity Improvements (v2.1)
+- **Fixed Data Leakage**: Live data now calculates progressive stats from filtered events only
+- **Realistic Game Progression**: Games start 0-0, scores/shots accumulate naturally over time
+- **Temporal Consistency**: No future stats contaminate early timestamps
 
 ### Clean Summary Generation
 Generate readable commentary summaries:
@@ -232,11 +243,17 @@ Uses pytest with comprehensive test coverage:
 - Timestamped dialogue generation with emotion and timing metadata
 - Audio-ready formatting with duration estimates and speaker alternation
 
-### Data Pipeline Flow
-- Time-windowed data processing prevents future event leakage
-- ADK agents coordinate through Google's multi-agent framework
-- WebSocket connections handle real-time audio streaming
-- System designed for sub-5 second total latency from NHL API to audio output
+### Data Pipeline Flow (v2.1 - Data Leakage Fixed)
+- **Progressive Statistics**: Game stats calculated from time-filtered events only (no boxscore injection)
+- **Temporal Integrity**: Activities filtered by time window, stats calculated from filtered events
+- **ADK agents coordinate** through Google's multi-agent framework with realistic game context
+- **WebSocket connections** handle real-time audio streaming
+- **System designed** for sub-5 second total latency from NHL API to audio output
+
+### Critical Fix: Data Leakage Prevention
+**Problem Solved**: Previously, live data collector injected final game stats into all timestamps
+**Solution**: Replace boxscore injection with progressive stats calculation from filtered activities
+**Result**: Games now start 0-0 and progress naturally, enabling realistic commentary generation
 
 ### Debugging and Quality Assessment
 - Clean dialogue summaries automatically generated for commentary quality review

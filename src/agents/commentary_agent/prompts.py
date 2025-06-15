@@ -68,8 +68,54 @@ COMMENTARY_JSON_SCHEMA = '''
 }
 '''
 
-# Few-shot examples for intelligent generation
-COMMENTARY_EXAMPLES = [
+# COMMENTARY_EXAMPLES removed - replaced by SIMPLE_COMMENTARY_EXAMPLES below
+
+# Fixed Professional Broadcaster Names with Rich Personas
+FIXED_BROADCASTERS = {
+    "alex_chen": {
+        "name": "Alex Chen",
+        "role": "play_by_play",
+        "background": "35-year veteran, called Olympics and Stanley Cup Finals, smooth professional delivery",
+        "personality": "Calm under pressure, authoritative voice, builds excitement gradually, respects the game's moments",
+        "broadcasting_style": "Crisp, clear delivery, perfect timing, knows when to let the moment breathe, classic professionalism",
+        "signature_traits": "Iconic goal calls, perfect pace management, 'Great save!' delivered with authority, moment awareness",
+        "expertise": "Big game experience, clutch moment calling, reading game flow, traditional broadcasting excellence",
+        "interaction_style": "Sets up analyst perfectly, asks precise questions, great at transitions and game management"
+    },
+    "mike_rodriguez": {
+        "name": "Mike Rodriguez", 
+        "role": "analyst",
+        "background": "Former NHL scout and assistant coach, 15 years in player development, knows every prospect pipeline",
+        "personality": "Intensely knowledgeable about player backgrounds, enthusiastic about development stories, statistical mind with human touch",
+        "broadcasting_style": "Detailed player analysis, coaching insights, connects current play to player's journey, educational approach",
+        "signature_traits": "References player's junior teams and coaches, development paths, 'I remember when he was 16...', insider connections",
+        "expertise": "Scouting reports, player personalities, team systems, coaching decisions, prospect development",
+        "interaction_style": "Builds extensively on play-by-play observations, provides rich insider context, asks follow-up questions"
+    }
+}
+
+# BROADCASTER_PERSONAS removed - only FIXED_BROADCASTERS (Alex Chen & Mike Rodriguez) are used
+
+# Updated JSON Schema with EXACT speaker names required
+COMMENTARY_JSON_SCHEMA = '''
+{
+  "commentary_type": "string (period_start|play_by_play|penalty_analysis|player_spotlight|filler_content|high_intensity|mixed_coverage)",
+  "commentary_sequence": [
+    {
+      "speaker": "Alex Chen or Mike Rodriguez ONLY", 
+      "text": "Natural commentary dialogue with broadcaster personality",
+      "emotion": "excited|neutral|analytical|observant|professional|concerned|etc",
+      "timing": "0:15",
+      "duration_estimate": 3.5,
+      "pause_after": 0.8
+    }
+  ],
+  "total_duration_estimate": 15.2
+}
+'''
+
+# Simple examples with Alex Chen and Mike Rodriguez
+SIMPLE_COMMENTARY_EXAMPLES = [
     {
         "situation": "high_intensity",
         "context": "Goal scored, crowd erupting",
@@ -78,107 +124,98 @@ COMMENTARY_EXAMPLES = [
   "commentary_type": "high_intensity", 
   "commentary_sequence": [
     {
-      "speaker": "Play-by-play",
-      "text": "SCORES! What a magnificent goal! The crowd is absolutely electric!",
+      "speaker": "Alex Chen",
+      "text": "SCORES! What a beautiful goal by McDavid! The crowd is on its feet!",
       "emotion": "excited",
       "timing": "0:02",
       "duration_estimate": 4.0,
-      "pause_after": 0.5
+      "pause_after": 0.8
     },
     {
-      "speaker": "Analyst", 
-      "text": "That was textbook execution! The way he found that top corner, Bobrovsky had absolutely no chance on that one.",
+      "speaker": "Mike Rodriguez", 
+      "text": "Alex, that's exactly what separates elite players - the way he found that opening and buried it cleanly. Textbook finish.",
       "emotion": "analytical",
       "timing": "0:06",
-      "duration_estimate": 5.5,
-      "pause_after": 1.0
+      "duration_estimate": 6.0,
+      "pause_after": 1.2
     }
   ],
-  "total_duration_estimate": 11.0
+  "total_duration_estimate": 12.0
 }'''
     },
     {
-        "situation": "mixed_coverage",
-        "context": "Good back and forth play, moderate momentum",
+        "situation": "mixed_coverage", 
+        "context": "Good back and forth play",
         "output": '''
 {
   "commentary_type": "mixed_coverage",
   "commentary_sequence": [
     {
-      "speaker": "Analyst",
-      "text": "Nice sustained pressure from Edmonton here. They're really working the puck well in the offensive zone.",
-      "emotion": "observant", 
+      "speaker": "Mike Rodriguez",
+      "text": "Both teams are playing smart positional hockey here, Alex. Really disciplined defensive structure on both sides.",
+      "emotion": "analytical", 
       "timing": "1:15",
-      "duration_estimate": 4.5,
-      "pause_after": 0.7
-    },
-    {
-      "speaker": "Play-by-play",
-      "text": "You can see the chemistry developing between McDavid and Draisaitl. When those two get going, they're nearly unstoppable.",
-      "emotion": "analytical",
-      "timing": "1:20", 
       "duration_estimate": 5.0,
       "pause_after": 0.8
-    }
-  ],
-  "total_duration_estimate": 11.0
-}'''
     },
     {
-        "situation": "filler_content",
-        "context": "Quiet moment, need general discussion",
-        "output": '''
-{
-  "commentary_type": "filler_content",
-  "commentary_sequence": [
-    {
-      "speaker": "Play-by-play",
-      "text": "We're midway through the first period here at Rogers Place, and both teams are settling into their systems.",
-      "emotion": "professional",
-      "timing": "8:30",
-      "duration_estimate": 4.0,
-      "pause_after": 0.6
-    },
-    {
-      "speaker": "Analyst",
-      "text": "This has been a chess match so far. Both coaches making tactical adjustments, looking for that first breakthrough.",
-      "emotion": "analytical",
-      "timing": "8:35",
+      "speaker": "Alex Chen",
+      "text": "You're right Mike. It's a chess match out there - whoever makes the first mistake might pay for it.",
+      "emotion": "observant",
+      "timing": "1:20", 
       "duration_estimate": 4.5,
-      "pause_after": 0.9
+      "pause_after": 1.0
     }
   ],
-  "total_duration_estimate": 10.0
+  "total_duration_estimate": 11.3
 }'''
     }
 ]
 
-# Intelligent commentary generation prompt template
+# Rich persona-driven commentary generation prompt
 INTELLIGENT_COMMENTARY_PROMPT = """
-Generate professional NHL broadcast commentary for the given game situation using the exact JSON structure provided.
+Generate professional NHL broadcast commentary between two specific broadcasters with rich personalities.
+
+BROADCASTER PERSONALITIES:
+
+ALEX CHEN (Play-by-Play):
+- Background: {alex_background}
+- Personality: {alex_personality}
+- Broadcasting Style: {alex_style}
+- Signature Traits: {alex_traits}
+- Interaction Style: {alex_interaction}
+
+MIKE RODRIGUEZ (Analyst):
+- Background: {mike_background}
+- Personality: {mike_personality}
+- Broadcasting Style: {mike_style}
+- Signature Traits: {mike_traits}
+- Interaction Style: {mike_interaction}
+
+CRITICAL NAMING: Use ONLY "Alex Chen" and "Mike Rodriguez" as speaker names.
 
 GAME CONTEXT:
 {game_context}
 
-SITUATION TYPE: {situation_type}
-MOMENTUM SCORE: {momentum_score}
+SITUATION: {situation_type}
+MOMENTUM: {momentum_score}
 TALKING POINTS: {talking_points}
-HIGH INTENSITY EVENTS: {events}
-
-REQUIRED OUTPUT FORMAT:
-{schema}
+EVENTS: {events}
 
 EXAMPLES:
 {examples}
 
-GUIDELINES:
-- Generate natural, varied dialogue that fits the situation
-- Maintain professional broadcast standards
-- Use speaker alternation (Play-by-play/Analyst)
-- Include realistic timing and duration estimates
-- Match emotion to game situation intensity
-- Reference specific teams, players, and context when relevant
-- Avoid repetitive phrases and maintain broadcast flow
+REQUIRED JSON FORMAT:
+{schema}
 
-Generate ONLY the JSON structure with creative, contextual commentary:
+GUIDELINES:
+- Each broadcaster MUST reflect their unique personality and style described above
+- Maintain natural conversational flow between the two broadcasters
+- Alex Chen should display his veteran authority and perfect timing
+- Mike Rodriguez should showcase his scouting background and insider knowledge
+- Generate authentic conversation that reflects their distinct personalities
+- Build on each other's observations organically, as real broadcasters do
+- Use names sparingly for transitions or direct questions (not every exchange)
+
+Generate ONLY the JSON with authentic broadcaster personalities:
 """

@@ -6,15 +6,18 @@ Core tool functions for NHL Commentary Agent
 
 import json
 import os
+import random
 from datetime import datetime
-from typing import Dict, List, Any
+from typing import Dict, List, Any, Tuple
 import google.generativeai as genai
 from .prompts import (
     COMMENTARY_JSON_SCHEMA, 
-    COMMENTARY_EXAMPLES, 
-    INTELLIGENT_COMMENTARY_PROMPT
+    SIMPLE_COMMENTARY_EXAMPLES, 
+    INTELLIGENT_COMMENTARY_PROMPT,
+    FIXED_BROADCASTERS
 )
 # Simple tool functions following data agent pattern
+
 
 
 def generate_two_person_commentary(
@@ -59,7 +62,7 @@ def generate_two_person_commentary(
         else:
             actual_type = "FILLER_CONTENT"
         
-        # Generate commentary sequence using intelligent generation
+        # Generate commentary sequence using simplified intelligent generation
         full_context = {
             "home_team": home_team,
             "away_team": away_team,
@@ -69,7 +72,7 @@ def generate_two_person_commentary(
             "high_intensity_events": high_intensity_events
         }
         
-        intelligent_result = _generate_intelligent_commentary(
+        intelligent_result = _generate_simplified_commentary(
             situation_type=actual_type.lower(),
             context=full_context
         )
@@ -240,9 +243,28 @@ def analyze_commentary_context(data_agent_output: Dict[str, Any]) -> Dict[str, A
         return error_result
 
 
-def _generate_intelligent_commentary(situation_type: str, context: Dict[str, Any]) -> Dict[str, Any]:
+def get_secure_api_key() -> str:
     """
-    Generate intelligent commentary using LLM with structured output
+    Securely retrieve API key with proper error handling.
+    
+    Returns:
+        API key string
+        
+    Raises:
+        ValueError: If API key is not found or invalid
+    """
+    api_key = os.getenv('GOOGLE_API_KEY')
+    if not api_key or api_key.strip() == '':
+        raise ValueError(
+            "GOOGLE_API_KEY environment variable not set. "
+            "Please configure your Google AI API key in the .env file."
+        )
+    return api_key.strip()
+
+
+def _generate_simplified_commentary(situation_type: str, context: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Generate intelligent commentary using Alex Chen and Mike Rodriguez
     
     Args:
         situation_type: Type of situation (high_intensity, mixed_coverage, filler_content)
@@ -252,7 +274,7 @@ def _generate_intelligent_commentary(situation_type: str, context: Dict[str, Any
         Dictionary with generated commentary or error status
     """
     try:
-        # Get API key and configure
+        # Load environment and configure API
         import sys
         import os
         from dotenv import load_dotenv
@@ -261,29 +283,44 @@ def _generate_intelligent_commentary(situation_type: str, context: Dict[str, Any
         project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
         load_dotenv(os.path.join(project_root, '.env'))
         
-        # Get API key from environment
-        api_key = os.getenv('GOOGLE_API_KEY') or os.getenv('GEMINI_API_KEY')
-        if not api_key:
-            return {"status": "error", "error": "No Gemini API key available"}
+        # Securely get API key
+        try:
+            api_key = get_secure_api_key()
+        except ValueError as e:
+            return {"status": "error", "error": str(e)}
         
         genai.configure(api_key=api_key)
         model = genai.GenerativeModel('gemini-2.0-flash')
         
+        # Get broadcaster personas
+        alex = FIXED_BROADCASTERS["alex_chen"]
+        mike = FIXED_BROADCASTERS["mike_rodriguez"]
+        
         # Format the examples for the prompt
         examples_text = "\n\n".join([
             f"SITUATION: {ex['situation']}\nCONTEXT: {ex['context']}\nOUTPUT: {ex['output']}"
-            for ex in COMMENTARY_EXAMPLES
+            for ex in SIMPLE_COMMENTARY_EXAMPLES
         ])
         
-        # Build the prompt
+        # Build the rich persona prompt
         prompt = INTELLIGENT_COMMENTARY_PROMPT.format(
+            alex_background=alex["background"],
+            alex_personality=alex["personality"],
+            alex_style=alex["broadcasting_style"],
+            alex_traits=alex["signature_traits"],
+            alex_interaction=alex["interaction_style"],
+            mike_background=mike["background"],
+            mike_personality=mike["personality"],
+            mike_style=mike["broadcasting_style"],
+            mike_traits=mike["signature_traits"],
+            mike_interaction=mike["interaction_style"],
             game_context=json.dumps(context, indent=2),
             situation_type=situation_type,
             momentum_score=context.get('momentum_score', 0),
             talking_points=context.get('talking_points', []),
             events=context.get('high_intensity_events', []),
-            schema=COMMENTARY_JSON_SCHEMA,
-            examples=examples_text
+            examples=examples_text,
+            schema=COMMENTARY_JSON_SCHEMA
         )
         
         # Generate response
@@ -304,6 +341,22 @@ def _generate_intelligent_commentary(situation_type: str, context: Dict[str, Any
         try:
             result = json.loads(response_text)
             result["status"] = "success"
+            
+            # Post-process to ensure correct names (failsafe)
+            if "commentary_sequence" in result:
+                for item in result["commentary_sequence"]:
+                    if "speaker" in item:
+                        # Replace any generic names with our fixed names
+                        if item["speaker"] in ["Host", "Play-by-play", "PBP"]:
+                            item["speaker"] = "Alex Chen"
+                        elif item["speaker"] in ["Analyst", "Color", "Color Commentator"]:
+                            item["speaker"] = "Mike Rodriguez"
+            
+            # Add broadcaster information to result
+            result["broadcasters"] = {
+                "play_by_play": "Alex Chen",
+                "analyst": "Mike Rodriguez"
+            }
             return result
         except json.JSONDecodeError as e:
             return {
@@ -315,16 +368,17 @@ def _generate_intelligent_commentary(situation_type: str, context: Dict[str, Any
     except Exception as e:
         return {
             "status": "error",
-            "error": f"Intelligent commentary generation failed: {str(e)}"
+            "error": f"Commentary generation failed: {str(e)}"
         }
 
 
 # Helper functions
 def _get_voice_style(speaker, emotion):
-    """Map speaker and emotion to voice style"""
-    if speaker == "Play-by-play":
-        return "enthusiastic" if emotion in ["excitement", "tension"] else "professional"
-    else:  # Analyst/color commentator
+    """Map speaker and emotion to voice style (handles Alex Chen and Mike Rodriguez)"""
+    # Alex Chen is play-by-play, Mike Rodriguez is analyst
+    if speaker == "Alex Chen":
+        return "enthusiastic" if emotion in ["excited", "excitement", "tension"] else "professional"
+    else:  # Mike Rodriguez or any other analyst
         return "analytical" if emotion == "analytical" else "conversational"
 
 
