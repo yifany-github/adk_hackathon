@@ -1,0 +1,155 @@
+================================================================================
+NHL GAME 2024030413 - EXTENDED SESSION TEST
+================================================================================
+Generated: 2025-06-16 10:46:42
+Game: Florida Panthers @ Edmonton Oilers
+Test Duration: 2 minutes (24 timestamps)
+Commentary Files: 24
+
+BROADCASTERS:
+• Alex Chen (Play-by-Play)
+• Mike Rodriguez (Color Commentary)
+
+SESSION-AWARE COMMENTARY TEST:
+This test verifies that the commentary agents maintain context across timestamps,
+avoiding repetitive content and maintaining natural conversation flow.
+
+--------------------------------------------------------------------------------
+GAME COMMENTARY
+--------------------------------------------------------------------------------
+
+🕐 Period 1, 00:00 [FILLER_CONTENT]
+--------------------------------------------------
+Alex Chen: The game between the Edmonton Oilers and Florida Panthers has just begun, with the score tied 0-0. Faceoff won by the Oilers. Let's take a look at the season series between these two teams, Mike.
+Mike Rodriguez: Good idea, Alex. In previous matchups this season, we've seen some real battles. Both teams have shown they can put up goals in bunches, but defense has been the key. The Oilers will need to contain Florida's top line, and the Panthers have to shut down Draisaitl if they want to come out on top tonight.
+Alex Chen: You're spot on, Mike. And speaking of key matchups, we've got Aleksander Barkov versus Connor McDavid at center ice. That's an important matchup to watch throughout this game, potentially dictating the flow.
+
+🕐 Period 1, 00:05 [FILLER_CONTENT]
+--------------------------------------------------
+Mike Rodriguez: Since the game is still scoreless, let's dig into some stats. How have Aleksander Barkov and Connor McDavid performed in faceoffs this season, Alex?
+Alex Chen: That's a great question, Mike. Barkov has consistently been a top performer in the faceoff circle for the Panthers, boasting a win percentage of around 55%. McDavid, while known more for his offensive prowess, holds his own at around 50%. So, Barkov might have a slight edge there early on.
+Mike Rodriguez: Interesting. Both the Oilers and Panthers are coming off of strong regular seasons. Do you think they can carry that momentum into tonight's game?
+
+🕐 Period 1, 00:10 [PLAY_BY_PLAY]
+--------------------------------------------------
+Alex Chen: And there's the first hit of the game! Connor McDavid with a hit on Jones deep in the corner!
+Mike Rodriguez: Wow, Alex, McDavid showing he can play physical as well as finesse hockey early in this game. He's not just relying on his speed and skill; he's making his presence known physically.
+Alex Chen: Absolutely, Mike. That hit could set the tone for the rest of the game. It's still scoreless here in the first with 19:52 remaining.
+
+🕐 Period 1, 00:15 [PLAY_BY_PLAY]
+--------------------------------------------------
+Mike Rodriguez: And now Bouchard gets the first shot on goal of the game for Edmonton! Vanecek makes the save.
+Alex Chen: The Oilers are applying some early pressure, recording the first shot and that notable hit we saw from McDavid just moments ago. Vanecek will need to be sharp tonight against this high-powered Oilers offense.
+Mike Rodriguez: You're right, Alex. Edmonton's clearly trying to establish dominance early on. Let's see how the Panthers respond. Still 0-0 with 19:45 left in the first.
+
+🕐 Period 1, 00:20 [PLAY_BY_PLAY]
+--------------------------------------------------
+Alex Chen: Vanecek makes another save after that initial shot by Bouchard, and the play is stopped for a faceoff.
+Mike Rodriguez: Barkov wins the faceoff against Perry, giving the Panthers possession in their own zone. They're looking to settle the play down after some early pressure from Edmonton.
+Alex Chen: The Panthers need to find a way to generate some offensive chances of their own here. It's still 0-0 with 19:44 remaining in the first.
+
+🕐 Period 1, 00:25 [FILLER_CONTENT]
+--------------------------------------------------
+Mike Rodriguez: With the Panthers looking to get their offense going, it'll be key for players like Tkachuk and Verhaeghe to establish a strong forecheck and create turnovers in the Oilers' zone.
+Alex Chen: Agreed, Mike. And on the other side, the Oilers need to keep feeding Draisaitl and McDavid. If they can get those two going, it's going to be a long night for the Panthers. Still 0-0, 19:44 left in the first.
+
+🕐 Period 1, 00:30 [PLAY_BY_PLAY]
+--------------------------------------------------
+Alex Chen: Nugent-Hopkins lays a hit on Barkov at center ice! That's the second hit of the game for the Oilers.
+Mike Rodriguez: Edmonton is establishing a physical presence early in this contest. And Barkov is slow to get up - something to monitor, Alex.
+Alex Chen: Definitely something to watch. The Oilers are sending a message here early. It's still scoreless, 19:32 remaining in the first.
+
+🕐 Period 1, 00:35 [PLAY_BY_PLAY]
+--------------------------------------------------
+Mike Rodriguez: Corey Perry with Edmonton's second shot on goal, stopped by Vanecek! The puck goes into the crowd, leading to a faceoff.
+Alex Chen: Edmonton is putting early pressure on Vanecek, testing him early and often. The faceoff will be between Kane and Luostarinen after the stoppage.
+Mike Rodriguez: The Oilers are definitely controlling the play right now, but they need to convert these chances into goals. Still 0-0 with 19:25 left in the first.
+
+🕐 Period 1, 00:40 [FILLER_CONTENT]
+--------------------------------------------------
+Alex Chen: The Oilers are showing good puck control early on, but the Panthers need to disrupt their rhythm and create some offensive opportunities. It will be key for them to win battles along the boards and in the neutral zone.
+Mike Rodriguez: Agreed, Alex. We're seeing a lot of physical play already, and that's going to be a factor as this game wears on. Both teams need to stay disciplined and avoid unnecessary penalties. Still 0-0 with 19:25 to go.
+
+🕐 Period 1, 00:45 [PLAY_BY_PLAY]
+--------------------------------------------------
+Alex Chen: We've seen a flurry of activity in the opening minute here at Amerant Bank Arena. Edmonton came out firing with two quick shots, but Luostarinen answers back for the Panthers.
+Mike Rodriguez: Exactly, Alex. Both teams are testing the waters early. I'm watching the faceoff battles, Barkov and Perry have already gone head to head a couple of times. Also saw Nugent-Hopkins lay a hit on Barkov.
+
+🕐 Period 1, 00:50 [PLAY_BY_PLAY]
+--------------------------------------------------
+Mike Rodriguez: Luostarinen gets Florida's first shot on goal, and Pickard makes the save!
+Alex Chen: Draisaitl wins the faceoff after the save by Pickard. The shots are now 2-1 in favor of Edmonton early in the first period.
+Mike Rodriguez: Good response from the Panthers there, generating their first scoring chance. They're starting to find their legs a bit. Still scoreless with 19:13 remaining.
+
+🕐 Period 1, 00:55 [PLAY_BY_PLAY]
+--------------------------------------------------
+Alex Chen: Delayed penalty coming up for Edmonton. Florida will go on the power play once play stops.
+Mike Rodriguez: Let's see who is heading to the box for Edmonton. This is a big opportunity here for Florida to get the first goal of the game on the power play.
+Alex Chen: It looks like it's Kapanen for tripping. A tripping call on Kapanen. Florida will get a two-minute power play with 19:08 remaining in the first.
+
+🕐 Period 1, 01:00 [GOAL_CALL]
+--------------------------------------------------
+Alex Chen: GOAL! Florida takes the lead 1-0!
+Mike Rodriguez: Unknown with the goal, assisted by Anton Lundell and Eetu Luostarinen! Pickard couldn't stop that one! Quick transition and great passing led to that goal. The Panthers strike first!
+Alex Chen: The Panthers capitalize, taking a 1-0 lead with 19:04 remaining in the first. That power play certainly gave them some momentum.
+
+🕐 Period 1, 01:05 [PLAY_BY_PLAY]
+--------------------------------------------------
+Mike Rodriguez: Florida leads 1-0 after that goal by Unknown. We're waiting to confirm the goal scorer. We had a delayed offside and Bennett wins the faceoff for Florida after the offside call. Can they keep the pressure on the Oilers?
+Alex Chen: Edmonton needs to respond here, Mike, or this game could get away from them early. It's 1-0 Florida with 18:57 to go in the first.
+
+🕐 Period 1, 01:10 [PLAY_BY_PLAY]
+--------------------------------------------------
+Mike Rodriguez: Ekholm lays a hit on Jones near the blue line.
+Alex Chen: The Oilers are trying to respond physically after giving up that early goal, Mike. Still no confirmation on the goal scorer.
+Mike Rodriguez: They need to channel that physicality into offensive chances. It's 1-0 Florida, with 18:53 remaining in the first.
+
+🕐 Period 1, 01:15 [FILLER_CONTENT]
+--------------------------------------------------
+Alex Chen: The Oilers have to be careful not to get caught up in trading hits and need to focus on generating scoring chances. Getting pucks on net and creating traffic in front of Vanecek will be key.
+Mike Rodriguez: Agreed, Alex. And the Panthers need to continue to play with that energy and capitalize on their opportunities. That early goal was huge for them. 1-0 Florida, 18:53 left in the first.
+
+🕐 Period 1, 01:20 [FILLER_CONTENT]
+--------------------------------------------------
+Mike Rodriguez: We're still awaiting confirmation on who scored that opening goal for the Panthers, but regardless, they've come out with a lot of jump early on here at home.
+Alex Chen: That's right, Mike. They're feeding off the energy of the crowd. Edmonton needs to weather this storm and get back to playing their game. It's 1-0 Florida, 18:53 left in the first.
+
+🕐 Period 1, 01:25 [FILLER_CONTENT]
+--------------------------------------------------
+Alex Chen: With the score at 1-0, let's dive into some key stats for both the Edmonton Oilers and the Florida Panthers as they begin this matchup, Mike.
+Mike Rodriguez: Certainly, Alex. The Oilers have been strong offensively this season, averaging over 3 goals per game, while the Panthers have been solid defensively, allowing less than 2.5. It'll be interesting to see if Edmonton can crack that Florida defense tonight.
+Alex Chen: And a quick update - We're still awaiting confirmation of the goalscorer for Florida's first goal.
+
+🕐 Period 1, 01:30 [FILLER_CONTENT]
+--------------------------------------------------
+Mike Rodriguez: Speaking of the Panthers' success, let's discuss the impact that their coaching staff has had on this team, Alex. They've really instilled a strong defensive system.
+Alex Chen: Absolutely, Mike. They've turned this team into a disciplined and resilient group. They're well-structured in all three zones, making it tough for opponents to generate consistent offense. And we are still waiting for official confirmation on who scored that opening goal for Florida.
+
+🕐 Period 1, 01:35 [SITUATIONAL_ANALYSIS]
+--------------------------------------------------
+Alex Chen: The Florida Panthers are clinging to that 1-0 lead early in the first, Mike. Not a lot of action to speak of.
+Mike Rodriguez: That's right, Alex. Looking at Florida's team statistics this season, their success is significantly tied to strong goaltending and a disciplined defensive structure. Vanecek will need to be on top of his game tonight.
+Alex Chen: And, while the shots are currently 2-1 in favor of Edmonton, Florida has capitalized on their opportunities, scoring the game's only goal so far.
+Mike Rodriguez: Exactly. Edmonton needs to find a way to break through that strong Panthers' defense and test Vanecek more frequently.
+
+🕐 Period 1, 01:40 [PLAY_BY_PLAY]
+--------------------------------------------------
+Alex Chen: Janmark delivers a hit on Jones behind the net.
+Mike Rodriguez: Edmonton trying to generate some momentum with physical play. They need to find a way to get the puck in the net though. Still 1-0 for Florida with 18:22 to go in the first.
+Alex Chen: And still no confirmation on the goal scorer.
+
+🕐 Period 1, 01:45 [FILLER_CONTENT]
+--------------------------------------------------
+Mike Rodriguez: With the Oilers trailing by a goal, they need to utilize their speed and skill to create scoring opportunities. Look for players like McDavid and Draisaitl to try and generate some chances.
+Alex Chen: That's right, Mike. They can't afford to fall further behind here. It's 1-0 Florida, 18:22 remaining in the first. Still waiting on the official word for the goal scorer.
+
+🕐 Period 1, 01:50 [FILLER_CONTENT]
+--------------------------------------------------
+Alex Chen: Florida's defensive structure is really making it difficult for Edmonton to find open ice. The Oilers will need to adjust their approach and find creative ways to break through.
+Mike Rodriguez: Absolutely, Alex. They need to move the puck quicker and get bodies in front of the net. It's 1-0 Florida, 18:22 left in the first. And we're still awaiting confirmation on who tallied that goal.
+
+🕐 Period 1, 01:55 [FILLER_CONTENT]
+--------------------------------------------------
+Mike Rodriguez: We have Adam Henrique vs. Luostarinen in that faceoff battle - a key matchup to watch as the game progresses, Alex.
+Alex Chen: Definitely a battle of skill and strength there. The Oilers are trying to get something going, but the Panthers are holding strong defensively. Still waiting on confirmation of the goal scorer. 1-0 Florida, 18:06 remaining in the first.
+

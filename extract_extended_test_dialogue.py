@@ -12,7 +12,7 @@ def extract_game_dialogue(game_id):
     """Extract dialogue from specific game's commentary files"""
     
     # Find all commentary files for this game
-    pattern = f"/Users/yongboyu/Desktop/adk_hackathon/data/commentary_agent_outputs/{game_id}/*_commentary_session_aware.json"
+    pattern = f"/Users/yongboyu/Desktop/adk_hackathon/data/commentary_agent_outputs/{game_id}/*_commentary_board.json"
     files = sorted(glob.glob(pattern))
     
     if not files:
@@ -30,7 +30,7 @@ def extract_game_dialogue(game_id):
             
             # Extract timestamp from filename
             filename = os.path.basename(file_path)
-            timestamp_part = filename.replace('_commentary_session_aware.json', '')
+            timestamp_part = filename.replace('_commentary_board.json', '')
             
             # Parse timestamp (e.g., "1_01_00" -> "Period 1, 1:00")
             parts = timestamp_part.split('_')
