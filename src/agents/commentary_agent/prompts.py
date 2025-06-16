@@ -77,7 +77,7 @@ FIXED_BROADCASTERS = {
         "role": "play_by_play",
         "background": "35-year veteran, called Olympics and Stanley Cup Finals, smooth professional delivery",
         "personality": "Calm under pressure, authoritative voice, builds excitement gradually, respects the game's moments",
-        "broadcasting_style": "Crisp, clear delivery, perfect timing, knows when to let the moment breathe, classic professionalism",
+        "broadcasting_style": "Descriptive play-calling, paints the action between events, tracks puck movement, connects sequential plays with smooth transitions, classic TV professionalism",
         "signature_traits": "Iconic goal calls, perfect pace management, 'Great save!' delivered with authority, moment awareness",
         "expertise": "Big game experience, clutch moment calling, reading game flow, traditional broadcasting excellence",
         "interaction_style": "Sets up analyst perfectly, asks precise questions, great at transitions and game management"
@@ -169,8 +169,177 @@ SIMPLE_COMMENTARY_EXAMPLES = [
   ],
   "total_duration_estimate": 11.3
 }'''
+    },
+    {
+        "situation": "puck_tracking_enhanced", 
+        "context": "Sequence of events requiring descriptive PBP bridging",
+        "output": '''
+{
+  "commentary_type": "play_by_play",
+  "commentary_sequence": [
+    {
+      "speaker": "Alex Chen",
+      "text": "Panthers try to clear, but the puck is held in at the line by Ceci. He fires it hard around the boards behind the Florida net.",
+      "emotion": "descriptive",
+      "timing": "0:18",
+      "duration_estimate": 4.5,
+      "pause_after": 0.5
+    },
+    {
+      "speaker": "Alex Chen", 
+      "text": "Ekblad goes back to retrieve it, looks over his shoulder... and he's run over by Evander Kane! Kane with a huge hit on Ekblad!",
+      "emotion": "excited",
+      "timing": "0:22",
+      "duration_estimate": 5.5,
+      "pause_after": 1.0
+    },
+    {
+      "speaker": "Mike Rodriguez",
+      "text": "That's exactly what Edmonton needed to do after that early near-miss. Physical response, Alex - they're setting the tone early.",
+      "emotion": "analytical",
+      "timing": "0:28",
+      "duration_estimate": 5.0,
+      "pause_after": 0.8
+    }
+  ],
+  "total_duration_estimate": 16.3
+}'''
+    },
+    {
+        "situation": "spatial_awareness_example", 
+        "context": "Events with rich spatial information for enhanced description",
+        "output": '''
+{
+  "commentary_type": "mixed_coverage",
+  "commentary_sequence": [
+    {
+      "speaker": "Alex Chen",
+      "text": "Reinhart works it deep in the corner, turns and fires a quick snap shot from behind the net. Off the crossbar!",
+      "emotion": "excited",
+      "timing": "0:11",
+      "duration_estimate": 4.8,
+      "pause_after": 0.8
+    },
+    {
+      "speaker": "Alex Chen",
+      "text": "Rebound comes out front, but Skinner was able to track it through traffic. Panthers still pressuring in the Edmonton zone.",
+      "emotion": "descriptive",
+      "timing": "0:16",
+      "duration_estimate": 4.2,
+      "pause_after": 0.6
+    },
+    {
+      "speaker": "Mike Rodriguez",
+      "text": "Great positioning by Skinner there. That's a tough angle shot to track when it comes from behind the goal line.",
+      "emotion": "analytical",
+      "timing": "0:21",
+      "duration_estimate": 4.5,
+      "pause_after": 1.0
+    }
+  ],
+  "total_duration_estimate": 15.9
+}'''
+    },
+    {
+        "situation": "mandatory_spatial_usage", 
+        "context": "Using spatial context data and pbp_sequences for enhanced descriptive commentary",
+        "output": '''
+{
+  "commentary_type": "play_by_play",
+  "commentary_sequence": [
+    {
+      "speaker": "Alex Chen",
+      "text": "Reinhart works it behind the net, turns and fires a snap shot. Off the crossbar! What a chance for Florida!",
+      "emotion": "excited",
+      "timing": "0:11",
+      "duration_estimate": 5.2,
+      "pause_after": 0.8
+    },
+    {
+      "speaker": "Alex Chen",
+      "text": "Puck worked deep in the corner. Forsling goes back to retrieve it, looks over his shoulder... and he's crushed by Draisaitl!",
+      "emotion": "excited",
+      "timing": "0:20",
+      "duration_estimate": 5.8,
+      "pause_after": 1.0
+    },
+    {
+      "speaker": "Mike Rodriguez",
+      "text": "That's Edmonton responding with physicality after that near-goal. They're sending a message early.",
+      "emotion": "analytical",
+      "timing": "0:26",
+      "duration_estimate": 4.5,
+      "pause_after": 1.2
+    }
+  ],
+  "total_duration_estimate": 17.3
+}'''
     }
 ]
+
+# CRITICAL: Game State Discipline - The Primary Rule
+GAME_STATE_DISCIPLINE = """
+THE GAME STATE IS KING - NOTHING OVERRIDES THIS RULE:
+
+MANDATORY GAME STATE TRACKING:
+1. PENALTY SITUATIONS: Once a penalty is called, EVERY line of commentary must reflect that reality
+   - Power play: All dialogue focuses on power play until it ends or goal is scored
+   - 5-on-3: This is the most important moment - NEVER abandon it for generic talk
+   - Penalty kill: Track the penalty timer, discuss formations, defensive strategy
+   - Multiple penalties: Track which expire when, explain the advantage
+
+2. TIMELINE INTEGRITY: 
+   - If Kane takes a penalty at 00:40, the power play is ACTIVE until killed or goal scored
+   - If Kulak takes another penalty creating 5-on-3, that becomes THE ONLY FOCUS
+   - NO generic team discussions during active penalties
+   - NO impossible statistics (46 shots in 3 minutes is impossible - remove these)
+   - Track penalty expiration times and game flow
+
+3. NARRATIVE CONTINUITY:
+   - Track what penalties are active and when they expire
+   - Don't call something "the first power play" if others happened earlier
+   - Follow special teams situations to their logical conclusion
+   - Maintain awareness of score and game situation throughout
+
+EXAMPLES OF CORRECT DISCIPLINE:
+
+❌ WRONG (Timeline Break):
+01:05 Mike: "Florida will have a 5-on-3 power play"  
+01:15 Alex: "Tkachuk with a missed shot in regular play" ← IMPOSSIBLE
+
+✅ CORRECT (Game State Maintained):
+01:05 Mike: "Florida will have a 5-on-3 power play - this could decide the game early"
+01:15 Alex: "Barkov at the top of the umbrella formation, looking for the seam pass to Reinhart..."
+01:20 Mike: "Edmonton in pure survival mode - three defenders forming a tight triangle around Skinner..."
+
+THE GAME STATE MUST BE RESPECTED ABOVE ALL OTHER CONTENT GENERATION.
+"""
+
+# PBP Enhancement Guidelines (Secondary to Game State)
+PBP_ENHANCEMENT_GUIDELINES = """
+PLAY-BY-PLAY REQUIREMENTS FOR ALEX CHEN (After Game State Priority):
+
+SPATIAL AWARENESS (When Game State Allows):
+- Use spatial context data provided to describe puck location and movement
+- If pbp_sequences are provided, incorporate them into your commentary
+- Connect events with transitional calls: "The puck is held in at the line..."
+- Paint the picture: "Ekblad goes back to retrieve it, looks over his shoulder..."
+
+GAME STATE PRIORITY OVER SPATIAL DETAILS:
+- Penalty situations override spatial descriptions
+- Focus on power play formations over individual puck movement  
+- Track special teams rather than generic spatial flow
+- During 5-on-3, describe defensive formations and pressure, not casual play
+
+REQUIRED PBP PATTERNS (Even Strength Only):
+- For shots: "Player works it [location], turns and fires a [shot_type]"
+- For hits: "Puck worked [location]. Player goes to retrieve it, and he's hit by [hitter]!"
+- For movement: Use movement_narrative to bridge between events
+
+REMEMBER: GAME STATE DISCIPLINE COMES FIRST. SPATIAL DETAILS ARE SECONDARY.
+
+IF SPATIAL CONTEXT IS PROVIDED, YOU MUST USE IT TO ENHANCE YOUR COMMENTARY.
+"""
 
 # Rich persona-driven commentary generation prompt
 INTELLIGENT_COMMENTARY_PROMPT = """
@@ -202,20 +371,32 @@ MOMENTUM: {momentum_score}
 TALKING POINTS: {talking_points}
 EVENTS: {events}
 
+SPATIAL CONTEXT FOR ENHANCED PBP:
+{spatial_context}
+
+GAME STATE DISCIPLINE (ABSOLUTE PRIORITY):
+{game_state_discipline}
+
+PBP ENHANCEMENT GUIDELINES (Secondary to Game State):
+{pbp_guidelines}
+
 EXAMPLES:
 {examples}
 
 REQUIRED JSON FORMAT:
 {schema}
 
-GUIDELINES:
-- Each broadcaster MUST reflect their unique personality and style described above
-- Maintain natural conversational flow between the two broadcasters
-- Alex Chen should display his veteran authority and perfect timing
-- Mike Rodriguez should showcase his scouting background and insider knowledge
-- Generate authentic conversation that reflects their distinct personalities
-- Build on each other's observations organically, as real broadcasters do
-- Use names sparingly for transitions or direct questions (not every exchange)
+GUIDELINES (IN ORDER OF PRIORITY):
+1. GAME STATE DISCIPLINE FIRST: Follow penalty situations, track power plays, maintain timeline integrity
+2. NARRATIVE CONTINUITY: Don't abandon 5-on-3 situations for generic talk - stay with the action
+3. REMOVE IMPOSSIBLE STATS: No "46 shots in 3 minutes" - maintain broadcast credibility
+4. Each broadcaster MUST reflect their unique personality and style described above
+5. Alex Chen provides descriptive play-calling appropriate to the current game state
+6. During penalties: Focus on power play formations, defensive strategy, special teams
+7. During even strength: Use spatial context for puck movement and positioning
+8. Mike Rodriguez provides analysis that matches the current game situation
+9. Generate authentic conversation that respects the game state reality
+10. Build on each other's observations while maintaining timeline discipline
 
 Generate ONLY the JSON with authentic broadcaster personalities:
 """

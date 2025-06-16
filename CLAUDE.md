@@ -31,6 +31,14 @@ NHL API → Live Data Collector → Data Agent → Commentary Agent → Audio Ag
 - **Leakage Prevention**: No future game data contaminates early timestamps  
 - **Realistic Progression**: Games start 0-0 and accumulate stats naturally
 
+### Pipeline Improvements (v3.0)
+- **Live Commentary Pipeline**: Single-command end-to-end processing (`live_commentary_pipeline.py`)
+- **Shared Session Management**: Persistent ADK sessions for penalty tracking and game state continuity
+- **Session Initialization**: Proper broadcaster name establishment (Alex Chen & Mike Rodriguez)
+- **Organized File Structure**: Game-specific subfolders for outputs (`data/*/GAME_ID/`)
+- **Real-time Processing**: Live data → Data agent → Commentary agent → Audio agent in parallel
+- **Fixed Penalty Tracking**: Shared sessions solve Kane+Kulak=5-on-3 game state discipline issues
+
 ## Key Commands
 
 ### Setup and Configuration
@@ -43,10 +51,19 @@ python setup_api_key.py
 ```
 
 ### Running the System
-```bash
-# Complete game pipeline
-python src/data/game_pipeline.py GAME_ID [DURATION_MINUTES]
 
+#### **Main Pipeline (Recommended)**
+```bash
+# Complete live commentary pipeline - runs everything automatically
+python live_commentary_pipeline.py GAME_ID [DURATION_MINUTES]
+
+# Examples:
+python live_commentary_pipeline.py 2024030412 2    # 2-minute test
+python live_commentary_pipeline.py 2024030413 0.5  # 30-second quick test
+```
+
+#### **Individual Components (Advanced)**
+```bash
 # Live data collection (simulation mode)
 python src/data/live/live_data_collector.py simulate GAME_ID --game_duration_minutes 3
 
@@ -79,7 +96,20 @@ python extract_commentary_dialogue.py --continuous
 python extract_commentary_dialogue.py --output game_commentary.txt
 ```
 
-### Commentary Pipeline Testing Workflow
+### Complete Pipeline Workflow (Production-Ready)
+```bash
+# 1. Run complete live commentary pipeline (recommended)
+python live_commentary_pipeline.py GAME_ID DURATION_MINUTES
+
+# 2. Extract commentary summary for review
+python extract_commentary_dialogue.py --output game_GAME_ID_summary.txt
+
+# Example full workflow:
+python live_commentary_pipeline.py 2024030412 2
+python extract_commentary_dialogue.py --output game_2024030412_summary.txt
+```
+
+### Legacy Testing Workflow (Manual Steps)
 ```bash
 # 1. Generate enhanced live data with player names
 python src/data/live/live_data_collector.py simulate GAME_ID --game_duration_minutes 3
@@ -187,12 +217,32 @@ class FirestoreSessionService(SessionService):
 
 ## Data Structure
 
-The system generates structured data files with **progressive statistics**:
+The system generates structured data files with **progressive statistics** and **organized game-specific folders**:
+
+### File Organization (v3.0)
 - **Static Context**: `data/static/game_XXXXXX_static_context.json` (team rosters, player name mappings)
-- **Live Data**: `data/live/GAME_ID/game_XXXXXX_live_TIMESTAMP.json` (progressive stats, no data leakage)
-- **Data Agent Outputs**: `data/data_agent_outputs/GAME_ID_PERIOD_MM_SS_adk.json` (realistic game context)
-- **Commentary Outputs**: `data/commentary_agent_outputs/GAME_ID_commentary_PERIOD_MM_SS.json` (natural dialogue flow)
+- **Live Data**: `data/live/GAME_ID/GAME_ID_PERIOD_MM_SS.json` (progressive stats, no data leakage)
+- **Data Agent Outputs**: `data/data_agent_outputs/GAME_ID/PERIOD_MM_SS_adk.json` (realistic game context)
+- **Commentary Outputs**: `data/commentary_agent_outputs/GAME_ID/PERIOD_MM_SS_commentary_session_aware.json` (natural dialogue flow)
 - **Audio Files**: `audio_output/nhl_style_audioID_timestamp.wav`
+
+### Example Structure
+```
+data/
+├── static/game_2024030412_static_context.json
+├── live/2024030412/
+│   ├── 2024030412_1_00_00.json
+│   ├── 2024030412_1_00_05.json
+│   └── ...
+├── data_agent_outputs/2024030412/
+│   ├── 1_00_00_adk.json
+│   ├── 1_00_05_adk.json
+│   └── ...
+└── commentary_agent_outputs/2024030412/
+    ├── 1_00_00_commentary_session_aware.json
+    ├── 1_00_05_commentary_session_aware.json
+    └── ...
+```
 
 ### Data Integrity Improvements (v2.1)
 - **Fixed Data Leakage**: Live data now calculates progressive stats from filtered events only

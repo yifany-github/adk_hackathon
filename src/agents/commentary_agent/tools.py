@@ -62,14 +62,18 @@ def generate_two_person_commentary(
         else:
             actual_type = "FILLER_CONTENT"
         
-        # Generate commentary sequence using simplified intelligent generation
+        # Enrich with spatial context for enhanced PBP - load raw live data
+        spatial_context = _enrich_spatial_context_from_live_data(data_agent_output)
+        
+        # Generate commentary sequence using enhanced intelligent generation
         full_context = {
             "home_team": home_team,
             "away_team": away_team,
             "game_context": game_context,
             "momentum_score": momentum_score,
             "talking_points": talking_points,
-            "high_intensity_events": high_intensity_events
+            "high_intensity_events": high_intensity_events,
+            "spatial_context": spatial_context
         }
         
         intelligent_result = _generate_simplified_commentary(
@@ -302,7 +306,10 @@ def _generate_simplified_commentary(situation_type: str, context: Dict[str, Any]
             for ex in SIMPLE_COMMENTARY_EXAMPLES
         ])
         
-        # Build the rich persona prompt
+        # Import PBP guidelines and game state discipline
+        from .prompts import PBP_ENHANCEMENT_GUIDELINES, GAME_STATE_DISCIPLINE
+        
+        # Build the enhanced persona prompt with spatial context
         prompt = INTELLIGENT_COMMENTARY_PROMPT.format(
             alex_background=alex["background"],
             alex_personality=alex["personality"],
@@ -319,6 +326,9 @@ def _generate_simplified_commentary(situation_type: str, context: Dict[str, Any]
             momentum_score=context.get('momentum_score', 0),
             talking_points=context.get('talking_points', []),
             events=context.get('high_intensity_events', []),
+            spatial_context=json.dumps(context.get('spatial_context', {}), indent=2),
+            game_state_discipline=GAME_STATE_DISCIPLINE,
+            pbp_guidelines=PBP_ENHANCEMENT_GUIDELINES,
             examples=examples_text,
             schema=COMMENTARY_JSON_SCHEMA
         )
@@ -347,9 +357,9 @@ def _generate_simplified_commentary(situation_type: str, context: Dict[str, Any]
                 for item in result["commentary_sequence"]:
                     if "speaker" in item:
                         # Replace any generic names with our fixed names
-                        if item["speaker"] in ["Host", "Play-by-play", "PBP"]:
+                        if item["speaker"] in ["Host", "Play-by-play", "PBP", "Play-by-Play"]:
                             item["speaker"] = "Alex Chen"
-                        elif item["speaker"] in ["Analyst", "Color", "Color Commentator"]:
+                        elif item["speaker"] in ["Analyst", "Analyst1", "Analyst2", "Color", "Color Commentator"]:
                             item["speaker"] = "Mike Rodriguez"
             
             # Add broadcaster information to result
@@ -390,6 +400,390 @@ def _assess_momentum(momentum_score):
         return "moderate"
     else:
         return "low"
+
+
+def _enrich_spatial_context_from_live_data(data_agent_output: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Load and process live data directly to get detailed spatial information
+    
+    Args:
+        data_agent_output: Output from data agent containing game context
+        
+    Returns:
+        Dictionary with enhanced spatial flow information for PBP
+    """
+    try:
+        # Extract game context to find the corresponding live data file
+        game_context = data_agent_output.get("for_commentary_agent", {}).get("game_context", {})
+        period = game_context.get("period", 1)
+        time_remaining = game_context.get("time_remaining", "20:00")
+        
+        # Convert time_remaining to elapsed time format
+        minutes_left = int(time_remaining.split(":")[0])
+        seconds_left = int(time_remaining.split(":")[1])
+        elapsed_minutes = 20 - minutes_left
+        elapsed_seconds = 0 - seconds_left
+        
+        if elapsed_seconds < 0:
+            elapsed_minutes -= 1
+            elapsed_seconds = 60 + elapsed_seconds
+        
+        # Try to find the closest matching live data file
+        import os, glob
+        
+        # First try exact match
+        timestamp = f"{period:d}_{elapsed_minutes:02d}_{elapsed_seconds:02d}"
+        live_data_file = f"data/live/2024030412/2024030412_{timestamp}.json"
+        
+        if not os.path.exists(live_data_file):
+            # Try to find closest file - search all available files and find closest match
+            pattern = f"data/live/2024030412/2024030412_{period:d}_*.json"
+            available_files = glob.glob(pattern)
+            
+            if available_files:
+                # Calculate elapsed time in seconds for comparison
+                target_total_seconds = elapsed_minutes * 60 + elapsed_seconds
+                
+                best_match = None
+                best_diff = float('inf')
+                
+                for file_path in available_files:
+                    # Extract time from filename like "2024030412_1_00_15.json"
+                    filename = os.path.basename(file_path)
+                    parts = filename.replace('.json', '').split('_')
+                    if len(parts) >= 4:
+                        try:
+                            file_minutes = int(parts[2])
+                            file_seconds = int(parts[3])
+                            file_total_seconds = file_minutes * 60 + file_seconds
+                            
+                            diff = abs(target_total_seconds - file_total_seconds)
+                            if diff < best_diff:
+                                best_diff = diff
+                                best_match = file_path
+                        except ValueError:
+                            continue
+                
+                # Use the best match if it's within 30 seconds
+                if best_match and best_diff <= 30:
+                    live_data_file = best_match
+                
+                # However, prefer files that have more activities (likely to contain the events we want)
+                # Re-evaluate matches by activity count for close time differences
+                if best_diff <= 10:  # Within 10 seconds, check activity count
+                    candidates = []
+                    for file_path in available_files:
+                        filename = os.path.basename(file_path)
+                        parts = filename.replace('.json', '').split('_')
+                        if len(parts) >= 4:
+                            try:
+                                file_minutes = int(parts[2])
+                                file_seconds = int(parts[3])
+                                file_total_seconds = file_minutes * 60 + file_seconds
+                                diff = abs(target_total_seconds - file_total_seconds)
+                                
+                                if diff <= 10:  # Within 10 seconds
+                                    with open(file_path, 'r') as temp_f:
+                                        temp_data = json.load(temp_f)
+                                    activity_count = len(temp_data.get('activities', []))
+                                    candidates.append((file_path, diff, activity_count))
+                            except (ValueError, json.JSONDecodeError):
+                                continue
+                    
+                    # Sort by activity count (descending), then by time difference (ascending)
+                    if candidates:
+                        candidates.sort(key=lambda x: (-x[2], x[1]))
+                        live_data_file = candidates[0][0]
+        
+        # Load the live data if found
+        if os.path.exists(live_data_file):
+            with open(live_data_file, 'r') as f:
+                live_data = json.load(f)
+            
+            activities = live_data.get('activities', [])
+            result = _process_live_activities_for_spatial_context(activities)
+            result["matched_file"] = os.path.basename(live_data_file)
+            return result
+        else:
+            # Fallback to basic processing
+            return {"spatial_flow": [], "puck_tracking_available": False, "live_data_loaded": False, "error": f"No live data file found for {timestamp}"}
+            
+    except Exception as e:
+        print(f"Warning: Could not load live data for spatial context: {e}")
+        return {"spatial_flow": [], "puck_tracking_available": False, "error": str(e)}
+
+
+def _process_live_activities_for_spatial_context(activities: List[Dict]) -> Dict[str, Any]:
+    """Process live activities to extract detailed spatial information"""
+    spatial_flow = []
+    puck_locations = []
+    pbp_sequences = []
+    
+    # Sort activities by time
+    sorted_activities = sorted(activities, key=lambda x: x.get('timeInPeriod', '00:00'))
+    
+    for activity in sorted_activities:
+        if 'details' in activity and activity['details']:
+            details = activity['details']
+            
+            # Extract comprehensive spatial information
+            spatial_info = {
+                'time': activity.get('timeInPeriod', ''),
+                'event_type': activity.get('typeDescKey', ''),
+                'location': details.get('spatialDescription', ''),
+                'zone': details.get('zoneCode', ''),
+                'coordinates': {
+                    'x': details.get('xCoord'),
+                    'y': details.get('yCoord')
+                },
+                'players_involved': _extract_player_context_from_activity(activity)
+            }
+            
+            # Generate PBP narrative elements
+            pbp_elements = _generate_pbp_narrative_elements(activity)
+            if pbp_elements:
+                pbp_sequences.extend(pbp_elements)
+            
+            # Track puck movement patterns
+            if details.get('xCoord') is not None and details.get('yCoord') is not None:
+                puck_locations.append({
+                    'time': activity.get('timeInPeriod', ''),
+                    'x': details['xCoord'],
+                    'y': details['yCoord'],
+                    'zone': details.get('zoneCode', ''),
+                    'action': activity.get('typeDescKey', ''),
+                    'description': details.get('spatialDescription', '')
+                })
+            
+            spatial_flow.append(spatial_info)
+    
+    # Generate enhanced puck movement narrative
+    movement_narrative = _generate_enhanced_puck_movement_narrative(puck_locations)
+    
+    return {
+        "spatial_flow": spatial_flow,
+        "puck_tracking_available": len(puck_locations) > 0,
+        "movement_narrative": movement_narrative,
+        "zone_progression": _analyze_zone_progression(puck_locations),
+        "pbp_sequences": pbp_sequences,
+        "live_data_loaded": True,
+        "total_activities": len(spatial_flow)
+    }
+
+
+def _extract_player_context_from_activity(activity: Dict) -> Dict[str, str]:
+    """Extract player names and roles from live activity details"""
+    details = activity.get('details', {})
+    players = {}
+    
+    # Map various player role fields to standardized names
+    player_mappings = [
+        ('shootingPlayerName', 'shooter'),
+        ('goalieInNetName', 'goalie'),
+        ('hittingPlayerName', 'hitter'),
+        ('hitteePlayerName', 'hittee'),
+        ('committedByPlayerName', 'penalty_player'),
+        ('drawnByPlayerName', 'penalty_drawn'),
+        ('winningPlayerName', 'faceoff_winner'),
+        ('losingPlayerName', 'faceoff_loser')
+    ]
+    
+    for field_name, role in player_mappings:
+        if field_name in details:
+            players[role] = details[field_name]
+    
+    return players
+
+
+def _generate_pbp_narrative_elements(activity: Dict) -> List[str]:
+    """Generate specific PBP narrative elements for different event types"""
+    event_type = activity.get('typeDescKey', '')
+    details = activity.get('details', {})
+    spatial_desc = details.get('spatialDescription', '')
+    
+    narratives = []
+    
+    if event_type == 'missed-shot':
+        shooter = details.get('shootingPlayerName', 'Player')
+        shot_type = details.get('shotType', 'shot')
+        reason = details.get('reason', 'missed')
+        
+        if 'behind the net' in spatial_desc:
+            narratives.append(f"{shooter} works it {spatial_desc}, turns and fires a {shot_type}")
+        if reason == 'hit-crossbar':
+            narratives.append("Off the crossbar!")
+        
+    elif event_type == 'hit':
+        hitter = details.get('hittingPlayerName', 'Player')
+        hittee = details.get('hitteePlayerName', 'Player')
+        
+        if 'corner' in spatial_desc:
+            narratives.append(f"Puck worked {spatial_desc}")
+            narratives.append(f"{hittee} goes to retrieve it, and he's hit by {hitter}!")
+            
+    elif event_type == 'penalty':
+        penalty_player = details.get('committedByPlayerName', 'Player')
+        penalty_type = details.get('descKey', 'penalty')
+        
+        narratives.append(f"And that aggressive play leads to a penalty")
+        narratives.append(f"{penalty_player} called for {penalty_type}")
+    
+    return narratives
+
+
+def _generate_enhanced_puck_movement_narrative(locations: List[Dict]) -> List[str]:
+    """Generate enhanced descriptive puck movement phrases for PBP use"""
+    if len(locations) < 2:
+        return []
+    
+    narratives = []
+    for i in range(len(locations) - 1):
+        current = locations[i]
+        next_loc = locations[i + 1]
+        
+        # Analyze movement between locations
+        zone_change = current['zone'] != next_loc['zone']
+        action_type = next_loc['action']
+        current_desc = current.get('description', '')
+        next_desc = next_loc.get('description', '')
+        
+        if zone_change:
+            narratives.append(f"Puck worked from {current_desc} to {next_desc}")
+        elif 'corner' in next_desc and action_type == 'hit':
+            narratives.append(f"Play continues {next_desc}")
+        elif abs(current.get('x', 0) - next_loc.get('x', 0)) > 20:
+            narratives.append("Puck moved across the ice")
+    
+    return narratives
+
+
+def _enrich_spatial_context(events: List[Dict]) -> Dict[str, Any]:
+    """
+    Convert coordinate data into broadcast-friendly spatial descriptions
+    
+    Args:
+        events: List of high-intensity events from data agent
+        
+    Returns:
+        Dictionary with spatial flow information for enhanced PBP
+    """
+    spatial_flow = []
+    puck_locations = []
+    
+    for event in events:
+        if 'details' in event:
+            details = event['details']
+            
+            # Extract spatial information
+            spatial_info = {
+                'time': event.get('timeInPeriod', ''),
+                'event_type': event.get('typeDescKey', ''),
+                'location': details.get('spatialDescription', ''),
+                'zone': details.get('zoneCode', ''),
+                'coordinates': {
+                    'x': details.get('xCoord'),
+                    'y': details.get('yCoord')
+                }
+            }
+            
+            # Add player context for better PBP
+            player_context = _extract_player_context(event)
+            if player_context:
+                spatial_info['players'] = player_context
+            
+            # Track puck movement patterns
+            if details.get('xCoord') is not None and details.get('yCoord') is not None:
+                puck_locations.append({
+                    'time': event.get('timeInPeriod', ''),
+                    'x': details['xCoord'],
+                    'y': details['yCoord'],
+                    'zone': details.get('zoneCode', ''),
+                    'action': event.get('typeDescKey', '')
+                })
+            
+            spatial_flow.append(spatial_info)
+    
+    # Generate puck movement narrative
+    movement_narrative = _generate_puck_movement_narrative(puck_locations)
+    
+    return {
+        "spatial_flow": spatial_flow,
+        "puck_tracking_available": len(puck_locations) > 0,
+        "movement_narrative": movement_narrative,
+        "zone_progression": _analyze_zone_progression(puck_locations)
+    }
+
+
+def _extract_player_context(event: Dict) -> Dict[str, str]:
+    """Extract player names and roles from event details"""
+    details = event.get('details', {})
+    players = {}
+    
+    # Map various player role fields to standardized names
+    player_mappings = [
+        ('shootingPlayerName', 'shooter'),
+        ('goalieInNetName', 'goalie'),
+        ('hittingPlayerName', 'hitter'),
+        ('hitteePlayerName', 'hittee'),
+        ('committedByPlayerName', 'penalty_player'),
+        ('drawnByPlayerName', 'penalty_drawn'),
+        ('winningPlayerName', 'faceoff_winner'),
+        ('losingPlayerName', 'faceoff_loser')
+    ]
+    
+    for field_name, role in player_mappings:
+        if field_name in details:
+            players[role] = details[field_name]
+    
+    return players
+
+
+def _generate_puck_movement_narrative(locations: List[Dict]) -> List[str]:
+    """Generate descriptive puck movement phrases for PBP use"""
+    if len(locations) < 2:
+        return []
+    
+    narratives = []
+    for i in range(len(locations) - 1):
+        current = locations[i]
+        next_loc = locations[i + 1]
+        
+        # Analyze movement between locations
+        zone_change = current['zone'] != next_loc['zone']
+        action_type = next_loc['action']
+        
+        if zone_change:
+            narratives.append(f"puck worked from {current['zone']} zone to {next_loc['zone']} zone")
+        elif action_type in ['hit', 'penalty']:
+            narratives.append("play continues in the same area")
+        elif abs(current.get('x', 0) - next_loc.get('x', 0)) > 20:
+            narratives.append("puck moved across the ice")
+    
+    return narratives
+
+
+def _analyze_zone_progression(locations: List[Dict]) -> Dict[str, Any]:
+    """Analyze zone-to-zone progression for strategic commentary"""
+    if not locations:
+        return {"progression_type": "static", "zones_visited": []}
+    
+    zones = [loc['zone'] for loc in locations if loc.get('zone')]
+    unique_zones = list(dict.fromkeys(zones))  # Preserve order, remove duplicates
+    
+    progression_type = "static"
+    if len(unique_zones) > 1:
+        if 'D' in zones and 'O' in zones:
+            progression_type = "end_to_end"
+        elif len(unique_zones) == 2:
+            progression_type = "zone_change"
+        else:
+            progression_type = "multi_zone"
+    
+    return {
+        "progression_type": progression_type,
+        "zones_visited": unique_zones,
+        "zone_changes": len(unique_zones) - 1 if len(unique_zones) > 1 else 0
+    }
 
 
 
