@@ -31,7 +31,15 @@ NHL API → Live Data Collector → Data Agent → Commentary Agent → Audio Ag
 - **Leakage Prevention**: No future game data contaminates early timestamps  
 - **Realistic Progression**: Games start 0-0 and accumulate stats naturally
 
-### Pipeline Improvements (v3.0)
+### Live Game Board Architecture (v4.0)
+- **Context Collapse Prevention**: External state management prevents AI memory corruption
+- **Authoritative State Injection**: Game facts maintained outside AI sessions, injected into every prompt
+- **Roster Lock Enforcement**: Only valid team players can be mentioned, prevents phantom players
+- **Score Consistency Tracking**: Scores can only increase, prevents statistical amnesia
+- **Session Refresh System**: Periodic context refresh with narrative compaction
+- **Board-Integrated Pipeline**: `live_commentary_pipeline_v2.py` with full state management
+
+### Pipeline Improvements (v3.0) 
 - **Live Commentary Pipeline**: Single-command end-to-end processing (`live_commentary_pipeline.py`)
 - **Shared Session Management**: Persistent ADK sessions for penalty tracking and game state continuity
 - **Session Initialization**: Proper broadcaster name establishment (Alex Chen & Mike Rodriguez)
@@ -52,9 +60,19 @@ python setup_api_key.py
 
 ### Running the System
 
-#### **Main Pipeline (Recommended)**
+#### **Board-Integrated Pipeline (Recommended - v4.0)**
 ```bash
-# Complete live commentary pipeline - runs everything automatically
+# Live Game Board integrated pipeline - prevents context collapse
+python live_commentary_pipeline_v2.py GAME_ID [DURATION_MINUTES]
+
+# Examples:
+python live_commentary_pipeline_v2.py 2024030413 2    # 2-minute test with board protection
+python live_commentary_pipeline_v2.py 2024030412 1    # 1-minute quick test
+```
+
+#### **Legacy Pipeline (v3.0)**
+```bash
+# Original session-aware pipeline - may experience context collapse after 60 seconds
 python live_commentary_pipeline.py GAME_ID [DURATION_MINUTES]
 
 # Examples:
