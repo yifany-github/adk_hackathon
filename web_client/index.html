@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏒 NHL LiveStream Commentary</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-hockey-puck"></i>
+                    <h1>NHL LiveStream Commentary</h1>
+                </div>
+                <div class="header-controls">
+                    <div class="language-selector">
+                        <select id="languageSelect" class="language-select">
+                            <option value="zh-CN">中文</option>
+                            <option value="en-US">English</option>
+                        </select>
+                    </div>
+                    <div class="connection-status" id="connectionStatus">
+                        <i class="fas fa-circle"></i>
+                        <span data-i18n="connecting">连接中...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容区域 -->
+    <main class="main-content">
+        <div class="container">
+            <!-- 控制面板 -->
+            <section class="control-panel">
+                <div class="panel-header">
+                    <h2 data-i18n="controlPanel"><i class="fas fa-gamepad"></i> 控制面板</h2>
+                </div>
+                <div class="panel-content">
+                    <div class="control-group">
+                        <label for="gameSelect" data-i18n="selectGame">选择比赛:</label>
+                        <select id="gameSelect" class="select-input">
+                            <option value="" data-i18n="pleaseSelectGame">请选择比赛...</option>
+                            <option value="2024030412" data-i18n="games.2024030412">TOR vs BOS - 季后赛</option>
+                            <option value="2024020123" data-i18n="games.2024020123">NYR vs PHI - 常规赛</option>
+                            <option value="2024020456" data-i18n="games.2024020456">EDM vs CGY - 常规赛</option>
+                        </select>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="voiceStyle" data-i18n="voiceStyle">解说风格:</label>
+                        <select id="voiceStyle" class="select-input">
+                            <option value="enthusiastic" data-i18n="enthusiastic">兴奋解说</option>
+                            <option value="dramatic" data-i18n="dramatic">戏剧解说</option>
+                            <option value="calm" data-i18n="calm">平静解说</option>
+                        </select>
+                    </div>
+                    
+                    <div class="control-buttons">
+                        <button id="startBtn" class="btn btn-primary" data-i18n="startCommentary">
+                            <i class="fas fa-play"></i> 开始解说
+                        </button>
+                        <button id="stopBtn" class="btn btn-secondary" disabled data-i18n="stopCommentary">
+                            <i class="fas fa-stop"></i> 停止解说
+                        </button>
+                        <button id="pauseBtn" class="btn btn-secondary" disabled data-i18n="pauseCommentary">
+                            <i class="fas fa-pause"></i> 暂停
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 主要内容区域 -->
+            <div class="content-grid">
+                <!-- 解说区域 -->
+                <section class="commentary-section">
+                    <div class="section-header">
+                        <h2 data-i18n="liveCommentary"><i class="fas fa-microphone"></i> 实时解说</h2>
+                        <div class="commentary-status">
+                            <span id="commentaryStatus" data-i18n="waitingToStart">等待开始...</span>
+                        </div>
+                    </div>
+                    
+                    <div class="commentary-content">
+                        <div class="current-commentary" id="currentCommentary">
+                            <div class="commentary-placeholder">
+                                <i class="fas fa-microphone-slash"></i>
+                                <p data-i18n="selectGameToStart">选择比赛并点击"开始解说"来开始实时解说</p>
+                            </div>
+                        </div>
+                        
+                        <div class="commentary-history" id="commentaryHistory">
+                            <h3 data-i18n="commentaryHistory">解说历史</h3>
+                            <div class="history-list"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 音频控制区域 -->
+                <section class="audio-section">
+                    <div class="section-header">
+                        <h2 data-i18n="audioPlayback"><i class="fas fa-volume-up"></i> 音频播放</h2>
+                    </div>
+                    
+                    <div class="audio-player">
+                        <audio id="audioPlayer" controls preload="none">
+                            Your browser does not support audio playback.
+                        </audio>
+                        
+                        <div class="audio-controls">
+                            <button id="muteBtn" class="audio-btn">
+                                <i class="fas fa-volume-up"></i>
+                            </button>
+                            <div class="volume-control">
+                                <input type="range" id="volumeSlider" min="0" max="100" value="70">
+                            </div>
+                            <div class="audio-info">
+                                <span id="audioStatus" data-i18n="noAudio">无音频</span>
+                            </div>
+                        </div>
+                        
+                        <div class="audio-queue">
+                            <h4 data-i18n="audioQueue">音频队列</h4>
+                            <div id="audioQueue" class="queue-list">
+                                <div class="queue-placeholder" data-i18n="noAudioFiles">暂无音频文件</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- 比赛数据面板 -->
+            <section class="game-data-section">
+                <div class="section-header">
+                    <h2 data-i18n="gameData"><i class="fas fa-chart-line"></i> 比赛数据</h2>
+                </div>
+                
+                <div class="game-data-grid">
+                    <div class="data-card">
+                        <h3 data-i18n="score">比分</h3>
+                        <div class="score-display" id="scoreDisplay">
+                            <div class="team">
+                                <span class="team-name" data-i18n="homeTeam">主队</span>
+                                <span class="team-score">0</span>
+                            </div>
+                            <div class="vs" data-i18n="vs">VS</div>
+                            <div class="team">
+                                <span class="team-name" data-i18n="awayTeam">客队</span>
+                                <span class="team-score">0</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="data-card">
+                        <h3 data-i18n="gameStatus">比赛状态</h3>
+                        <div class="game-status" id="gameStatus">
+                            <div class="period" data-i18n="period1">第1节</div>
+                            <div class="time">20:00</div>
+                        </div>
+                    </div>
+                    
+                    <div class="data-card">
+                        <h3 data-i18n="recentEvents">最新事件</h3>
+                        <div class="recent-events" id="recentEvents">
+                            <div class="event-placeholder" data-i18n="noEvents">暂无比赛事件</div>
+                        </div>
+                    </div>
+                    
+                    <div class="data-card">
+                        <h3 data-i18n="systemStatus">系统状态</h3>
+                        <div class="system-status">
+                            <div class="status-item">
+                                <span data-i18n="dataAgent">数据代理:</span>
+                                <span id="dataAgentStatus" class="status-indicator" data-i18n="offline">离线</span>
+                            </div>
+                            <div class="status-item">
+                                <span data-i18n="commentaryAgent">解说代理:</span>
+                                <span id="commentaryAgentStatus" class="status-indicator" data-i18n="offline">离线</span>
+                            </div>
+                            <div class="status-item">
+                                <span data-i18n="audioAgent">音频代理:</span>
+                                <span id="audioAgentStatus" class="status-indicator" data-i18n="offline">离线</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 底部信息 -->
+    <footer class="footer">
+        <div class="container">
+            <p data-i18n="footer">&copy; 2024 NHL LiveStream Commentary | Powered by Google ADK & Gemini AI</p>
+        </div>
+    </footer>
+
+    <!-- 音频播放通知 -->
+    <div id="audioNotification" class="audio-notification">
+        <i class="fas fa-volume-up"></i>
+        <span data-i18n="playingAudio">正在播放解说音频...</span>
+    </div>
+
+    <!-- Socket.IO客户端 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.4/socket.io.js"></script>
+    
+    <!-- 多语言支持 -->
+    <script src="lang.js"></script>
+    
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html> 
