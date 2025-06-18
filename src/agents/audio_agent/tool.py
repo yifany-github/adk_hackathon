@@ -62,7 +62,10 @@ async def text_to_speech(
     voice_style: str = "enthusiastic",
     language: str = "en-US",
     speaker: str = "",
-    emotion: str = ""
+    emotion: str = "",
+    game_id: str = "",
+    game_timestamp: str = "",
+    segment_index: int = -1
 ) -> Dict[str, Any]:
     """
     Convert text to speech using real Gemini TTS
@@ -144,7 +147,7 @@ async def text_to_speech(
             print(f"✅ Real Gemini TTS successful! Size: {len(audio_data):,} bytes")
             
             # Save audio to file as proper WAV format
-            saved_file_path = _save_audio_to_file(audio_data, audio_id, timestamp, voice_style, speaker)
+            saved_file_path = _save_audio_to_file(audio_data, audio_id, timestamp, voice_style, speaker, game_id, game_timestamp, segment_index)
             
             # Encode audio data
             audio_base64 = base64.b64encode(audio_data).decode('utf-8')
@@ -888,7 +891,7 @@ def _build_prompt_for_emotion(text: str, emotion_or_style: str, speaker: str = "
     return emotion_prompts.get(emotion_or_style.lower(), f"{speaker_context}say clearly: {text}")
 
 
-def _save_audio_to_file(audio_data: bytes, audio_id: str, timestamp: str, voice_style: str, speaker: str = "") -> str:
+def _save_audio_to_file(audio_data: bytes, audio_id: str, timestamp: str, voice_style: str, speaker: str = "", game_id: str = "", game_timestamp: str = "", segment_index: int = -1) -> str:
     """
     Save raw audio data as a proper WAV file with speaker info
     
@@ -898,24 +901,42 @@ def _save_audio_to_file(audio_data: bytes, audio_id: str, timestamp: str, voice_
         timestamp: Timestamp string
         voice_style: Voice style used
         speaker: Speaker name (optional)
+        game_id: NHL game ID (optional)
+        game_timestamp: Game timestamp like "1_00_05" (optional)
         
     Returns:
         Path to the saved WAV file
     """
     try:
-        # Create output directory
-        output_dir = "audio_output"
+        # Create output directory with game_id subfolder if provided
+        if game_id:
+            output_dir = os.path.join("audio_output", game_id)
+        else:
+            output_dir = "audio_output"
         os.makedirs(output_dir, exist_ok=True)
         
-        # Generate filename with speaker info
-        date_str = datetime.now().strftime("%Y%m%d_%H%M%S")
-        
-        if speaker:
-            # Clean speaker name for filename
-            speaker_clean = speaker.lower().replace(" ", "").replace(".", "")
-            filename = f"nhl_{speaker_clean}_{date_str}_{audio_id}_{voice_style}.wav"
+        # Generate filename with game timestamp if provided, otherwise use real time
+        if game_id and game_timestamp:
+            # Use game timestamp format with segment index: game_id_timestamp_speaker_style_index.wav
+            if speaker:
+                speaker_clean = speaker.lower().replace(" ", "").replace(".", "")
+                if segment_index >= 0:
+                    filename = f"{game_id}_{game_timestamp}_{speaker_clean}_{voice_style}_{segment_index}.wav"
+                else:
+                    filename = f"{game_id}_{game_timestamp}_{speaker_clean}_{voice_style}.wav"
+            else:
+                if segment_index >= 0:
+                    filename = f"{game_id}_{game_timestamp}_commentary_{voice_style}_{segment_index}.wav"
+                else:
+                    filename = f"{game_id}_{game_timestamp}_commentary_{voice_style}.wav"
         else:
-            filename = f"nhl_commentary_{date_str}_{audio_id}_{voice_style}.wav"
+            # Fallback to original naming
+            date_str = datetime.now().strftime("%Y%m%d_%H%M%S")
+            if speaker:
+                speaker_clean = speaker.lower().replace(" ", "").replace(".", "")
+                filename = f"nhl_{speaker_clean}_{date_str}_{audio_id}_{voice_style}.wav"
+            else:
+                filename = f"nhl_commentary_{date_str}_{audio_id}_{voice_style}.wav"
             
         filepath = os.path.join(output_dir, filename)
         

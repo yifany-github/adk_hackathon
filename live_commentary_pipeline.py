@@ -27,6 +27,9 @@ sys.path.append('src/agents/commentary_agent')
 sys.path.append('src/agents/audio_agent')
 sys.path.append('src/board')
 
+# Import configuration
+from config.pipeline_config import config
+
 async def generate_static_context(game_id: str):
     """Generate static context for the game"""
     print(f"📋 Generating static context for game {game_id}...")
@@ -48,7 +51,7 @@ def start_live_data_collection(game_id: str, duration_minutes: int):
     ])
     
     # Wait a moment for first files to appear
-    time.sleep(1)
+    time.sleep(config.TIMESTAMP_PROCESSING_DELAY)
     print("✅ Live data collection started")
     return process
 
@@ -378,10 +381,16 @@ async def process_audio_agent_with_board(commentary_output_file: str, game_id: s
             
             print(f"      🔊 {speaker}: {text[:40]}... (style: {voice_style})")
             
-            # Generate audio for this segment (simplified - no WebSocket management)
-            audio_result = await audio_agent._generate_audio(
+            # Generate audio for this segment using the text_to_speech tool
+            from agents.audio_agent.tool import text_to_speech
+            audio_result = await text_to_speech(
                 text=text,
-                voice_style=voice_style
+                voice_style=voice_style,
+                speaker=speaker,
+                emotion=emotion,
+                game_id=game_id,
+                game_timestamp=filename_base,  # This contains the timestamp like "1_00_05"
+                segment_index=i  # Pass the segment index for proper sequencing
             )
             
             if audio_result["status"] == "success":
@@ -423,7 +432,7 @@ async def process_audio_agent_with_board(commentary_output_file: str, game_id: s
             "total_duration_estimate": total_duration,
             "audio_segments": audio_results,
             "live_stream_info": {
-                "websocket_url": "ws://localhost:8765",
+                "websocket_url": f"ws://{config.WEBSOCKET_HOST}:{config.WEBSOCKET_PORT}",
                 "clients_connected": 0,  # Will be updated by audio agent
                 "streaming_active": True
             }
@@ -498,6 +507,50 @@ async def process_timestamp_with_board(timestamp_file: str, data_runner, data_se
         "board_state": game_board.get_authoritative_state()
     }
 
+async def process_timestamp_without_audio(timestamp_file: str, data_runner, data_session, 
+                                         commentary_runner, commentary_session, 
+                                         game_board, session_manager) -> Dict[str, Any]:
+    """Process timestamp through data and commentary agents only (no audio generation)"""
+    file_basename = os.path.basename(timestamp_file)
+    print(f"  ⏰ Processing: {file_basename}")
+    
+    # Check for session refresh
+    data_session, commentary_session = await session_manager.maybe_refresh_sessions(
+        data_runner, data_session, commentary_runner, commentary_session, game_board
+    )
+    
+    # Step 1: Data Agent with board integration
+    data_result = await process_data_agent_with_board(timestamp_file, data_runner, data_session, game_board)
+    if data_result["status"] != "success":
+        print(f"    ❌ Data agent failed: {data_result['error']}")
+        return data_result
+    
+    print(f"    ✅ Data agent completed (board events: {data_result['board_update']['events_processed']})")
+    
+    # Step 2: Commentary Agent with board integration
+    game_id = data_session.user_id.split('_')[2]
+    commentary_result = await process_commentary_agent_with_board(
+        data_result["output_file"], 
+        game_id,
+        commentary_runner,
+        commentary_session,
+        game_board
+    )
+    if commentary_result["status"] != "success":
+        print(f"    ❌ Commentary agent failed: {commentary_result['error']}")
+        return commentary_result
+    
+    print(f"    ✅ Commentary agent completed")
+    
+    # Return without audio processing
+    return {
+        "status": "success",
+        "timestamp": file_basename,
+        "data_result": data_result,
+        "commentary_result": commentary_result,
+        "board_state": game_board.get_authoritative_state()
+    }
+
 async def run_live_commentary_pipeline(game_id: str, duration_minutes: int = 5):
     """Main pipeline function with Live Game Board integration and Audio Streaming"""
     print(f"🚀 PIPELINE STARTING - NHL Live Commentary")
@@ -522,9 +575,9 @@ async def run_live_commentary_pipeline(game_id: str, duration_minutes: int = 5):
         sys.stdout.flush()
         from board import create_live_game_board, SessionManager
         
-        static_context_file = f"data/static/game_{game_id}_static_context.json"
+        static_context_file = f"{config.DATA_BASE_PATH}/static/game_{game_id}_static_context.json"
         game_board = create_live_game_board(game_id, static_context_file)
-        session_manager = SessionManager(refresh_interval=10)
+        session_manager = SessionManager(refresh_interval=config.SESSION_REFRESH_INTERVAL)
         
         print(f"✅ Game Board initialized: {game_board.away_team} @ {game_board.home_team}")
         print(f"✅ Rosters loaded: {len(game_board.team_rosters['away'])} away, {len(game_board.team_rosters['home'])} home players")
@@ -545,7 +598,7 @@ async def run_live_commentary_pipeline(game_id: str, duration_minutes: int = 5):
         try:
             (data_runner, data_session), (commentary_runner, commentary_session) = await asyncio.wait_for(
                 create_shared_sessions_with_board(game_id, game_board),
-                timeout=120.0  # 2 minute timeout
+                timeout=config.ADK_TIMEOUT  # ADK timeout from config
             )
             print("✅ ADK sessions created successfully")
         except asyncio.TimeoutError:
@@ -557,71 +610,34 @@ async def run_live_commentary_pipeline(game_id: str, duration_minutes: int = 5):
         print("🎙️ Initializing Audio Agent for text-to-speech...")
         from agents.audio_agent.audio_agent import AudioAgent
         
-        audio_agent = AudioAgent(name=f"nhl_audio_agent_{game_id}", model="gemini-2.0-flash")
+        audio_agent = AudioAgent(game_id=game_id, model="gemini-2.0-flash")
         print("✅ Audio Agent initialized for TTS processing")
         
-        # Phase 4.6: Start WebSocket Server (Pipeline responsibility)
-        print("🌐 Starting WebSocket audio streaming server...")
-        from agents.audio_agent.tool import stream_audio_websocket
+        # Phase 4.6: Skip WebSocket Server for now - just generate audio files
+        print("🎵 Skipping WebSocket server - will generate audio files only")
+        # from agents.audio_agent.tool import stream_audio_websocket
+        # websocket_result = await stream_audio_websocket(port=config.WEBSOCKET_PORT, host=config.WEBSOCKET_HOST)
+        # if websocket_result["status"] == "success":
+        #     print(f"✅ WebSocket server started: {websocket_result['server_url']}")
+        #     print(f"✅ Clients can connect to: ws://{config.WEBSOCKET_HOST}:{config.WEBSOCKET_PORT}")
+        #     await asyncio.sleep(3)
+        #     print("✅ WebSocket server ready for connections")
+        # else:
+        #     print(f"❌ WebSocket server failed: {websocket_result.get('error', 'Unknown issue')}")
+        #     raise Exception(f"WebSocket server startup failed: {websocket_result.get('error')}")
         
-        websocket_result = stream_audio_websocket(port=8765, host="localhost")
-        if websocket_result["status"] == "success":
-            print(f"✅ WebSocket server started: {websocket_result['server_url']}")
-            print(f"✅ Clients can connect to: ws://localhost:8765")
-            
-            # Give WebSocket server time to actually start listening
-            await asyncio.sleep(3)
-            print("✅ WebSocket server ready for connections")
-        else:
-            print(f"❌ WebSocket server failed: {websocket_result.get('error', 'Unknown issue')}")
-            raise Exception(f"WebSocket server startup failed: {websocket_result.get('error')}")
+        # Skip audio buffer and streaming for now - just generate files
+        audio_buffer = None  # No buffer needed for file-only output
         
-        # Initialize audio buffer for continuous streaming
-        audio_buffer = asyncio.Queue()
+        # # Start background audio streaming task
+        # async def continuous_audio_streamer():
+        #     """Background task to stream audio continuously from buffer"""
+        #     print("🎵 Starting continuous audio streaming task...")
+        #     # ... all streaming code commented out
         
-        # Start background audio streaming task
-        async def continuous_audio_streamer():
-            """Background task to stream audio continuously from buffer"""
-            print("🎵 Starting continuous audio streaming task...")
-            delay_counter = 0
-            target_delay_seconds = 15  # ~15 second fixed delay
-            
-            while True:
-                try:
-                    # Wait for audio segments in buffer
-                    audio_segment = await audio_buffer.get()
-                    
-                    # If it's a shutdown signal, stop streaming
-                    if audio_segment == "SHUTDOWN":
-                        print("🛑 Audio streaming task shutting down...")
-                        break
-                    
-                    # Add delay for the first few segments to build buffer
-                    if delay_counter < target_delay_seconds:
-                        await asyncio.sleep(1)
-                        delay_counter += 1
-                        print(f"🕐 Building audio buffer... ({delay_counter}/{target_delay_seconds}s)")
-                    
-                    # Stream the audio segment to WebSocket clients
-                    print(f"🎵 Streaming: {audio_segment.get('text_preview', 'Unknown segment')}")
-                    
-                    # Broadcast to WebSocket clients
-                    try:
-                        from agents.audio_agent.tool import broadcast_audio_to_clients
-                        await broadcast_audio_to_clients(audio_segment)
-                    except Exception as e:
-                        print(f"⚠️ WebSocket broadcast error: {e}")
-                    
-                    # Mark buffer task as done
-                    audio_buffer.task_done()
-                    
-                except Exception as e:
-                    print(f"❌ Audio streaming error: {e}")
-                    await asyncio.sleep(1)
-        
-        # Start the streaming task
-        streaming_task = asyncio.create_task(continuous_audio_streamer())
-        print("✅ Continuous audio streaming task started")
+        # Skip streaming task for now
+        # streaming_task = asyncio.create_task(continuous_audio_streamer())
+        # print("✅ Continuous audio streaming task started")
         
         # Phase 5: Wait for live data collection to finish, then process ALL timestamps
         print(f"🔄 Waiting for live data collection to finish...")
@@ -639,11 +655,12 @@ async def run_live_commentary_pipeline(game_id: str, duration_minutes: int = 5):
         
         processed_count = 0
         for timestamp_file in all_timestamp_files:
-            # Process WITHOUT audio agent (commentary only)
-            result = await process_timestamp_without_audio(
+            # Process WITH audio agent to generate audio files
+            result = await process_timestamp_with_board(
                 timestamp_file, data_runner, data_session,
                 commentary_runner, commentary_session,
-                game_board, session_manager
+                game_board, session_manager,
+                audio_agent, audio_buffer
             )
             processed_count += 1
             
@@ -669,24 +686,23 @@ async def run_live_commentary_pipeline(game_id: str, duration_minutes: int = 5):
         print(f"🎯 Goals scored: {len(final_board_state['goals'])}")
         print(f"💾 Board state exported: {board_export_file}")
         
-        # Signal audio streaming task to stop
-        try:
-            print("🛑 Stopping audio streaming...")
-            await audio_buffer.put("SHUTDOWN")
-            # Wait for streaming task to finish
-            await streaming_task
-            print("✅ Audio streaming task stopped")
-        except Exception as e:
-            print(f"⚠️ Audio streaming stop warning: {e}")
+        # Skip cleanup for streaming since we're not using it
+        # try:
+        #     print("🛑 Stopping audio streaming...")
+        #     await audio_buffer.put("SHUTDOWN")
+        #     await streaming_task
+        #     print("✅ Audio streaming task stopped")
+        # except Exception as e:
+        #     print(f"⚠️ Audio streaming stop warning: {e}")
         
-        # Stop WebSocket server properly
-        try:
-            print("🛑 Stopping WebSocket server...")
-            from agents.audio_agent.tool import stop_websocket_server
-            await stop_websocket_server()
-            print("✅ WebSocket server stopped successfully")
-        except Exception as e:
-            print(f"⚠️ WebSocket server stop failed: {e}")
+        # Skip WebSocket cleanup
+        # try:
+        #     print("🛑 Stopping WebSocket server...")
+        #     from agents.audio_agent.tool import stop_websocket_server
+        #     await stop_websocket_server()
+        #     print("✅ WebSocket server stopped successfully")
+        # except Exception as e:
+        #     print(f"⚠️ WebSocket server stop failed: {e}")
         
         # Audio streaming summary
         try:
@@ -721,7 +737,7 @@ async def main():
         print("  4. Process each timestamp with board state injection")
         print("  5. Generate commentary with context collapse prevention")
         print("  6. Convert commentary to audio and stream via WebSocket")
-        print("\\nClients can connect to: ws://localhost:8765 for live audio")
+        print(f"\\nClients can connect to: ws://{config.WEBSOCKET_HOST}:{config.WEBSOCKET_PORT} for live audio")
         sys.exit(1)
     
     game_id = sys.argv[1]
