@@ -732,12 +732,12 @@ class NHLCommentaryClient {
         if (data.homeTeam && data.awayTeam) {
             this.elements.scoreDisplay.innerHTML = `
                 <div class="team">
-                    <span class="team-name">${data.homeTeam.name}</span>
+                    <span class="team-name">${data.homeTeam.name || data.homeTeam.abbreviation}</span>
                     <span class="team-score">${data.homeTeam.score}</span>
                 </div>
                 <div class="vs">VS</div>
                 <div class="team">
-                    <span class="team-name">${data.awayTeam.name}</span>
+                    <span class="team-name">${data.awayTeam.name || data.awayTeam.abbreviation}</span>
                     <span class="team-score">${data.awayTeam.score}</span>
                 </div>
             `;
@@ -745,14 +745,40 @@ class NHLCommentaryClient {
         
         // 更新比赛状态
         if (data.period && data.time) {
-            this.elements.gameStatus.innerHTML = `
+            let statusHtml = `
                 <div class="period">${data.period}</div>
                 <div class="time">${data.time}</div>
             `;
+            
+            // 添加比赛强度指示器
+            if (data.intensity) {
+                const intensityText = data.intensity === 'high' ? '高强度' : 
+                                    data.intensity === 'medium' ? '中强度' : '低强度';
+                const intensityClass = `intensity-${data.intensity}`;
+                statusHtml += `<div class="intensity ${intensityClass}">${intensityText}</div>`;
+            }
+            
+            // 添加比赛情况
+            if (data.gameContext && data.gameContext.situation) {
+                statusHtml += `<div class="situation">${data.gameContext.situation}</div>`;
+            }
+            
+            this.elements.gameStatus.innerHTML = statusHtml;
         }
         
-        // 更新最新事件
-        if (data.lastEvent) {
+        // 更新最新事件 - 显示多个事件
+        if (data.events && data.events.length > 0) {
+            const eventsHtml = data.events.map(event => `
+                <div class="event-item">
+                    <div class="event-time">${event.time || new Date().toLocaleTimeString()}</div>
+                    <div class="event-description">${event.summary}</div>
+                    <div class="event-type ${event.event_type}">${event.event_type}</div>
+                </div>
+            `).join('');
+            
+            this.elements.recentEvents.innerHTML = eventsHtml;
+        } else if (data.lastEvent) {
+            // 后备方案：显示单个最新事件
             this.elements.recentEvents.innerHTML = `
                 <div class="event-item">
                     <div class="event-time">${new Date().toLocaleTimeString()}</div>
@@ -760,6 +786,72 @@ class NHLCommentaryClient {
                 </div>
             `;
         }
+        
+        // 显示关键要点（如果页面上有相应元素）
+        this.updateKeyPoints(data.keyPoints);
+        
+        // 更新比赛上下文信息
+        this.updateGameContext(data.gameContext);
+    }
+    
+    /**
+     * 更新关键要点显示
+     */
+    updateKeyPoints(keyPoints) {
+        const keyPointsElement = document.getElementById('keyPoints');
+        if (!keyPointsElement || !keyPoints || keyPoints.length === 0) return;
+        
+        const pointsHtml = keyPoints.map(point => `
+            <div class="key-point">
+                <i class="fas fa-star"></i>
+                <span>${point}</span>
+            </div>
+        `).join('');
+        
+        keyPointsElement.innerHTML = pointsHtml;
+    }
+    
+    /**
+     * 更新比赛上下文信息
+     */
+    updateGameContext(gameContext) {
+        if (!gameContext) return;
+        
+        // 更新动量显示
+        const momentumElement = document.getElementById('momentum');
+        if (momentumElement && gameContext.momentum !== undefined) {
+            momentumElement.innerHTML = `
+                <div class="momentum-bar">
+                    <div class="momentum-fill" style="width: ${gameContext.momentum}%"></div>
+                </div>
+                <span>动量: ${gameContext.momentum}</span>
+            `;
+        }
+        
+        // 更新解说建议
+        const recommendationElement = document.getElementById('recommendation');
+        if (recommendationElement && gameContext.recommendation) {
+            const recommendationText = this.getRecommendationText(gameContext.recommendation);
+            recommendationElement.innerHTML = `
+                <i class="fas fa-lightbulb"></i>
+                <span>${recommendationText}</span>
+            `;
+        }
+    }
+    
+    /**
+     * 获取解说建议的显示文本
+     */
+    getRecommendationText(recommendation) {
+        const recommendations = {
+            'PLAY_BY_PLAY': '逐步解说',
+            'MIXED_COVERAGE': '混合覆盖',
+            'FILLER_CONTENT': '填充内容',
+            'ANALYSIS': '深度分析',
+            'STANDARD': '标准解说'
+        };
+        
+        return recommendations[recommendation] || recommendation;
     }
     
     /**

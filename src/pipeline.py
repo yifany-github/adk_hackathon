@@ -94,12 +94,14 @@ class NHLPipeline:
             print(f"❌ 保存音频失败: {e}")
             return ""
         
-    async def process_timestamp(self, timestamp_file: str) -> Dict[str, Any]:
+    async def process_timestamp(self, timestamp_file: str, voice_style: str = "enthusiastic", language: str = "en-US") -> Dict[str, Any]:
         """
         处理单个时间戳的数据
         
         Args:
             timestamp_file: 时间戳数据文件路径
+            voice_style: 语音风格
+            language: 语言设置
             
         Returns:
             处理结果字典
@@ -132,27 +134,27 @@ class NHLPipeline:
                         commentary = event.content.parts[0].text
             
             # 3. 直接使用音频工具生成音频并保存
+            audio_filepath = ""
             if commentary:
                 print(f"🎙️ 生成音频: {commentary[:50]}...")
                 
-                # 智能选择语音风格
-                voice_style = self._analyze_voice_style(commentary)
+                # 使用传入的语音风格，如果没有则智能选择
+                final_voice_style = voice_style if voice_style != "auto" else self._analyze_voice_style(commentary)
                 
                 # 调用TTS工具
                 tts_result = await text_to_speech(
                     tool_context=None,
                     text=commentary,
-                    voice_style=voice_style,
-                    language="en-US"
+                    voice_style=final_voice_style,
+                    language=language
                 )
                 
-                audio_filepath = ""
                 if tts_result["status"] == "success" and "audio_data" in tts_result:
                     # 直接保存音频文件
                     audio_filepath = self.save_audio_file(
                         tts_result["audio_data"], 
                         commentary, 
-                        voice_style
+                        final_voice_style
                     )
                     
                     if audio_filepath:
@@ -167,10 +169,16 @@ class NHLPipeline:
                 "status": "success",
                 "timestamp_file": timestamp_file,
                 "commentary": commentary,
-                "audio_file": audio_filepath if 'audio_filepath' in locals() else None
+                "audio_file": audio_filepath,
+                "voice_style": final_voice_style if 'final_voice_style' in locals() else voice_style,
+                "language": language,
+                "data": data  # 包含原始数据供UI使用
             }
             
         except Exception as e:
+            import traceback
+            print(f"❌ 处理时间戳失败: {e}")
+            traceback.print_exc()
             return {
                 "status": "error",
                 "timestamp_file": timestamp_file,

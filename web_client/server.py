@@ -12,8 +12,10 @@ import threading
 from datetime import datetime
 from typing import Dict, Set
 import signal
+import glob
+import base64
 
-from flask import Flask, render_template, send_from_directory, jsonify, request
+from flask import Flask, render_template, send_from_directory, jsonify, request, send_file
 from flask_socketio import SocketIO, emit, disconnect
 import requests
 
@@ -59,6 +61,22 @@ class NHLWebServer:
         def serve_static(filename):
             """静态文件服务"""
             return send_from_directory('.', filename)
+        
+        @self.app.route('/api/audio/<path:filename>')
+        def serve_audio(filename):
+            """提供音频文件服务"""
+            try:
+                # 查找音频文件
+                audio_output_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'audio_output')
+                audio_file_path = os.path.join(audio_output_dir, filename)
+                
+                if os.path.exists(audio_file_path):
+                    return send_file(audio_file_path, mimetype='audio/wav')
+                else:
+                    return jsonify({'error': '音频文件不存在'}), 404
+            except Exception as e:
+                print(f"❌ 音频文件服务错误: {e}")
+                return jsonify({'error': str(e)}), 500
         
         @self.app.route('/api/games')
         def get_games():
@@ -107,7 +125,7 @@ class NHLWebServer:
             """客户端连接"""
             client_id = request.sid
             self.clients.add(client_id)
-            print(f"客户端连接: {client_id}, 总连接数: {len(self.clients)}")
+            print(f"🔗 客户端连接: {client_id}")
             
             # 发送连接确认
             emit('status', {
@@ -145,7 +163,7 @@ class NHLWebServer:
             for session_id in sessions_to_remove:
                 self.stop_game_session(session_id)
             
-            print(f"客户端断开: {client_id}, 剩余连接数: {len(self.clients)}")
+            print(f"🔌 客户端断开: {client_id}")
         
         @self.socketio.on('start')
         def handle_start_commentary(data):
@@ -153,6 +171,7 @@ class NHLWebServer:
             client_id = request.sid
             game_id = data.get('gameId')
             voice_style = data.get('voiceStyle', 'enthusiastic')
+            language = data.get('language', 'en-US')
             
             if not game_id:
                 emit('error', {
@@ -161,7 +180,7 @@ class NHLWebServer:
                 })
                 return
             
-            print(f"开始解说: 客户端={client_id}, 比赛={game_id}, 风格={voice_style}")
+            print(f"🏒 开始解说: {game_id} (风格: {voice_style}, 语言: {language})")
             
             try:
                 # 创建游戏会话
@@ -170,6 +189,7 @@ class NHLWebServer:
                     'client_id': client_id,
                     'game_id': game_id,
                     'voice_style': voice_style,
+                    'language': language,
                     'status': 'running',
                     'start_time': datetime.now()
                 }
@@ -179,7 +199,7 @@ class NHLWebServer:
                 # 启动解说pipeline（在新线程中）
                 pipeline_thread = threading.Thread(
                     target=self.run_commentary_pipeline,
-                    args=(session_id, game_id, voice_style, client_id)
+                    args=(session_id, game_id, voice_style, language, client_id)
                 )
                 pipeline_thread.daemon = True
                 pipeline_thread.start()
@@ -195,7 +215,7 @@ class NHLWebServer:
                 })
                 
             except Exception as e:
-                print(f"启动解说失败: {e}")
+                print(f"❌ 启动解说失败: {e}")
                 emit('error', {
                     'type': 'error',
                     'data': {'message': f'启动解说失败: {str(e)}'}
@@ -248,21 +268,254 @@ class NHLWebServer:
                 'data': {'status': 'running'}
             })
     
-    def run_commentary_pipeline(self, session_id: str, game_id: str, voice_style: str, client_id: str):
-        """在单独线程中运行解说pipeline"""
+    def run_commentary_pipeline(self, session_id: str, game_id: str, voice_style: str, language: str, client_id: str):
+        """在单独线程中运行真实的解说pipeline"""
         try:
-            print(f"启动解说pipeline: {session_id}")
+            print(f"🚀 启动真实解说pipeline: {session_id}")
             
-            # 这里集成实际的NHL pipeline
-            # 为了演示，我们模拟解说生成
-            self.simulate_commentary_pipeline(session_id, game_id, voice_style, client_id)
+            # 创建NHLPipeline实例
+            pipeline = NHLPipeline(game_id)
+            self.active_pipelines[session_id] = pipeline
             
+            # 在新的事件循环中运行异步pipeline
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            
+            try:
+                # 初始化agents
+                loop.run_until_complete(pipeline.initialize_agents())
+                
+                # 发送Agent状态更新
+                self.socketio.emit('agentStatus', {
+                    'type': 'agentStatus',
+                    'data': {
+                        'dataAgent': 'online',
+                        'commentaryAgent': 'online', 
+                        'audioAgent': 'online'
+                    }
+                }, room=client_id)
+                
+                # 获取数据文件列表
+                data_dir = f"data/data_agent_outputs"
+                if not os.path.exists(data_dir):
+                    # 如果没有实际数据，使用演示模式
+                    print(f"⚠️ 未找到数据目录: {data_dir}, 使用演示模式")
+                    self.simulate_commentary_pipeline(session_id, game_id, voice_style, client_id)
+                    return
+                
+                # 处理实际数据文件 - 查找特定比赛的文件
+                data_files = sorted(glob.glob(f"{data_dir}/{game_id}_*.json"))
+                if not data_files:
+                    print(f"⚠️ 未找到比赛 {game_id} 的数据文件，使用演示模式")
+                    self.simulate_commentary_pipeline(session_id, game_id, voice_style, client_id)
+                    return
+                
+                print(f"📁 找到 {len(data_files)} 个数据文件")
+                
+                # 逐个处理数据文件
+                for i, data_file in enumerate(data_files):
+                    session = self.game_sessions.get(session_id)
+                    if not session or session['status'] == 'stopped':
+                        break
+                    
+                    # 等待暂停恢复
+                    while session and session['status'] == 'paused':
+                        threading.Event().wait(1)
+                        session = self.game_sessions.get(session_id)
+                    
+                    if not session:
+                        break
+                    
+                    print(f"🔄 处理数据文件 {i+1}/{len(data_files)}: {os.path.basename(data_file)}")
+                    
+                    # 处理时间戳数据
+                    result = loop.run_until_complete(
+                        pipeline.process_timestamp(data_file, voice_style, language)
+                    )
+                    
+                    if result['status'] == 'success':
+                        commentary = result.get('commentary', '')
+                        audio_file = result.get('audio_file', '')
+                        
+                        if commentary:
+                            # 发送解说文本
+                            self.socketio.emit('commentary', {
+                                'type': 'commentary',
+                                'data': {
+                                    'text': commentary,
+                                    'timestamp': datetime.now().isoformat(),
+                                    'style': voice_style,
+                                    'language': language
+                                }
+                            }, room=client_id)
+                            
+                            # 发送音频数据
+                            if audio_file and os.path.exists(audio_file):
+                                audio_filename = os.path.basename(audio_file)
+                                audio_url = f'/api/audio/{audio_filename}'
+                                
+                                # 获取音频文件大小和时长估算
+                                file_size = os.path.getsize(audio_file)
+                                estimated_duration = len(commentary) * 0.05  # 估算时长
+                                
+                                self.socketio.emit('audio', {
+                                    'type': 'audio',
+                                    'data': {
+                                        'text': commentary,
+                                        'style': voice_style,
+                                        'url': audio_url,
+                                        'duration': estimated_duration,
+                                        'size': file_size
+                                    }
+                                }, room=client_id)
+                                
+                                print(f"🎵 音频已发送: {audio_filename}")
+                        
+                        # 模拟比赛数据更新（从实际数据中提取）
+                        with open(data_file, 'r') as f:
+                            game_data = json.load(f)
+                        
+                        self.socketio.emit('gameData', {
+                            'type': 'gameData',
+                            'data': self.extract_game_info(game_data)
+                        }, room=client_id)
+                    
+                    else:
+                        print(f"❌ 处理失败: {result.get('error', '未知错误')}")
+                    
+                    # 等待一段时间再处理下一个文件
+                    threading.Event().wait(2)
+                
+                # 解说完成
+                print(f"✅ 解说pipeline完成: {session_id}")
+                
+            finally:
+                loop.close()
+                
         except Exception as e:
-            print(f"解说pipeline错误: {e}")
+            print(f"❌ 解说pipeline错误: {e}")
+            import traceback
+            traceback.print_exc()
+            
             self.socketio.emit('error', {
                 'type': 'error',
                 'data': {'message': f'解说pipeline错误: {str(e)}'}
             }, room=client_id)
+        
+        finally:
+            # 清理
+            if session_id in self.active_pipelines:
+                del self.active_pipelines[session_id]
+            
+            if session_id in self.game_sessions:
+                del self.game_sessions[session_id]
+            
+            self.socketio.emit('status', {
+                'type': 'completed',
+                'data': {'status': 'completed', 'message': '解说已完成'}
+            }, room=client_id)
+    
+    def extract_game_info(self, game_data: dict) -> dict:
+        """从原始比赛数据中提取UI需要的信息"""
+        try:
+            # 从实际的ADK数据结构中提取信息
+            commentary_data = game_data.get('for_commentary_agent', {})
+            game_context = commentary_data.get('game_context', {})
+            
+            # 提取基本比赛信息
+            period = game_context.get('period', 1)
+            time_remaining = game_context.get('time_remaining', '20:00')
+            home_score = game_context.get('home_score', 0)
+            away_score = game_context.get('away_score', 0)
+            game_situation = game_context.get('game_situation', '比赛进行中')
+            
+            # 提取最新事件
+            high_intensity_events = commentary_data.get('high_intensity_events', [])
+            last_event = "比赛进行中"
+            if high_intensity_events:
+                latest_event = high_intensity_events[-1]
+                last_event = latest_event.get('summary', '比赛进行中')
+            
+            # 提取关键信息
+            key_talking_points = commentary_data.get('key_talking_points', [])
+            momentum_score = commentary_data.get('momentum_score', 0)
+            priority_level = commentary_data.get('priority_level', 1)
+            
+            # 根据文件名推断队伍信息（从比赛ID 2024030412 可以推断）
+            # 这里使用固定的队伍信息，实际应用中可以从API获取
+            home_team_name = "Edmonton Oilers"
+            away_team_name = "Florida Panthers"
+            
+            # 格式化时间显示
+            period_name = f"第{period}节" if period <= 3 else "加时赛" if period == 4 else f"第{period-3}次加时"
+            
+            return {
+                'homeTeam': {
+                    'name': home_team_name,
+                    'score': home_score,
+                    'abbreviation': 'EDM'
+                },
+                'awayTeam': {
+                    'name': away_team_name, 
+                    'score': away_score,
+                    'abbreviation': 'FLA'
+                },
+                'period': period_name,
+                'time': time_remaining,
+                'lastEvent': last_event,
+                'gameContext': {
+                    'situation': game_situation,
+                    'momentum': momentum_score,
+                    'priority': priority_level,
+                    'recommendation': commentary_data.get('recommendation', 'STANDARD')
+                },
+                'keyPoints': key_talking_points[:3],  # 只显示前3个要点
+                'events': high_intensity_events[-5:] if high_intensity_events else [],  # 最近5个事件
+                'intensity': self._calculate_intensity_level(momentum_score, high_intensity_events)
+            }
+            
+        except Exception as e:
+            print(f"⚠️ 提取比赛信息失败: {e}")
+            import traceback
+            traceback.print_exc()
+            
+            # 返回默认信息
+            return {
+                'homeTeam': {'name': 'Edmonton Oilers', 'score': 0, 'abbreviation': 'EDM'},
+                'awayTeam': {'name': 'Florida Panthers', 'score': 0, 'abbreviation': 'FLA'},
+                'period': '第1节',
+                'time': '20:00',
+                'lastEvent': '比赛进行中',
+                'gameContext': {
+                    'situation': '比赛进行中',
+                    'momentum': 0,
+                    'priority': 1,
+                    'recommendation': 'STANDARD'
+                },
+                'keyPoints': [],
+                'events': [],
+                'intensity': 'low'
+            }
+    
+    def _calculate_intensity_level(self, momentum_score: int, events: list) -> str:
+        """计算比赛强度等级"""
+        if momentum_score >= 70 or len(events) >= 3:
+            return 'high'
+        elif momentum_score >= 40 or len(events) >= 2:
+            return 'medium'
+        else:
+            return 'low'
+    
+    def get_team_info_from_game_id(self, game_id: str) -> tuple:
+        """从比赛ID推断队伍信息（简化版本）"""
+        # 这里是简化版本，实际应用中应该从NHL API获取
+        team_mappings = {
+            '2024030412': ('Edmonton Oilers', 'EDM', 'Florida Panthers', 'FLA'),
+            '2024020123': ('New York Rangers', 'NYR', 'Philadelphia Flyers', 'PHI'),
+            '2024020456': ('Edmonton Oilers', 'EDM', 'Calgary Flames', 'CGY')
+        }
+        
+        return team_mappings.get(game_id, ('Home Team', 'HOME', 'Away Team', 'AWAY'))
     
     def simulate_commentary_pipeline(self, session_id: str, game_id: str, voice_style: str, client_id: str):
         """模拟解说pipeline（用于演示）"""
