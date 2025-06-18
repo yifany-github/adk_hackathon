@@ -60,24 +60,17 @@ python setup_api_key.py
 
 ### Running the System
 
-#### **Board-Integrated Pipeline (Recommended - v4.0)**
+#### **Complete NHL Commentary Pipeline (v5.0 - with Live Audio Streaming)**
 ```bash
-# Live Game Board integrated pipeline - prevents context collapse
-python live_commentary_pipeline_v2.py GAME_ID [DURATION_MINUTES]
-
-# Examples:
-python live_commentary_pipeline_v2.py 2024030413 2    # 2-minute test with board protection
-python live_commentary_pipeline_v2.py 2024030412 1    # 1-minute quick test
-```
-
-#### **Legacy Pipeline (v3.0)**
-```bash
-# Original session-aware pipeline - may experience context collapse after 60 seconds
+# Full pipeline: Data → Commentary → Audio with live WebSocket streaming
 python live_commentary_pipeline.py GAME_ID [DURATION_MINUTES]
 
 # Examples:
-python live_commentary_pipeline.py 2024030412 2    # 2-minute test
-python live_commentary_pipeline.py 2024030413 0.5  # 30-second quick test
+python live_commentary_pipeline.py 2024030413 2    # 2-minute test with live audio
+python live_commentary_pipeline.py 2024030412 1    # 1-minute quick test
+
+# Clients can connect to live audio stream:
+# ws://localhost:8765
 ```
 
 #### **Individual Components (Advanced)**

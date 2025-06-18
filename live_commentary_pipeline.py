@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-NHL Live Commentary Pipeline - Complete but Simple
-Single entry point that runs the entire pipeline with persistent session management.
+NHL Live Commentary Pipeline v2 - With Live Game Board Integration
+Single entry point with authoritative state management to prevent context collapse.
 
-Usage: python live_commentary_pipeline.py GAME_ID [DURATION_MINUTES]
+Usage: python live_commentary_pipeline_v2.py GAME_ID [DURATION_MINUTES]
 """
 
 import sys
@@ -24,6 +24,8 @@ dotenv.load_dotenv()
 sys.path.append('src')
 sys.path.append('src/agents/data_agent')
 sys.path.append('src/agents/commentary_agent')
+sys.path.append('src/agents/audio_agent')
+sys.path.append('src/board')
 
 async def generate_static_context(game_id: str):
     """Generate static context for the game"""
@@ -46,13 +48,13 @@ def start_live_data_collection(game_id: str, duration_minutes: int):
     ])
     
     # Wait a moment for first files to appear
-    time.sleep(3)
+    time.sleep(1)
     print("✅ Live data collection started")
     return process
 
-async def create_shared_sessions(game_id: str):
-    """Create shared sessions for data and commentary agents"""
-    print("🎙️ Creating shared ADK sessions...")
+async def create_shared_sessions_with_board(game_id: str, game_board):
+    """Create shared sessions for data and commentary agents with board state injection"""
+    print("🎙️ Creating shared ADK sessions with board integration...")
     
     from agents.data_agent.data_agent_adk import create_hockey_agent_for_game
     from agents.commentary_agent.commentary_agent import create_commentary_agent_for_game
@@ -60,97 +62,118 @@ async def create_shared_sessions(game_id: str):
     from google.genai.types import Part, UserContent
     
     # Create data agent and runner
+    print("🤖 Step 1: Creating data agent...")
     data_agent = create_hockey_agent_for_game(game_id)
+    print("✅ Data agent created")
+    
+    print("🏃 Step 2: Creating data runner...")
     data_runner = InMemoryRunner(agent=data_agent)
+    print("✅ Data runner created")
     
     # Create data session
+    print("🔗 Step 3: Creating data session...")
     data_session = await data_runner.session_service.create_session(
         app_name=data_runner.app_name,
-        user_id=f"data_agent_{game_id}"
+        user_id=f"data_agent_{game_id}_board"
     )
+    print("✅ Data session created")
     
-    # Initialize data session with game state awareness
+    # Initialize data session with board state awareness
     data_initial_context = UserContent(parts=[Part(text=f"""
-You are analyzing NHL game {game_id} across multiple timestamps in REAL-TIME sequence.
+You are analyzing NHL game {game_id} with LIVE GAME BOARD integration.
 
-CRITICAL GAME STATE MANAGEMENT:
-- SCORE TRACKING: Scores can only INCREASE, never decrease. If you previously reported EDM 0 - FLA 1, it stays 1-0 until another goal is scored.
-- PENALTY TRACKING: Track active penalties and their expiration times. A 2-minute penalty at 19:08 expires at 17:08.
-- TIMELINE INTEGRITY: Each timestamp builds on the previous. Time only moves forward (20:00 → 19:58 → 19:56...).
-- PLAYER VALIDATION: Use roster data to validate all player names and team assignments.
+{game_board.get_prompt_injection()}
 
-CUMULATIVE STATE AWARENESS:
-- Remember what events you've already analyzed in this session
-- Build shot totals cumulatively (if EDM had 2 shots last timestamp, they can't have 1 shot this timestamp)
-- Track period progression and time remaining logically
-- Maintain power play situations until they naturally end
+BOARD-INTEGRATED ANALYSIS:
+- The authoritative game state above is your SINGLE SOURCE OF TRUTH
+- NEVER contradict any information in the authoritative state
+- Build your analysis on this factual foundation
+- The board prevents context collapse by maintaining consistent state
 
-TEMPORAL CONSISTENCY RULES:
-- If last timestamp was "19:10 remaining", next timestamp should be around "19:05 remaining" or earlier
-- Goals scored in your previous analysis remain scored - never "un-score" them
-- Penalties called in previous timestamps remain active until they logically expire
-- Game situations evolve naturally: even strength → penalty → power play → goal → even strength
+TEMPORAL CONSISTENCY (BOARD-ENFORCED):
+- Scores can only INCREASE (board ensures this)
+- Shot counts can only INCREASE (board validates this)  
+- Player mentions must come from roster lock (board validates this)
+- Goals remain scored - board prevents "un-scoring"
+- Timeline progression is validated by board
 
-REALISTIC ANALYSIS REQUIREMENTS:
-- Reference your previous analysis: "Building on my previous analysis where I noted the score was 1-0..."
-- Acknowledge cumulative context: "This adds to the 3 shots I previously tracked for Edmonton..."
-- Maintain narrative consistency: "Following the penalty I identified earlier, this power play opportunity..."
+ANALYSIS REQUIREMENTS:
+- Reference authoritative state for all factual claims
+- Build narrative on board-validated events
+- Trust the board state over any conflicting information
+- Focus on analysis and insights, not fact verification
 
-GAME CONTEXT AVAILABLE:
-- Static roster data with player names and team assignments
-- Live activity data with enhanced player names (use "PlayerName (team)" format)
-- Progressive game statistics that should build cumulatively
-- Penalty details with timing and expiration information
-
-You'll receive timestamp data sequentially. Always reference your previous responses in this session to maintain realistic game progression.
-
-Ready to begin real-time NHL game analysis with full temporal awareness?
+Ready to begin board-integrated NHL game analysis with guaranteed state consistency?
 """)])
     
     # Send initial context to data agent
+    print("📤 Step 4: Sending initial context to data agent...")
     async for event in data_runner.run_async(
         user_id=data_session.user_id,
         session_id=data_session.id,
         new_message=data_initial_context,
     ):
         pass  # Just establish context
+    print("✅ Data agent context initialized")
     
     # Create commentary agent and runner
+    print("🎙️ Step 5: Creating commentary agent...")
     commentary_agent = create_commentary_agent_for_game(game_id)
+    print("✅ Commentary agent created")
+    
+    print("🏃 Step 6: Creating commentary runner...")
     commentary_runner = InMemoryRunner(agent=commentary_agent)
+    print("✅ Commentary runner created")
     
     # Create commentary session
+    print("🔗 Step 7: Creating commentary session...")
     commentary_session = await commentary_runner.session_service.create_session(
         app_name=commentary_runner.app_name,
-        user_id=f"commentary_agent_{game_id}"
+        user_id=f"commentary_agent_{game_id}_board"
     )
+    print("✅ Commentary session created")
     
-    # Initialize commentary session context (like test script does)
+    # Initialize commentary session context with board state
     initial_context = UserContent(parts=[Part(text=f"""
-You are now the live commentary team for NHL game {game_id}.
-Throughout this session:
-- Maintain natural conversational flow between Alex Chen and Mike Rodriguez
-- Build on each other's observations organically, as real broadcasters do
-- Vary your dialogue and avoid repetitive phrases
-- Use names occasionally for transitions or direct questions (not every exchange)
-- Let the conversation flow naturally without forced acknowledgments
+You are the live commentary team for NHL game {game_id} with LIVE GAME BOARD integration.
 
-You'll receive live game data at different timestamps. Generate appropriate commentary for each moment.
-Ready to begin commentary for this session?
+{game_board.get_prompt_injection()}
+
+BOARD-INTEGRATED COMMENTARY:
+- The authoritative game state above is your SINGLE SOURCE OF TRUTH
+- NEVER contradict any information in the authoritative state
+- Build natural commentary on this factual foundation
+- The board prevents phantom players, score contradictions, and goalie paradoxes
+
+BROADCAST REQUIREMENTS:
+- You are Alex Chen (Play-by-Play) and Mike Rodriguez (Color Commentary)
+- Maintain natural conversational flow between broadcasters
+- Reference authoritative state for all factual claims
+- Build excitement and analysis on board-validated events
+- Trust board state over any conflicting information
+
+CONTEXT COLLAPSE PREVENTION:
+- Board maintains consistent scores, shots, and rosters
+- No more phantom players or statistical amnesia
+- Goalies' performance accurately tracked by board
+- Timeline integrity enforced by board state
+
+Ready to begin professional NHL broadcast commentary with guaranteed factual accuracy?
 """)])
     
     # Send initial context to establish broadcaster names
+    print("📤 Step 8: Sending initial context to commentary agent...")
     async for event in commentary_runner.run_async(
         user_id=commentary_session.user_id,
         session_id=commentary_session.id,
         new_message=initial_context,
     ):
-        pass  # Just establish context, don't need the response
+        pass  # Just establish context
+    print("✅ Commentary agent context initialized")
     
-    print(f"✅ Data session created: {data_session.id}")
-    print(f"✅ Data session initialized with temporal game state awareness")
-    print(f"✅ Commentary session created: {commentary_session.id}")
-    print(f"✅ Commentary session initialized with broadcaster context")
+    print(f"🎉 All ADK sessions created successfully!")
+    print(f"   📊 Data session: {data_session.id}")
+    print(f"   🎙️ Commentary session: {commentary_session.id}")
     return (data_runner, data_session), (commentary_runner, commentary_session)
 
 def get_new_timestamp_files(game_id: str, processed_files: Set[str]) -> List[str]:
@@ -164,47 +187,47 @@ def get_new_timestamp_files(game_id: str, processed_files: Set[str]) -> List[str
     new_files = [f for f in all_files if f not in processed_files]
     return new_files
 
-async def process_data_agent(timestamp_file: str, runner, session) -> Dict[str, Any]:
-    """Process timestamp file with data agent using shared session"""
+async def process_data_agent_with_board(timestamp_file: str, runner, session, game_board) -> Dict[str, Any]:
+    """Process timestamp file with data agent using board state injection"""
     try:
         # Load timestamp data
         with open(timestamp_file, 'r') as f:
             timestamp_data = json.load(f)
         
-        # Process using shared session with temporal context
+        # Update board state FIRST (authoritative)
+        board_update = game_board.update_from_timestamp(timestamp_data)
+        
+        # Process using shared session with board state injection
         from google.genai.types import Part, UserContent
         
         # Extract timing information for context
         game_time = timestamp_data.get('game_time', 'Unknown')
-        activity_count = timestamp_data.get('activity_count', 0)
         
         input_text = f"""
-TIMESTAMP ANALYSIS - {game_time}
-Building on your previous analysis in this session, analyze this new timestamp data:
+TIMESTAMP ANALYSIS WITH BOARD STATE - {game_time}
 
-TEMPORAL CONTEXT:
-- Current game time: {game_time}
-- Events in this window: {activity_count}
-- Reference your previous session analysis for cumulative state
+{game_board.get_prompt_injection()}
 
-ANALYSIS REQUIREMENTS:
-- Maintain score continuity from your previous analysis
-- Track cumulative shot totals and penalty situations
-- Build on power play states you've previously identified
-- Validate all player names against roster data
-- Ensure timeline flows logically from your last analysis
+BOARD UPDATE REPORT:
+- Events processed: {board_update['events_processed']}
+- State changes: {board_update['state_changes']}
+- New goals: {board_update['new_goals']}
+- New penalties: {board_update['new_penalties']}
 
-RAW TIMESTAMP DATA:
+ANALYSIS TASK:
+Build your analysis on the authoritative board state above. The board has already processed and validated all events.
+
+RAW TIMESTAMP DATA (for reference only):
 {json.dumps(timestamp_data, indent=2)}
 
-Provide your analysis maintaining full game state consistency with your previous responses in this session.
+Provide analysis that builds on the board-validated state and maintains consistency with authoritative facts.
 """
         content = UserContent(parts=[Part(text=input_text)])
         
         response_text = ""
         async for event in runner.run_async(
             user_id=session.user_id,
-            session_id=session.id,  # SAME SESSION - preserves penalties!
+            session_id=session.id,
             new_message=content,
         ):
             if event.content.parts and event.content.parts[0].text:
@@ -214,68 +237,57 @@ Provide your analysis maintaining full game state consistency with your previous
         result = json.loads(response_text)
         
         # Save data agent output in game-specific subfolder
-        game_id = session.user_id.split('_')[-1]
+        game_id = session.user_id.split('_')[2]  # Extract from user_id
         game_time = os.path.basename(timestamp_file).replace(f"{game_id}_", "").replace(".json", "")
         output_dir = f"data/data_agent_outputs/{game_id}"
         os.makedirs(output_dir, exist_ok=True)
-        output_file = f"{output_dir}/{game_time}_adk.json"
+        output_file = f"{output_dir}/{game_time}_adk_board.json"
         
         with open(output_file, 'w') as f:
             json.dump(result, f, indent=2)
         
-        return {"status": "success", "data": result, "output_file": output_file}
+        return {
+            "status": "success", 
+            "data": result, 
+            "output_file": output_file,
+            "board_update": board_update
+        }
         
     except Exception as e:
         return {"status": "error", "error": str(e)}
 
-async def process_commentary_agent(data_output_file: str, game_id: str, commentary_runner=None, commentary_session=None):
-    """Process with commentary agent using session awareness"""
+async def process_commentary_agent_with_board(data_output_file: str, game_id: str, commentary_runner, commentary_session, game_board):
+    """Process with commentary agent using board state injection"""
     try:
         # Load data agent output
         with open(data_output_file, 'r') as f:
             data_agent_output = json.load(f)
         
         # Extract timestamp for context
-        filename_base = os.path.basename(data_output_file).replace('_adk.json', '')
-        timestamp_parts = filename_base.split('_')
-        if len(timestamp_parts) >= 4:
-            period = timestamp_parts[1]
-            minutes = timestamp_parts[2]
-            seconds = timestamp_parts[3]
-            game_time = f"Period {period}, {minutes}:{seconds}"
-        else:
-            game_time = "Unknown time"
+        filename_base = os.path.basename(data_output_file).replace('_adk_board.json', '')
         
-        # Create input for commentary agent with narrative context
+        # Create input for commentary agent with board state injection
         from google.genai.types import Part, UserContent
         
-        # Extract key context for narrative continuity
-        game_context = data_agent_output.get("for_commentary_agent", {}).get("game_context", {})
-        current_score = f"{game_context.get('away_score', 0)}-{game_context.get('home_score', 0)}"
-        momentum_score = data_agent_output.get("for_commentary_agent", {}).get("momentum_score", 0)
-        
         input_text = f"""
-LIVE COMMENTARY - {game_time}
-Building on our ongoing broadcast conversation, provide commentary for this moment:
+LIVE COMMENTARY WITH BOARD STATE - {filename_base}
+
+{game_board.get_prompt_injection()}
 
 NARRATIVE CONTEXT:
-- Current Score: {current_score}
-- Game Time: {game_time}
-- Momentum Level: {momentum_score}
-- Build on previous commentary in this session
-- Maintain Alex Chen & Mike Rodriguez dialogue flow
+{game_board.get_narrative_context()}
 
-SESSION CONTINUITY REQUIREMENTS:
-- Reference previous commentary themes you've established this session
-- Don't repeat recent talking points or player mentions
-- Maintain natural conversation progression from your last exchange
-- Acknowledge game state changes from your previous commentary
-- Keep broadcast energy consistent with established momentum
+COMMENTARY REQUIREMENTS:
+- Build natural commentary on the authoritative board state above
+- Maintain Alex Chen & Mike Rodriguez dialogue flow  
+- Reference board-validated facts for all claims
+- Create excitement around board-confirmed events
+- Trust board state over any conflicting information
 
-DATA AGENT ANALYSIS:
+DATA AGENT ANALYSIS (board-validated):
 {json.dumps(data_agent_output, indent=2)}
 
-Generate natural commentary that flows seamlessly from your previous dialogue in this broadcast session, maintaining professional hockey broadcast standards.
+Generate professional commentary that flows naturally while maintaining strict consistency with board state.
 """
         content = UserContent(parts=[Part(text=input_text)])
         
@@ -292,7 +304,7 @@ Generate natural commentary that flows seamlessly from your previous dialogue in
         # Save commentary output in game-specific subfolder  
         output_dir = f"data/commentary_agent_outputs/{game_id}"
         os.makedirs(output_dir, exist_ok=True)
-        output_file = f"{output_dir}/{filename_base.replace(game_id + '_', '')}_commentary_session_aware.json"
+        output_file = f"{output_dir}/{filename_base}_commentary_board.json"
         
         # Parse response and save
         try:
@@ -323,31 +335,140 @@ Generate natural commentary that flows seamlessly from your previous dialogue in
     except Exception as e:
         return {"status": "error", "error": str(e)}
 
-def process_audio_agent(commentary_output: Dict[str, Any]):
-    """Process with audio agent (placeholder for now)"""
-    # For now, just indicate audio would be processed
-    return {"status": "success", "message": "Audio processing would happen here"}
+async def process_audio_agent_with_board(commentary_output_file: str, game_id: str, audio_agent, audio_buffer: asyncio.Queue = None) -> Dict[str, Any]:
+    """Process commentary output with audio agent for live streaming"""
+    try:
+        # Load commentary output
+        with open(commentary_output_file, 'r') as f:
+            commentary_data = json.load(f)
+        
+        # Extract timestamp for context
+        filename_base = os.path.basename(commentary_output_file).replace('_commentary_board.json', '')
+        
+        print(f"    🎙️ Processing audio for {filename_base}")
+        
+        # Check if commentary has the expected structure
+        if "commentary_sequence" not in commentary_data:
+            return {"status": "error", "error": "Invalid commentary structure - missing commentary_sequence"}
+        
+        commentary_sequence = commentary_data["commentary_sequence"]
+        
+        # Process each speaker segment for live streaming
+        audio_results = []
+        total_duration = 0
+        
+        for i, segment in enumerate(commentary_sequence):
+            speaker = segment.get("speaker", "Unknown")
+            text = segment.get("text", "")
+            emotion = segment.get("emotion", "neutral")
+            duration_estimate = segment.get("duration_estimate", 3.0)
+            pause_after = segment.get("pause_after", 0.5)
+            
+            if not text.strip():
+                continue
+                
+            # Map emotion to voice style
+            voice_style = "enthusiastic"  # default
+            if emotion in ["excited", "enthusiastic"]:
+                voice_style = "enthusiastic"
+            elif emotion in ["dramatic", "intense"]:
+                voice_style = "dramatic"  
+            elif emotion in ["calm", "analytical", "neutral"]:
+                voice_style = "calm"
+            
+            print(f"      🔊 {speaker}: {text[:40]}... (style: {voice_style})")
+            
+            # Generate audio for this segment (simplified - no WebSocket management)
+            audio_result = await audio_agent._generate_audio(
+                text=text,
+                voice_style=voice_style
+            )
+            
+            if audio_result["status"] == "success":
+                # Extract audio ID directly from TTS result
+                audio_id = audio_result.get("audio_id", f"unknown_{i}")
+                
+                segment_info = {
+                    "segment_index": i,
+                    "speaker": speaker,
+                    "audio_id": audio_id,
+                    "text_preview": text[:50] + "..." if len(text) > 50 else text,
+                    "voice_style": voice_style,
+                    "duration_estimate": duration_estimate,
+                    "pause_after": pause_after
+                }
+                
+                # Add to buffer if available, otherwise add to results
+                if audio_buffer:
+                    await audio_buffer.put(segment_info)
+                    print(f"      ✅ Added to audio buffer: {speaker}")
+                else:
+                    audio_results.append(segment_info)
+                
+                total_duration += duration_estimate + pause_after
+            else:
+                print(f"      ❌ Audio generation failed for segment {i}: {audio_result.get('error', 'Unknown error')}")
+                return {"status": "error", "error": f"Audio generation failed for segment {i}"}
+        
+        # Save audio processing results
+        output_dir = f"data/audio_agent_outputs/{game_id}"
+        os.makedirs(output_dir, exist_ok=True)
+        output_file = f"{output_dir}/{filename_base}_audio_board.json"
+        
+        audio_summary = {
+            "status": "success",
+            "timestamp": filename_base,
+            "total_segments": len(commentary_sequence),
+            "processed_segments": len(audio_results),
+            "total_duration_estimate": total_duration,
+            "audio_segments": audio_results,
+            "live_stream_info": {
+                "websocket_url": "ws://localhost:8765",
+                "clients_connected": 0,  # Will be updated by audio agent
+                "streaming_active": True
+            }
+        }
+        
+        with open(output_file, 'w') as f:
+            json.dump(audio_summary, f, indent=2)
+        
+        return {
+            "status": "success", 
+            "output_file": output_file,
+            "audio_segments_processed": len(audio_results),
+            "total_duration": total_duration,
+            "clients_connected": audio_summary["live_stream_info"]["clients_connected"]
+        }
+        
+    except Exception as e:
+        return {"status": "error", "error": str(e)}
 
-async def process_timestamp_with_all_agents(timestamp_file: str, data_runner, data_session, commentary_runner, commentary_session) -> Dict[str, Any]:
-    """Process a single timestamp through all agents with shared sessions"""
+async def process_timestamp_with_board(timestamp_file: str, data_runner, data_session, commentary_runner, commentary_session, game_board, session_manager, audio_agent, audio_buffer: asyncio.Queue = None) -> Dict[str, Any]:
+    """Process a single timestamp through all agents with board integration"""
     file_basename = os.path.basename(timestamp_file)
     print(f"  ⏰ Processing: {file_basename}")
     
-    # Step 1: Data Agent with shared session
-    data_result = await process_data_agent(timestamp_file, data_runner, data_session)
+    # Check for session refresh
+    data_session, commentary_session = await session_manager.maybe_refresh_sessions(
+        data_runner, data_session, commentary_runner, commentary_session, game_board
+    )
+    
+    # Step 1: Data Agent with board integration
+    data_result = await process_data_agent_with_board(timestamp_file, data_runner, data_session, game_board)
     if data_result["status"] != "success":
         print(f"    ❌ Data agent failed: {data_result['error']}")
         return data_result
     
-    print(f"    ✅ Data agent completed")
+    print(f"    ✅ Data agent completed (board events: {data_result['board_update']['events_processed']})")
     
-    # Step 2: Commentary Agent with shared session
-    game_id = data_session.user_id.split('_')[-1]
-    commentary_result = await process_commentary_agent(
+    # Step 2: Commentary Agent with board integration
+    game_id = data_session.user_id.split('_')[2]
+    commentary_result = await process_commentary_agent_with_board(
         data_result["output_file"], 
         game_id,
         commentary_runner,
-        commentary_session
+        commentary_session,
+        game_board
     )
     if commentary_result["status"] != "success":
         print(f"    ❌ Commentary agent failed: {commentary_result['error']}")
@@ -355,37 +476,155 @@ async def process_timestamp_with_all_agents(timestamp_file: str, data_runner, da
     
     print(f"    ✅ Commentary agent completed")
     
-    # Step 3: Audio Agent
-    audio_result = process_audio_agent(commentary_result)
-    print(f"    ✅ Audio agent completed")
+    # Step 3: Audio Agent with live streaming
+    audio_result = await process_audio_agent_with_board(
+        commentary_result["output_file"],
+        game_id,
+        audio_agent,
+        audio_buffer  # Pass the buffer for continuous streaming
+    )
+    if audio_result["status"] != "success":
+        print(f"    ❌ Audio agent failed: {audio_result['error']}")
+        return audio_result
+    
+    print(f"    ✅ Audio agent completed ({audio_result['audio_segments_processed']} segments, {audio_result['clients_connected']} clients)")
     
     return {
         "status": "success",
         "timestamp": file_basename,
         "data_result": data_result,
         "commentary_result": commentary_result,
-        "audio_result": audio_result
+        "audio_result": audio_result,
+        "board_state": game_board.get_authoritative_state()
     }
 
 async def run_live_commentary_pipeline(game_id: str, duration_minutes: int = 5):
-    """Main pipeline function - orchestrates everything"""
-    print(f"🚀 NHL Live Commentary Pipeline")
+    """Main pipeline function with Live Game Board integration and Audio Streaming"""
+    print(f"🚀 PIPELINE STARTING - NHL Live Commentary")
     print(f"🎯 Game ID: {game_id}")
     print(f"⏱️  Duration: {duration_minutes} minutes")
     print("=" * 50)
+    print("📍 Pipeline function entered successfully")
+    import sys
+    sys.stdout.flush()
     
     try:
         # Phase 1: Generate static context
+        print("📍 Phase 1: Starting static context generation...")
+        sys.stdout.flush()
         await generate_static_context(game_id)
+        print("📍 Phase 1: Static context completed")
+        sys.stdout.flush()
         
-        # Phase 2: Start live data collection (background)
+        # Phase 2: Initialize Live Game Board
+        print("📍 Phase 2: Starting Live Game Board...")
+        print("🏒 Initializing Live Game Board...")
+        sys.stdout.flush()
+        from board import create_live_game_board, SessionManager
+        
+        static_context_file = f"data/static/game_{game_id}_static_context.json"
+        game_board = create_live_game_board(game_id, static_context_file)
+        session_manager = SessionManager(refresh_interval=10)
+        
+        print(f"✅ Game Board initialized: {game_board.away_team} @ {game_board.home_team}")
+        print(f"✅ Rosters loaded: {len(game_board.team_rosters['away'])} away, {len(game_board.team_rosters['home'])} home players")
+        
+        # Phase 3: Start live data collection (background)
+        print("📡 Starting live data collection...")
+        sys.stdout.flush()
         live_process = start_live_data_collection(game_id, duration_minutes)
+        print(f"✅ Live process started: PID {live_process.pid}")
+        sys.stdout.flush()
         
-        # Phase 3: Create shared sessions for data and commentary agents
-        (data_runner, data_session), (commentary_runner, commentary_session) = await create_shared_sessions(game_id)
+        print("📍 About to start ADK session creation...")
+        sys.stdout.flush()
         
-        # Phase 4: Process timestamps as they appear
-        print(f"🔄 Starting real-time processing...")
+        # Phase 4: Create shared sessions with board integration (with timeout)
+        print("🕐 Creating ADK sessions (this may take 1-2 minutes)...")
+        sys.stdout.flush()
+        try:
+            (data_runner, data_session), (commentary_runner, commentary_session) = await asyncio.wait_for(
+                create_shared_sessions_with_board(game_id, game_board),
+                timeout=120.0  # 2 minute timeout
+            )
+            print("✅ ADK sessions created successfully")
+        except asyncio.TimeoutError:
+            print("⚠️ ADK session creation timed out - continuing with simplified agents")
+            # For now, raise error - we need ADK for the core functionality
+            raise Exception("ADK session creation timed out after 2 minutes")
+        
+        # Phase 4.5: Initialize Audio Agent (ADK logic only)
+        print("🎙️ Initializing Audio Agent for text-to-speech...")
+        from agents.audio_agent.audio_agent import AudioAgent
+        
+        audio_agent = AudioAgent(name=f"nhl_audio_agent_{game_id}", model="gemini-2.0-flash")
+        print("✅ Audio Agent initialized for TTS processing")
+        
+        # Phase 4.6: Start WebSocket Server (Pipeline responsibility)
+        print("🌐 Starting WebSocket audio streaming server...")
+        from agents.audio_agent.tool import stream_audio_websocket
+        
+        websocket_result = stream_audio_websocket(port=8765, host="localhost")
+        if websocket_result["status"] == "success":
+            print(f"✅ WebSocket server started: {websocket_result['server_url']}")
+            print(f"✅ Clients can connect to: ws://localhost:8765")
+            
+            # Give WebSocket server time to actually start listening
+            await asyncio.sleep(3)
+            print("✅ WebSocket server ready for connections")
+        else:
+            print(f"❌ WebSocket server failed: {websocket_result.get('error', 'Unknown issue')}")
+            raise Exception(f"WebSocket server startup failed: {websocket_result.get('error')}")
+        
+        # Initialize audio buffer for continuous streaming
+        audio_buffer = asyncio.Queue()
+        
+        # Start background audio streaming task
+        async def continuous_audio_streamer():
+            """Background task to stream audio continuously from buffer"""
+            print("🎵 Starting continuous audio streaming task...")
+            delay_counter = 0
+            target_delay_seconds = 15  # ~15 second fixed delay
+            
+            while True:
+                try:
+                    # Wait for audio segments in buffer
+                    audio_segment = await audio_buffer.get()
+                    
+                    # If it's a shutdown signal, stop streaming
+                    if audio_segment == "SHUTDOWN":
+                        print("🛑 Audio streaming task shutting down...")
+                        break
+                    
+                    # Add delay for the first few segments to build buffer
+                    if delay_counter < target_delay_seconds:
+                        await asyncio.sleep(1)
+                        delay_counter += 1
+                        print(f"🕐 Building audio buffer... ({delay_counter}/{target_delay_seconds}s)")
+                    
+                    # Stream the audio segment to WebSocket clients
+                    print(f"🎵 Streaming: {audio_segment.get('text_preview', 'Unknown segment')}")
+                    
+                    # Broadcast to WebSocket clients
+                    try:
+                        from agents.audio_agent.tool import broadcast_audio_to_clients
+                        await broadcast_audio_to_clients(audio_segment)
+                    except Exception as e:
+                        print(f"⚠️ WebSocket broadcast error: {e}")
+                    
+                    # Mark buffer task as done
+                    audio_buffer.task_done()
+                    
+                except Exception as e:
+                    print(f"❌ Audio streaming error: {e}")
+                    await asyncio.sleep(1)
+        
+        # Start the streaming task
+        streaming_task = asyncio.create_task(continuous_audio_streamer())
+        print("✅ Continuous audio streaming task started")
+        
+        # Phase 5: Process timestamps with board state management
+        print(f"🔄 Starting board-integrated processing...")
         processed_files = set()
         processed_count = 0
         
@@ -394,32 +633,86 @@ async def run_live_commentary_pipeline(game_id: str, duration_minutes: int = 5):
             new_files = get_new_timestamp_files(game_id, processed_files)
             
             for timestamp_file in new_files:
-                result = await process_timestamp_with_all_agents(timestamp_file, data_runner, data_session, commentary_runner, commentary_session)
+                result = await process_timestamp_with_board(
+                    timestamp_file, data_runner, data_session, 
+                    commentary_runner, commentary_session, 
+                    game_board, session_manager, audio_agent, audio_buffer
+                )
                 processed_files.add(timestamp_file)
                 processed_count += 1
                 
                 if result["status"] == "success":
-                    print(f"✅ Processed timestamp {processed_count}: {result['timestamp']}")
+                    print(f"✅ Board-processed timestamp {processed_count}: {result['timestamp']}")
+                    # Print board state summary
+                    board_state = result["board_state"]
+                    print(f"   📊 Score: {board_state['away_team']} {board_state['score']['away']} - {board_state['home_team']} {board_state['score']['home']}")
                 else:
                     print(f"❌ Failed to process {timestamp_file}: {result.get('error', 'Unknown error')}")
             
-            # Check every 2 seconds for new files
-            time.sleep(2)
+            # Check briefly for new files
+            await asyncio.sleep(0.5)
         
         # Process any remaining files after live collection ends
         print("🏁 Live data collection finished, processing remaining files...")
-        time.sleep(3)  # Allow final files to be written
+        await asyncio.sleep(0.5)  # Allow final files to be written
         
         final_new_files = get_new_timestamp_files(game_id, processed_files)
         for timestamp_file in final_new_files:
-            result = await process_timestamp_with_all_agents(timestamp_file, data_runner, data_session, commentary_runner, commentary_session)
+            result = await process_timestamp_with_board(
+                timestamp_file, data_runner, data_session,
+                commentary_runner, commentary_session,
+                game_board, session_manager, audio_agent, audio_buffer
+            )
             processed_count += 1
             if result["status"] == "success":
-                print(f"✅ Final processing {processed_count}: {result['timestamp']}")
+                print(f"✅ Final board processing {processed_count}: {result['timestamp']}")
+        
+        # Export final board state
+        final_board_state = game_board.export_state()
+        board_export_file = f"data/board_states/game_{game_id}_final_state.json"
+        os.makedirs("data/board_states", exist_ok=True)
+        with open(board_export_file, 'w') as f:
+            json.dump(final_board_state, f, indent=2)
         
         print("=" * 50)
-        print(f"🎉 Pipeline completed successfully!")
+        print(f"🎉 Board-integrated pipeline completed successfully!")
         print(f"📊 Total timestamps processed: {processed_count}")
+        print(f"🏒 Final score: {final_board_state['teams']['away']} {final_board_state['score']['away']} - {final_board_state['teams']['home']} {final_board_state['score']['home']}")
+        print(f"🎯 Goals scored: {len(final_board_state['goals'])}")
+        print(f"💾 Board state exported: {board_export_file}")
+        
+        # Signal audio streaming task to stop
+        try:
+            print("🛑 Stopping audio streaming...")
+            await audio_buffer.put("SHUTDOWN")
+            # Wait for streaming task to finish
+            await streaming_task
+            print("✅ Audio streaming task stopped")
+        except Exception as e:
+            print(f"⚠️ Audio streaming stop warning: {e}")
+        
+        # Stop WebSocket server properly
+        try:
+            print("🛑 Stopping WebSocket server...")
+            from agents.audio_agent.tool import stop_websocket_server
+            await stop_websocket_server()
+            print("✅ WebSocket server stopped successfully")
+        except Exception as e:
+            print(f"⚠️ WebSocket server stop failed: {e}")
+        
+        # Audio streaming summary
+        try:
+            # Try to get audio status from the agent
+            from agents.audio_agent.tool import audio_processor
+            audio_connected_clients = len(audio_processor.connected_clients)
+            print(f"🎙️ Audio streaming completed: {audio_connected_clients} clients connected")
+            print(f"📻 WebSocket server: Stopped")
+            print(f"📁 Audio outputs: data/audio_agent_outputs/{game_id}/")
+        except:
+            print(f"🎙️ Audio streaming completed")
+            print(f"📻 WebSocket server: Stopped")
+            print(f"📁 Audio outputs: data/audio_agent_outputs/{game_id}/")
+        
         print(f"📁 Check data/ directories for generated files")
         
     except Exception as e:
@@ -432,12 +725,15 @@ async def main():
     """Main entry point"""
     if len(sys.argv) < 2:
         print("Usage: python live_commentary_pipeline.py GAME_ID [DURATION_MINUTES]")
-        print("Example: python live_commentary_pipeline.py 2024030412 3")
-        print("\nThis runs the complete pipeline:")
+        print("Example: python live_commentary_pipeline.py 2024030413 3")
+        print("\\nThis runs the complete Live NHL Commentary Pipeline:")
         print("  1. Generate static context")
-        print("  2. Start live data collection")  
-        print("  3. Process each timestamp with persistent session")
-        print("  4. Generate commentary and audio in real-time")
+        print("  2. Initialize Live Game Board with authoritative state")
+        print("  3. Start live data collection")  
+        print("  4. Process each timestamp with board state injection")
+        print("  5. Generate commentary with context collapse prevention")
+        print("  6. Convert commentary to audio and stream via WebSocket")
+        print("\\nClients can connect to: ws://localhost:8765 for live audio")
         sys.exit(1)
     
     game_id = sys.argv[1]

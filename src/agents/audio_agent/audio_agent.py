@@ -59,8 +59,9 @@ class AudioAgent(BaseAgent):
 
 ## 核心职责：
 1. **文本转语音**: 使用text_to_speech工具将解说文本转换为语音
-2. **音频流管理**: 使用stream_audio_websocket工具启动WebSocket服务器
-3. **状态监控**: 使用get_audio_status工具监控音频系统状态
+2. **文件保存**: 使用save_audio_file工具将生成的音频保存到文件
+3. **音频流管理**: 使用stream_audio_websocket工具启动WebSocket服务器
+4. **状态监控**: 使用get_audio_status工具监控音频系统状态
 
 ## 工具使用指南：
 
@@ -78,6 +79,12 @@ class AudioAgent(BaseAgent):
 - 默认端口8765，可以自定义
 - 向所有连接的客户端实时广播音频数据
 
+### save_audio_file 工具
+- 将生成的音频数据保存为WAV文件
+- 自动组织到game_id子文件夹中 (audio_output/GAME_ID/)
+- 包含音频ID、时间戳和语音风格的文件名
+- **重要**: 每次生成音频后必须调用此工具进行文件保存
+
 ### get_audio_status 工具
 - 用于监控音频系统状态
 - 显示连接的客户端数量、音频队列状态、历史记录等
@@ -87,9 +94,10 @@ class AudioAgent(BaseAgent):
 1. 接收解说文本输入
 2. 分析文本内容，选择合适的语音风格
 3. 使用text_to_speech转换为音频
-4. 确保WebSocket服务器运行中
-5. 自动广播音频到所有连接的客户端
-6. 返回处理状态和音频ID
+4. **立即使用save_audio_file保存音频文件**
+5. 确保WebSocket服务器运行中
+6. 自动广播音频到所有连接的客户端
+7. 返回处理状态、音频ID和文件路径
 
 ## 错误处理：
 - 如果TTS失败，返回详细错误信息并建议重试
@@ -103,6 +111,11 @@ class AudioAgent(BaseAgent):
 - 支持SSML增强表现力
 
 记住：你的目标是为NHL比赛提供高质量、实时的语音解说服务，让听众感受到比赛的激情和紧张感。
+
+**关键要求**: 
+- 每次使用text_to_speech生成音频后，必须立即调用save_audio_file保存文件
+- save_audio_file需要这些参数：audio_base64（从text_to_speech响应获取）、audio_id、voice_style、game_id
+- 文件保存是强制性的，不是可选的
 """
 
         return LlmAgent(
@@ -387,6 +400,12 @@ class AudioAgent(BaseAgent):
     async def stop_audio_service(self) -> Dict[str, Any]:
         """停止音频服务"""
         try:
+            # 导入停止函数
+            from .tool import stop_websocket_server
+            
+            # 停止WebSocket服务器
+            await stop_websocket_server()
+            
             # 断开所有客户端连接
             for client in audio_processor.connected_clients.copy():
                 try:

@@ -14,14 +14,24 @@ import uuid
 import math
 import random
 
+# Global server reference for proper shutdown
+websocket_server = None
+server_task = None
+
+# Load .env file FIRST
+import dotenv
+project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+env_path = os.path.join(project_root, '.env')
+dotenv.load_dotenv(env_path)
+
 # 添加项目根目录到路径
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
+sys.path.append(project_root)
 
 # 导入配置
 try:
     from config import get_gemini_api_key, get_audio_config, set_gemini_api_key
 except ImportError:
-    # 如果找不到config模块，提供默认实现
+    # 如果找不到config模块，提供默认实现 (.env already loaded above)
     def get_gemini_api_key():
         return os.getenv('GEMINI_API_KEY') or os.getenv('GOOGLE_AI_API_KEY')
     
@@ -352,7 +362,8 @@ def stream_audio_websocket(
         print(f"🌐 启动WebSocket音频流服务器 {host}:{port}")
         
         # 启动WebSocket服务器
-        asyncio.create_task(_start_websocket_server(host, port))
+        global server_task
+        server_task = asyncio.create_task(_start_websocket_server(host, port))
         
         if tool_context:
             tool_context.state["websocket_server"] = {
@@ -472,6 +483,8 @@ async def _broadcast_audio(data: Dict[str, Any]):
 
 async def _start_websocket_server(host: str, port: int):
     """启动WebSocket服务器"""
+    global websocket_server
+    
     async def handle_client(websocket):
         print(f"🔗 新客户端连接: {websocket.remote_address}")
         audio_processor.connected_clients.add(websocket)
@@ -506,11 +519,35 @@ async def _start_websocket_server(host: str, port: int):
             audio_processor.connected_clients.discard(websocket)
     
     try:
-        server = await websockets.serve(handle_client, host, port)
+        websocket_server = await websockets.serve(handle_client, host, port)
         print(f"🚀 WebSocket音频服务器运行在 ws://{host}:{port}")
-        await server.wait_closed()
+        await websocket_server.wait_closed()
     except Exception as e:
         print(f"❌ WebSocket服务器错误: {e}")
+
+
+async def stop_websocket_server():
+    """停止WebSocket服务器"""
+    global websocket_server, server_task
+    
+    try:
+        if websocket_server:
+            print("🛑 正在停止WebSocket服务器...")
+            websocket_server.close()
+            await websocket_server.wait_closed()
+            websocket_server = None
+            print("✅ WebSocket服务器已停止")
+        
+        if server_task:
+            server_task.cancel()
+            try:
+                await server_task
+            except asyncio.CancelledError:
+                pass
+            server_task = None
+            
+    except Exception as e:
+        print(f"❌ 停止WebSocket服务器时出错: {e}")
 
 
 async def _handle_client_message(websocket, data: Dict[str, Any]):
@@ -733,14 +770,104 @@ def _generate_simple_wav_audio(text: str, voice_style: str) -> bytes:
     return wav_data
 
 
+async def save_audio_file(
+    tool_context: Optional[ToolContext],
+    audio_base64: str,
+    audio_id: str,
+    voice_style: str = "enthusiastic",
+    game_id: str = "unknown"
+) -> Dict[str, Any]:
+    """
+    Save audio data to organized file structure
+    
+    Args:
+        tool_context: ADK tool context (can be None)
+        audio_base64: Base64 encoded audio data
+        audio_id: Unique audio identifier
+        voice_style: Voice style used (enthusiastic, dramatic, calm)
+        game_id: NHL game ID for organized storage
+        
+    Returns:
+        Dict with save status and file path
+    """
+    
+    try:
+        import base64
+        import wave
+        import os
+        from datetime import datetime
+        
+        # Create organized output directory
+        output_dir = f"audio_output/{game_id}"
+        os.makedirs(output_dir, exist_ok=True)
+        
+        # Decode audio data
+        audio_bytes = base64.b64decode(audio_base64)
+        
+        # Generate filename with timestamp
+        timestamp = datetime.now().strftime("%H%M%S")
+        filename = f"nhl_{voice_style}_{audio_id}_{timestamp}.wav"
+        filepath = os.path.join(output_dir, filename)
+        
+        # Create WAV file
+        with wave.open(filepath, 'wb') as wav_file:
+            wav_file.setnchannels(1)      # Mono
+            wav_file.setsampwidth(2)      # 16-bit
+            wav_file.setframerate(24000)  # 24kHz
+            wav_file.writeframes(audio_bytes)
+        
+        file_size = os.path.getsize(filepath)
+        
+        print(f"💾 Audio saved: {filepath} ({file_size:,} bytes)")
+        
+        # Update tool context if available
+        if tool_context:
+            tool_context.state["last_audio_save"] = {
+                "status": "success",
+                "filepath": filepath,
+                "filename": filename,
+                "size": file_size,
+                "audio_id": audio_id
+            }
+        
+        return {
+            "status": "success",
+            "filepath": filepath,
+            "filename": filename,
+            "size": file_size,
+            "audio_id": audio_id,
+            "game_id": game_id,
+            "voice_style": voice_style,
+            "message": f"Audio saved successfully to {filepath}"
+        }
+        
+    except Exception as e:
+        error_msg = f"Failed to save audio file: {str(e)}"
+        print(f"❌ {error_msg}")
+        
+        if tool_context:
+            tool_context.state["last_audio_save"] = {
+                "status": "error",
+                "error": error_msg
+            }
+        
+        return {
+            "status": "error",
+            "error": error_msg,
+            "audio_id": audio_id
+        }
+
+
 # 创建ADK FunctionTool实例
 text_to_speech_tool = FunctionTool(func=text_to_speech)
 stream_audio_tool = FunctionTool(func=stream_audio_websocket)
 audio_status_tool = FunctionTool(func=get_audio_status)
+save_audio_tool = FunctionTool(func=save_audio_file)
 
 # 导出工具列表
 AUDIO_TOOLS = [
     text_to_speech_tool,
     stream_audio_tool,
-    audio_status_tool
+    audio_status_tool,
+    save_audio_tool
 ]

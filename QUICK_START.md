@@ -1,67 +1,81 @@
-# NHL Audio Agent - 快速开始
+# NHL Commentary Agent - Quick Start
 
-## 🎯 概述
-NHL Audio Agent 是基于 Google ADK 的音频代理，使用 Gemini TTS 将冰球解说文本转换为高质量语音。
+## 🎯 Overview
+Production-ready NHL LiveStream Commentary Agent that generates professional hockey commentary using Google ADK and Gemini AI.
 
-## 🚀 快速开始
+## 🚀 Quick Start
 
-### 1. 配置 Gemini API Key
+### 1. Installation
 ```bash
-python setup_api_key.py
+# Clone and install
+git clone https://github.com/YongBoYu1/adk_hackathon.git
+cd adk_hackathon
+pip install -r requirements.txt
 ```
-按照提示输入您的 Gemini API Key（从 [Google AI Studio](https://aistudio.google.com/app/apikey) 获取）。
 
-### 2. 测试语音生成
+### 2. Configure Google Credentials
 ```bash
-export GEMINI_API_KEY=your_api_key_here
-python test_real_tts.py
+# Set up environment variables
+export GOOGLE_CLOUD_PROJECT=your-project-id
+export GOOGLE_APPLICATION_CREDENTIALS=path/to/service-account.json
+export GOOGLE_API_KEY=your-google-api-key
 ```
 
-## 📁 核心文件
+### 3. Run NHL Commentary
+```bash
+# Generate professional NHL commentary
+python run_game_commentary.py 2024030412 3
 
-- **setup_api_key.py** - API Key 配置工具
-- **test_real_tts.py** - 语音生成测试脚本
-- **src/agents/audio_agent/** - 音频代理核心代码
-
-## 🎙️ 支持的语音风格
-
-- **enthusiastic** - 兴奋解说（使用 Puck 声音）
-- **dramatic** - 戏剧性解说（使用 Kore 声音）
-- **calm** - 平静解说（使用 Aoede 声音）
-
-## 🎵 输出
-
-- 音频文件保存在 `audio_output/` 目录
-- 格式：WAV（24kHz，16位，单声道）
-- 文件名：`nhl_{风格}_{音频ID}_{时间戳}.wav`
-
-## 🔧 技术细节
-
-- 使用 Gemini 2.5 Flash TTS 模型
-- 符合 Google ADK 标准
-- 支持 WebSocket 音频流
-- 实时语音生成和广播
-
-## 🏒 NHL 解说示例
-
-```python
-from src.agents.audio_agent.tool import text_to_speech
-
-# 进球解说
-result = await text_to_speech(
-    tool_context=None,
-    text="Connor McDavid scores an amazing goal!",
-    voice_style="enthusiastic",
-    language="en-US"
-)
+# Output: Professional audio files in audio_output/2024030412/
 ```
 
-## ✅ 验证工作状态
+## 📁 Core Files
 
-运行测试后，您应该看到：
-- ✅ API Key 验证通过
-- ✅ 3个不同风格的音频生成成功
-- 🔊 音频自动播放
-- 📁 文件保存到 audio_output/ 目录
+- **run_game_commentary.py** - Main working pipeline (recommended)
+- **live_commentary_pipeline.py** - Full live pipeline with data collection
+- **src/agents/** - ADK agents (data, commentary, audio)
+- **src/data/** - NHL data processing components
 
-现在您的 NHL Audio Agent 已准备就绪！🏆 
+## 🎙️ Audio Features
+
+- **Enthusiastic** - Regular play, goals, saves
+- **Dramatic** - Penalties, crucial moments, overtime
+- **Professional Quality** - WAV format, 24kHz, organized output
+
+## 🎵 Output Structure
+
+```
+audio_output/
+└── GAME_ID/
+    ├── TIMESTAMP_00_enthusiastic_TIME.wav
+    ├── TIMESTAMP_01_dramatic_TIME.wav
+    └── ...
+```
+
+## 🔧 System Architecture
+
+```
+Data Agent (ADK) → Commentary Agent (ADK) → Audio Generation
+     ↓                      ↓                      ↓
+   Analysis            Two-Person Dialogue      WAV Files
+```
+
+## 🏒 Example NHL Commentary
+
+**Input**: Live NHL game data  
+**Output**: Professional two-person broadcast dialogue
+```
+Alex Chen: "Welcome to Rogers Place! The Florida Panthers are visiting..."
+Mike Rodriguez: "That's right Alex, this is a crucial matchup..."
+```
+
+## ✅ Verification
+
+Successful run shows:
+- ✅ ADK agents initialized
+- ✅ NHL data processed
+- ✅ Commentary generated
+- 🎵 Professional audio files created
+- 📁 Organized in game-specific folders
+
+**Your NHL Commentary Agent is ready for professional broadcasting!** 🏆
