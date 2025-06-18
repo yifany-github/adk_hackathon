@@ -124,6 +124,41 @@ def _resolve_player_names_in_details(details: Dict[str, Any], static_context: Di
     return enhanced_details
 
 
+def _calculate_activity_trend(activities: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """
+    Calculate activity trend from recent events
+    
+    Args:
+        activities: List of game events
+        
+    Returns:
+        List of trend indicators showing activity progression
+    """
+    if not activities:
+        return []
+    
+    try:
+        # Group events by time periods (last 5 events, etc.)
+        trend_data = []
+        
+        # Get event types and timing
+        for i, event in enumerate(activities[-5:]):  # Last 5 events for trend
+            event_type = event.get("typeDescKey", "unknown")
+            time_in_period = event.get("timeInPeriod", "0:00")
+            
+            trend_data.append({
+                "sequence": i + 1,
+                "event_type": event_type,
+                "time": time_in_period,
+                "intensity": 1 if event_type in ["goal", "penalty", "hit"] else 0.5
+            })
+        
+        return trend_data
+        
+    except Exception:
+        return []
+
+
 
 # ============= ADK-COMPATIBLE TOOLS =================
 

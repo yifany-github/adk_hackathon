@@ -321,7 +321,7 @@ HOCKEY SITUATION RULES:
 - Power plays end ONLY on goal scored OR penalty expiration - track the timer
 - 5-on-3 situations are ALWAYS the primary focus until resolved
 - Shot counts must be realistic for game time (not 46 shots in 3 minutes)
-- Faceoff winners: Only state specific winner if data confirms it, otherwise use neutral language
+- Faceoff winners: Even if data suggests a winner, use neutral language unless explicitly confirmed ("McDavid and Lundell line up for the draw" instead of "McDavid wins the faceoff")
 """
 
 # Basic PBP Guidelines

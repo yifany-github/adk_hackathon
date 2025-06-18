@@ -271,21 +271,20 @@ class LiveDataCollector:
         """Calculate progressive game stats from time-filtered activities only (prevents data leakage)."""
         # Initialize counters
         away_score = home_score = away_shots = home_shots = 0
-        away_team_name = "FLA"  # Default based on static context
-        home_team_name = "EDM"  # Default based on static context
+        away_team_name = "AWAY"  # Default fallback
+        home_team_name = "HOME"  # Default fallback
         
-        # Try to get team names from static context
+        # Get team names from static context (dynamic based on game_id)
         if self.static_context and 'game_info' in self.static_context:
             game_info = self.static_context['game_info']
             away_team_name = game_info.get('away_team', 'AWAY')
             home_team_name = game_info.get('home_team', 'HOME')
         
-        # Map team IDs (these are NHL team IDs: 13=FLA, 22=EDM for this game)
-        # We'll determine this dynamically from the data
+        # Dynamically determine team IDs from actual event data
         away_team_id = None
         home_team_id = None
         
-        # First pass: determine team IDs from any event
+        # First pass: determine team IDs from any event (no assumptions)
         for activity in activities:
             details = activity.get('details', {})
             team_id = details.get('eventOwnerTeamId')
@@ -297,11 +296,19 @@ class LiveDataCollector:
                 elif '(home)' in player_name:
                     home_team_id = team_id
         
-        # Fallback: assume based on known game (13=FLA/away, 22=EDM/home)
-        if away_team_id is None:
-            away_team_id = 13
-        if home_team_id is None:
-            home_team_id = 22
+        # If still no team IDs found, skip team-specific stats (no hardcoded assumptions)
+        if away_team_id is None or home_team_id is None:
+            # Return basic stats without team-specific breakdown
+            return {
+                "home_score": 0,
+                "away_score": 0, 
+                "home_shots": 0,
+                "away_shots": 0,
+                "home_team": home_team_name,
+                "away_team": away_team_name,
+                "total_events": len(activities),
+                "warning": "Could not determine team IDs from event data"
+            }
         
         # Second pass: count events
         for activity in activities:
