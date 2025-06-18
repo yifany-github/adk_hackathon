@@ -623,49 +623,37 @@ async def run_live_commentary_pipeline(game_id: str, duration_minutes: int = 5):
         streaming_task = asyncio.create_task(continuous_audio_streamer())
         print("✅ Continuous audio streaming task started")
         
-        # Phase 5: Process timestamps with board state management
-        print(f"🔄 Starting board-integrated processing...")
-        processed_files = set()
+        # Phase 5: Wait for live data collection to finish, then process ALL timestamps
+        print(f"🔄 Waiting for live data collection to finish...")
+        
+        # Wait for live data collection to complete
+        live_process.wait()
+        print("🏁 Live data collection finished, processing ALL collected timestamps...")
+        await asyncio.sleep(1)  # Allow final files to be written
+        
+        # Get ALL timestamp files (not just new ones)
+        all_timestamp_files = get_new_timestamp_files(game_id, set())  # Empty set = process all files
+        total_files = len(all_timestamp_files)
+        
+        print(f"📊 Found {total_files} timestamp files to process")
+        
         processed_count = 0
-        
-        while live_process.poll() is None:  # While live data collection is running
-            # Check for new timestamp files
-            new_files = get_new_timestamp_files(game_id, processed_files)
-            
-            for timestamp_file in new_files:
-                result = await process_timestamp_with_board(
-                    timestamp_file, data_runner, data_session, 
-                    commentary_runner, commentary_session, 
-                    game_board, session_manager, audio_agent, audio_buffer
-                )
-                processed_files.add(timestamp_file)
-                processed_count += 1
-                
-                if result["status"] == "success":
-                    print(f"✅ Board-processed timestamp {processed_count}: {result['timestamp']}")
-                    # Print board state summary
-                    board_state = result["board_state"]
-                    print(f"   📊 Score: {board_state['away_team']} {board_state['score']['away']} - {board_state['home_team']} {board_state['score']['home']}")
-                else:
-                    print(f"❌ Failed to process {timestamp_file}: {result.get('error', 'Unknown error')}")
-            
-            # Check briefly for new files
-            await asyncio.sleep(0.5)
-        
-        # Process any remaining files after live collection ends
-        print("🏁 Live data collection finished, processing remaining files...")
-        await asyncio.sleep(0.5)  # Allow final files to be written
-        
-        final_new_files = get_new_timestamp_files(game_id, processed_files)
-        for timestamp_file in final_new_files:
-            result = await process_timestamp_with_board(
+        for timestamp_file in all_timestamp_files:
+            # Process WITHOUT audio agent (commentary only)
+            result = await process_timestamp_without_audio(
                 timestamp_file, data_runner, data_session,
                 commentary_runner, commentary_session,
-                game_board, session_manager, audio_agent, audio_buffer
+                game_board, session_manager
             )
             processed_count += 1
+            
             if result["status"] == "success":
-                print(f"✅ Final board processing {processed_count}: {result['timestamp']}")
+                print(f"✅ Processed {processed_count}/{total_files}: {result['timestamp']}")
+                # Print board state summary  
+                board_state = result["board_state"]
+                print(f"   📊 Score: {board_state['away_team']} {board_state['score']['away']} - {board_state['home_team']} {board_state['score']['home']}")
+            else:
+                print(f"❌ Failed to process {timestamp_file}: {result.get('error', 'Unknown error')}")
         
         # Export final board state
         final_board_state = game_board.export_state()
