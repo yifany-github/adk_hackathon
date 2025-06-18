@@ -14,7 +14,6 @@ class LanguageManager {
                 connected: '已连接',
                 disconnected: '连接断开',
                 connectionError: '连接错误',
-                demoMode: '演示模式',
                 
                 // 控制面板
                 controlPanel: '控制面板',
@@ -109,7 +108,6 @@ class LanguageManager {
                 connected: 'Connected',
                 disconnected: 'Disconnected',
                 connectionError: 'Connection Error',
-                demoMode: 'Demo Mode',
                 
                 // Control panel
                 controlPanel: 'Control Panel',
