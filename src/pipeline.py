@@ -19,6 +19,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from src.agents.data_agent.data_agent_adk import create_hockey_agent_for_game
 from src.agents.commentary_agent.commentary_agent import create_commentary_agent_for_game
+from src.agents.audio_agent.audio_agent import create_audio_agent_for_game
 from src.agents.audio_agent.tool import text_to_speech
 
 class NHLPipeline:
@@ -32,6 +33,7 @@ class NHLPipeline:
         self.game_id = game_id
         self.data_agent = None
         self.commentary_agent = None
+        self.audio_agent = None
         self.audio_files = []  # 保存生成的音频文件路径
         
         # 创建音频输出目录
@@ -50,8 +52,9 @@ class NHLPipeline:
         self.commentary_agent = create_commentary_agent_for_game(self.game_id)
         print("✅ Commentary Agent 创建成功")
         
-        # 不再创建AudioAgent，直接使用音频工具
-        print("✅ 音频处理工具准备就绪")
+        # 创建Audio Agent - 按照统一的工厂模式
+        self.audio_agent = create_audio_agent_for_game(self.game_id)
+        print("✅ Audio Agent 创建成功")
         
     def save_audio_file(self, audio_base64: str, commentary_text: str, voice_style: str = "enthusiastic") -> str:
         """

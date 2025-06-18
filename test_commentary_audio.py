@@ -16,7 +16,7 @@ import io
 import numpy as np
 
 from src.agents.audio_agent.tool import text_to_speech
-from src.agents.audio_agent.audio_agent import AudioAgent
+from src.agents.audio_agent.audio_agent import create_audio_agent_for_game
 
 AUDIO_OUTPUT_DIR = "audio_output"
 
@@ -52,7 +52,7 @@ async def test_commentary_file(file_path: str):
         print(f"\n🎯 找到 {len(commentary_sequence)} 条解说")
         
         # 创建audio agent实例
-        agent = AudioAgent(model="gemini-2.5-flash-preview-tts")
+        agent = create_audio_agent_for_game("2024030412")
         
         # 确保输出目录存在
         os.makedirs(AUDIO_OUTPUT_DIR, exist_ok=True)

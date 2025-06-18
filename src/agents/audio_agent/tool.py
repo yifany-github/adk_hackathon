@@ -6,6 +6,7 @@ import websockets
 import json
 import base64
 import io
+import wave
 from typing import Dict, Any, Optional, List, Set
 import os
 import sys
@@ -59,7 +60,9 @@ async def text_to_speech(
     tool_context: Optional[ToolContext] = None,
     text: str = "", 
     voice_style: str = "enthusiastic",
-    language: str = "en-US"
+    language: str = "en-US",
+    speaker: str = "",
+    emotion: str = ""
 ) -> Dict[str, Any]:
     """
     Convert text to speech using real Gemini TTS
@@ -69,6 +72,8 @@ async def text_to_speech(
         text: Commentary text to convert
         voice_style: Voice style (enthusiastic, calm, dramatic)
         language: Language code (en-US, en-CA, etc.)
+        speaker: Speaker name (Alex Chen, Mike Rodriguez, etc.)
+        emotion: Emotion type (neutral, analytical, excited, etc.)
         
     Returns:
         Dictionary containing audio information and status
@@ -104,24 +109,12 @@ async def text_to_speech(
             # Create client
             client = genai.Client(api_key=api_key)
             
-            # Select voice based on voice style
-            voice_mapping = {
-                "enthusiastic": "Puck",      # Excited voice
-                "dramatic": "Kore",          # Dramatic voice
-                "calm": "Aoede"             # Calm voice
-            }
+            # Select voice based on speaker and emotion/voice_style
+            voice_name = _select_voice_for_speaker(speaker, emotion or voice_style)
             
-            voice_name = voice_mapping.get(voice_style, "Puck")
-            
-            # Build prompt
-            if voice_style == "enthusiastic":
-                prompt = f"Say with high energy and excitement like a sports announcer: {text}"
-            elif voice_style == "dramatic":
-                prompt = f"Say with dramatic intensity and emphasis: {text}"
-            elif voice_style == "calm":
-                prompt = f"Say in a calm, professional announcer voice: {text}"
-            else:
-                prompt = f"Say clearly: {text}"
+            # Build prompt based on emotion or voice_style
+            effective_style = emotion or voice_style
+            prompt = _build_prompt_for_emotion(text, effective_style, speaker)
             
             print(f"🔊 Using voice: {voice_name}, style: {voice_style}")
             
@@ -149,6 +142,9 @@ async def text_to_speech(
             timestamp = datetime.now().strftime("%H%M%S")
             
             print(f"✅ Real Gemini TTS successful! Size: {len(audio_data):,} bytes")
+            
+            # Save audio to file as proper WAV format
+            saved_file_path = _save_audio_to_file(audio_data, audio_id, timestamp, voice_style, speaker)
             
             # Encode audio data
             audio_base64 = base64.b64encode(audio_data).decode('utf-8')
@@ -206,6 +202,7 @@ async def text_to_speech(
                 "is_real_tts": True,
                 "audio_size": len(audio_data),
                 "audio_data": audio_base64,  # Return audio data directly
+                "saved_file": saved_file_path,  # File path where audio was saved
                 "message": f"Real Gemini TTS audio generation successful, ID: {audio_id}"
             }
             
@@ -279,6 +276,9 @@ async def _generate_fallback_audio(text: str, voice_style: str, tool_context: Op
         
         print(f"✅ Fallback audio generated! Size: {len(audio_bytes):,} bytes")
         
+        # Save fallback audio to file (it's already in WAV format)
+        saved_file_path = _save_fallback_audio_to_file(audio_bytes, audio_id, timestamp, voice_style)
+        
         # Prepare WebSocket broadcast data
         broadcast_data = {
             "type": "audio_stream",
@@ -332,6 +332,7 @@ async def _generate_fallback_audio(text: str, voice_style: str, tool_context: Op
             "is_real_tts": False,
             "audio_size": len(audio_bytes),
             "audio_data": audio_base64,
+            "saved_file": saved_file_path,  # File path where audio was saved
             "message": f"Fallback audio generation successful, ID: {audio_id}"
         }
         
@@ -631,6 +632,88 @@ def _generate_realistic_mock_audio(text: str, voice_style: str) -> bytes:
         return _generate_simple_wav_audio("error", "calm")
 
 
+def _save_fallback_audio_to_file(audio_data: bytes, audio_id: str, timestamp: str, voice_style: str) -> str:
+    """
+    Save fallback audio data to file (already in WAV format)
+    
+    Args:
+        audio_data: WAV audio bytes
+        audio_id: Unique audio identifier
+        timestamp: Timestamp string
+        voice_style: Voice style used
+        
+    Returns:
+        Path to the saved WAV file
+    """
+    try:
+        # Create output directory
+        output_dir = "audio_output"
+        os.makedirs(output_dir, exist_ok=True)
+        
+        # Generate filename
+        date_str = datetime.now().strftime("%Y%m%d_%H%M%S")
+        filename = f"nhl_fallback_{date_str}_{audio_id}_{voice_style}.wav"
+        filepath = os.path.join(output_dir, filename)
+        
+        # Save directly (already WAV format)
+        with open(filepath, 'wb') as f:
+            f.write(audio_data)
+        
+        print(f"💾 Fallback audio saved to: {filepath}")
+        
+        return filepath
+        
+    except Exception as e:
+        print(f"❌ Failed to save fallback audio file: {e}")
+        return None
+
+
+def _save_audio_to_file(audio_data: bytes, audio_id: str, timestamp: str, voice_style: str) -> str:
+    """
+    Save raw audio data as a proper WAV file
+    
+    Args:
+        audio_data: Raw audio bytes from Gemini TTS
+        audio_id: Unique audio identifier
+        timestamp: Timestamp string
+        voice_style: Voice style used
+        
+    Returns:
+        Path to the saved WAV file
+    """
+    try:
+        # Create output directory
+        output_dir = "audio_output"
+        os.makedirs(output_dir, exist_ok=True)
+        
+        # Generate filename
+        date_str = datetime.now().strftime("%Y%m%d_%H%M%S")
+        filename = f"nhl_commentary_{date_str}_{audio_id}_{voice_style}.wav"
+        filepath = os.path.join(output_dir, filename)
+        
+        # Create proper WAV file from raw audio data
+        # Gemini TTS typically outputs 24kHz, 16-bit, mono audio
+        output = io.BytesIO()
+        
+        with wave.open(output, 'wb') as wav_file:
+            wav_file.setnchannels(1)        # Mono
+            wav_file.setsampwidth(2)        # 16-bit (2 bytes)
+            wav_file.setframerate(24000)    # 24kHz sample rate
+            wav_file.writeframes(audio_data)
+        
+        # Save to file
+        with open(filepath, 'wb') as f:
+            f.write(output.getvalue())
+        
+        print(f"💾 Audio saved to: {filepath}")
+        
+        return filepath
+        
+    except Exception as e:
+        print(f"❌ Failed to save audio file: {e}")
+        return None
+
+
 def _generate_simple_wav_audio(text: str, voice_style: str) -> bytes:
     """
     Generate simple WAV audio data
@@ -718,6 +801,145 @@ def _generate_simple_wav_audio(text: str, voice_style: str) -> bytes:
     ])
     
     return bytes(wav_header) + bytes(audio_data)
+
+
+def _select_voice_for_speaker(speaker: str, emotion_or_style: str) -> str:
+    """
+    Select appropriate voice based on speaker and emotion/style
+    
+    Args:
+        speaker: Speaker name (Alex Chen, Mike Rodriguez, etc.)
+        emotion_or_style: Emotion or voice style
+        
+    Returns:
+        Gemini voice name
+    """
+    # Speaker-specific voice mapping
+    speaker_voices = {
+        "Alex Chen": {
+            "neutral": "aoede",      # Calm
+            "analytical": "aoede",   # Calm
+            "excited": "puck",       # Enthusiastic 
+            "dramatic": "kore",      # Dramatic
+            "enthusiastic": "puck",  # For backward compatibility
+            "calm": "aoede"          # For backward compatibility
+        },
+        "Mike Rodriguez": {
+            "neutral": "orus",       # Different calm voice
+            "analytical": "orus",    # Different calm voice
+            "excited": "charon",     # Different enthusiastic voice
+            "dramatic": "fenrir",    # Different dramatic voice
+            "enthusiastic": "charon", # For backward compatibility
+            "calm": "orus"           # For backward compatibility
+        }
+    }
+    
+    # Default voice mapping if speaker not recognized
+    default_voices = {
+        "neutral": "aoede",
+        "analytical": "aoede", 
+        "excited": "puck",
+        "dramatic": "kore",
+        "enthusiastic": "puck",
+        "calm": "aoede"
+    }
+    
+    # Get voice for specific speaker, fallback to default
+    if speaker in speaker_voices:
+        voice = speaker_voices[speaker].get(emotion_or_style.lower())
+        if voice:
+            return voice.capitalize()  # Gemini expects capitalized names
+    
+    # Fallback to default voice mapping
+    voice = default_voices.get(emotion_or_style.lower(), "aoede")
+    return voice.capitalize()
+
+
+def _build_prompt_for_emotion(text: str, emotion_or_style: str, speaker: str = "") -> str:
+    """
+    Build appropriate prompt based on emotion/style and speaker
+    
+    Args:
+        text: Text to convert
+        emotion_or_style: Emotion or voice style
+        speaker: Speaker name (optional)
+        
+    Returns:
+        Formatted prompt for TTS
+    """
+    # Speaker context
+    speaker_context = ""
+    if speaker:
+        if "Alex" in speaker:
+            speaker_context = "As Alex, a professional play-by-play announcer, "
+        elif "Mike" in speaker or "Rodriguez" in speaker:
+            speaker_context = "As Mike, an analytical color commentator, "
+    
+    # Emotion-based prompt variations
+    emotion_prompts = {
+        "neutral": f"{speaker_context}say in a clear, professional announcer voice: {text}",
+        "analytical": f"{speaker_context}say with thoughtful analysis and insight: {text}",
+        "excited": f"{speaker_context}say with high energy and excitement like during a big play: {text}",
+        "dramatic": f"{speaker_context}say with dramatic intensity and emphasis: {text}",
+        "enthusiastic": f"{speaker_context}say with high energy and excitement like a sports announcer: {text}",
+        "calm": f"{speaker_context}say in a calm, professional announcer voice: {text}"
+    }
+    
+    return emotion_prompts.get(emotion_or_style.lower(), f"{speaker_context}say clearly: {text}")
+
+
+def _save_audio_to_file(audio_data: bytes, audio_id: str, timestamp: str, voice_style: str, speaker: str = "") -> str:
+    """
+    Save raw audio data as a proper WAV file with speaker info
+    
+    Args:
+        audio_data: Raw audio bytes from Gemini TTS
+        audio_id: Unique audio identifier
+        timestamp: Timestamp string
+        voice_style: Voice style used
+        speaker: Speaker name (optional)
+        
+    Returns:
+        Path to the saved WAV file
+    """
+    try:
+        # Create output directory
+        output_dir = "audio_output"
+        os.makedirs(output_dir, exist_ok=True)
+        
+        # Generate filename with speaker info
+        date_str = datetime.now().strftime("%Y%m%d_%H%M%S")
+        
+        if speaker:
+            # Clean speaker name for filename
+            speaker_clean = speaker.lower().replace(" ", "").replace(".", "")
+            filename = f"nhl_{speaker_clean}_{date_str}_{audio_id}_{voice_style}.wav"
+        else:
+            filename = f"nhl_commentary_{date_str}_{audio_id}_{voice_style}.wav"
+            
+        filepath = os.path.join(output_dir, filename)
+        
+        # Create proper WAV file from raw audio data
+        # Gemini TTS typically outputs 24kHz, 16-bit, mono audio
+        output = io.BytesIO()
+        
+        with wave.open(output, 'wb') as wav_file:
+            wav_file.setnchannels(1)        # Mono
+            wav_file.setsampwidth(2)        # 16-bit (2 bytes)
+            wav_file.setframerate(24000)    # 24kHz sample rate
+            wav_file.writeframes(audio_data)
+        
+        # Save to file
+        with open(filepath, 'wb') as f:
+            f.write(output.getvalue())
+        
+        print(f"💾 Audio saved to: {filepath}")
+        
+        return filepath
+        
+    except Exception as e:
+        print(f"❌ Failed to save audio file: {e}")
+        return None
 
 
 # Define AUDIO_TOOLS for ADK integration

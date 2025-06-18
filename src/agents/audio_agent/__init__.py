@@ -2,25 +2,24 @@
 NHL Audio Agent - Google ADK-based Audio Commentary Agent
 
 This module contains:
-1. AudioAgent class - Main audio processing agent
+1. Audio agent factory function - Creates ADK Agent for audio processing
 2. Audio tool functions - TTS, WebSocket streaming, status monitoring
 3. Convenience interface functions - Simplified wrapper functions
 
 Usage examples:
-    from src.agents.audio_agent import audio_agent, process_commentary_text
+    from src.agents.audio_agent import create_audio_agent_for_game, process_commentary_text
     
-    # Process commentary text
+    # Create audio agent for specific game
+    audio_agent = create_audio_agent_for_game("2024030412")
+    
+    # Or use convenience function for direct processing
     result = await process_commentary_text("Goal scored by Connor McDavid!")
-    
-    # Or use the full agent
-    agent = AudioAgent()
-    result = await agent.process_commentary("Amazing save by the goalie!")
 """
 
 from .audio_agent import (
-    AudioAgent,
-    process_commentary_text,
-    start_audio_streaming_service
+    create_audio_agent_for_game,
+    get_audio_agent,
+    process_commentary_text
 )
 
 from .tool import (
@@ -29,12 +28,12 @@ from .tool import (
 )
 
 __all__ = [
-    # Main classes and instances
-    "AudioAgent",
+    # Main factory function
+    "create_audio_agent_for_game",
+    "get_audio_agent",
     
     # Convenience functions
     "process_commentary_text",
-    "start_audio_streaming_service",
     
     # Tools
     "AUDIO_TOOLS",

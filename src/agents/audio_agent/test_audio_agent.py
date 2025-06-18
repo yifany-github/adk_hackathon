@@ -78,9 +78,9 @@ async def test_voice_style_analysis():
     print("\n🎨 Testing voice style analysis...")
     
     # Import the analysis function from audio_agent
-    from src.agents.audio_agent.audio_agent import AudioAgent
+    from src.agents.audio_agent.audio_agent import create_audio_agent_for_game
     
-    agent = AudioAgent()
+    agent = create_audio_agent_for_game("2024030412")
     
     test_cases = [
         {

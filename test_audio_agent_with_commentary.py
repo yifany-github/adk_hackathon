@@ -12,7 +12,7 @@ from pathlib import Path
 project_root = Path(__file__).parent
 sys.path.insert(0, str(project_root))
 
-from src.agents.audio_agent.audio_agent import AudioAgent
+from src.agents.audio_agent.audio_agent import create_audio_agent_for_game
 
 async def test_audio_agent_with_commentary():
     """Test audio agent with commentary file data"""
@@ -39,8 +39,8 @@ async def test_audio_agent_with_commentary():
     
     print(f"🎭 Found {len(commentary_sequence)} commentary items")
     
-    # Create audio agent
-    audio_agent = AudioAgent()
+    # Create audio agent using factory function
+    audio_agent = create_audio_agent_for_game("2024030412")
     
     # Test each commentary item
     for i, commentary_item in enumerate(commentary_sequence):

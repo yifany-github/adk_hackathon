@@ -69,17 +69,32 @@ Audio Agent 是一个基于 Gemini TTS 的音频生成代理，用于将解说�
 
 ### 1. 基本使用
 ```python
-from src.agents.audio_agent import AudioAgent
+from src.agents.audio_agent import create_audio_agent_for_game
 
-# 创建 Audio Agent 实例
-agent = AudioAgent(model="gemini-2.5-flash-preview-tts")
+# 创建 Audio Agent 实例 (按照统一的工厂模式)
+agent = create_audio_agent_for_game("2024030412")
 
-# 处理单条解说
-result = await agent.process_commentary(
-    commentary_text="解说文本",
-    voice_style="enthusiastic",
-    auto_start_server=True
+# 处理单条解说 (现在使用 ADK Agent 模式)
+from google.adk.runners import InMemoryRunner
+from google.genai.types import Part, UserContent
+
+runner = InMemoryRunner(agent=agent)
+session = await runner.session_service.create_session(
+    app_name=runner.app_name,
+    user_id="audio_processor"
 )
+
+content = UserContent(parts=[Part(text="解说文本")])
+result = ""
+
+async for event in runner.run_async(
+    user_id=session.user_id,
+    session_id=session.id,
+    new_message=content,
+):
+    if hasattr(event, 'content') and event.content and event.content.parts:
+        if event.content.parts[0].text:
+            result = event.content.parts[0].text
 ```
 
 ### 2. 批量处理
