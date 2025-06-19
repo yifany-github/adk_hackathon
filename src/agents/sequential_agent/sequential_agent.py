@@ -11,11 +11,11 @@ import asyncio
 
 try:
     from .prompts import get_workflow_prompt
-    from .tools import extract_audio_from_result, save_result
+    from .tools import extract_audio_from_result, save_result, extract_and_save_sequential_audio
 except ImportError:
     # For direct execution
     from prompts import get_workflow_prompt
-    from tools import extract_audio_from_result, save_result
+    from tools import extract_audio_from_result, save_result, extract_and_save_sequential_audio
 
 
 def create_nhl_sequential_agent(game_id: str) -> SequentialAgent:
@@ -34,7 +34,7 @@ def create_nhl_sequential_agent(game_id: str) -> SequentialAgent:
     # Create agents
     data_agent = create_hockey_agent_for_game(game_id)
     commentary_agent = create_commentary_agent_for_game(game_id)
-    audio_agent = AudioAgent(name=f"audio_{game_id}")
+    audio_agent = AudioAgent(game_id=game_id)
     
     # Create Sequential Agent
     return SequentialAgent(
@@ -44,16 +44,50 @@ def create_nhl_sequential_agent(game_id: str) -> SequentialAgent:
     )
 
 
-async def process_timestamp(sequential_agent: SequentialAgent, timestamp_file: str, game_id: str):
-    """Process timestamp through Sequential Agent"""
+async def process_timestamp(sequential_agent: SequentialAgent, timestamp_file: str, game_id: str, board_context: str = None):
+    """Process timestamp through Sequential Agent with board context"""
     try:
         # Load timestamp data
         with open(timestamp_file, 'r') as f:
             timestamp_data = json.load(f)
         
-        # Create input
-        prompt = get_workflow_prompt(game_id, json.dumps(timestamp_data, indent=2))
+        # Create enhanced input with board context
+        if board_context:
+            prompt = f"""NHL Live Commentary Processing for Game {game_id}
+
+AUTHORITATIVE GAME STATE:
+{board_context}
+
+TIMESTAMP DATA TO PROCESS:
+{json.dumps(timestamp_data, indent=2)}
+
+WORKFLOW:
+1. Data Agent: Analyze timestamp data in context of game state above
+2. Commentary Agent: Generate professional two-person broadcast commentary (Alex Chen & Mike Rodriguez) based on analysis
+3. Audio Agent: Convert commentary to TTS audio files
+
+Process through complete NHL workflow with game context awareness."""
+        else:
+            prompt = get_workflow_prompt(game_id, json.dumps(timestamp_data, indent=2))
+        
         input_content = UserContent(parts=[Part(text=prompt)])
+        
+        # Configure environment for API keys
+        import dotenv
+        import os
+        dotenv.load_dotenv()
+        
+        # Ensure API key is available
+        api_key = os.getenv('GOOGLE_API_KEY') or os.getenv('GEMINI_API_KEY')
+        if not api_key:
+            raise Exception("No API key found. Set GOOGLE_API_KEY or GEMINI_API_KEY environment variable.")
+        
+        # Configure genai for the individual agents
+        try:
+            import google.genai as genai
+            genai.configure(api_key=api_key)
+        except Exception as e:
+            print(f"Warning: Could not configure genai: {e}")
         
         # Run Sequential Agent
         runner = InMemoryRunner(agent=sequential_agent)
@@ -71,9 +105,9 @@ async def process_timestamp(sequential_agent: SequentialAgent, timestamp_file: s
             if hasattr(event, 'content'):
                 result_text += str(event.content)
         
-        # Extract audio and save result
-        timestamp_name = os.path.basename(timestamp_file).replace('.json', '')
-        audio_files = extract_audio_from_result(result_text, game_id, timestamp_name)
+        # Extract audio files with proper naming and save result
+        timestamp_name = os.path.basename(timestamp_file).replace('.json', '').replace(f'{game_id}_', '')
+        audio_files = extract_and_save_sequential_audio(result_text, game_id, timestamp_name)
         output_file = save_result(game_id, timestamp_file, result_text)
         
         return {

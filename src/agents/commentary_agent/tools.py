@@ -337,9 +337,9 @@ def _generate_simplified_commentary(situation_type: str, context: Dict[str, Any]
                 for item in result["commentary_sequence"]:
                     if "speaker" in item:
                         # Replace any generic names with our fixed names
-                        if item["speaker"] in ["Host", "Play-by-play", "PBP", "Play-by-Play"]:
+                        if item["speaker"] in ["Host", "Play-by-play", "PBP", "Play-by-Play", "Commentator 1", "commentator1"]:
                             item["speaker"] = "Alex Chen"
-                        elif item["speaker"] in ["Analyst", "Analyst1", "Analyst2", "Color", "Color Commentator"]:
+                        elif item["speaker"] in ["Analyst", "Analyst1", "Analyst2", "Color", "Color Commentator", "Commentator 2", "commentator2"]:
                             item["speaker"] = "Mike Rodriguez"
             
             # Add broadcaster information to result
