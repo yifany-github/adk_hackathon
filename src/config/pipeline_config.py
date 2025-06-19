@@ -16,6 +16,13 @@ class PipelineConfig:
     # Session Management
     SESSION_REFRESH_INTERVAL = int(os.getenv("SESSION_REFRESH_INTERVAL", "10"))
     
+    # Real-Time Processing Configuration
+    REALTIME_MODE = bool(os.getenv("REALTIME_MODE", "True"))
+    FILE_WATCH_TIMEOUT = float(os.getenv("FILE_WATCH_TIMEOUT", "30.0"))
+    CONTEXT_SIZE_THRESHOLD = int(os.getenv("CONTEXT_SIZE_THRESHOLD", "30000"))
+    ADAPTIVE_REFRESH = bool(os.getenv("ADAPTIVE_REFRESH", "True"))
+    MAX_PROCESSING_TIME = float(os.getenv("MAX_PROCESSING_TIME", "5.0"))
+    
     # Audio Processing
     AUDIO_BUFFER_DELAY = int(os.getenv("AUDIO_BUFFER_DELAY", "15"))
     AUDIO_BUFFER_SIZE = int(os.getenv("AUDIO_BUFFER_SIZE", "100"))

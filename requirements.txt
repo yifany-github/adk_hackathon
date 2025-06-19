@@ -20,5 +20,8 @@ wave
 asyncio
 aiofiles>=23.0.0
 
+# File System Monitoring
+watchdog>=3.0.0
+
 # Development
 pytest>=7.0.0
