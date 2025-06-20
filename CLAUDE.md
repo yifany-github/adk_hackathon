@@ -47,6 +47,13 @@ NHL API → Live Data Collector → Data Agent → Commentary Agent → Audio Ag
 - **Real-time Processing**: Live data → Data agent → Commentary agent → Audio agent in parallel
 - **Fixed Penalty Tracking**: Shared sessions solve Kane+Kulak=5-on-3 game state discipline issues
 
+### Pipeline Redesign (v6.0 - Planned)
+- **Simplified Architecture**: Remove 200+ lines of complex session management (see `PIPELINE_REDESIGN.md`)
+- **Sequential Agent Fix**: Single persistent agent per game vs creating new agent per timestamp
+- **Sequential Output Ordering**: Chronological audio generation even with parallel processing
+- **Clean Context Injection**: GameBoard + static context injected at agent creation, not per timestamp
+- **Maintained Parallel Processing**: Background data collection + async file monitoring + sequential output
+
 ## Key Commands
 
 ### Setup and Configuration
@@ -78,8 +85,11 @@ python live_commentary_pipeline.py 2024030412 1    # 1-minute quick test
 # Live data collection (simulation mode)
 python src/data/live/live_data_collector.py simulate GAME_ID --game_duration_minutes 3
 
-# Generate static context
+# Generate static context (full)
 python src/data/static/static_info_generator.py GAME_ID
+
+# Generate light static context (90% smaller, 2 teams only)
+python src/data/static/light_static_info_generator.py GAME_ID
 ```
 
 ### Testing
@@ -109,14 +119,18 @@ python extract_commentary_dialogue.py --output game_commentary.txt
 
 ### Complete Pipeline Workflow (Production-Ready)
 ```bash
-# 1. Run complete live commentary pipeline (recommended)
+# Option 1: Original Pipeline (complex session management)
 python live_commentary_pipeline.py GAME_ID DURATION_MINUTES
 
-# 2. Extract commentary summary for review
+# Option 2: Simplified Pipeline v2 (with Sequential Agent v2)
+python live_commentary_pipeline_v2.py GAME_ID DURATION_MINUTES
+
+# Extract commentary summary for review
 python extract_commentary_dialogue.py --output game_GAME_ID_summary.txt
 
-# Example full workflow:
-python live_commentary_pipeline.py 2024030412 2
+# Example workflows:
+python live_commentary_pipeline_v2.py 2024030412 2    # Sequential Agent v2
+python live_commentary_pipeline.py 2024030412 2      # Original complex pipeline
 python extract_commentary_dialogue.py --output game_2024030412_summary.txt
 ```
 
@@ -230,9 +244,11 @@ class FirestoreSessionService(SessionService):
 
 The system generates structured data files with **progressive statistics** and **organized game-specific folders**:
 
-### File Organization (v3.0)
-- **Static Context**: `data/static/game_XXXXXX_static_context.json` (team rosters, player name mappings)
+### File Organization (v4.0)
+- **Static Context**: `data/static/game_XXXXXX_static_context.json` (full team rosters, player name mappings)
+- **Light Static Context**: `data/static/game_XXXXXX_minimal_context.json` (90% smaller, 2 teams only)
 - **Live Data**: `data/live/GAME_ID/GAME_ID_PERIOD_MM_SS.json` (progressive stats, no data leakage)
+- **Sequential Agent Outputs**: `data/sequential_agent_outputs/GAME_ID/PERIOD_MM_SS_sequential.json` (clean combined output)
 - **Data Agent Outputs**: `data/data_agent_outputs/GAME_ID/PERIOD_MM_SS_adk.json` (realistic game context)
 - **Commentary Outputs**: `data/commentary_agent_outputs/GAME_ID/PERIOD_MM_SS_commentary_session_aware.json` (natural dialogue flow)
 - **Audio Files**: `audio_output/nhl_style_audioID_timestamp.wav`
@@ -240,25 +256,34 @@ The system generates structured data files with **progressive statistics** and *
 ### Example Structure
 ```
 data/
-├── static/game_2024030412_static_context.json
-├── live/2024030412/
-│   ├── 2024030412_1_00_00.json
-│   ├── 2024030412_1_00_05.json
+├── static/
+│   ├── game_2024030412_static_context.json (125KB - full context)
+│   └── game_2024030412_minimal_context.json (9KB - 90% smaller, 2 teams only)
+├── live/
+│   ├── 2024030412/
+│   │   ├── 2024030412_1_00_00.json
+│   │   └── 2024030412_1_00_05.json
+│   ├── 2024020001/
+│   │   └── 2024020001_1_00_00.json
 │   └── ...
+├── sequential_agent_outputs/2024030412/
+│   ├── 1_00_00_sequential.json (clean combined data + commentary)
+│   └── 1_00_05_sequential.json
 ├── data_agent_outputs/2024030412/
 │   ├── 1_00_00_adk.json
-│   ├── 1_00_05_adk.json
-│   └── ...
+│   └── 1_00_05_adk.json
 └── commentary_agent_outputs/2024030412/
     ├── 1_00_00_commentary_session_aware.json
-    ├── 1_00_05_commentary_session_aware.json
-    └── ...
+    └── 1_00_05_commentary_session_aware.json
 ```
 
-### Data Integrity Improvements (v2.1)
+### Data Integrity Improvements (v4.0)
 - **Fixed Data Leakage**: Live data now calculates progressive stats from filtered events only
 - **Realistic Game Progression**: Games start 0-0, scores/shots accumulate naturally over time
 - **Temporal Consistency**: No future stats contaminate early timestamps
+- **Light Static Context**: 90% size reduction focusing on 2 teams playing only
+- **Sequential Agent Integration**: Clean combined output with proper Alex Chen/Mike Rodriguez personas
+- **Multiple Game Support**: Pipeline tested with 5 different NHL games (2024020001-2024020005)
 
 ### Clean Summary Generation
 Generate readable commentary summaries:

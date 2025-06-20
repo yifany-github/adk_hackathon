@@ -36,7 +36,9 @@ def generate_two_person_commentary(
         # Load static context (simplified approach)
         try:
             from ..data_agent.tools import load_static_context
-            game_id = data_agent_output.get("for_commentary_agent", {}).get("game_context", {}).get("game_id", "2024030412")
+            game_id = data_agent_output.get("for_commentary_agent", {}).get("game_context", {}).get("game_id")
+            if not game_id:
+                raise ValueError("game_id is required in data_agent_output")
             static_context = load_static_context(game_id)
         except (ImportError, FileNotFoundError, json.JSONDecodeError) as e:
             print(f"Warning: Failed to load static context: {e}")

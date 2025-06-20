@@ -12,7 +12,7 @@ from .config import (
     HIGH_INTENSITY_THRESHOLD
 )
 
-def load_static_context(game_id: str = "2024020001") -> Dict[str, Any]:
+def load_static_context(game_id: str) -> Dict[str, Any]:
     """
     Loads static game context including team info, player stats, and historical data.
     
@@ -174,7 +174,9 @@ def analyze_hockey_momentum_adk(game_data: Dict[str, Any]) -> Dict[str, Any]:
     """
     try:
         # Load static context for player name resolution
-        game_id = game_data.get("game_id", "2024030412")  # Extract from data or use default
+        game_id = game_data.get("game_id")  # Extract from data
+        if not game_id:
+            raise ValueError("game_id is required in game_data")
         static_context = load_static_context(game_id)
         # Extract events and context
         activities = game_data.get("activities", [])
@@ -288,7 +290,7 @@ def extract_game_context_adk(game_data: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
-def generate_filler_content_adk(static_context: Dict[str, Any], used_topics: Optional[List[str]] = None) -> Dict[str, Any]:
+def generate_filler_content_adk(static_context: Dict[str, Any], used_topics: Optional[List[str]]) -> Dict[str, Any]:
     """
     ADK Tool: Generate varied filler content avoiding repetition.
     
@@ -331,7 +333,7 @@ def create_game_specific_generate_filler_content(static_context: Dict[str, Any])
     return generate_filler_content
 
 
-def create_specific_filler_content(static_context: Dict[str, Any], game_situation: str = "normal") -> Dict[str, Any]:
+def create_specific_filler_content(static_context: Dict[str, Any], game_situation: str) -> Dict[str, Any]:
     """
     Create specific, actionable filler content using actual static data
     

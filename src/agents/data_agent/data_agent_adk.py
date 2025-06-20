@@ -19,7 +19,7 @@ from .tools import (
 
 
 
-def create_hockey_agent_for_game(game_id: str, model: str = DEFAULT_MODEL) -> Agent:
+def create_hockey_agent_for_game(game_id: str, model: str) -> Agent:
     """
     Create a hockey data agent with pre-loaded game-specific context.
     

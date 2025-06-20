@@ -34,11 +34,13 @@ sys.path.append('src')
 sys.path.append('src/agents/data_agent')
 sys.path.append('src/agents/commentary_agent')
 sys.path.append('src/agents/audio_agent')
+sys.path.append('src/agents/sequential_agent')
 sys.path.append('src/board')
 
 # Import configuration
-from config.pipeline_config import config
+from src.config.pipeline_config import config
 from board import create_live_game_board, SessionManager
+from agents.sequential_agent import create_nhl_sequential_agent, process_timestamp
 
 
 class TimestampFileWatcher(FileSystemEventHandler):
@@ -230,7 +232,7 @@ class RealTimeProcessor:
         self.agents = agents
         self.processed_count = 0
         self.processing_times = []
-        self.session_manager = AdaptiveSessionManager(refresh_interval=config.SESSION_REFRESH_INTERVAL)
+        # Sequential Agent handles sessions internally - no need for complex session management
         
     async def process_timestamp_realtime(self, timestamp_file: str) -> Dict[str, Any]:
         """Process a single timestamp file with real-time optimizations"""
@@ -251,16 +253,8 @@ class RealTimeProcessor:
             board_context = self.game_board.get_prompt_injection()
             recent_events = board_update.get("new_goals", []) + board_update.get("new_penalties", [])
             
-            # Adaptive session management
-            data_session, commentary_session = await self.session_manager.maybe_refresh_sessions_adaptive(
-                self.agents["data_runner"], self.agents["data_session"],
-                self.agents["commentary_runner"], self.agents["commentary_session"],
-                self.game_board, board_context, recent_events
-            )
-            
-            # Update session references
-            self.agents["data_session"] = data_session
-            self.agents["commentary_session"] = commentary_session
+            # Sequential Agent doesn't need session management - it handles this internally
+            # The Sequential Agent creates and manages its own sessions
             
             # Process through agents (can be parallelized)
             result = await self._process_through_agents(
@@ -298,285 +292,38 @@ class RealTimeProcessor:
     
     async def _process_through_agents(self, timestamp_file: str, timestamp_data: Dict,
                                     board_context: str, board_update: Dict) -> Dict:
-        """Process timestamp through data → commentary → audio agents"""
+        """Process timestamp through Sequential Agent (Data → Commentary → Audio)"""
         
-        # Data Agent Processing
-        data_result = await self._process_data_agent(timestamp_data, board_context, timestamp_file)
-        if data_result["status"] != "success":
-            return data_result
-        
-        # Commentary Agent Processing  
-        commentary_result = await self._process_commentary_agent(
-            data_result["output"], board_context, timestamp_file
-        )
-        if commentary_result["status"] != "success":
-            return commentary_result
-        
-        # Audio Agent Processing
-        audio_result = await self._process_audio_agent(
-            commentary_result["output"], timestamp_file
-        )
-        
-        return {
-            "status": "success",
-            "data_output": data_result["output"],
-            "commentary_output": commentary_result["output"],
-            "audio_output": audio_result
-        }
-    
-    async def _process_data_agent(self, timestamp_data: Dict, board_context: str, timestamp_file: str) -> Dict:
-        """Process through data agent with board context"""
         try:
-            from google.genai.types import Part, UserContent
+            # Create Sequential Agent for this game
+            sequential_agent = create_nhl_sequential_agent(self.game_id)
             
-            enhanced_prompt = f"""NHL Data Analysis with Board Integration:
-
-{board_context}
-
-TIMESTAMP DATA TO ANALYZE:
-{json.dumps(timestamp_data, indent=2)}
-
-Analyze this timestamp data in context of the authoritative game state above.
-Provide key insights about current game situation and notable events."""
-
-            input_content = UserContent(parts=[Part(text=enhanced_prompt)])
+            # Process through Sequential Agent with board context
+            result = await process_timestamp(sequential_agent, timestamp_file, self.game_id, board_context)
             
-            result_text = ""
-            async for event in self.agents["data_runner"].run_async(
-                user_id=self.agents["data_session"].user_id,
-                session_id=self.agents["data_session"].id,
-                new_message=input_content
-            ):
-                if hasattr(event, 'content'):
-                    result_text += str(event.content)
-            
-            # Save data agent output
-            filename_base = os.path.basename(timestamp_file).replace('.json', '')
-            output_dir = f"data/data_agent_outputs/{self.game_id}"
-            os.makedirs(output_dir, exist_ok=True)
-            
-            output_file = f"{output_dir}/{filename_base.replace(f'{self.game_id}_', '')}_adk_board.json"
-            output_data = {
-                "timestamp": filename_base,
-                "game_id": self.game_id,
-                "board_context": board_context,
-                "data_analysis": result_text,
-                "status": "success"
-            }
-            
-            with open(output_file, 'w') as f:
-                json.dump(output_data, f, indent=2)
-            
-            return {"status": "success", "output": result_text, "output_file": output_file}
-            
-        except Exception as e:
-            return {"status": "error", "error": str(e)}
-    
-    async def _process_commentary_agent(self, data_output: str, board_context: str, timestamp_file: str) -> Dict:
-        """Process through commentary agent with board context"""
-        try:
-            from google.genai.types import Part, UserContent
-            
-            enhanced_prompt = f"""NHL Commentary Generation with Board Integration:
-
-{board_context}
-
-DATA AGENT ANALYSIS:
-{data_output}
-
-Generate professional two-person broadcast commentary (Alex Chen & Mike Rodriguez) based on the analysis above and current game state. Focus on natural dialogue that builds on the established game narrative."""
-
-            input_content = UserContent(parts=[Part(text=enhanced_prompt)])
-            
-            result_text = ""
-            async for event in self.agents["commentary_runner"].run_async(
-                user_id=self.agents["commentary_session"].user_id,
-                session_id=self.agents["commentary_session"].id,
-                new_message=input_content
-            ):
-                if hasattr(event, 'content'):
-                    result_text += str(event.content)
-            
-            # Extract clean JSON from ADK response 
-            clean_commentary = result_text
-            parsed_commentary = None
-            
-            try:
-                # The JSON is nested inside parts=[Part(...text='```json\n{...}\n```')]
-                # First extract the text content from the Part
-                if "text='" in clean_commentary and "```json" in clean_commentary:
-                    # Find the text content within the Part
-                    text_start = clean_commentary.find("text='") + 6
-                    text_end = clean_commentary.find("')] role=", text_start)
-                    if text_end == -1:
-                        text_end = len(clean_commentary)
-                    
-                    extracted_text = clean_commentary[text_start:text_end]
-                    
-                    # Now extract JSON from the markdown blocks
-                    if "```json" in extracted_text:
-                        json_start = extracted_text.find("```json") + 7
-                        json_end = extracted_text.find("```", json_start)
-                        if json_end == -1:
-                            json_end = len(extracted_text)
-                        
-                        json_content = extracted_text[json_start:json_end].strip()
-                        # Unescape the JSON
-                        json_content = json_content.replace('\\n', '\n').replace('\\"', '"').replace("\\'", "'")
-                        
-                        # Parse the clean JSON
-                        parsed_commentary = json.loads(json_content)
-                        print(f"✅ Clean commentary JSON extracted successfully")
-                    else:
-                        raise ValueError("No ```json block found in extracted text")
-                else:
-                    # Fallback: try direct JSON extraction
-                    if "```json" in clean_commentary:
-                        json_start = clean_commentary.find("```json") + 7
-                        json_end = clean_commentary.find("```", json_start)
-                        if json_end == -1:
-                            json_end = len(clean_commentary)
-                        clean_commentary = clean_commentary[json_start:json_end].strip()
-                        parsed_commentary = json.loads(clean_commentary)
-                        print(f"✅ Clean commentary JSON extracted (fallback method)")
-                    else:
-                        raise ValueError("No JSON content found")
-                
-            except (json.JSONDecodeError, ValueError) as e:
-                print(f"⚠️ Failed to parse commentary JSON: {e}")
-                # Save raw response as fallback
-                parsed_commentary = {"raw_response": result_text, "parse_error": str(e)}
-            
-            # Save commentary agent output
-            filename_base = os.path.basename(timestamp_file).replace('.json', '')
-            output_dir = f"data/commentary_agent_outputs/{self.game_id}"
-            os.makedirs(output_dir, exist_ok=True)
-            
-            output_file = f"{output_dir}/{filename_base.replace(f'{self.game_id}_', '')}_commentary_board.json"
-            
-            # Save the clean parsed commentary (not the raw response)
-            with open(output_file, 'w') as f:
-                json.dump(parsed_commentary, f, indent=2)
-            
-            return {"status": "success", "output": parsed_commentary, "output_file": output_file}
-            
-        except Exception as e:
-            return {"status": "error", "error": str(e)}
-    
-    async def _process_audio_agent(self, commentary_output: str, timestamp_file: str) -> Dict:
-        """Process through audio agent for TTS generation"""
-        try:
-            # Import audio processing functions
-            from agents.audio_agent.audio_agent import AudioAgent
-            from agents.audio_agent.tool import text_to_speech
-            import json
-            import re
-            
-            # Handle clean commentary JSON (now comes as parsed object, not raw text)
-            segments = []
-            
-            if isinstance(commentary_output, dict):
-                # If we have clean parsed JSON
-                commentary_sequence = commentary_output.get("commentary_sequence", [])
-                
-                for item in commentary_sequence:
-                    if isinstance(item, dict) and "speaker" in item and "text" in item:
-                        segments.append({
-                            "speaker": item["speaker"],
-                            "text": item["text"],
-                            "emotion": item.get("emotion", "enthusiastic")
-                        })
-                
-                print(f"🎯 Extracted {len(segments)} commentary segments from clean JSON")
-                
+            if result["status"] == "success":
+                return {
+                    "status": "success",
+                    "sequential_output": result,
+                    "audio_files": result.get("audio_files", 0)
+                }
             else:
-                # Fallback for raw text (shouldn't happen with fixed commentary agent)
-                print("⚠️ Received raw text instead of clean JSON, attempting to parse...")
+                return {
+                    "status": "error",
+                    "error": result.get("error", "Sequential agent failed")
+                }
                 
-                if isinstance(commentary_output, str):
-                    # Try to extract segments from raw text
-                    lines = commentary_output.split('\n')
-                    for line in lines:
-                        line = line.strip()
-                        if ':' in line and line:
-                            parts = line.split(':', 1)
-                            if len(parts) == 2:
-                                speaker_name = parts[0].strip()
-                                dialogue_text = parts[1].strip()
-                                
-                                if dialogue_text and not any(skip in speaker_name.lower() for skip in 
-                                                           ['status', 'type', 'json', 'commentary_type', 'error']):
-                                    segments.append({
-                                        "speaker": speaker_name,
-                                        "text": dialogue_text,
-                                        "emotion": "enthusiastic"
-                                    })
-            
-            # If no segments found, create fallback
-            if not segments:
-                segments = [{
-                    "speaker": "Alex Chen",
-                    "text": "And the action continues here at the arena.",
-                    "emotion": "neutral"
-                }]
-            
-            # Get timestamp from filename for audio naming
-            filename_base = os.path.basename(timestamp_file).replace('.json', '').replace(f'{self.game_id}_', '')
-            
-            # Process each segment through TTS with proper sequencing
-            audio_files = []
-            for i, segment in enumerate(segments):
-                try:
-                    # Generate audio using TTS tool with sequence-based naming
-                    # Format: {game_id}_{timestamp}_{speaker}_{sequence_number}.wav
-                    
-                    audio_result = await text_to_speech(
-                        text=segment["text"],
-                        voice_style="neutral",  # Remove emotion from filename
-                        speaker=segment["speaker"],
-                        emotion=segment.get("emotion", "neutral"),
-                        game_id=self.game_id,
-                        game_timestamp=filename_base,
-                        segment_index=i  # Use integer index for proper ordering
-                    )
-                    
-                    if audio_result.get("status") == "success":
-                        audio_files.extend(audio_result.get("audio_files", []))
-                        
-                except Exception as audio_error:
-                    print(f"⚠️ TTS failed for segment {i}: {audio_error}")
-                    continue
-            
-            # Save audio agent output  
-            filename_base = os.path.basename(timestamp_file).replace('.json', '')
-            output_dir = f"data/audio_agent_outputs/{self.game_id}"
-            os.makedirs(output_dir, exist_ok=True)
-            
-            output_file = f"{output_dir}/{filename_base.replace(f'{self.game_id}_', '')}_audio_board.json"
-            output_data = {
-                "timestamp": filename_base,
-                "game_id": self.game_id,
-                "commentary_input": commentary_output[:500] + "..." if len(commentary_output) > 500 else commentary_output,
-                "segments_processed": len(segments),
-                "audio_files": audio_files,
-                "segments": segments,
-                "status": "success"
-            }
-            
-            with open(output_file, 'w') as f:
-                json.dump(output_data, f, indent=2)
-            
-            return {
-                "status": "success",
-                "audio_files": audio_files,
-                "segments_processed": len(segments),
-                "note": f"Generated {len(audio_files)} audio files",
-                "output_file": output_file
-            }
-            
         except Exception as e:
-            print(f"❌ Audio agent error: {e}")
-            return {"status": "error", "error": str(e)}
+            return {
+                "status": "error",
+                "error": f"Sequential agent processing failed: {str(e)}"
+            }
+    
+    # Removed - Sequential Agent handles data processing automatically
+    
+    # Removed - Sequential Agent handles commentary processing automatically
+    
+    # Removed - Sequential Agent handles audio processing automatically
     
     def get_performance_stats(self) -> Dict[str, Any]:
         """Get processing performance statistics"""
@@ -594,73 +341,22 @@ Generate professional two-person broadcast commentary (Alex Chen & Mike Rodrigue
 
 
 async def create_realtime_agents(game_id: str, game_board) -> Dict:
-    """Create and initialize agents for real-time processing"""
-    print("🤖 Creating real-time agents...")
+    """Create Sequential Agent for real-time processing"""
+    print("🤖 Creating Sequential Agent for real-time processing...")
     
     try:
-        from agents.data_agent.data_agent_adk import create_hockey_agent_for_game
-        from agents.commentary_agent.commentary_agent import create_commentary_agent_for_game
-        from google.adk.runners import InMemoryRunner
+        # Sequential Agent handles all individual agents internally
+        sequential_agent = create_nhl_sequential_agent(game_id)
         
-        # Create agents
-        data_agent = create_hockey_agent_for_game(game_id)
-        commentary_agent = create_commentary_agent_for_game(game_id)
-        
-        # Create runners
-        data_runner = InMemoryRunner(agent=data_agent)
-        commentary_runner = InMemoryRunner(agent=commentary_agent)
-        
-        # Create sessions with timeout and retry
-        max_retries = 3
-        session_timeout = 30.0  # Shorter timeout per attempt
-        
-        for attempt in range(max_retries):
-            try:
-                print(f"🔄 Creating ADK sessions (attempt {attempt + 1}/{max_retries})...")
-                
-                data_session = await asyncio.wait_for(
-                    data_runner.session_service.create_session(
-                        app_name=data_runner.app_name,
-                        user_id=f"realtime_data_{game_id}"
-                    ),
-                    timeout=session_timeout
-                )
-                
-                commentary_session = await asyncio.wait_for(
-                    commentary_runner.session_service.create_session(
-                        app_name=commentary_runner.app_name,
-                        user_id=f"realtime_commentary_{game_id}"
-                    ),
-                    timeout=session_timeout
-                )
-                
-                print("✅ ADK sessions created successfully")
-                break
-                
-            except asyncio.TimeoutError:
-                print(f"⚠️ ADK session creation timed out (attempt {attempt + 1})")
-                if attempt == max_retries - 1:
-                    raise Exception("ADK session creation failed after 3 attempts")
-                await asyncio.sleep(2)  # Wait before retry
-            except Exception as e:
-                print(f"⚠️ ADK session creation error: {e}")
-                if attempt == max_retries - 1:
-                    raise
-                await asyncio.sleep(2)
-        
-        print("✅ Real-time agents created successfully")
+        print("✅ Sequential Agent created successfully")
+        print("   ↳ Data Agent, Commentary Agent, Audio Agent all integrated")
         
         return {
-            "data_agent": data_agent,
-            "commentary_agent": commentary_agent,
-            "data_runner": data_runner,
-            "commentary_runner": commentary_runner,
-            "data_session": data_session,
-            "commentary_session": commentary_session
+            "sequential_agent": sequential_agent,
         }
         
     except Exception as e:
-        print(f"❌ Agent creation failed: {e}")
+        print(f"❌ Sequential Agent creation failed: {e}")
         raise
 
 
@@ -753,16 +449,16 @@ async def run_realtime_pipeline(game_id: str, duration_minutes: int = 5):
         game_board = create_live_game_board(game_id, static_context_file)
         print(f"✅ GameBoard cached: {game_board.away_team} @ {game_board.home_team}")
         
-        # Phase 3: Create real-time agents
-        print("\nPhase 3: Real-Time Agent Creation")
+        # Phase 3: Create Sequential Agent
+        print("\nPhase 3: Sequential Agent Creation")
         print("-" * 40)
         agents = await create_realtime_agents(game_id, game_board)
         
-        # Phase 4: Initialize real-time processor
+        # Phase 4: Initialize real-time processor  
         print("\nPhase 4: Real-Time Processor Initialization")
         print("-" * 40)
         processor = RealTimeProcessor(game_id, game_board, agents)
-        print("✅ Real-time processor initialized")
+        print("✅ Real-time processor initialized with Sequential Agent")
         
         # Phase 5: Start live data collection
         print("\nPhase 5: Live Data Collection Start")
@@ -794,13 +490,12 @@ async def run_realtime_pipeline(game_id: str, duration_minutes: int = 5):
         
         # Performance statistics
         perf_stats = processor.get_performance_stats()
-        refresh_analytics = processor.session_manager.get_refresh_analytics()
         
         print(f"🎯 Real-time pipeline completed!")
         print(f"📊 Timestamps processed: {perf_stats.get('total_processed', 0)}")
         print(f"⚡ Avg processing time: {perf_stats.get('avg_processing_time', 0):.2f}s")
         print(f"🎭 Performance ratio: {perf_stats.get('performance_ratio', 0):.2%}")
-        print(f"🔄 Session refreshes: {refresh_analytics.get('total_refreshes', 0)}")
+        print(f"🔄 Sequential Agent: Simplified workflow management")
         
         # Export final board state
         final_board_state = game_board.export_state()

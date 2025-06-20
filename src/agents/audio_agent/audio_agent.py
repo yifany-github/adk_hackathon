@@ -265,7 +265,7 @@ Always respond with clear status and error handling information.
         """Check if WebSocket server is running"""
         return self._websocket_server_running
     
-    async def process_commentary(self, commentary_text: str, voice_style: str = None) -> Dict[str, Any]:
+    async def process_commentary(self, commentary_text: str, voice_style: str) -> Dict[str, Any]:
         """
         Convenience method to process commentary text
         
@@ -302,7 +302,7 @@ Always respond with clear status and error handling information.
 
 
 # Factory function for creating audio agents
-def create_audio_agent_for_game(game_id: str, model: str = DEFAULT_MODEL) -> AudioAgent:
+def create_audio_agent_for_game(game_id: str, model: str) -> AudioAgent:
     """
     Create an audio agent configured for a specific NHL game.
     
@@ -323,7 +323,7 @@ def get_audio_agent(game_id: str) -> AudioAgent:
 
 
 # Convenience function for direct audio processing
-async def process_commentary_text(text: str, style: str = "enthusiastic") -> Dict[str, Any]:
+async def process_commentary_text(text: str, style: str) -> Dict[str, Any]:
     """
     Convenience function for processing commentary text to audio
     

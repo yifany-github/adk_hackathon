@@ -254,7 +254,7 @@ async def text_to_speech(
         }
 
 
-async def _generate_fallback_audio(text: str, voice_style: str, tool_context: Optional[ToolContext] = None) -> Dict[str, Any]:
+async def _generate_fallback_audio(text: str, voice_style: str, tool_context: Optional[ToolContext]) -> Dict[str, Any]:
     """
     Generate fallback audio when Gemini TTS is unavailable
     
@@ -414,7 +414,7 @@ async def stream_audio_websocket(
         }
 
 
-def get_audio_status(tool_context: Optional[ToolContext] = None) -> Dict[str, Any]:
+def get_audio_status(tool_context: Optional[ToolContext]) -> Dict[str, Any]:
     """
     Get current audio system status
     
@@ -858,7 +858,7 @@ def _select_voice_for_speaker(speaker: str, emotion_or_style: str) -> str:
     return voice.capitalize()
 
 
-def _build_prompt_for_emotion(text: str, emotion_or_style: str, speaker: str = "") -> str:
+def _build_prompt_for_emotion(text: str, emotion_or_style: str, speaker: str) -> str:
     """
     Build appropriate prompt based on emotion/style and speaker
     
@@ -891,7 +891,7 @@ def _build_prompt_for_emotion(text: str, emotion_or_style: str, speaker: str = "
     return emotion_prompts.get(emotion_or_style.lower(), f"{speaker_context}say clearly: {text}")
 
 
-def _save_audio_to_file(audio_data: bytes, audio_id: str, timestamp: str, voice_style: str, speaker: str = "", game_id: str = "", game_timestamp: str = "", segment_index: int = -1) -> str:
+def _save_audio_to_file(audio_data: bytes, audio_id: str, timestamp: str, voice_style: str, speaker: str, game_id: str, game_timestamp: str, segment_index: int) -> str:
     """
     Save raw audio data as a proper WAV file with speaker info
     
