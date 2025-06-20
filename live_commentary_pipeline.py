@@ -613,31 +613,60 @@ async def run_live_commentary_pipeline(game_id: str, duration_minutes: int = 5):
         audio_agent = AudioAgent(game_id=game_id, model="gemini-2.0-flash")
         print("✅ Audio Agent initialized for TTS processing")
         
-        # Phase 4.6: Skip WebSocket Server for now - just generate audio files
-        print("🎵 Skipping WebSocket server - will generate audio files only")
-        # from agents.audio_agent.tool import stream_audio_websocket
-        # websocket_result = await stream_audio_websocket(port=config.WEBSOCKET_PORT, host=config.WEBSOCKET_HOST)
-        # if websocket_result["status"] == "success":
-        #     print(f"✅ WebSocket server started: {websocket_result['server_url']}")
-        #     print(f"✅ Clients can connect to: ws://{config.WEBSOCKET_HOST}:{config.WEBSOCKET_PORT}")
-        #     await asyncio.sleep(3)
-        #     print("✅ WebSocket server ready for connections")
-        # else:
-        #     print(f"❌ WebSocket server failed: {websocket_result.get('error', 'Unknown issue')}")
-        #     raise Exception(f"WebSocket server startup failed: {websocket_result.get('error')}")
+        # Phase 4.6: Start WebSocket Server for live audio streaming
+        print("🎵 Starting WebSocket server for live audio streaming...")
+        try:
+            from agents.audio_agent.tool import start_websocket_server
+            websocket_server = await start_websocket_server(port=config.WEBSOCKET_PORT, host=config.WEBSOCKET_HOST)
+            print(f"✅ WebSocket server started: ws://{config.WEBSOCKET_HOST}:{config.WEBSOCKET_PORT}")
+            print(f"✅ Clients can connect to: ws://{config.WEBSOCKET_HOST}:{config.WEBSOCKET_PORT}")
+            print(f"🌐 Open web_client.html in your browser to listen to live commentary")
+            await asyncio.sleep(2)
+            print("✅ WebSocket server ready for connections")
+        except Exception as e:
+            print(f"⚠️ WebSocket server failed to start: {e}")
+            print("🎵 Continuing with audio file generation only")
+            websocket_server = None
         
-        # Skip audio buffer and streaming for now - just generate files
-        audio_buffer = None  # No buffer needed for file-only output
+        # Create audio buffer for streaming
+        audio_buffer = asyncio.Queue(maxsize=100) if websocket_server else None
         
-        # # Start background audio streaming task
-        # async def continuous_audio_streamer():
-        #     """Background task to stream audio continuously from buffer"""
-        #     print("🎵 Starting continuous audio streaming task...")
-        #     # ... all streaming code commented out
-        
-        # Skip streaming task for now
-        # streaming_task = asyncio.create_task(continuous_audio_streamer())
-        # print("✅ Continuous audio streaming task started")
+        # Start background audio streaming task
+        streaming_task = None
+        if audio_buffer and websocket_server:
+            async def continuous_audio_streamer():
+                """Background task to stream audio continuously from buffer"""
+                print("🎵 Starting continuous audio streaming task...")
+                try:
+                    from agents.audio_agent.tool import broadcast_audio_to_clients
+                    while True:
+                        try:
+                            # Get audio segment from buffer (with timeout)
+                            audio_segment = await asyncio.wait_for(audio_buffer.get(), timeout=5.0)
+                            
+                            # Check for shutdown signal
+                            if audio_segment == "SHUTDOWN":
+                                print("🛑 Audio streaming shutdown signal received")
+                                break
+                            
+                            # Broadcast to all connected clients
+                            await broadcast_audio_to_clients(audio_segment)
+                            print(f"📡 Broadcasted audio segment: {audio_segment.get('speaker', 'Unknown')}")
+                            
+                        except asyncio.TimeoutError:
+                            # No audio in buffer, continue waiting
+                            continue
+                        except Exception as e:
+                            print(f"⚠️ Streaming error: {e}")
+                            await asyncio.sleep(1)
+                            
+                except Exception as e:
+                    print(f"❌ Audio streaming task failed: {e}")
+                finally:
+                    print("🏁 Audio streaming task ended")
+            
+            streaming_task = asyncio.create_task(continuous_audio_streamer())
+            print("✅ Continuous audio streaming task started")
         
         # Phase 5: Wait for live data collection to finish, then process ALL timestamps
         print(f"🔄 Waiting for live data collection to finish...")
@@ -686,23 +715,24 @@ async def run_live_commentary_pipeline(game_id: str, duration_minutes: int = 5):
         print(f"🎯 Goals scored: {len(final_board_state['goals'])}")
         print(f"💾 Board state exported: {board_export_file}")
         
-        # Skip cleanup for streaming since we're not using it
-        # try:
-        #     print("🛑 Stopping audio streaming...")
-        #     await audio_buffer.put("SHUTDOWN")
-        #     await streaming_task
-        #     print("✅ Audio streaming task stopped")
-        # except Exception as e:
-        #     print(f"⚠️ Audio streaming stop warning: {e}")
+        # Cleanup streaming and WebSocket server
+        if streaming_task and audio_buffer:
+            try:
+                print("🛑 Stopping audio streaming...")
+                await audio_buffer.put("SHUTDOWN")
+                await asyncio.wait_for(streaming_task, timeout=10.0)
+                print("✅ Audio streaming task stopped")
+            except Exception as e:
+                print(f"⚠️ Audio streaming stop warning: {e}")
         
-        # Skip WebSocket cleanup
-        # try:
-        #     print("🛑 Stopping WebSocket server...")
-        #     from agents.audio_agent.tool import stop_websocket_server
-        #     await stop_websocket_server()
-        #     print("✅ WebSocket server stopped successfully")
-        # except Exception as e:
-        #     print(f"⚠️ WebSocket server stop failed: {e}")
+        if websocket_server:
+            try:
+                print("🛑 Stopping WebSocket server...")
+                from agents.audio_agent.tool import stop_websocket_server
+                await stop_websocket_server()
+                print("✅ WebSocket server stopped successfully")
+            except Exception as e:
+                print(f"⚠️ WebSocket server stop failed: {e}")
         
         # Audio streaming summary
         try:

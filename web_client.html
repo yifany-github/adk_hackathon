@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏒 NHL Live Commentary Stream</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298, #1e3c72);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .control-panel {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.2);
+            width: 100%;
+            max-width: 600px;
+        }
+        
+        .connection-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            font-size: 1.1em;
+        }
+        
+        .status-indicator {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        .status-disconnected {
+            background-color: #ff4444;
+        }
+        
+        .status-connecting {
+            background-color: #ffaa00;
+        }
+        
+        .status-connected {
+            background-color: #44ff44;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        .controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        
+        .btn:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .audio-controls {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.2);
+            width: 100%;
+            max-width: 600px;
+        }
+        
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .volume-slider {
+            flex: 1;
+            height: 8px;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.3);
+            outline: none;
+            cursor: pointer;
+        }
+        
+        .commentary-info {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.2);
+            width: 100%;
+            max-width: 600px;
+        }
+        
+        .game-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .team-vs {
+            font-size: 2em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .current-segment {
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        
+        .speaker-name {
+            font-weight: bold;
+            color: #ffd700;
+            margin-bottom: 5px;
+        }
+        
+        .commentary-text {
+            line-height: 1.4;
+            font-style: italic;
+        }
+        
+        .log-panel {
+            background: rgba(0,0,0,0.3);
+            border-radius: 15px;
+            padding: 20px;
+            width: 100%;
+            max-width: 600px;
+            height: 200px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .log-entry {
+            margin-bottom: 5px;
+            padding: 2px 0;
+        }
+        
+        .log-timestamp {
+            color: #888;
+            margin-right: 10px;
+        }
+        
+        .log-info { color: #4CAF50; }
+        .log-error { color: #f44336; }
+        .log-warning { color: #ff9800; }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .stat-item {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 15px;
+            min-width: 120px;
+        }
+        
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #ffd700;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🏒 NHL Live Commentary</h1>
+        <p>Real-time AI-powered hockey commentary stream</p>
+    </div>
+
+    <div class="control-panel">
+        <div class="connection-status">
+            <div class="status-indicator status-disconnected" id="statusIndicator"></div>
+            <span id="connectionStatus">Disconnected</span>
+        </div>
+        
+        <div class="controls">
+            <button class="btn" id="connectBtn" onclick="connect()">🔗 Connect</button>
+            <button class="btn" id="disconnectBtn" onclick="disconnect()" disabled>❌ Disconnect</button>
+            <button class="btn" id="clearLogsBtn" onclick="clearLogs()">🗑️ Clear Logs</button>
+        </div>
+    </div>
+
+    <div class="audio-controls">
+        <h3>🔊 Audio Controls</h3>
+        <div class="volume-control">
+            <span>🔈</span>
+            <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="80">
+            <span>🔊</span>
+            <span id="volumeValue">80%</span>
+        </div>
+        <div class="controls">
+            <button class="btn" id="playBtn" onclick="playAudio()" disabled>▶️ Play</button>
+            <button class="btn" id="pauseBtn" onclick="pauseAudio()" disabled>⏸️ Pause</button>
+            <button class="btn" id="stopBtn" onclick="stopAudio()" disabled>⏹️ Stop</button>
+        </div>
+    </div>
+
+    <div class="commentary-info">
+        <div class="game-info">
+            <h3>🏒 Game Information</h3>
+            <div class="team-vs" id="gameTeams">FLA @ EDM</div>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="segmentsReceived">0</div>
+                    <div class="stat-label">Segments</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="audioPlayed">0</div>
+                    <div class="stat-label">Played</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="connectionTime">00:00</div>
+                    <div class="stat-label">Connected</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="current-segment" id="currentSegment">
+            <div class="speaker-name">🎙️ Waiting for commentary...</div>
+            <div class="commentary-text">Connect to the live stream to hear NHL commentary</div>
+        </div>
+    </div>
+
+    <div class="log-panel" id="logPanel">
+        <div class="log-entry log-info">
+            <span class="log-timestamp">[00:00:00]</span>
+            Web client initialized. Ready to connect to live commentary stream.
+        </div>
+    </div>
+
+    <script>
+        class NHLCommentaryClient {
+            constructor() {
+                this.websocket = null;
+                this.isConnected = false;
+                this.audioContext = null;
+                this.audioQueue = [];
+                this.currentAudio = null;
+                this.isPlaying = false;
+                this.isProcessingNext = false; // Prevent multiple playNext calls
+                this.volume = 0.8;
+                
+                // Statistics
+                this.segmentsReceived = 0;
+                this.audioPlayed = 0;
+                this.connectionStartTime = null;
+                
+                // Initialize audio context
+                this.initAudioContext();
+                
+                // Setup event listeners
+                this.setupEventListeners();
+                
+                // Start connection time updater
+                this.startTimeUpdater();
+            }
+            
+            initAudioContext() {
+                try {
+                    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+                    this.audioContext = new AudioContext();
+                    this.log('Audio context initialized', 'info');
+                } catch (error) {
+                    this.log(`Audio context failed: ${error.message}`, 'error');
+                }
+            }
+            
+            setupEventListeners() {
+                // Volume control
+                const volumeSlider = document.getElementById('volumeSlider');
+                volumeSlider.addEventListener('input', (e) => {
+                    this.volume = e.target.value / 100;
+                    document.getElementById('volumeValue').textContent = e.target.value + '%';
+                });
+                
+                // Auto-resume audio context on user interaction
+                document.addEventListener('click', () => {
+                    if (this.audioContext && this.audioContext.state === 'suspended') {
+                        this.audioContext.resume();
+                    }
+                });
+            }
+            
+            connect() {
+                if (this.isConnected) {
+                    this.log('Already connected', 'warning');
+                    return;
+                }
+                
+                const wsUrl = 'ws://localhost:8765';
+                this.log(`Connecting to ${wsUrl}...`, 'info');
+                this.updateStatus('connecting', 'Connecting...');
+                
+                try {
+                    this.websocket = new WebSocket(wsUrl);
+                    
+                    this.websocket.onopen = () => {
+                        this.isConnected = true;
+                        this.connectionStartTime = Date.now();
+                        this.updateStatus('connected', 'Connected');
+                        this.updateButtons();
+                        this.log('Connected to NHL commentary stream', 'info');
+                        
+                        // Send initial connection message
+                        this.send({
+                            type: 'client_connected',
+                            timestamp: new Date().toISOString(),
+                            client_info: {
+                                userAgent: navigator.userAgent,
+                                supports_audio: !!this.audioContext
+                            }
+                        });
+                    };
+                    
+                    this.websocket.onmessage = (event) => {
+                        this.handleMessage(event.data);
+                    };
+                    
+                    this.websocket.onclose = () => {
+                        this.isConnected = false;
+                        this.connectionStartTime = null;
+                        this.updateStatus('disconnected', 'Disconnected');
+                        this.updateButtons();
+                        this.log('Disconnected from server', 'warning');
+                    };
+                    
+                    this.websocket.onerror = (error) => {
+                        this.log(`WebSocket error: ${error}`, 'error');
+                        this.updateStatus('disconnected', 'Connection Error');
+                    };
+                    
+                } catch (error) {
+                    this.log(`Connection failed: ${error.message}`, 'error');
+                    this.updateStatus('disconnected', 'Connection Failed');
+                }
+            }
+            
+            disconnect() {
+                if (this.websocket) {
+                    this.websocket.close();
+                    this.websocket = null;
+                }
+                this.stopAudio();
+                this.log('Disconnected by user', 'info');
+            }
+            
+            send(data) {
+                if (this.websocket && this.websocket.readyState === WebSocket.OPEN) {
+                    this.websocket.send(JSON.stringify(data));
+                }
+            }
+            
+            handleMessage(data) {
+                try {
+                    const message = JSON.parse(data);
+                    
+                    switch (message.type) {
+                        case 'audio_segment':
+                            this.handleAudioSegment(message);
+                            break;
+                        case 'game_info':
+                            this.updateGameInfo(message);
+                            break;
+                        case 'commentary_text':
+                            this.updateCommentary(message);
+                            break;
+                        case 'server_status':
+                            this.log(`Server: ${message.message}`, 'info');
+                            break;
+                        default:
+                            this.log(`Unknown message type: ${message.type}`, 'warning');
+                    }
+                } catch (error) {
+                    this.log(`Message parsing error: ${error.message}`, 'error');
+                }
+            }
+            
+            handleAudioSegment(message) {
+                try {
+                    this.segmentsReceived++;
+                    this.updateStats();
+                    
+                    // Check if we have audio data
+                    if (!message.audio_data || message.audio_data.length === 0) {
+                        this.log(`Audio segment received without audio data: ${message.speaker} - ${message.text?.substring(0, 50)}...`, 'warning');
+                        
+                        // Still show the commentary text
+                        this.updateCommentary({
+                            speaker: message.speaker,
+                            text: message.text
+                        });
+                        
+                        return;
+                    }
+                    
+                    try {
+                        // Decode base64 audio data
+                        const audioData = atob(message.audio_data);
+                        const arrayBuffer = new ArrayBuffer(audioData.length);
+                        const uint8Array = new Uint8Array(arrayBuffer);
+                        
+                        for (let i = 0; i < audioData.length; i++) {
+                            uint8Array[i] = audioData.charCodeAt(i);
+                        }
+                        
+                        // Add to audio queue
+                        this.audioQueue.push({
+                            buffer: arrayBuffer,
+                            speaker: message.speaker || 'Commentator',
+                            text: message.text || '',
+                            timestamp: message.timestamp || '',
+                            segment_index: message.segment_index || 0
+                        });
+                        
+                        this.log(`Audio segment received: ${message.speaker} - ${message.text?.substring(0, 50)}...`, 'info');
+                        
+                        // Auto-play if not currently playing or processing
+                        if (!this.isPlaying && !this.isProcessingNext && this.audioQueue.length > 0) {
+                            // Add a small delay to prevent race conditions
+                            setTimeout(() => {
+                                if (!this.isPlaying && !this.isProcessingNext && this.audioQueue.length > 0) {
+                                    this.playNext();
+                                }
+                            }, 100);
+                        }
+                        
+                    } catch (decodeError) {
+                        this.log(`Audio decoding error: ${decodeError.message}`, 'error');
+                        
+                        // Still show the commentary text even if audio fails
+                        this.updateCommentary({
+                            speaker: message.speaker,
+                            text: message.text
+                        });
+                    }
+                    
+                } catch (error) {
+                    this.log(`Audio processing error: ${error.message}`, 'error');
+                }
+            }
+            
+            updateGameInfo(message) {
+                if (message.teams) {
+                    document.getElementById('gameTeams').textContent = 
+                        `${message.teams.away} @ ${message.teams.home}`;
+                }
+                this.log(`Game info updated: ${message.teams?.away} @ ${message.teams?.home}`, 'info');
+            }
+            
+            updateCommentary(message) {
+                const currentSegment = document.getElementById('currentSegment');
+                currentSegment.innerHTML = `
+                    <div class="speaker-name">🎙️ ${message.speaker || 'Commentator'}</div>
+                    <div class="commentary-text">${message.text || 'No text available'}</div>
+                `;
+            }
+            
+            async playNext() {
+                // Prevent multiple simultaneous playNext calls
+                if (this.audioQueue.length === 0 || this.isPlaying || this.isProcessingNext) {
+                    return;
+                }
+                
+                this.isProcessingNext = true;
+                this.isPlaying = true;
+                this.updateButtons();
+                
+                const audioSegment = this.audioQueue.shift();
+                
+                try {
+                    // Update current commentary display
+                    this.updateCommentary({
+                        speaker: audioSegment.speaker,
+                        text: audioSegment.text
+                    });
+                    
+                    // Decode and play audio
+                    const audioBuffer = await this.audioContext.decodeAudioData(audioSegment.buffer);
+                    const source = this.audioContext.createBufferSource();
+                    const gainNode = this.audioContext.createGain();
+                    
+                    source.buffer = audioBuffer;
+                    gainNode.gain.value = this.volume;
+                    
+                    source.connect(gainNode);
+                    gainNode.connect(this.audioContext.destination);
+                    
+                    this.currentAudio = source;
+                    
+                    source.onended = () => {
+                        this.isPlaying = false;
+                        this.isProcessingNext = false;
+                        this.currentAudio = null;
+                        this.audioPlayed++;
+                        this.updateStats();
+                        this.updateButtons();
+                        
+                        // Auto-play next segment with delay
+                        if (this.audioQueue.length > 0 && !this.isPlaying && !this.isProcessingNext) {
+                            setTimeout(() => {
+                                if (!this.isPlaying && !this.isProcessingNext) {
+                                    this.playNext();
+                                }
+                            }, 500);
+                        }
+                    };
+                    
+                    source.start();
+                    this.isProcessingNext = false;
+                    this.log(`Playing: ${audioSegment.speaker} - ${audioSegment.text?.substring(0, 30)}...`, 'info');
+                    
+                } catch (error) {
+                    this.log(`Audio playback error: ${error.message}`, 'error');
+                    this.isPlaying = false;
+                    this.isProcessingNext = false;
+                    this.currentAudio = null;
+                    this.updateButtons();
+                    
+                    // Try next segment after delay
+                    if (this.audioQueue.length > 0) {
+                        setTimeout(() => {
+                            if (!this.isPlaying && !this.isProcessingNext) {
+                                this.playNext();
+                            }
+                        }, 1000);
+                    }
+                }
+            }
+            
+            playAudio() {
+                if (this.audioContext.state === 'suspended') {
+                    this.audioContext.resume();
+                }
+                
+                if (!this.isPlaying && !this.isProcessingNext && this.audioQueue.length > 0) {
+                    this.playNext();
+                } else if (!this.isPlaying && !this.isProcessingNext) {
+                    this.log('No audio segments to play', 'warning');
+                } else {
+                    this.log('Audio is already playing or processing', 'info');
+                }
+            }
+            
+            pauseAudio() {
+                if (this.currentAudio && this.isPlaying) {
+                    this.currentAudio.stop();
+                    this.isPlaying = false;
+                    this.isProcessingNext = false;
+                    this.currentAudio = null;
+                    this.updateButtons();
+                    this.log('Audio paused', 'info');
+                }
+            }
+            
+            stopAudio() {
+                if (this.currentAudio) {
+                    this.currentAudio.stop();
+                }
+                this.audioQueue = [];
+                this.isPlaying = false;
+                this.isProcessingNext = false;
+                this.currentAudio = null;
+                this.updateButtons();
+                this.log('Audio stopped, queue cleared', 'info');
+            }
+            
+            updateStatus(status, text) {
+                const indicator = document.getElementById('statusIndicator');
+                const statusText = document.getElementById('connectionStatus');
+                
+                indicator.className = `status-indicator status-${status}`;
+                statusText.textContent = text;
+            }
+            
+            updateButtons() {
+                document.getElementById('connectBtn').disabled = this.isConnected;
+                document.getElementById('disconnectBtn').disabled = !this.isConnected;
+                document.getElementById('playBtn').disabled = !this.isConnected || this.isPlaying || this.isProcessingNext;
+                document.getElementById('pauseBtn').disabled = !this.isConnected || (!this.isPlaying && !this.isProcessingNext);
+                document.getElementById('stopBtn').disabled = !this.isConnected;
+            }
+            
+            updateStats() {
+                document.getElementById('segmentsReceived').textContent = this.segmentsReceived;
+                document.getElementById('audioPlayed').textContent = this.audioPlayed;
+            }
+            
+            startTimeUpdater() {
+                setInterval(() => {
+                    if (this.connectionStartTime) {
+                        const elapsed = Date.now() - this.connectionStartTime;
+                        const minutes = Math.floor(elapsed / 60000);
+                        const seconds = Math.floor((elapsed % 60000) / 1000);
+                        document.getElementById('connectionTime').textContent = 
+                            `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                    } else {
+                        document.getElementById('connectionTime').textContent = '00:00';
+                    }
+                }, 1000);
+            }
+            
+            log(message, level = 'info') {
+                const logPanel = document.getElementById('logPanel');
+                const timestamp = new Date().toLocaleTimeString();
+                const logEntry = document.createElement('div');
+                logEntry.className = `log-entry log-${level}`;
+                logEntry.innerHTML = `
+                    <span class="log-timestamp">[${timestamp}]</span>
+                    ${message}
+                `;
+                
+                logPanel.appendChild(logEntry);
+                logPanel.scrollTop = logPanel.scrollHeight;
+                
+                // Keep only last 100 log entries
+                while (logPanel.children.length > 100) {
+                    logPanel.removeChild(logPanel.firstChild);
+                }
+            }
+            
+            clearLogs() {
+                document.getElementById('logPanel').innerHTML = '';
+                this.log('Logs cleared', 'info');
+            }
+        }
+        
+        // Global instance
+        let commentaryClient;
+        
+        // Initialize when page loads
+        window.addEventListener('load', () => {
+            commentaryClient = new NHLCommentaryClient();
+        });
+        
+        // Global functions for buttons
+        function connect() {
+            commentaryClient.connect();
+        }
+        
+        function disconnect() {
+            commentaryClient.disconnect();
+        }
+        
+        function playAudio() {
+            commentaryClient.playAudio();
+        }
+        
+        function pauseAudio() {
+            commentaryClient.pauseAudio();
+        }
+        
+        function stopAudio() {
+            commentaryClient.stopAudio();
+        }
+        
+        function clearLogs() {
+            commentaryClient.clearLogs();
+        }
+    </script>
+</body>
+</html>

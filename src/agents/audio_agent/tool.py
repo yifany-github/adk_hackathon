@@ -963,6 +963,154 @@ def _save_audio_to_file(audio_data: bytes, audio_id: str, timestamp: str, voice_
         return None
 
 
+# Global WebSocket server management
+_websocket_server = None
+_server_task = None
+
+
+async def start_websocket_server(host: str = "localhost", port: int = 8765):
+    """
+    Start the WebSocket server and return server instance
+    
+    Args:
+        host: Server host
+        port: Server port
+        
+    Returns:
+        WebSocket server instance
+    """
+    global _websocket_server, _server_task
+    
+    try:
+        if _websocket_server is not None:
+            print(f"⚠️ WebSocket server already running on {host}:{port}")
+            return _websocket_server
+        
+        print(f"🌐 Starting WebSocket server on {host}:{port}...")
+        
+        # Start the server
+        _server_task = asyncio.create_task(_start_websocket_server(host, port))
+        
+        # Give it a moment to start
+        await asyncio.sleep(1)
+        
+        # Mark as running
+        _websocket_server = {"host": host, "port": port, "status": "running"}
+        
+        print(f"✅ WebSocket server started successfully on {host}:{port}")
+        return _websocket_server
+        
+    except Exception as e:
+        print(f"❌ Failed to start WebSocket server: {e}")
+        _websocket_server = None
+        raise e
+
+
+async def stop_websocket_server():
+    """Stop the WebSocket server"""
+    global _websocket_server, _server_task
+    
+    try:
+        if _websocket_server is None:
+            print("⚠️ WebSocket server not running")
+            return
+        
+        print("🛑 Stopping WebSocket server...")
+        
+        # Stop the server task
+        if _server_task and not _server_task.done():
+            _server_task.cancel()
+            try:
+                await _server_task
+            except asyncio.CancelledError:
+                pass
+        
+        # Clear connected clients
+        audio_processor.connected_clients.clear()
+        
+        _websocket_server = None
+        _server_task = None
+        
+        print("✅ WebSocket server stopped successfully")
+        
+    except Exception as e:
+        print(f"❌ Error stopping WebSocket server: {e}")
+
+
+async def broadcast_audio_to_clients(audio_segment_info: Dict[str, Any]):
+    """
+    Broadcast audio segment to all connected WebSocket clients
+    
+    Args:
+        audio_segment_info: Audio segment information with metadata
+    """
+    try:
+        if not audio_processor.connected_clients:
+            print("📢 No WebSocket clients connected, skipping broadcast")
+            return
+        
+        # Get audio data from the generated file
+        audio_data_base64 = ""
+        audio_id = audio_segment_info.get("audio_id", "unknown")
+        
+        # Try to find and read the actual audio file
+        try:
+            # Look for audio files in the audio_output directory
+            import glob
+            audio_patterns = [
+                f"audio_output/**/nhl_*{audio_id}*.wav",
+                f"audio_output/**/*{audio_id}*.wav",
+                f"audio_output/**/*.wav"  # Fallback to any recent WAV file
+            ]
+            
+            audio_file_path = None
+            for pattern in audio_patterns:
+                files = glob.glob(pattern, recursive=True)
+                if files:
+                    # Get the most recent file
+                    audio_file_path = max(files, key=os.path.getmtime)
+                    break
+            
+            if audio_file_path and os.path.exists(audio_file_path):
+                print(f"📁 Loading audio from: {audio_file_path}")
+                with open(audio_file_path, 'rb') as f:
+                    audio_data = f.read()
+                    audio_data_base64 = base64.b64encode(audio_data).decode('utf-8')
+                    print(f"🎵 Loaded audio data: {len(audio_data):,} bytes")
+            else:
+                print("⚠️ No audio file found, sending empty audio data")
+                
+        except Exception as e:
+            print(f"⚠️ Could not load audio file: {e}")
+        
+        # Prepare broadcast message
+        broadcast_data = {
+            "type": "audio_segment",
+            "audio_id": audio_id,
+            "speaker": audio_segment_info.get("speaker", "Commentator"),
+            "text": audio_segment_info.get("text_preview", ""),
+            "voice_style": audio_segment_info.get("voice_style", "neutral"),
+            "timestamp": datetime.now().isoformat(),
+            "segment_index": audio_segment_info.get("segment_index", 0),
+            "duration_estimate": audio_segment_info.get("duration_estimate", 3.0),
+            "pause_after": audio_segment_info.get("pause_after", 0.5),
+            "audio_data": audio_data_base64,
+            "has_audio": len(audio_data_base64) > 0
+        }
+        
+        await _broadcast_audio(broadcast_data)
+        
+        if len(audio_data_base64) > 0:
+            print(f"📡 Broadcasted audio segment with {len(audio_data_base64)} chars of base64 data")
+        else:
+            print("📡 Broadcasted audio segment info without audio data")
+        
+    except Exception as e:
+        print(f"❌ Error broadcasting audio segment: {e}")
+        import traceback
+        traceback.print_exc()
+
+
 # Define AUDIO_TOOLS for ADK integration
 AUDIO_TOOLS = [
     FunctionTool(func=text_to_speech),
