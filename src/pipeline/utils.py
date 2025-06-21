@@ -5,74 +5,36 @@ Pipeline utility functions for Sequential Agent processing
 import json
 import os
 import re
+import time
 from google.genai.types import Part, UserContent
 
 
-async def process_timestamp_with_session(agent, game_id: str, timestamp_file: str, session, runner, board_context: dict, continuity_context: dict = None) -> dict:
-    """Process timestamp with provided session and runner (for batching)"""
+async def process_timestamp_with_session(agent, game_id: str, timestamp_file: str, session, runner, board_context: dict, commentary_context: dict = None) -> dict:
+    """Process timestamp with ADK session"""
     try:
-        print(f"🔍 DEBUG: Starting process_timestamp_with_session for {timestamp_file}")
-        
         # Load timestamp data
         with open(timestamp_file, 'r') as f:
             timestamp_data = json.load(f)
-        print(f"🔍 DEBUG: Loaded timestamp data")
         
-        # Create prompt with continuity context
+        # Create prompt
         from ..agents.sequential_agent_v2.prompts import get_workflow_prompt
-        prompt = get_workflow_prompt(game_id, timestamp_data, board_context)
+        prompt = get_workflow_prompt(game_id, timestamp_data, board_context, commentary_context)
         input_content = UserContent(parts=[Part(text=prompt)])
-        print(f"🔍 DEBUG: Created prompt and input content")
         
-        # Process through provided session
-        print(f"🔍 DEBUG: About to start runner.run_async loop")
-        raw_output = ""
-        
-        try:
-            # Try with timeout to prevent hanging
-            import asyncio
-            async def run_with_timeout():
-                output = ""
-                async for event in runner.run_async(
-                    user_id=session.user_id,
-                    session_id=session.id,
-                    new_message=input_content
-                ):
-                    print(f"🔍 DEBUG: Got event: {type(event)}")
-                    if hasattr(event, 'content'):
-                        content = str(event.content)
-                        output += content
-                        print(f"🔍 DEBUG: Content: {content[:100]}...")
-                    # Break after reasonable output
-                    if len(output) > 5000:
-                        print(f"🔍 DEBUG: Got enough output, breaking")
-                        break
-                return output
-                        
-            raw_output = await asyncio.wait_for(run_with_timeout(), timeout=30.0)
-            print(f"🔍 DEBUG: Completed with output length: {len(raw_output)}")
-            
-        except asyncio.TimeoutError:
-            print(f"🔍 DEBUG: Timeout after 30s, using partial output")
-            if not raw_output:
-                raw_output = '{"error": "Timeout - no response from agent"}'
-        except Exception as e:
-            print(f"🔍 DEBUG: Exception in runner.run_async: {e}")
-            raw_output = f'{{"error": "Exception: {str(e)}"}}'
+        # Process through session with timeout
+        raw_output = await _run_agent_with_timeout(runner, session, input_content)
         
         # Extract clean results
         clean_result = extract_agent_outputs(raw_output)
+        commentary_dialogue = extract_commentary_dialogue(clean_result)
         
-        # Save clean result
-        from ..agents.sequential_agent_v2.tools import save_clean_result
         timestamp_name = os.path.basename(timestamp_file).replace('.json', '').replace(f'{game_id}_', '')
-        output_file = save_clean_result(game_id, timestamp_name, clean_result)
         
         return {
             "status": "success",
             "timestamp": timestamp_name,
-            "output_file": output_file,
-            "clean_result": clean_result
+            "response": clean_result,
+            "commentary_dialogue": commentary_dialogue
         }
         
     except Exception as e:
@@ -84,6 +46,31 @@ async def process_timestamp_with_session(agent, game_id: str, timestamp_file: st
         }
 
 
+async def _run_agent_with_timeout(runner, session, input_content, timeout: float = 30.0) -> str:
+    """Run agent with timeout and output collection"""
+    import asyncio
+    
+    async def collect_output():
+        output = ""
+        async for event in runner.run_async(
+            user_id=session.user_id,
+            session_id=session.id,
+            new_message=input_content
+        ):
+            if hasattr(event, 'content'):
+                output += str(event.content)
+            if len(output) > 5000:
+                break
+        return output
+    
+    try:
+        return await asyncio.wait_for(collect_output(), timeout=timeout)
+    except asyncio.TimeoutError:
+        return '{"error": "Agent timeout"}'
+    except Exception as e:
+        return f'{{"error": "Agent exception: {str(e)}"}}'
+
+
 def extract_agent_outputs(raw_output: str) -> dict:
     """Extract step by step with broadcaster name fixing"""
     result = {
@@ -93,7 +80,7 @@ def extract_agent_outputs(raw_output: str) -> dict:
     }
     
     try:
-        # Step 1: Extract first text field (data agent)
+        # Extract data agent output (first text field)
         first_text_pattern = r"text='(.*?)'\)"
         all_texts = re.findall(first_text_pattern, raw_output, re.DOTALL)
         
@@ -145,6 +132,8 @@ def extract_agent_outputs(raw_output: str) -> dict:
         return result
 
 
+
+
 def fix_broadcaster_names(commentary_data: dict) -> dict:
     """Fix broadcaster names to Alex Chen & Mike Rodriguez"""
     if "commentary_sequence" in commentary_data:
@@ -158,3 +147,46 @@ def fix_broadcaster_names(commentary_data: dict) -> dict:
                     segment["speaker"] = "Mike Rodriguez"
     
     return commentary_data
+
+
+def extract_commentary_dialogue(clean_result: dict) -> list:
+    """Extract commentary dialogue for context continuity"""
+    try:
+        if ("commentary_agent" in clean_result and 
+            "commentary_sequence" in clean_result["commentary_agent"]):
+            
+            sequence = clean_result["commentary_agent"]["commentary_sequence"]
+            dialogue = []
+            
+            for segment in sequence:
+                if "speaker" in segment and "text" in segment:
+                    dialogue.append({
+                        "speaker": segment["speaker"],
+                        "text": segment["text"]
+                    })
+            
+            return dialogue[-5:]  # Keep last 5 exchanges
+        
+        return []
+        
+    except Exception:
+        return []
+
+
+def create_commentary_context(recent_dialogues: list) -> dict:
+    """Create commentary context from recent dialogues"""
+    all_dialogue = []
+    
+    for dialogue_list in recent_dialogues:
+        if dialogue_list:
+            all_dialogue.extend(dialogue_list)
+    
+    recent_dialogue = all_dialogue[-5:] if all_dialogue else []
+    
+    return {
+        "recent_dialogue": recent_dialogue,
+        "context_size": len(str(recent_dialogue)),
+        "exchange_count": len(recent_dialogue)
+    }
+
+
