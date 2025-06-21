@@ -29,14 +29,14 @@ import re
 # Load environment variables
 dotenv.load_dotenv()
 
-# Add src to path for imports
-sys.path.append('src')
-sys.path.append('src/agents/sequential_agent')
-sys.path.append('src/board')
-# Import configuration and components
-from src.config.pipeline_config import config
-from board import create_live_game_board
-from agents.sequential_agent_v2.agent import create_nhl_sequential_agent
+# Add root directory to path
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../..'))
+
+# Import components
+from src.board import create_live_game_board
+from src.agents.sequential_agent_v2.agent import create_nhl_sequential_agent
+from src.pipeline.utils import process_timestamp_with_session
 
 
 class TimestampOrderingQueue:
@@ -136,14 +136,14 @@ class SimplifiedPipeline:
         
     async def generate_static_context(self):
         """Generate static context using light generator for efficiency"""
-        minimal_path = f"{config.DATA_BASE_PATH}/static/game_{self.game_id}_minimal_context.json"
+        minimal_path = f"data/static/game_{self.game_id}_minimal_context.json"
         
         # Check if minimal context already exists
         if os.path.exists(minimal_path):
             print(f"📋 Using existing minimal context: {os.path.basename(minimal_path)}")
         else:
             # Generate full context first if needed
-            full_path = f"{config.DATA_BASE_PATH}/static/game_{self.game_id}_static_context.json"
+            full_path = f"data/static/game_{self.game_id}_static_context.json"
             if not os.path.exists(full_path):
                 print("🔧 Generating full static context first...")
                 cmd = ["python", "src/data/static/static_info_generator.py", self.game_id]
@@ -220,7 +220,7 @@ class SimplifiedPipeline:
         
     async def monitor_and_queue_files(self):
         """Monitor for new timestamp files and add to ordering queue immediately"""
-        live_data_dir = f"{config.DATA_BASE_PATH}/live/{self.game_id}"
+        live_data_dir = f"data/live/{self.game_id}"
         os.makedirs(live_data_dir, exist_ok=True)
         
         processed_files = set()
@@ -337,13 +337,18 @@ class SimplifiedPipeline:
                 continuity_context = None
                 
                 # Process through Sequential Agent with shared session
-                result = await self.sequential_agent.process_with_session(
+                print(f"🔍 PIPELINE DEBUG: About to call process_timestamp_with_session for {timestamp_file}")
+                from src.pipeline.utils import process_timestamp_with_session
+                result = await process_timestamp_with_session(
+                    self.sequential_agent.agent,
+                    self.game_id,
                     timestamp_file,
                     session,
                     runner,
                     board_context,
                     continuity_context
                 )
+                print(f"🔍 PIPELINE DEBUG: Got result: {result.get('status', 'unknown')}")
                 
                 batch_results.append(result)
                 file_time = time.time() - file_start
