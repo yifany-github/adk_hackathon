@@ -1,0 +1,31 @@
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile
+.dockerignore
+
+# Virtual environments
+venv
+.venv
+/venv
+/.venv
+
+# Python cache
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+
+# IDE files
+.idea
+.vscode
+
+# Other
+.claude
+data
+README.md
+LICENSE
+CLAUDE.md
+docs 
