@@ -1,0 +1,6 @@
+# Example game directory for Sequential Agent V3 outputs
+#
+# Complete pipeline outputs will be saved here:
+# - JSON files with data + commentary + audio processing results
+# - Audio files manifest with list of generated WAV files
+# - Enhanced metadata with voice style information 

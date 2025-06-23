@@ -6,6 +6,7 @@ import websockets
 import json
 import base64
 import io
+import wave
 from typing import Dict, Any, Optional, List, Set
 import os
 import sys
@@ -13,17 +14,18 @@ from datetime import datetime
 import uuid
 import math
 import random
+import logging
 
-# 添加项目根目录到路径
+# Add project root directory to path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
 
-# 导入配置
+# Import configuration
 try:
     from config import get_gemini_api_key, get_audio_config, set_gemini_api_key
 except ImportError:
-    # 如果找不到config模块，提供默认实现
+    # If config module not found, provide default implementation
     def get_gemini_api_key():
-        return os.getenv('GEMINI_API_KEY') or os.getenv('GOOGLE_AI_API_KEY')
+        return os.getenv('GOOGLE_API_KEY') or os.getenv('GEMINI_API_KEY') or os.getenv('GOOGLE_AI_API_KEY')
     
     def get_audio_config():
         return {
@@ -34,23 +36,23 @@ except ImportError:
 
 
 class AudioProcessor:
-    """音频处理类，负责Gemini TTS和音频流管理"""
+    """Audio processing class responsible for Gemini TTS and audio stream management"""
     
     def __init__(self):
-        # 不再使用任何Google Cloud TTS相关代码
+        # No longer uses any Google Cloud TTS related code
         self.connected_clients: Set = set()
         self.audio_queue = asyncio.Queue()
         
-        # 从配置文件获取设置
+        # Get settings from configuration file
         self.config = get_audio_config()
         
-        # Gemini配置
+        # Gemini configuration
         self.gemini_model = self.config["model"]
         
-        print(f"🎯 Audio Processor初始化完成，使用模型: {self.gemini_model}")
+        print(f"🎯 Audio Processor initialization completed, using model: {self.gemini_model}")
 
 
-# 全局音频处理器实例
+# Global audio processor instance
 audio_processor = AudioProcessor()
 
 
@@ -58,27 +60,34 @@ async def text_to_speech(
     tool_context: Optional[ToolContext] = None,
     text: str = "", 
     voice_style: str = "enthusiastic",
-    language: str = "en-US"
+    language: str = "en-US",
+    speaker: str = "",
+    emotion: str = "",
+    game_id: str = "",
+    game_timestamp: str = "",
+    segment_index: int = -1
 ) -> Dict[str, Any]:
     """
-    使用真正的 Gemini TTS 将文本转换为语音
+    Convert text to speech using real Gemini TTS
     
     Args:
-        tool_context: ADK工具上下文
-        text: 需要转换的解说文本
-        voice_style: 语音风格 (enthusiastic, calm, dramatic)
-        language: 语言代码 (en-US, en-CA等)
+        tool_context: ADK tool context
+        text: Commentary text to convert
+        voice_style: Voice style (enthusiastic, calm, dramatic)
+        language: Language code (en-US, en-CA, etc.)
+        speaker: Speaker name (Alex Chen, Mike Rodriguez, etc.)
+        emotion: Emotion type (neutral, analytical, excited, etc.)
         
     Returns:
-        包含音频信息和状态的字典
+        Dictionary containing audio information and status
     """
     try:
-        print(f"🎙️ Gemini TTS: 开始转换 - {text[:50]}...")
+        print(f"🎙️ Gemini TTS: Starting conversion - {text[:50]}...")
         
-        # 检查API Key
+        # Check API Key
         api_key = get_gemini_api_key()
         if not api_key:
-            error_msg = "未找到Gemini API Key，请设置GEMINI_API_KEY环境变量"
+            error_msg = "Gemini API Key not found, please set GEMINI_API_KEY environment variable"
             print(f"❌ {error_msg}")
             
             if tool_context:
@@ -95,36 +104,24 @@ async def text_to_speech(
                 "model": "none"
             }
         
-        # 尝试使用真正的 Gemini TTS
+        # Try using real Gemini TTS
         try:
             from google import genai
             from google.genai import types
             
-            # 创建客户端
+            # Create client
             client = genai.Client(api_key=api_key)
             
-            # 根据语音风格选择声音
-            voice_mapping = {
-                "enthusiastic": "Puck",      # 兴奋的声音
-                "dramatic": "Kore",          # 戏剧性的声音
-                "calm": "Aoede"             # 平静的声音
-            }
+            # Select voice based on speaker and emotion/voice_style
+            voice_name = _select_voice_for_speaker(speaker, emotion or voice_style)
             
-            voice_name = voice_mapping.get(voice_style, "Puck")
+            # Build prompt based on emotion or voice_style
+            effective_style = emotion or voice_style
+            prompt = _build_prompt_for_emotion(text, effective_style, speaker)
             
-            # 构建提示词
-            if voice_style == "enthusiastic":
-                prompt = f"Say with high energy and excitement like a sports announcer: {text}"
-            elif voice_style == "dramatic":
-                prompt = f"Say with dramatic intensity and emphasis: {text}"
-            elif voice_style == "calm":
-                prompt = f"Say in a calm, professional announcer voice: {text}"
-            else:
-                prompt = f"Say clearly: {text}"
+            print(f"🔊 Using voice: {voice_name}, style: {voice_style}")
             
-            print(f"🔊 使用声音: {voice_name}, 风格: {voice_style}")
-            
-            # 调用 Gemini TTS API
+            # Call Gemini TTS API
             response = client.models.generate_content(
                 model="gemini-2.5-flash-preview-tts",
                 contents=prompt,
@@ -140,19 +137,22 @@ async def text_to_speech(
                 )
             )
             
-            # 获取音频数据
+            # Get audio data
             audio_data = response.candidates[0].content.parts[0].inline_data.data
             
-            # 生成音频ID
+            # Generate audio ID
             audio_id = str(uuid.uuid4())[:8]
             timestamp = datetime.now().strftime("%H%M%S")
             
-            print(f"✅ 真实Gemini TTS成功! 大小: {len(audio_data):,} 字节")
+            print(f"✅ Real Gemini TTS successful! Size: {len(audio_data):,} bytes")
             
-            # 编码音频数据
+            # Save audio to file as proper WAV format
+            saved_file_path = _save_audio_to_file(audio_data, audio_id, timestamp, voice_style, speaker, game_id, game_timestamp, segment_index)
+            
+            # Encode audio data
             audio_base64 = base64.b64encode(audio_data).decode('utf-8')
             
-            # 准备WebSocket广播数据
+            # Prepare WebSocket broadcast data
             broadcast_data = {
                 "type": "audio_stream",
                 "audio_id": audio_id,
@@ -167,10 +167,10 @@ async def text_to_speech(
                 "api_key_status": "configured"
             }
             
-            # 广播音频
+            # Broadcast audio
             asyncio.create_task(_broadcast_audio(broadcast_data))
             
-            # 更新工具上下文
+            # Update tool context
             if tool_context:
                 if "audio_history" not in tool_context.state:
                     tool_context.state["audio_history"] = []
@@ -204,12 +204,13 @@ async def text_to_speech(
                 "model": "gemini-2.5-flash-preview-tts",
                 "is_real_tts": True,
                 "audio_size": len(audio_data),
-                "audio_data": audio_base64,  # 直接返回音频数据
-                "message": f"真实Gemini TTS音频生成成功，ID: {audio_id}"
+                "audio_data": audio_base64,  # Return audio data directly
+                "saved_file": saved_file_path,  # File path where audio was saved
+                "message": f"Real Gemini TTS audio generation successful, ID: {audio_id}"
             }
             
         except ImportError:
-            error_msg = "google-genai库未安装，请安装: pip install google-genai"
+            error_msg = "google-genai library not installed, please install: pip install google-genai"
             print(f"❌ {error_msg}")
             
             if tool_context:
@@ -227,74 +228,79 @@ async def text_to_speech(
             }
             
         except Exception as e:
-            error_msg = f"Gemini TTS API调用失败: {str(e)}"
+            error_msg = f"Gemini TTS call failed: {str(e)}"
             print(f"❌ {error_msg}")
             
-            if tool_context:
-                tool_context.state["last_audio_generation"] = {
-                    "status": "error",
-                    "error": error_msg,
-                    "model": "gemini-api-error"
-                }
+            # Try fallback audio generation
+            fallback_result = await _generate_fallback_audio(text, voice_style, tool_context)
+            return fallback_result
             
-            return {
-                "status": "error",
-                "error": error_msg,
-                "text": text[:50] + "..." if len(text) > 50 else text,
-                "model": "gemini-api-error"
-            }
-        
     except Exception as e:
-        error_msg = f"音频生成失败: {str(e)}"
+        error_msg = f"Text-to-speech processing failed: {str(e)}"
         print(f"❌ {error_msg}")
         
         if tool_context:
             tool_context.state["last_audio_generation"] = {
                 "status": "error",
                 "error": error_msg,
-                "model": "unknown-error"
+                "model": "error"
             }
         
         return {
             "status": "error",
             "error": error_msg,
             "text": text[:50] + "..." if len(text) > 50 else text,
-            "model": "unknown-error"
+            "model": "error"
         }
 
 
-async def _generate_fallback_audio(text: str, voice_style: str, tool_context: Optional[ToolContext] = None) -> Dict[str, Any]:
-    """生成模拟音频作为备用方案"""
+async def _generate_fallback_audio(text: str, voice_style: str, tool_context: Optional[ToolContext]) -> Dict[str, Any]:
+    """
+    Generate fallback audio when Gemini TTS is unavailable
     
-    # 生成音频ID
-    audio_id = str(uuid.uuid4())[:8]
-    timestamp = datetime.now().strftime("%H%M%S")
-    
-    print(f"🔄 生成模拟音频 (备用方案)")
-    
-    try:
-        # 使用改进的语音模拟方法
-        audio_data = _generate_simple_wav_audio(text, voice_style)
-        audio_base64 = base64.b64encode(audio_data).decode('utf-8')
+    Args:
+        text: Text to convert
+        voice_style: Voice style
+        tool_context: Tool context for state management
         
-        # 准备WebSocket广播数据
+    Returns:
+        Audio generation result
+    """
+    try:
+        print(f"🔄 Generating fallback audio for: {text[:50]}...")
+        
+        # Generate mock realistic audio
+        audio_bytes = _generate_realistic_mock_audio(text, voice_style)
+        audio_base64 = base64.b64encode(audio_bytes).decode('utf-8')
+        
+        # Generate audio ID
+        audio_id = str(uuid.uuid4())[:8]
+        timestamp = datetime.now().strftime("%H%M%S")
+        
+        print(f"✅ Fallback audio generated! Size: {len(audio_bytes):,} bytes")
+        
+        # Save fallback audio to file (it's already in WAV format)
+        saved_file_path = _save_fallback_audio_to_file(audio_bytes, audio_id, timestamp, voice_style)
+        
+        # Prepare WebSocket broadcast data
         broadcast_data = {
             "type": "audio_stream",
             "audio_id": audio_id,
             "text": text,
             "voice_style": voice_style,
+            "voice_name": "mock_voice",
             "timestamp": timestamp,
             "audio_data": audio_base64,
             "format": "wav",
-            "model": "fallback_simulation",
+            "model": "fallback-mock",
             "is_real_tts": False,
             "api_key_status": "fallback"
         }
         
-        # 广播音频
+        # Broadcast audio
         asyncio.create_task(_broadcast_audio(broadcast_data))
         
-        # 更新工具上下文
+        # Update tool context
         if tool_context:
             if "audio_history" not in tool_context.state:
                 tool_context.state["audio_history"] = []
@@ -304,7 +310,8 @@ async def _generate_fallback_audio(text: str, voice_style: str, tool_context: Op
                 "text": text[:100],
                 "timestamp": timestamp,
                 "voice_style": voice_style,
-                "model": "fallback_simulation",
+                "voice_name": "mock_voice",
+                "model": "fallback-mock",
                 "is_real_tts": False
             })
             
@@ -312,7 +319,7 @@ async def _generate_fallback_audio(text: str, voice_style: str, tool_context: Op
                 "status": "success",
                 "audio_id": audio_id,
                 "duration_estimate": len(text) * 0.05,
-                "model": "fallback_simulation",
+                "model": "fallback-mock",
                 "is_real_tts": False
             }
         
@@ -321,426 +328,646 @@ async def _generate_fallback_audio(text: str, voice_style: str, tool_context: Op
             "audio_id": audio_id,
             "text_length": len(text),
             "voice_style": voice_style,
+            "voice_name": "mock_voice",
+            "language": "en-US",
             "timestamp": timestamp,
-            "model": "fallback_simulation",
+            "model": "fallback-mock",
             "is_real_tts": False,
-            "audio_size": len(audio_data),
-            "message": f"模拟音频生成成功 (备用方案)，ID: {audio_id}"
+            "audio_size": len(audio_bytes),
+            "audio_data": audio_base64,
+            "saved_file": saved_file_path,  # File path where audio was saved
+            "message": f"Fallback audio generation successful, ID: {audio_id}"
         }
         
     except Exception as e:
-        error_msg = f"模拟音频生成失败: {str(e)}"
+        error_msg = f"Fallback audio generation failed: {str(e)}"
         print(f"❌ {error_msg}")
+        
+        if tool_context:
+            tool_context.state["last_audio_generation"] = {
+                "status": "error",
+                "error": error_msg,
+                "model": "fallback-error"
+            }
         
         return {
             "status": "error",
             "error": error_msg,
             "text": text[:50] + "..." if len(text) > 50 else text,
-            "model": "fallback"
+            "model": "fallback-error"
         }
 
 
-def stream_audio_websocket(
+async def stream_audio_websocket(
     tool_context: Optional[ToolContext] = None,
     port: int = 8765,
     host: str = "localhost"
 ) -> Dict[str, Any]:
     """
-    启动WebSocket服务器进行音频流传输
+    Start WebSocket audio streaming server
+    
+    Args:
+        tool_context: ADK tool context
+        port: Server port number
+        host: Server host address
+        
+    Returns:
+        Server startup result
     """
     try:
-        print(f"🌐 启动WebSocket音频流服务器 {host}:{port}")
+        print(f"🌐 Starting WebSocket audio streaming server on {host}:{port}")
         
-        # 启动WebSocket服务器
+        # Start WebSocket server
         asyncio.create_task(_start_websocket_server(host, port))
+        
+        # Wait a moment to ensure server starts
+        await asyncio.sleep(0.5)
+        
+        server_url = f"ws://{host}:{port}"
+        print(f"✅ WebSocket server started successfully: {server_url}")
         
         if tool_context:
             tool_context.state["websocket_server"] = {
-                "status": "running",
+                "url": server_url,
                 "host": host,
                 "port": port,
-                "started_at": datetime.now().isoformat()
+                "status": "running"
             }
         
         return {
             "status": "success",
-            "message": f"WebSocket音频流服务器已启动",
-            "server_url": f"ws://{host}:{port}",
-            "port": port,
-            "host": host
+            "message": f"WebSocket audio streaming server started on {host}:{port}",
+            "server_url": server_url,
+            "host": host,
+            "port": port
         }
         
     except Exception as e:
-        error_msg = f"WebSocket服务器启动失败: {str(e)}"
+        error_msg = f"Failed to start WebSocket server: {str(e)}"
         print(f"❌ {error_msg}")
-        
-        if tool_context:
-            tool_context.state["websocket_server"] = {
-                "status": "error",
-                "error": error_msg
-            }
         
         return {
             "status": "error",
-            "error": error_msg
+            "error": error_msg,
+            "host": host,
+            "port": port
         }
 
 
-def get_audio_status(tool_context: Optional[ToolContext] = None) -> Dict[str, Any]:
-    """获取音频代理状态"""
+def get_audio_status(tool_context: Optional[ToolContext]) -> Dict[str, Any]:
+    """
+    Get current audio system status
+    
+    Args:
+        tool_context: ADK tool context
+        
+    Returns:
+        Audio system status information
+    """
     try:
+        connected_count = len(audio_processor.connected_clients)
+        queue_size = audio_processor.audio_queue.qsize() if hasattr(audio_processor.audio_queue, 'qsize') else 0
+        
+        # Get audio history from tool context
+        audio_history = []
+        if tool_context and "audio_history" in tool_context.state:
+            audio_history = tool_context.state["audio_history"]
+        
         status_info = {
-            "connected_clients": len(audio_processor.connected_clients),
-            "queue_size": audio_processor.audio_queue.qsize(),
-            "model": audio_processor.gemini_model,
-            "api_key_configured": bool(get_gemini_api_key()),
+            "connected_clients": connected_count,
+            "audio_queue_size": queue_size,
+            "audio_history_count": len(audio_history),
+            "processor_model": audio_processor.gemini_model,
+            "last_generated": audio_history[-1] if audio_history else None,
             "timestamp": datetime.now().isoformat()
         }
         
-        if tool_context:
-            audio_history = tool_context.state.get("audio_history", [])
-            last_generation = tool_context.state.get("last_audio_generation", {})
-            websocket_status = tool_context.state.get("websocket_server", {})
-            
-            status_info.update({
-                "audio_history_count": len(audio_history),
-                "last_generation": last_generation,
-                "websocket_server": websocket_status,
-                "recent_audio": audio_history[-3:] if len(audio_history) > 3 else audio_history
-            })
+        print(f"📊 Audio Status: {connected_count} clients, {len(audio_history)} audio files generated")
         
         return {
             "status": "success",
-            "audio_agent_status": status_info
+            "audio_agent_status": status_info,
+            "message": f"Audio system running normally, {connected_count} clients connected"
         }
         
     except Exception as e:
+        error_msg = f"Failed to get audio status: {str(e)}"
+        print(f"❌ {error_msg}")
+        
         return {
             "status": "error",
-            "error": f"获取状态失败: {str(e)}"
+            "error": error_msg,
+            "audio_agent_status": {}
         }
 
 
-# 辅助函数
 def _apply_voice_style_text(text: str, style: str) -> str:
-    """根据风格调整文本内容"""
+    """Apply voice style to text (add SSML-like markup)"""
     if style == "enthusiastic":
-        return f"{text}!" if not text.endswith(('!', '?', '.')) else text
+        return f"<prosody rate='fast' pitch='high'>{text}</prosody>"
     elif style == "dramatic":
-        return f"*{text}*" if not text.startswith('*') else text
+        return f"<prosody rate='slow' pitch='low' volume='loud'>{text}</prosody>"
     elif style == "calm":
-        return text.rstrip('!') + '.' if text.endswith('!') else text
+        return f"<prosody rate='medium' pitch='medium'>{text}</prosody>"
     else:
         return text
 
 
 def _get_speaking_rate(style: str) -> float:
-    """根据风格设置语速"""
-    config = get_audio_config()
-    return config.get("speaking_rates", {}).get(style, 1.1)
+    """Get speaking rate based on style"""
+    return {"enthusiastic": 1.2, "dramatic": 0.9, "calm": 1.0}.get(style, 1.0)
 
 
 def _get_pitch(style: str) -> float:
-    """根据风格设置音调"""
-    config = get_audio_config()
-    return config.get("pitch_adjustments", {}).get(style, 0.0)
+    """Get pitch adjustment based on style"""
+    return {"enthusiastic": 1.1, "dramatic": 0.8, "calm": 1.0}.get(style, 1.0)
 
 
 async def _broadcast_audio(data: Dict[str, Any]):
-    """向所有连接的客户端广播音频数据"""
+    """
+    Broadcast audio data to all connected WebSocket clients
+    
+    Args:
+        data: Audio data to broadcast
+    """
     if not audio_processor.connected_clients:
-        print("📡 没有连接的客户端，跳过广播")
+        print("📢 No WebSocket clients connected, skipping broadcast")
         return
     
     message = json.dumps(data)
-    disconnected_clients = set()
+    disconnected_clients = []
+    
+    print(f"📢 Broadcasting audio to {len(audio_processor.connected_clients)} clients")
     
     for client in audio_processor.connected_clients:
         try:
             await client.send(message)
-            print(f"📤 音频已发送到客户端")
         except websockets.exceptions.ConnectionClosed:
-            disconnected_clients.add(client)
+            disconnected_clients.append(client)
         except Exception as e:
-            print(f"❌ 广播失败: {e}")
-            disconnected_clients.add(client)
+            print(f"❌ Error broadcasting to client: {e}")
+            disconnected_clients.append(client)
     
-    # 清理断开的连接
+    # Clean up disconnected clients
     for client in disconnected_clients:
-        audio_processor.connected_clients.remove(client)
+        audio_processor.connected_clients.discard(client)
+    
+    if disconnected_clients:
+        print(f"🧹 Cleaned up {len(disconnected_clients)} disconnected clients")
 
 
 async def _start_websocket_server(host: str, port: int):
-    """启动WebSocket服务器"""
+    """Start WebSocket server"""
     async def handle_client(websocket):
-        print(f"🔗 新客户端连接: {websocket.remote_address}")
+        """Handle individual client connections"""
+        client_addr = f"{websocket.remote_address[0]}:{websocket.remote_address[1]}"
+        print(f"🔗 New WebSocket client connected: {client_addr}")
+        
         audio_processor.connected_clients.add(websocket)
         
         try:
-            # 发送欢迎消息
+            # Send welcome message
             welcome_msg = {
                 "type": "connection",
                 "status": "connected",
-                "message": "欢迎连接到NHL Gemini音频流",
-                "model": audio_processor.gemini_model,
-                "timestamp": datetime.now().isoformat()
+                "message": "Connected to NHL Audio Streaming Server",
+                "timestamp": datetime.now().isoformat(),
+                "client_id": client_addr
             }
             await websocket.send(json.dumps(welcome_msg))
             
-            # 保持连接
+            # Listen for client messages
             async for message in websocket:
                 try:
                     data = json.loads(message)
                     await _handle_client_message(websocket, data)
                 except json.JSONDecodeError:
-                    await websocket.send(json.dumps({
-                        "type": "error",
-                        "message": "无效的JSON格式"
-                    }))
+                    print(f"❌ Invalid JSON from client {client_addr}: {message}")
+                except Exception as e:
+                    print(f"❌ Error handling message from {client_addr}: {e}")
                     
         except websockets.exceptions.ConnectionClosed:
-            print(f"🔌 客户端断开连接: {websocket.remote_address}")
+            print(f"🔌 Client disconnected: {client_addr}")
         except Exception as e:
-            print(f"❌ WebSocket处理错误: {e}")
+            print(f"❌ Client connection error {client_addr}: {e}")
         finally:
             audio_processor.connected_clients.discard(websocket)
+            print(f"🧹 Cleaned up client: {client_addr}")
     
     try:
         server = await websockets.serve(handle_client, host, port)
-        print(f"🚀 WebSocket音频服务器运行在 ws://{host}:{port}")
+        print(f"🎵 WebSocket server listening on {host}:{port}")
         await server.wait_closed()
     except Exception as e:
-        print(f"❌ WebSocket服务器错误: {e}")
+        print(f"❌ WebSocket server error: {e}")
 
 
 async def _handle_client_message(websocket, data: Dict[str, Any]):
-    """处理客户端消息"""
-    message_type = data.get("type")
+    """
+    Handle messages from WebSocket clients
     
-    if message_type == "ping":
-        await websocket.send(json.dumps({
-            "type": "pong",
-            "timestamp": datetime.now().isoformat()
-        }))
-    elif message_type == "request_status":
-        status = get_audio_status()
-        await websocket.send(json.dumps({
-            "type": "status_response",
-            "data": status
-        }))
+    Args:
+        websocket: Client WebSocket connection
+        data: Message data from client
+    """
+    try:
+        message_type = data.get("type", "unknown")
+        
+        if message_type == "ping":
+            # Respond to ping
+            await websocket.send(json.dumps({
+                "type": "pong",
+                "timestamp": datetime.now().isoformat()
+            }))
+        
+        elif message_type == "audio_ack":
+            # Audio acknowledgment
+            audio_id = data.get("audio_id")
+            print(f"✅ Client acknowledged audio: {audio_id}")
+        
+        elif message_type == "status_request":
+            # Status request
+            status = {
+                "type": "status_response",
+                "connected_clients": len(audio_processor.connected_clients),
+                "server_status": "running",
+                "timestamp": datetime.now().isoformat()
+            }
+            await websocket.send(json.dumps(status))
+        
+        else:
+            print(f"❓ Unknown message type from client: {message_type}")
+            
+    except Exception as e:
+        print(f"❌ Error handling client message: {e}")
 
 
 def _generate_realistic_mock_audio(text: str, voice_style: str) -> bytes:
-    """生成可播放的模拟音频数据"""
+    """
+    Generate realistic mock audio data (for testing when real TTS unavailable)
     
-    # 创建一个最小的MP3文件结构
-    # 这是一个非常简单的MP3文件，包含短暂的静音
+    Args:
+        text: Text content
+        voice_style: Voice style
+        
+    Returns:
+        Mock audio data as bytes
+    """
+    try:
+        # Calculate approximate duration (words per minute)
+        word_count = len(text.split())
+        wpm = {"enthusiastic": 180, "dramatic": 120, "calm": 150}.get(voice_style, 160)
+        duration_seconds = max(1.0, (word_count / wpm) * 60)
+        
+        # Generate realistic audio file with proper WAV header
+        sample_rate = 24000  # 24kHz to match Gemini TTS
+        samples = int(duration_seconds * sample_rate)
+        
+        # Create WAV file structure
+        wav_data = _generate_simple_wav_audio(text, voice_style)
+        
+        print(f"🎵 Generated mock audio: {len(wav_data):,} bytes, {duration_seconds:.1f}s duration")
+        return wav_data
+        
+    except Exception as e:
+        print(f"❌ Mock audio generation error: {e}")
+        # Return minimal valid WAV file
+        return _generate_simple_wav_audio("error", "calm")
+
+
+def _save_fallback_audio_to_file(audio_data: bytes, audio_id: str, timestamp: str, voice_style: str) -> str:
+    """
+    Save fallback audio data to file (already in WAV format)
     
-    # MP3文件头（ID3v2.3标签）
-    id3_header = bytearray([
-        0x49, 0x44, 0x33,  # "ID3"
-        0x03, 0x00,        # Version 2.3
-        0x00,              # Flags
-        0x00, 0x00, 0x00, 0x17  # Size (23 bytes)
-    ])
+    Args:
+        audio_data: WAV audio bytes
+        audio_id: Unique audio identifier
+        timestamp: Timestamp string
+        voice_style: Voice style used
+        
+    Returns:
+        Path to the saved WAV file
+    """
+    try:
+        # Create output directory
+        output_dir = "audio_output"
+        os.makedirs(output_dir, exist_ok=True)
+        
+        # Generate filename
+        date_str = datetime.now().strftime("%Y%m%d_%H%M%S")
+        filename = f"nhl_fallback_{date_str}_{audio_id}_{voice_style}.wav"
+        filepath = os.path.join(output_dir, filename)
+        
+        # Save directly (already WAV format)
+        with open(filepath, 'wb') as f:
+            f.write(audio_data)
+        
+        print(f"💾 Fallback audio saved to: {filepath}")
+        
+        return filepath
+        
+    except Exception as e:
+        print(f"❌ Failed to save fallback audio file: {e}")
+        return None
+
+
+def _save_audio_to_file(audio_data: bytes, audio_id: str, timestamp: str, voice_style: str) -> str:
+    """
+    Save raw audio data as a proper WAV file
     
-    # 标题标签
-    title_frame = bytearray([
-        0x54, 0x49, 0x54, 0x32,  # "TIT2" (Title frame)
-        0x00, 0x00, 0x00, 0x0D,  # Frame size (13 bytes)
-        0x00, 0x00,              # Flags
-        0x00                     # Text encoding (ISO-8859-1)
-    ])
-    
-    # 根据语音风格生成不同的标题
-    style_titles = {
-        "enthusiastic": b"NHL_ENERGETIC",
-        "dramatic": b"NHL_INTENSE", 
-        "calm": b"NHL_SMOOTH"
-    }
-    title_text = style_titles.get(voice_style, b"NHL_NORMAL")
-    
-    # MP3帧头（128 kbps, 44.1 kHz, Stereo）
-    mp3_frame_header = bytearray([
-        0xFF, 0xFB,  # Frame sync + MPEG Audio Layer III
-        0x90, 0x00   # Bitrate + Frequency + Padding + Mode
-    ])
-    
-    # 创建短暂的静音MP3数据（约0.1秒）
-    # 这个是经过简化的MP3帧数据
-    silence_data = bytearray([
-        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-    ] * 4)  # 重复几次以创建短暂的静音
-    
-    # 组合完整的MP3文件
-    mp3_data = id3_header + title_frame + title_text + mp3_frame_header + silence_data
-    
-    return bytes(mp3_data)
+    Args:
+        audio_data: Raw audio bytes from Gemini TTS
+        audio_id: Unique audio identifier
+        timestamp: Timestamp string
+        voice_style: Voice style used
+        
+    Returns:
+        Path to the saved WAV file
+    """
+    try:
+        # Create output directory
+        output_dir = "audio_output"
+        os.makedirs(output_dir, exist_ok=True)
+        
+        # Generate filename
+        date_str = datetime.now().strftime("%Y%m%d_%H%M%S")
+        filename = f"nhl_commentary_{date_str}_{audio_id}_{voice_style}.wav"
+        filepath = os.path.join(output_dir, filename)
+        
+        # Create proper WAV file from raw audio data
+        # Gemini TTS typically outputs 24kHz, 16-bit, mono audio
+        output = io.BytesIO()
+        
+        with wave.open(output, 'wb') as wav_file:
+            wav_file.setnchannels(1)        # Mono
+            wav_file.setsampwidth(2)        # 16-bit (2 bytes)
+            wav_file.setframerate(24000)    # 24kHz sample rate
+            wav_file.writeframes(audio_data)
+        
+        # Save to file
+        with open(filepath, 'wb') as f:
+            f.write(output.getvalue())
+        
+        print(f"💾 Audio saved to: {filepath}")
+        
+        return filepath
+        
+    except Exception as e:
+        print(f"❌ Failed to save audio file: {e}")
+        return None
 
 
 def _generate_simple_wav_audio(text: str, voice_style: str) -> bytes:
-    """生成更接近语音的WAV音频文件"""
+    """
+    Generate simple WAV audio data
     
-    # WAV文件头
-    sample_rate = 44100
-    duration = min(3.0, max(1.0, len(text) * 0.12))  # 根据文本长度调整
-    num_samples = int(sample_rate * duration)
+    Args:
+        text: Text content (affects duration)
+        voice_style: Voice style (affects frequency)
+        
+    Returns:
+        WAV audio data as bytes
+    """
+    # WAV file parameters
+    sample_rate = 24000
+    word_count = len(text.split())
+    duration = max(1.0, word_count * 0.3)  # Roughly 0.3 seconds per word
+    samples = int(duration * sample_rate)
     
-    # RIFF头
-    riff_header = b'RIFF'
-    file_size = (36 + num_samples * 2).to_bytes(4, 'little')
-    wave_header = b'WAVE'
+    # Generate audio samples based on style
+    if voice_style == "enthusiastic":
+        # Higher frequency, more variation
+        base_freq = 220  # A3
+        amplitude = 0.3
+    elif voice_style == "dramatic":
+        # Lower frequency, steady
+        base_freq = 110  # A2
+        amplitude = 0.4
+    else:  # calm
+        # Medium frequency
+        base_freq = 165  # E3
+        amplitude = 0.25
     
-    # fmt子块
-    fmt_header = b'fmt '
-    fmt_size = (16).to_bytes(4, 'little')
-    audio_format = (1).to_bytes(2, 'little')  # PCM
-    num_channels = (1).to_bytes(2, 'little')  # Mono
-    sample_rate_bytes = sample_rate.to_bytes(4, 'little')
-    byte_rate = (sample_rate * 1 * 2).to_bytes(4, 'little')
-    block_align = (1 * 2).to_bytes(2, 'little')
-    bits_per_sample = (16).to_bytes(2, 'little')
+    # Generate sine wave with some variation
+    audio_data = []
+    for i in range(samples):
+        t = i / sample_rate
+        
+        # Add slight frequency modulation for more natural sound
+        freq_mod = 1 + 0.1 * math.sin(2 * math.pi * 2 * t)  # 2Hz modulation
+        frequency = base_freq * freq_mod
+        
+        # Generate sample
+        sample = amplitude * math.sin(2 * math.pi * frequency * t)
+        
+        # Add envelope (fade in/out)
+        envelope = 1.0
+        fade_samples = sample_rate // 10  # 0.1 second fade
+        if i < fade_samples:
+            envelope = i / fade_samples
+        elif i > samples - fade_samples:
+            envelope = (samples - i) / fade_samples
+        
+        sample *= envelope
+        
+        # Convert to 16-bit PCM
+        pcm_sample = int(sample * 32767)
+        pcm_sample = max(-32768, min(32767, pcm_sample))
+        
+        # Little-endian 16-bit
+        audio_data.append(pcm_sample & 0xFF)
+        audio_data.append((pcm_sample >> 8) & 0xFF)
     
-    # data子块
-    data_header = b'data'
-    data_size = (num_samples * 2).to_bytes(4, 'little')
+    # Create WAV header
+    data_size = len(audio_data)
+    file_size = 36 + data_size
     
-    # 语音风格配置 - NHL解说员风格
-    voice_configs = {
-        "enthusiastic": {
-            "base_freq": 170,     # 兴奋的解说员
-            "formants": [850, 1250, 2650],  # 共振峰
-            "pitch_variation": 0.5,
-            "amplitude": 7000,
-            "speech_rate": 1.4
+    wav_header = bytearray([
+        # RIFF header
+        ord('R'), ord('I'), ord('F'), ord('F'),
+        file_size & 0xFF, (file_size >> 8) & 0xFF, (file_size >> 16) & 0xFF, (file_size >> 24) & 0xFF,
+        ord('W'), ord('A'), ord('V'), ord('E'),
+        
+        # fmt chunk
+        ord('f'), ord('m'), ord('t'), ord(' '),
+        16, 0, 0, 0,  # fmt chunk size
+        1, 0,  # PCM format
+        1, 0,  # mono
+        sample_rate & 0xFF, (sample_rate >> 8) & 0xFF, (sample_rate >> 16) & 0xFF, (sample_rate >> 24) & 0xFF,
+        (sample_rate * 2) & 0xFF, ((sample_rate * 2) >> 8) & 0xFF, ((sample_rate * 2) >> 16) & 0xFF, ((sample_rate * 2) >> 24) & 0xFF,
+        2, 0,  # block align
+        16, 0,  # bits per sample
+        
+        # data chunk
+        ord('d'), ord('a'), ord('t'), ord('a'),
+        data_size & 0xFF, (data_size >> 8) & 0xFF, (data_size >> 16) & 0xFF, (data_size >> 24) & 0xFF,
+    ])
+    
+    return bytes(wav_header) + bytes(audio_data)
+
+
+def _select_voice_for_speaker(speaker: str, emotion_or_style: str) -> str:
+    """
+    Select appropriate voice based on speaker and emotion/style
+    
+    Args:
+        speaker: Speaker name (Alex Chen, Mike Rodriguez, etc.)
+        emotion_or_style: Emotion or voice style
+        
+    Returns:
+        Gemini voice name
+    """
+    # Speaker-specific voice mapping
+    speaker_voices = {
+        "Alex Chen": {
+            "neutral": "aoede",      # Calm
+            "analytical": "aoede",   # Calm
+            "excited": "puck",       # Enthusiastic 
+            "dramatic": "kore",      # Dramatic
+            "enthusiastic": "puck",  # For backward compatibility
+            "calm": "aoede"          # For backward compatibility
         },
-        "dramatic": {
-            "base_freq": 150,     # 戏剧性的低沉声音
-            "formants": [750, 1150, 2450],
-            "pitch_variation": 0.7,
-            "amplitude": 8000,
-            "speech_rate": 0.9
-        },
-        "calm": {
-            "base_freq": 130,     # 平静的解说
-            "formants": [650, 1050, 2250],
-            "pitch_variation": 0.3,
-            "amplitude": 6000,
-            "speech_rate": 0.8
+        "Mike Rodriguez": {
+            "neutral": "orus",       # Different calm voice
+            "analytical": "orus",    # Different calm voice
+            "excited": "charon",     # Different enthusiastic voice
+            "dramatic": "fenrir",    # Different dramatic voice
+            "enthusiastic": "charon", # For backward compatibility
+            "calm": "orus"           # For backward compatibility
         }
     }
     
-    config = voice_configs.get(voice_style, voice_configs["enthusiastic"])
+    # Default voice mapping if speaker not recognized
+    default_voices = {
+        "neutral": "aoede",
+        "analytical": "aoede", 
+        "excited": "puck",
+        "dramatic": "kore",
+        "enthusiastic": "puck",
+        "calm": "aoede"
+    }
     
-    # 分析文本内容调整语音特征
-    text_upper = text.upper()
-    words = text.split()
+    # Get voice for specific speaker, fallback to default
+    if speaker in speaker_voices:
+        voice = speaker_voices[speaker].get(emotion_or_style.lower())
+        if voice:
+            return voice.capitalize()  # Gemini expects capitalized names
     
-    # 创建语调模式
-    pitch_pattern = []
-    for word in words:
-        word_upper = word.upper()
-        if any(x in word_upper for x in ["GOAL", "SCORE", "YES"]):
-            pitch_pattern.extend([1.3, 1.6, 1.8, 1.4])  # 兴奋上升
-        elif any(x in word_upper for x in ["SAVE", "BLOCK", "STOP"]):
-            pitch_pattern.extend([1.2, 0.7, 1.4, 1.0])  # 紧张变化
-        elif any(x in word_upper for x in ["OVERTIME", "FINAL"]):
-            pitch_pattern.extend([1.0, 1.1, 1.0, 0.9])  # 紧张感
+    # Fallback to default voice mapping
+    voice = default_voices.get(emotion_or_style.lower(), "aoede")
+    return voice.capitalize()
+
+
+def _build_prompt_for_emotion(text: str, emotion_or_style: str, speaker: str) -> str:
+    """
+    Build appropriate prompt based on emotion/style and speaker
+    
+    Args:
+        text: Text to convert
+        emotion_or_style: Emotion or voice style
+        speaker: Speaker name (optional)
+        
+    Returns:
+        Formatted prompt for TTS
+    """
+    # Speaker context
+    speaker_context = ""
+    if speaker:
+        if "Alex" in speaker:
+            speaker_context = "As Alex, a professional play-by-play announcer, "
+        elif "Mike" in speaker or "Rodriguez" in speaker:
+            speaker_context = "As Mike, an analytical color commentator, "
+    
+    # Emotion-based prompt variations
+    emotion_prompts = {
+        "neutral": f"{speaker_context}say in a clear, professional announcer voice: {text}",
+        "analytical": f"{speaker_context}say with thoughtful analysis and insight: {text}",
+        "excited": f"{speaker_context}say with high energy and excitement like during a big play: {text}",
+        "dramatic": f"{speaker_context}say with dramatic intensity and emphasis: {text}",
+        "enthusiastic": f"{speaker_context}say with high energy and excitement like a sports announcer: {text}",
+        "calm": f"{speaker_context}say in a calm, professional announcer voice: {text}"
+    }
+    
+    return emotion_prompts.get(emotion_or_style.lower(), f"{speaker_context}say clearly: {text}")
+
+
+def _save_audio_to_file(audio_data: bytes, audio_id: str, timestamp: str, voice_style: str, speaker: str, game_id: str, game_timestamp: str, segment_index: int) -> str:
+    """
+    Save raw audio data as a proper WAV file with speaker info
+    使用新的文件管理器确保文件名唯一性
+    
+    Args:
+        audio_data: Raw audio bytes from Gemini TTS
+        audio_id: Unique audio identifier
+        timestamp: Timestamp string
+        voice_style: Voice style used
+        speaker: Speaker name (optional)
+        game_id: NHL game ID (optional)
+        game_timestamp: Game timestamp like "1_00_05" (optional)
+        segment_index: Segment index (optional)
+        
+    Returns:
+        Path to the saved WAV file
+    """
+    try:
+        # Create output directory with game_id subfolder if provided
+        if game_id:
+            output_dir = os.path.join("audio_output", game_id)
         else:
-            pitch_pattern.extend([1.0 + random.uniform(-0.15, 0.25)])
-    
-    audio_samples = []
-    
-    for i in range(num_samples):
-        t = i / sample_rate
-        progress = t / duration
+            output_dir = "audio_output"
+        os.makedirs(output_dir, exist_ok=True)
         
-        # 语调变化
-        if pitch_pattern:
-            pattern_index = int(progress * len(pitch_pattern))
-            pattern_index = min(pattern_index, len(pitch_pattern) - 1)
-            pitch_mult = pitch_pattern[pattern_index]
+        # Use the new audio file manager for unique naming
+        if game_id and game_timestamp and speaker:
+            from .audio_file_manager import generate_unique_audio_filename
+            
+            filename, sequence_num = generate_unique_audio_filename(
+                game_id=game_id,
+                game_timestamp=game_timestamp,
+                speaker=speaker,
+                voice_style=voice_style,
+                audio_id=audio_id
+            )
+            
+            print(f"🔢 Generated unique filename: {filename} (sequence: {sequence_num})")
+            
         else:
-            pitch_mult = 1.0
+            # Fallback to original naming for non-game scenarios
+            date_str = datetime.now().strftime("%Y%m%d_%H%M%S")
+            if speaker:
+                speaker_clean = speaker.lower().replace(" ", "").replace(".", "")
+                filename = f"nhl_{speaker_clean}_{date_str}_{audio_id}_{voice_style}.wav"
+            else:
+                filename = f"nhl_commentary_{date_str}_{audio_id}_{voice_style}.wav"
+            
+        filepath = os.path.join(output_dir, filename)
         
-        # 基频计算
-        base_freq = config["base_freq"] * pitch_mult
+        # Create proper WAV file from raw audio data
+        # Gemini TTS typically outputs 24kHz, 16-bit, mono audio
+        output = io.BytesIO()
         
-        # 语调轮廓
-        pitch_contour = config["pitch_variation"] * math.sin(2 * math.pi * progress * 3)
-        freq = base_freq * (1 + pitch_contour)
+        with wave.open(output, 'wb') as wav_file:
+            wav_file.setnchannels(1)        # Mono
+            wav_file.setsampwidth(2)        # 16-bit (2 bytes)
+            wav_file.setframerate(24000)    # 24kHz sample rate
+            wav_file.writeframes(audio_data)
         
-        # 语音信号生成
-        # 基频（声带振动）
-        fundamental = math.sin(2 * math.pi * freq * t)
+        # Save to file
+        with open(filepath, 'wb') as f:
+            f.write(output.getvalue())
         
-        # 共振峰合成（模拟口腔共鸣）
-        formant_signal = 0
-        for j, formant_freq in enumerate(config["formants"]):
-            formant_strength = 0.8 / (j + 1)  # 递减强度
-            formant_mod = formant_freq * (1 + 0.03 * math.sin(2 * math.pi * t * 4 + j))
-            formant_component = formant_strength * math.sin(2 * math.pi * formant_mod * t)
-            formant_signal += formant_component
+        print(f"💾 Audio saved to: {filepath}")
         
-        # 语音合成：基频调制共振峰
-        voice_signal = fundamental * (1 + 0.4 * formant_signal)
+        return filepath
         
-        # 添加语音噪声成分
-        noise_component = 0.08 * random.uniform(-1, 1)
-        
-        # 节奏控制：模拟音节间隔
-        syllable_rate = config["speech_rate"] * 4
-        syllable_phase = (t * syllable_rate) % 1.0
-        syllable_envelope = 0.6 + 0.4 * math.sin(syllable_phase * math.pi)
-        
-        # 添加轻微的停顿
-        if syllable_phase < 0.05:
-            syllable_envelope *= 0.2
-        
-        # 最终信号
-        sample_value = (voice_signal + noise_component) * config["amplitude"]
-        sample_value *= syllable_envelope
-        
-        # 整体包络（淡入淡出）
-        envelope = 1.0
-        fade_time = 0.1
-        if t < fade_time:
-            envelope = t / fade_time
-        elif t > duration - fade_time:
-            envelope = (duration - t) / fade_time
-        
-        sample_value *= envelope
-        
-        # 转换为16位整数
-        sample_int = int(sample_value)
-        sample_int = max(-32768, min(32767, sample_int))
-        
-        # 转换为字节
-        sample_bytes = sample_int.to_bytes(2, 'little', signed=True)
-        audio_samples.append(sample_bytes)
-    
-    audio_data = b''.join(audio_samples)
-    
-    # 组合WAV文件
-    wav_data = (riff_header + file_size + wave_header + 
-                fmt_header + fmt_size + audio_format + num_channels + 
-                sample_rate_bytes + byte_rate + block_align + bits_per_sample +
-                data_header + data_size + audio_data)
-    
-    return wav_data
+    except Exception as e:
+        print(f"❌ Failed to save audio file: {e}")
+        return None
 
 
-# 创建ADK FunctionTool实例
-text_to_speech_tool = FunctionTool(func=text_to_speech)
-stream_audio_tool = FunctionTool(func=stream_audio_websocket)
-audio_status_tool = FunctionTool(func=get_audio_status)
-
-# 导出工具列表
+# Define AUDIO_TOOLS for ADK integration
 AUDIO_TOOLS = [
-    text_to_speech_tool,
-    stream_audio_tool,
-    audio_status_tool
+    FunctionTool(func=text_to_speech),
+    FunctionTool(func=stream_audio_websocket),
+    FunctionTool(func=get_audio_status)
 ]

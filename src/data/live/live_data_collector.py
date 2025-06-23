@@ -252,16 +252,107 @@ class LiveDataCollector:
             if 'timeRemaining' in enhanced_activity:
                 enhanced_activity['timeRemainingFormatted'] = format_time_remaining(enhanced_activity['timeRemaining'])
 
-            if boxscore_data:
-                enhanced_activity['gameStats'] = self._extract_game_stats(boxscore_data)
+            # Removed: boxscore injection that caused data leakage
             
             enhanced_activities.append(enhanced_activity)
         
         enhanced_activities.sort(key=self._get_time_seconds_from_play_time_in_period)
+        
+        # Calculate progressive game stats from filtered activities (fixes data leakage)
+        progressive_stats = self._calculate_progressive_stats(enhanced_activities)
+        
+        # Apply progressive stats to all activities
+        for activity in enhanced_activities:
+            activity['gameStats'] = progressive_stats
+        
         return enhanced_activities
     
+    def _calculate_progressive_stats(self, activities: List[Dict]) -> Dict:
+        """Calculate progressive game stats from time-filtered activities only (prevents data leakage)."""
+        # Initialize counters
+        away_score = home_score = away_shots = home_shots = 0
+        away_team_name = "AWAY"  # Default fallback
+        home_team_name = "HOME"  # Default fallback
+        
+        # Get team names from static context (dynamic based on game_id)
+        if self.static_context and 'game_info' in self.static_context:
+            game_info = self.static_context['game_info']
+            away_team_name = game_info.get('away_team', 'AWAY')
+            home_team_name = game_info.get('home_team', 'HOME')
+        
+        # Dynamically determine team IDs from actual event data
+        away_team_id = None
+        home_team_id = None
+        
+        # First pass: determine team IDs from any event (no assumptions)
+        for activity in activities:
+            details = activity.get('details', {})
+            team_id = details.get('eventOwnerTeamId')
+            if team_id:
+                # Use player info to determine home/away
+                player_name = details.get('scoringPlayerName', details.get('winningPlayerName', ''))
+                if '(away)' in player_name:
+                    away_team_id = team_id
+                elif '(home)' in player_name:
+                    home_team_id = team_id
+        
+        # If still no team IDs found, skip team-specific stats (no hardcoded assumptions)
+        if away_team_id is None or home_team_id is None:
+            # Return basic stats without team-specific breakdown
+            return {
+                "home_score": 0,
+                "away_score": 0, 
+                "home_shots": 0,
+                "away_shots": 0,
+                "home_team": home_team_name,
+                "away_team": away_team_name,
+                "total_events": len(activities),
+                "warning": "Could not determine team IDs from event data"
+            }
+        
+        # Second pass: count events
+        for activity in activities:
+            event_type = activity.get('typeDescKey', '')
+            details = activity.get('details', {})
+            team_id = details.get('eventOwnerTeamId')
+            
+            if not team_id:
+                continue
+                
+            # Count goals
+            if event_type == 'goal':
+                if team_id == away_team_id:
+                    away_score += 1
+                elif team_id == home_team_id:
+                    home_score += 1
+            
+            # Count shots (goals + saves + shots on goal)
+            if event_type in ['goal', 'shot-on-goal', 'save']:
+                if team_id == away_team_id:
+                    away_shots += 1
+                elif team_id == home_team_id:
+                    home_shots += 1
+        
+        return {
+            'teamStats': {
+                'away': {
+                    'teamName': away_team_name,
+                    'score': away_score,
+                    'sog': away_shots
+                },
+                'home': {
+                    'teamName': home_team_name,
+                    'score': home_score,
+                    'sog': home_shots
+                }
+            },
+            'playerStats': {}
+        }
+
     def _extract_game_stats(self, boxscore_data: Dict) -> Dict:
-        """Extracts team stats including live score and SOG from the boxscore."""
+        """DEPRECATED: Extracts team stats including live score and SOG from the boxscore.
+        This method caused data leakage by injecting final stats into early timestamps.
+        Replaced by _calculate_progressive_stats."""
         stats = {'teamStats': {}, 'playerStats': {}}
         away_team = boxscore_data.get('awayTeam', {})
         home_team = boxscore_data.get('homeTeam', {})
