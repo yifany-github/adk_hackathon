@@ -17,9 +17,9 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the entire project structure
+COPY . .
 COPY ../src ./src
 COPY ../data ./data
-COPY . .
 
 # Create necessary directories
 RUN mkdir -p audio_output \
