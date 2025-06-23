@@ -1,0 +1,17 @@
+# NHL Live Commentary Web Client Dependencies
+
+# Web Framework
+Flask>=2.3.0
+Flask-SocketIO>=5.3.0
+
+# Environment & Configuration
+python-dotenv>=1.0.0
+
+# For subprocess handling and async operations
+asyncio
+
+# Additional utilities
+pathlib2>=2.3.7
+
+# Google Cloud deployment dependencies
+gunicorn>=21.0.0 

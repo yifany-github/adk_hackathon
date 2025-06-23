@@ -1,0 +1,7 @@
+# Sequential Agent V3 Outputs Directory
+# 
+# This directory stores complete pipeline outputs from Sequential Agent V3
+# Includes: Data analysis + Commentary generation + Audio processing results
+#
+# File naming format: GAME_ID_PERIOD_MM_SS_sequential_v3.json
+# Audio files manifest: audio_files_manifest.json 

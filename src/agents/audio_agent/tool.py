@@ -25,7 +25,7 @@ try:
 except ImportError:
     # If config module not found, provide default implementation
     def get_gemini_api_key():
-        return os.getenv('GEMINI_API_KEY') or os.getenv('GOOGLE_AI_API_KEY')
+        return os.getenv('GOOGLE_API_KEY') or os.getenv('GEMINI_API_KEY') or os.getenv('GOOGLE_AI_API_KEY')
     
     def get_audio_config():
         return {
@@ -894,6 +894,7 @@ def _build_prompt_for_emotion(text: str, emotion_or_style: str, speaker: str) ->
 def _save_audio_to_file(audio_data: bytes, audio_id: str, timestamp: str, voice_style: str, speaker: str, game_id: str, game_timestamp: str, segment_index: int) -> str:
     """
     Save raw audio data as a proper WAV file with speaker info
+    使用新的文件管理器确保文件名唯一性
     
     Args:
         audio_data: Raw audio bytes from Gemini TTS
@@ -903,6 +904,7 @@ def _save_audio_to_file(audio_data: bytes, audio_id: str, timestamp: str, voice_
         speaker: Speaker name (optional)
         game_id: NHL game ID (optional)
         game_timestamp: Game timestamp like "1_00_05" (optional)
+        segment_index: Segment index (optional)
         
     Returns:
         Path to the saved WAV file
@@ -915,22 +917,22 @@ def _save_audio_to_file(audio_data: bytes, audio_id: str, timestamp: str, voice_
             output_dir = "audio_output"
         os.makedirs(output_dir, exist_ok=True)
         
-        # Generate filename with game timestamp if provided, otherwise use real time
-        if game_id and game_timestamp:
-            # Use game timestamp format with segment index: game_id_timestamp_speaker_style_index.wav
-            if speaker:
-                speaker_clean = speaker.lower().replace(" ", "").replace(".", "")
-                if segment_index >= 0:
-                    filename = f"{game_id}_{game_timestamp}_{speaker_clean}_{voice_style}_{segment_index}.wav"
-                else:
-                    filename = f"{game_id}_{game_timestamp}_{speaker_clean}_{voice_style}.wav"
-            else:
-                if segment_index >= 0:
-                    filename = f"{game_id}_{game_timestamp}_commentary_{voice_style}_{segment_index}.wav"
-                else:
-                    filename = f"{game_id}_{game_timestamp}_commentary_{voice_style}.wav"
+        # Use the new audio file manager for unique naming
+        if game_id and game_timestamp and speaker:
+            from .audio_file_manager import generate_unique_audio_filename
+            
+            filename, sequence_num = generate_unique_audio_filename(
+                game_id=game_id,
+                game_timestamp=game_timestamp,
+                speaker=speaker,
+                voice_style=voice_style,
+                audio_id=audio_id
+            )
+            
+            print(f"🔢 Generated unique filename: {filename} (sequence: {sequence_num})")
+            
         else:
-            # Fallback to original naming
+            # Fallback to original naming for non-game scenarios
             date_str = datetime.now().strftime("%Y%m%d_%H%M%S")
             if speaker:
                 speaker_clean = speaker.lower().replace(" ", "").replace(".", "")
